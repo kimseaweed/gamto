@@ -63,7 +63,7 @@
 					<tr>
 						<td><%=reportDTO.getR_seq_number() %></td>
 						<td>
-							<img src="../resource/images/<%=rs.getString("r_fileName") %>" alt="" class="image-fluid" />
+							<img src="../resource/images/${dto.r_fileName}" alt="" class="image-fluid" />
 						</td>
 						<td>
 							<a href="./BoardViewAction.do?num=<%=reportDTO.getR_seq_number() %>&pageNum=<%=pageNum%>">
