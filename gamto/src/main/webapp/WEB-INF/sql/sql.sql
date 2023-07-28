@@ -23,8 +23,8 @@ create table free_board(
     f_seq_number number(4) primary key, --freeboard sequence number
     f_title varchar2(100) not null, --freeboard title
     f_writer varchar2(100) not null, --freeboard writer
-    regist_day date default sysdate, --freeboard regist_day
-    update_day date default sysdate, --freeboard update_day
+    f_regist_day date default sysdate, --freeboard regist_day
+    f_update_day date default sysdate, --freeboard update_day
     f_filename varchar2(30), --freeboard filename
     f_recommand number default 0, --freeboard recommand count
     f_delete number default 0 not null, --freeboard delete check
@@ -43,8 +43,8 @@ insert into free_board values(free_board_seq.nextval,'포토폴리오','박승�
 create table comments_board(
     c_seq_number number(4) primary key, --comments_board sequence number
     c_writer varchar2(100) not null, --comments_board writer
-    regist_day date default sysdate, --comments_board regist_day
-    update_day date default sysdate, --comments_board update_day
+    c_regist_day date default sysdate, --comments_board regist_day
+    c_update_day date default sysdate, --comments_board update_day
     c_filename varchar2(30), --comments_board filename
     c_recommand number default 0, --comments_board recommand count
     c_delete number default 0 not null, --comments_board delete check
