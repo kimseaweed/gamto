@@ -14,6 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/HnF.css" />
+    <link rel="icon" href="img/logo/icon.ico" />
 </head>
 <body>
  <header>
