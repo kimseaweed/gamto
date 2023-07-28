@@ -1,5 +1,8 @@
 package com.ex.gamto.freeboard;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +29,36 @@ public class FreeboardController {
 		return "board";
 	}
 	
-	@RequestMapping("/view")
-	public String view(HttpServletRequest request, Model model) {
+	@RequestMapping("/freeview")
+	public String freeview(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto", dao.viewDao(fId));
-		return "view";
+		return "freeview";
 	}
 	
+	@RequestMapping("/freeWriteForm")
+	public String freeWriteForm() {
+		return "freeWriteForm";
+	}
+	
+	@RequestMapping("/freeWrite")
+	public String freeWrite(HttpServletRequest request, Model model) {
+		String fName = request.getParameter("f_writer");
+		String fTitle = request.getParameter("f_title");
+		String fContent = request.getParameter("f_content");
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("item1", fName);
+		map.put("item2", fTitle);
+		map.put("item3", fContent);
+		
+		return "redirect:board";
+	}
+	
+	@RequestMapping("/freedelete")
+	public String delete(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		
+		return "redirect:board";
+	}
 }

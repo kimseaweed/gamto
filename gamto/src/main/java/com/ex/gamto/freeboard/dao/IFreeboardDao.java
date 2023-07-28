@@ -11,7 +11,7 @@ import com.ex.gamto.freeboard.dto.FreeboardDto;
 public interface IFreeboardDao {
 	public List<FreeboardDto> listDao();
 	public FreeboardDto viewDao(String f_seq_number);
-	public int writeDao(Map<String, String> map);
+	public int writeDao(Map<String, String> f_map);
 	public int deleteDao(String f_seq_number);
 	
 }
