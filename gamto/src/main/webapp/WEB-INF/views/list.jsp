@@ -32,6 +32,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<main>
 <div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">너의 생각</h1>
@@ -116,6 +117,7 @@
 			</div>
 		</form>
 	</div>
+</main>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

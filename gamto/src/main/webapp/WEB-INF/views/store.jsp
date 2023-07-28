@@ -8,6 +8,9 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<main>
+<!-- 메인태그 안에 작업해주세요 주석은 지워도 됩니다잉  -->
+</main>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

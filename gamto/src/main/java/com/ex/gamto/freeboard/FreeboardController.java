@@ -17,11 +17,6 @@ public class FreeboardController {
 	@Autowired
 	IFreeboardDao dao;
 	
-	@RequestMapping("/")
-	public String root() {
-		return "redirect:board";
-	}
-	
 	@RequestMapping("/board")
 	public String userlistPage(Model model) {
 		model.addAttribute("board",dao.listDao());

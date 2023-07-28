@@ -14,13 +14,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/HnF.css" />
-    <link rel="icon" href="img/logo/icon.ico" />
 </head>
 <body>
  <header>
       <div class="container-md">
         <div class="logobox">
-          <img src="img/logo/logo1.png" width="50px" />
+          <img src="img/logo/logo1.png" width="50px" alt="토끼그릠이 그려진 감토 로고"/>
           <div>감토</div>
         </div>
         <nav>
