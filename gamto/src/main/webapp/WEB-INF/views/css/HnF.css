@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul > li,
+ol > li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+/* 로고 글씨체 */
+@font-face {
+  font-family: "Yeongdo-Rg";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/Yeongdo-Rg.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/* 네브글씨체 */
+@font-face {
+  font-family: "116angmuburi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/116angmuburi.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  background-color: rgb(241, 240, 232);
+}
+::selection {
+  background-color: rgba(255, 253, 129, 0.568);
+  color: black;
+}
+
+/*1024,768*/
+/**/
+
+header {
+  padding-top: 3rem;
+  position: fixed;
+  width: 100%;
+}
+header > div {
+  border-bottom: 1px rgb(100, 100, 100) solid;
+  margin-bottom: 1.5rem;
+  padding-left: 3rem;
+  display: flex;
+}
+header > div > .logobox {
+  padding-bottom: 20px;
+}
+header > div > .logobox > div {
+  display: inline-block;
+  margin-left: 10px;
+  font-family: "Yeongdo-Rg";
+  color: rgb(70, 70, 70);
+  font-size: 3rem;
+  vertical-align: bottom;
+}
+
+header nav {
+  display: flex;
+  flex-grow: 1;
+  border-top: 1.5px rgb(100, 100, 100) solid;
+  padding: 1rem 1rem 1rem 2rem;
+}
+header nav > ul {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+header nav > ul > li {
+  padding: 0 2rem;
+}
+
+header nav > ul > li > a {
+  font-family: "116angmuburi";
+  font-size: 2.3rem;
+  color: rgb(70, 70, 70);
+  margin-top: auto;
+  display: inline-block;
+}
+header nav > ul.loginbox {
+  margin-left: auto;
+}
+header nav > ul.loginbox i {
+  color: rgb(80, 80, 80);
+}
+
+main {
+  min-height: 100vh;
+}
+
+footer {
+  padding: 0 7rem 0;
+  color: rgb(104, 104, 104);
+}
+footer > div {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1.5px rgb(100, 100, 100) solid;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+footer > div > nav > ul {
+  display: flex;
+  gap: 0.5rem;
+}
+footer > div > nav > ul > li > a {
+  font-size: 0.8rem;
+}
