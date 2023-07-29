@@ -39,7 +39,6 @@ body {
 
 header {
   padding-top: 3rem;
-  position: fixed;
   width: 100%;
 }
 header > div {
