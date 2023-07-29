@@ -50,13 +50,18 @@ header > div {
 header > div > .logobox {
   padding-bottom: 20px;
 }
-header > div > .logobox > div {
+header > div > .logobox > a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+header > div > div.logobox> a >span {
   display: inline-block;
   margin-left: 10px;
-  font-family: "Yeongdo-Rg";
   color: rgb(70, 70, 70);
   font-size: 3rem;
   vertical-align: bottom;
+  font-family: "Yeongdo-Rg";
 }
 
 header nav {
@@ -71,7 +76,7 @@ header nav > ul {
   margin-bottom: 10px;
 }
 header nav > ul > li {
-  padding: 0 2rem;
+  padding: 0 12px;
 }
 
 header nav > ul > li > a {
@@ -89,7 +94,6 @@ header nav > ul.loginbox i {
 }
 
 main {
-  min-height: 100vh;
 }
 
 footer {

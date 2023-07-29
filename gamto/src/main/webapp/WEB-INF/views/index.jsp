@@ -9,7 +9,10 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main>
-<!-- 메인태그 안에 작업해주세요 주석은 지워도 됩니다잉  -->
+
+월컴페이지 준비중 
+
+<img alt="" src="https://pbs.twimg.com/media/EhmDUHRXsAEOS2S?format=jpg&name=medium">
 </main>
 <jsp:include page="footer.jsp"/>
 </body>
