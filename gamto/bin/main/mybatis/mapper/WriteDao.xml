@@ -2,11 +2,15 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ex.gamto.write.WriteDAO">
-	<select id="getNext_seq_number" resultType="com.ex.gamto.write.WriteDTO">
-		select r_seq_number from #{param1};
-	</select>
-	<insert id="writeDao">
-		insert into #{param1} values('가','나','다');<!--여기수정할것 -->
+<mapper namespace="com.ex.gamto.write.IWriteDAO">
+	<insert id="writeBook_report">
+		insert into book_report values(book_report_seq.nextval,
+		#{dto.r_filename},#{dto.r_title},#{dto.r_title},#{dto.r_content},sysdate,sysdate,0,0,0)
+	</insert>
+	<insert id="writeFree_board">
+		insert into free_board
+				(f_title,f_writer,f_filename,f_content,f_seq_number)
+		values(
+		#{dto.f_title},#{dto.f_writer},#{dto.f_filename},#{dto.f_content},book_report_seq.nextval,free_board_seq.nextval);
 	</insert>
 </mapper>	

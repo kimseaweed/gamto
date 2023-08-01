@@ -15,7 +15,7 @@
       <div class="container-md">
         <div class="logobox">
         <a href="/">
-          <img src="img/logo/logo1.png" width="50px" alt="토끼그릠이 그려진 감토 로고"/>
+          <img src="img/logo/logo1.png" width="50px" alt="토끼그릠이 그려진 감토 로고" />
           <span>감토</span>
         </a>
         </div>

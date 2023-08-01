@@ -23,8 +23,9 @@ repositories {
 }
 
 dependencies {
-	//스프링부트웹
+	//모듈테스트(기본)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//스프링부트웹
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	//마이바티스
@@ -41,6 +42,12 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
     //데브툴
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //타임리프
+   	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	implementation 'commons-io:commons-io:2.13.0'
+	// https://mvnrepository.com/artifact/org.json/json
+	implementation 'org.json:json:20230618'
 }
 
 tasks.named('test') {
