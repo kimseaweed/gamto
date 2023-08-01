@@ -2,21 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ex.gamto.freeboard.dao.IFreeboardDao">
-	<!-- 자유게시판 리스트 -->
-	<select id="listDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
-		select*from freeboard order by f_seq_number desc
+	<!-- 자유게시판 리스트 (삭제 번호가 0인 목록)-->
+	<select id="listDao" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+		select * from free_board where f_delete = '0'
 	</select>
-	<select id="viewDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
-		select*from freeboard where f_seq_number=#{0}
+	<!-- 선택된 게시판의 상세 정보가 보여지는 페이지 -->
+	<select id="viewDao" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+		select*from free_board where f_seq_number=#{0}
 	</select>
 	<insert id="writeDao">
-		insert into freeboard values(free_board_seq.nextval,#{item1},#{item2},#{item3})
+		<!-- insert into free_board values(free_board_seq.nextval,#{item1},#{item2},#{item3}) -->
+		<!-- insert into free_board values(free_board_seq.nextval,'포토폴리오','박승준',sysdate,sysdate,'img.png',0,0,0,'자유 게시판'); -->
+		insert into free_board values(free_board_seq.nextval,#{item1},#{item2},sysdate,sysdate,'img.png',0,0,0,#{item3})
 	</insert>
-	<delete id="deleteDao">
-		delete freeboard where f_seq_number=#{newId}
-	</delete>
-	
-
-
-
+	<update id="updateDao">
+		update free_board set f_title = #{item1}, f_content = #{item2}, f_update_day = sysdate where f_seq_number = #{item3}
+	</update>
+	<!-- 조회수를 카운트하는 update문 -->
+	<update id="updateCnt">
+		update free_board set f_view = f_view+1 where f_seq_number = #{item1}
+	</update>
+	<!-- 삭제를 원하면 삭제 번호가 1로 변경되면서 목록에서는 보이지 않음 -->
+	<update id="deleteDao">
+		<!-- delete free_board where f_seq_number=#{newId} -->
+		update free_board set f_delete ='1' where f_seq_number = #{newId}
+	</update>
 </mapper>

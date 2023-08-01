@@ -1,24 +1,4 @@
---------spring boot simple_bbs table---------
-create table simple_bbs(
-    id number(4) primary key,
-    writer varchar2(100),
-    title varchar2(100),
-    content varchar2(100)
-);
-create sequence simple_bbs_seq;
-drop sequence simple_bbs_seq;
-
-insert into simple_bbs values(simple_bbs_seq.nextval,'작가님','글제목','컨텐츠내용');
-insert into simple_bbs values(simple_bbs_seq.nextval,'미래작가님','꿈','희망을 현실로 이루어지도록 열정을 가지고 포폴작업을 하자');
-insert into simple_bbs values(simple_bbs_seq.nextval,'예비직장인','입사','사원증 걸어보고싶네융');
-update simple_bbs set writer='열정맨', title='제목변경', content='컨텐츠 변경' where id=1;
-delete simple_bbs where id=1;
-select*from simple_bbs order by id desc;
-select count(*) from simple_bbs;
-select*from simple_bbs where id=2;
-commit;
-
----------free_board------
+-------free_board------
 create table free_board(
     f_seq_number number(4) primary key, --freeboard sequence number
     f_title varchar2(100) not null, --freeboard title
