@@ -57,29 +57,24 @@
 						<th>작성자</th>
 						<th>추천</th>
 					</tr>
-					<%
-						for(int i=0; i<boardList.size(); i++){
-							Book_reportDTO reportDTO = (Book_reportDTO)boardList.get(i);
-					%>
+					<c:forEach items="${list}" var="dto">
 					<tr>
-						<td><%=reportDTO.getR_seq_number() %></td>
+						<td>${dto.r_seq_number}</td>
 						<td>
 							<img src="../resource/images/${dto.r_fileName}" alt="" class="image-fluid" />
 						</td>
 						<td>
-							<a href="./BoardViewAction.do?num=<%=reportDTO.getR_seq_number() %>&pageNum=<%=pageNum%>">
-							<%=reportDTO.getR_title() %>
+							<a href="./BoardViewAction.do?num=${dto.r_seq_number}&pageNum=<%=pageNum%>">
+							${dto.r_title}
 							</a>
 						</td>
-						<td><%=reportDTO.getR_regist_day() %></td>
-						<td><%=reportDTO.getR_update_day() %></td>
-						<td><%=reportDTO.getR_view() %></td>
-						<td><%=reportDTO.getR_writer() %></td>
-						<td><%=reportDTO.getR_recommand() %></td>
+						<td>${dto.r_regist_day}</td>
+						<td>${dto.r_update_day}</td>
+						<td>${dto.r_view}</td>
+						<td>${dto.r_writer}</td>
+						<td>${dto.r_recommand}</td>
 					</tr>
-					<%
-						}
-					%>
+					</c:forEach>
 				</table>
 			</div>
 			<div align="center">
