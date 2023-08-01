@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ex.gamto.freeboard.dto.FreeboardDto;
 import com.ex.gamto.report.dto.Book_reportDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/write")
 public class WriteController {
 	@GetMapping()
-	public String getWrite(/*세션*/) {
-		/*세션이 비었다면 알럿띄우고 로그인연결*/
+	public String getWrite(HttpSession session) {
 		return "write/write";
 	}
 	

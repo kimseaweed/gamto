@@ -11,6 +11,12 @@
 </style>
 </head>
 <body>
+<%-- <%
+if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
+    out.println("<script>alert('로그인이 필요합니다.');</script>");
+    out.println("<script>window.location.href='/login';</script>");
+}
+%> --%>
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md pt-3 pb-5">
@@ -21,19 +27,19 @@
 				<h3>나의생각 | 글 작성하기</h3>
 			</div>
 			<div class="mb-3">
-				<select name="table" class="form-select" aria-label="Default select example">
+				<select name="table" class="form-select" aria-label="Default select example" onchange="showHeader();">
 					<option value="book_report" selected>너의생각 | 독후감</option>
 					<option value="free_board">우리생각 |</option>
 				</select>
 			</div>
 			<div class="mb-3">
-				<select class="form-select" aria-label="Disabled select example" disabled>
-					<option value="" > </option>
-					<option value="" >[나의 공간 | 비공개]</option>
-					<option value="" >[토론회 모집]</option>
-					<option value="" >[토론 진행]</option>
-					<option value="" >[도서 추천]</option>
-					<option value="" >[책 교환]</option>
+				<select name="f_header" class="form-select" aria-label="select example" disabled>
+					<option selected></option>
+					<option value="나의공간" >[나의 공간 | 비공개]</option>
+					<option value="토론회 모집" >[토론회 모집]</option>
+					<option value="토론 진행" >[토론 진행]</option>
+					<option value="도서 추천" >[도서 추천]</option>
+					<option value="책 교환" >[책 교환]</option>
 				</select>
 			</div>
 			<div class="mb-3">
@@ -83,9 +89,21 @@
 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 			,
 			});	
-		/**/
+		/*테이블선택시 말머리셀렉트 오픈*/
+		function showHeader(){
+		    if (document.getElementById("writeForm").table.value == "free_board") {
+		    	document.getElementById("writeForm").f_header.disabled = false;
+		    	document.getElementById("writeForm").f_header.options[0].style.display = "none";
+		    	document.getElementById("writeForm").f_header.options[1].selected = true;
+		      } else {
+		    	  document.getElementById("writeForm").f_header.disabled = true;
+		    	  document.getElementById("writeForm").f_header.options[0].style.display = "block";
+		    	  document.getElementById("writeForm").f_header.options[0].selected = true;
+			}
+		};
+		
+		/*submit시 업로드할 테이블 선택과정*/
         document.getElementById("writeForm").addEventListener("submit", function(event) {
-        var table = document.getElementById("writeForm").table.value;
         event.preventDefault();
         var form = event.target;
         
