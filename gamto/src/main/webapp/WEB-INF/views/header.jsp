@@ -28,7 +28,7 @@
           </ul>
           <ul class="loginbox">
             <li>
-              <a href="/store"><i class="bi bi-cart3"></i></a>
+              <a href="/b_list"><i class="bi bi-cart3"></i></a>
             </li>
             <li>
               <a href="/member"><i class="bi bi-person"></i></a>
