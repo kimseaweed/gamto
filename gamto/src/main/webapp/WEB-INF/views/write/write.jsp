@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>감토 | 나의생각</title>
@@ -11,7 +11,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
+	<jsp:include page="../header.jsp" />
+
 	<main class="container-md pt-3 pb-5">
 		<form id="writeForm" method="post" class="p-5 mb-4 bg-light rounded-3"
 			enctype="multipart/form-data">
@@ -42,7 +43,7 @@
 				<div class="valid-feedback">제목을 입력해주세요</div>
 			</div>
 			<div class="mb-3">
-				<!-- <input name="r_filename" class="form-control" type="file" /> 파일첨부 추가 및 수정예정--> 
+			<input name="filename" class="form-control" type="file" />
 			</div>
 			<textarea name="r_content" class="form-control" id="summernote"></textarea>
 			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
@@ -52,7 +53,7 @@
 			</div>
 		</form>
 	</main>
-	<jsp:include page="footer.jsp" />
+	<jsp:include page="../footer.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 	<script
@@ -93,7 +94,6 @@
         }else{
         	form.r_writer.setAttribute('name', 'f_writer');
         	form.r_title.setAttribute('name', 'f_title');
-        	form.r_filename.setAttribute('name', 'f_filename');
         	form.r_content.setAttribute('name', 'f_content');
         	form.action='write/writeFree_board';
         }
