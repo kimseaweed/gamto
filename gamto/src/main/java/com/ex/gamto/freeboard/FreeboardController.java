@@ -13,8 +13,8 @@ import com.ex.gamto.freeboard.dao.IFreeboardDao;
 import jakarta.servlet.http.HttpServletRequest;
 
 
-@RequestMapping("/board")
 @Controller
+@RequestMapping("/board")
 public class FreeboardController {
 	@Autowired
 	IFreeboardDao dao;
@@ -23,7 +23,7 @@ public class FreeboardController {
 	public String userlistPage(Model model) {
 		model.addAttribute("board",dao.listDao());
 		
-		return "/board";
+		return "freeboard/board";
 	}
 	
 	@RequestMapping("/view")
@@ -32,12 +32,12 @@ public class FreeboardController {
 		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
 		
-		return "/view";
+		return "freeboard/view";
 	}
 	
 	@RequestMapping("/writeForm")
 	public String writeForm() {
-		return "/writeForm";
+		return "freeboard/writeForm";
 	}
 	
 	@RequestMapping("/write")
@@ -61,7 +61,7 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("updateForm", dao.viewDao(fId));
 		
-		return "/updateForm";
+		return "freeboard/updateForm";
 	}
 	
 	@RequestMapping("/update")
@@ -101,7 +101,7 @@ public class FreeboardController {
 		model.addAttribute("dto",dao.viewDao(fId));
 		model.addAttribute("cDto",dao.cListDao());
 		
-		return "/viewComment";
+		return "freeboard/viewComment";
 	}
 	
 	@RequestMapping("/insertCommend")
@@ -147,7 +147,7 @@ public class FreeboardController {
 		model.addAttribute("dto", dao.viewDao(fId));
 		model.addAttribute("cDto",dao.cViewDao(cId));
 		
-		return "/commentUpdateForm";
+		return "freeboard/commentUpdateForm";
 	}
 	
 	@RequestMapping("/cUpdate")
