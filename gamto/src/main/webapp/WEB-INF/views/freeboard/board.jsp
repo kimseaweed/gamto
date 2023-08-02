@@ -8,6 +8,8 @@
 <title>board.jsp</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
+<main>
 	<table border="1">
 		<tr>
 		</tr>
@@ -32,6 +34,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<p><a href="writeForm">글작성</a></p>
+	<p><a href="/board/writeForm">글작성</a></p>
+</main>
+<jsp:include page="../header.jsp" />
 </body>
 </html>

@@ -7,6 +7,8 @@
 <title>회원정보 상세 페이지</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
+<main>
 	내용보기 <br>
 	<hr>
 	제목 : ${dto.f_title}<br>
@@ -21,6 +23,8 @@
 	<input type="button" value="삭제" class="btnDelete">	
 	<br>
 	<a href="board">목록보기</a>
+</main>
+<jsp:include page="../footer.jsp" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	 $(document).ready(function(){ 

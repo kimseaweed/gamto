@@ -16,6 +16,8 @@ if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
     out.println("<script>alert('로그인이 필요합니다.');</script>");
     out.println("<script>window.location.href='/login';</script>");
 }
+
+Stirng userid = session.getAttribute("u_id");
 %> --%>
 	<jsp:include page="../header.jsp" />
 

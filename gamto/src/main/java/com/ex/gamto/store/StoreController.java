@@ -10,27 +10,22 @@ import com.ex.gamto.store.dao.StoreDAO;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/b_list")
 public class StoreController {
 	@Autowired
 	StoreDAO dao;
 	
-	
-	@RequestMapping("/")
-	public String root() {
-		return "redirect:b_list";
-	}
-	
-	@RequestMapping("/b_list")
+	@RequestMapping()
 	public String userStroePage(Model model) {
 		model.addAttribute("b_list", dao.listDao());
-		return "b_list";
+		return "store/b_list";
 	}
 	
 	@RequestMapping("/view")
 	public String view(HttpServletRequest request, Model model) {
 		String s_code = request.getParameter("b_code");
 		model.addAttribute("dto", dao.viewDao(s_code));
-		return "view";
+		return "store/view";
 	}
 	
 	@RequestMapping("/delete")

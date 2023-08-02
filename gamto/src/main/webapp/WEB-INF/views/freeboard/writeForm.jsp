@@ -7,6 +7,8 @@
 <title>writeForm</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
+<main>
 	<table border="1">
 		<form action="write" method="post">
 			<tr>
@@ -29,6 +31,8 @@
 			</tr>
 		</form>
 	</table>
+</main>
+<jsp:include page="../footer.jsp" />
 	<%
 		if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
     		out.println("<script>alert('로그인이 필요합니다.');</script>");

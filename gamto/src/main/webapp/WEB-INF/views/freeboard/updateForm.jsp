@@ -9,7 +9,9 @@
 <title>update</title>
 </head>
 <body>
-	<form action="update" method="post">
+<jsp:include page="../header.jsp" />
+<main>
+<form action="update" method="post">
 		<table border="1">
 		<input type="hidden" value="${updateForm.f_seq_number}" name="f_seq_number"/>
 			<tr>
@@ -35,5 +37,7 @@
 
 		</table>
 	</form>
+</main>
+<jsp:include page="../footer.jsp" />
 </body>
 </html>
