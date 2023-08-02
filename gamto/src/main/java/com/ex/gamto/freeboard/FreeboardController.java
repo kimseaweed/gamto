@@ -82,6 +82,18 @@ public class FreeboardController {
 		return "redirect:/board";
 	}
 	
+	@RequestMapping("/good")
+	public String goodCount(HttpServletRequest request, Model model) {
+		System.out.println("good출력");
+		String fId = request.getParameter("f_seq_number");
+		/* int fId = Integer.parseInt(request.getParameter("f_seq_number")); */
+		dao.goodCnt(fId);
+		System.out.println("fid : "+fId);
+		
+		 
+		return "redirect:/board";
+	}
+	
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");

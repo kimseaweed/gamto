@@ -22,6 +22,10 @@
 	<update id="updateCnt">
 		update free_board set f_view = f_view+1 where f_seq_number = #{item1}
 	</update>
+	<!-- 좋아요 수가 올라가는 update문 -->
+	<update id="goodCnt">
+		update  free_board set f_recommand = f_recommand+1 where f_seq_number = #{item1}
+	</update>
 	<!-- 삭제를 원하면 삭제 번호가 1로 변경되면서 목록에서는 보이지 않음 -->
 	<update id="deleteDao">
 		<!-- delete free_board where f_seq_number=#{newId} -->

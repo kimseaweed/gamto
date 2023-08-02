@@ -15,4 +15,5 @@ public interface IFreeboardDao {
 	public int deleteDao(String f_seq_number);
 	public void updateDao(Map<String, String> map);
 	public void updateCnt(String f_seq_number);
+	public void goodCnt(String f_seq_number);
 }

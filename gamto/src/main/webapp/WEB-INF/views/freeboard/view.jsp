@@ -16,7 +16,7 @@
 	추천 수 : ${dto.f_recommand} <br>
 	조회 수 : ${dto.f_view} <br>
 	내용 : ${dto.f_content}<br>
-	<input type="button" />
+	<input type="button" value="좋아요♡" class="btnGood"/>
 	<input type="button" value="수정" class="btnUpdate">
 	<input type="button" value="삭제" class="btnDelete">	
 	<br>
@@ -39,6 +39,9 @@
 				alert("삭제되었습니다.");
 				$(location).attr('href','delete?f_seq_number=${dto.f_seq_number}');
 			}
+		})
+		$(".btnGood").click(function(){
+			$(location).attr('href','good?f_seq_number=${dto.f_seq_number}');
 		})
 	}) 
 </script>
