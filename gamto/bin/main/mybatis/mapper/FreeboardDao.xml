@@ -3,11 +3,11 @@
 
 <mapper namespace="com.ex.gamto.freeboard.dao.IFreeboardDao">
 	<!-- 자유게시판 리스트 (삭제 번호가 0인 목록)-->
-	<select id="listDao" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+	<select id="listDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
 		select * from free_board where f_delete = '0'
 	</select>
 	<!-- 선택된 게시판의 상세 정보가 보여지는 페이지 -->
-	<select id="viewDao" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+	<select id="viewDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
 		select*from free_board where f_seq_number=#{0}
 	</select>
 	<insert id="writeDao">
