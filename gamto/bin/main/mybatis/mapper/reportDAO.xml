@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce속성은 이 매퍼가 어떤 인터페이스와 관련된 매퍼인지 알려준다. -->
+<mapper namespace="com.ex.springboot.dao.ISimpleBbsDao">
+	<!-- id의 속성값은 인터페이스에 정의된 메서드의 이름, resultType 속성값은 리턴되는 값의 타입을 지정 -->
+	<select id="listDao" resultType="com.ex.report.dto.Book_reportDTO">
+		select * from book_report order by id desc
+	</select>
+	<select id="viewDao" resultType="com.ex.report.dto.Book_reportDTO">
+		select * from book_report where id=#{param1}
+	</select>
+	<!-- insert구문과 delete구문은 리턴되는 결과값이 없으므로 리턴타입을 지정 안함 => resultType 없음 -->
+	<insert id="writeDao">
+		insert into book_report values(book_report_seq.nextval,#{item1},#{item2},#{item3})
+	</insert>
+	<delete id="deleteDao">
+		delete book_report where id=#{param1}
+	</delete>
+</mapper>

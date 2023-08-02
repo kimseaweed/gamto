@@ -31,7 +31,7 @@
 </script>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../header.jsp"/>
 <main>
 <div class="jumbotron">
 		<div class="container">
@@ -98,7 +98,7 @@
 						<td width="80%" align="left">
 							<select name="items">
 								<option value="r_title">책이름</option>
-								<option value="content">본문에서</option>
+								<option value="r_content">본문에서</option>
 								<option value="r_writer">작성자</option>
 							</select>
 							<input type="text" name="text" />
@@ -113,6 +113,6 @@
 		</form>
 	</div>
 </main>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>
