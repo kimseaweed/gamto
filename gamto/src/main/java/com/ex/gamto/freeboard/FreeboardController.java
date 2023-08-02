@@ -12,12 +12,14 @@ import com.ex.gamto.freeboard.dao.IFreeboardDao;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
+@RequestMapping("/board")
 @Controller
 public class FreeboardController {
 	@Autowired
 	IFreeboardDao dao;
 	
-	@RequestMapping("/board")
+	@RequestMapping()
 	public String userlistPage(Model model) {
 		model.addAttribute("board",dao.listDao());
 		
