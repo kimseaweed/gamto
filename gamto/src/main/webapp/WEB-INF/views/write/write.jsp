@@ -20,38 +20,25 @@ if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md pt-3 pb-5">
-		<form id="writeForm" method="post" class="p-5 mb-4 bg-light rounded-3"
-			enctype="multipart/form-data">
+		<form id="writeForm" action="/write/writeBook_report" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" 
+			enctype="multipart/form-data" novalidate>
 			<input type="hidden" name="r_writer" value="" />
 			<div class="mb-5">
-				<h3>나의생각 | 글 작성하기</h3>
-			</div>
-			<div class="mb-3">
-				<select name="table" class="form-select" aria-label="Default select example" onchange="showHeader();">
-					<option value="book_report" selected>너의생각 | 독후감</option>
-					<option value="free_board">우리생각 |</option>
-				</select>
-			</div>
-			<div class="mb-3">
-				<select name="f_header" class="form-select" aria-label="select example" disabled>
-					<option selected></option>
-					<option value="나의공간" >[나의 공간 | 비공개]</option>
-					<option value="토론회 모집" >[토론회 모집]</option>
-					<option value="토론 진행" >[토론 진행]</option>
-					<option value="도서 추천" >[도서 추천]</option>
-					<option value="책 교환" >[책 교환]</option>
-				</select>
+				<h3>나의생각 | 독후감 작성하기</h3>
 			</div>
 			<div class="mb-3">
 				<input name="r_title" class="form-control" type="text"
 					id="validationCustomUsername" placeholder="제목을 입력해주세요"
-					aria-label="default input example">
-				<div class="valid-feedback">제목을 입력해주세요</div>
+					aria-label="default input example" required>
+				<div class="invalid-feedback">제목을 입력해주세요</div>
 			</div>
-			<div class="mb-3">
-			<input name="filename" class="form-control" type="file" />
+			<div class="input-group mb-3">
+			<input name="filename" class="form-control" id="inputGroupFile02" type="file"  value="default.png"/>
+			 <label class="input-group-text" for="inputGroupFile02">표지를 골라주세요 !</label>
+			 <div class="valid-feedback">표지를 선택하지 않으면 기본이미지가 선택돼요. </div>
 			</div>
-			<textarea name="r_content" class="form-control" id="summernote"></textarea>
+			<textarea name="r_content" class="form-control" id="summernote" required></textarea>
+			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
 			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
 				<button class="btn btn-warning me-3" onclick="location='list'; return false;">너의생각으로 이동</button>
 				<button class="btn btn-warning me-3" onclick="location='board'; return false;">우리생각으로 이동</button>
@@ -89,34 +76,26 @@ if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 			,
 			});	
-		/*테이블선택시 말머리셀렉트 오픈*/
-		function showHeader(){
-		    if (document.getElementById("writeForm").table.value == "free_board") {
-		    	document.getElementById("writeForm").f_header.disabled = false;
-		    	document.getElementById("writeForm").f_header.options[0].style.display = "none";
-		    	document.getElementById("writeForm").f_header.options[1].selected = true;
-		      } else {
-		    	  document.getElementById("writeForm").f_header.disabled = true;
-		    	  document.getElementById("writeForm").f_header.options[0].style.display = "block";
-		    	  document.getElementById("writeForm").f_header.options[0].selected = true;
-			}
-		};
 		
-		/*submit시 업로드할 테이블 선택과정*/
-        document.getElementById("writeForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        var form = event.target;
-        
-        if(table=='book_report'){
-        	form.action='write/writeBook_report';
-        }else{
-        	form.r_writer.setAttribute('name', 'f_writer');
-        	form.r_title.setAttribute('name', 'f_title');
-        	form.r_content.setAttribute('name', 'f_content');
-        	form.action='write/writeFree_board';
-        }
-        form.submit(); 
-    	});
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(() => {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  const forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.from(forms).forEach(form => {
+		    form.addEventListener('submit', event => {
+		      if (!form.checkValidity()) {
+		        event.preventDefault()
+		        event.stopPropagation()
+		      }
+
+		      form.classList.add('was-validated')
+		    }, false)
+		  })
+		})()
 	</script>
 </body>
 </html>

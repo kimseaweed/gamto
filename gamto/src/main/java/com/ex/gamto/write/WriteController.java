@@ -36,12 +36,5 @@ public class WriteController {
 		dao.writeBook_report(dto);
 		return "redirect:/list";
 	}
-	@PostMapping("/writeFree_board")
-	public String writeAction(MultipartFile filename,FreeboardDto dto) throws Exception {
-		dto.setF_filename(service.saveFile(filename));
-		dao.writeFree_board(dto);
-		return "redirect:/board";
-	}
-	
 
 }

@@ -18,7 +18,7 @@ a {
   font-weight: normal;
   font-style: normal;
 }
-/* 네브글씨체 */
+/* 네브 글씨체 */
 @font-face {
   font-family: "116angmuburi";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/116angmuburi.woff")
@@ -26,91 +26,48 @@ a {
   font-weight: normal;
   font-style: normal;
 }
-body {
-  background-color: rgb(241, 240, 232);
+/* 전체 글씨체 */
+@font-face {
+        font-family: "NanumSquareNeo-Variable";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
 }
+
 ::selection {
   background-color: rgba(255, 253, 129, 0.568);
   color: black;
 }
 
+body {
+	font-family: "NanumSquareNeo-Variable";
+	background-color: rgb(242, 241, 236);
+	color: rgb(60, 60, 60);
+}
+
+
+
+
+header .logobox a>span{
+	font-family: "Yeongdo-Rg";
+	font-size: 3rem;
+}
+header>div{
+	border-bottom: 1px solid gray;
+}
+header>div>ul>li>a{
+	font-family: "116angmuburi";
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+
+
+
+
 /*1024,768*/
 /**/
 
-header {
-  padding-top: 3rem;
-  width: 100%;
-}
-header > div {
-  border-bottom: 1px rgb(100, 100, 100) solid;
-  margin-bottom: 1.5rem;
-  padding-left: 3rem;
-  display: flex;
-}
-header > div > .logobox {
-  padding-bottom: 20px;
-}
-header > div > .logobox > a{
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-}
-header > div > div.logobox> a >span {
-  display: inline-block;
-  margin-left: 10px;
-  color: rgb(70, 70, 70);
-  font-size: 3rem;
-  vertical-align: bottom;
-  font-family: "Yeongdo-Rg";
-}
-
-header nav {
-  display: flex;
-  flex-grow: 1;
-  border-top: 1.5px rgb(100, 100, 100) solid;
-  padding: 1rem 1rem 1rem 2rem;
-}
-header nav > ul {
-  display: flex;
-  margin-top: auto;
-  margin-bottom: 10px;
-}
-header nav > ul > li {
-  padding: 0 12px;
-}
-
-header nav > ul > li > a {
-  font-family: "116angmuburi";
-  font-size: 2.3rem;
-  color: rgb(70, 70, 70);
-  margin-top: auto;
-  display: inline-block;
-}
-header nav > ul.loginbox {
-  margin-left: auto;
-}
-header nav > ul.loginbox i {
-  color: rgb(80, 80, 80);
-}
-
 main {
-}
-
-footer {
-  padding: 0 7rem 0;
-  color: rgb(104, 104, 104);
-}
-footer > div {
-  display: flex;
-  justify-content: space-between;
-  border-top: 1.5px rgb(100, 100, 100) solid;
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
-}
-footer > div > nav > ul {
-  display: flex;
-  gap: 0.5rem;
-}
-footer > div > nav > ul > li > a {
-  font-size: 0.8rem;
 }
