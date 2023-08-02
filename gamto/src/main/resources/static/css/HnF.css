@@ -62,8 +62,43 @@ header>div>ul>li>a{
 	font-weight: bold;
 }
 
+/*custumBS*/
+.fs-7{
+	font-size: 12px;
+}
+.shadow-sm-hover{
+	border: var(--bs-border-width) var(--bs-border-style) rgb(0,0,0,0);
+}
+.shadow-sm-hover:hover{
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+	border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
 
+.out-a{
+	display: block !important;
+}
 
+main.b_list * {
+
+}
+
+@media (min-width: 768px) {
+	main.b_list h3.fs-2{
+		font-size: 1.5rem !important;
+	}
+}
+
+.b_list-thumbnail{
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+.b_list-thumbnail>img{
+	position: absolute;
+	top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 
 /*1024,768*/

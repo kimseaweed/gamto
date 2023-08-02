@@ -37,7 +37,7 @@ Stirng userid = session.getAttribute("u_id");
 			<div class="input-group mb-3">
 			<input name="filename" class="form-control" id="inputGroupFile02" type="file"  value="default.png"/>
 			 <label class="input-group-text" for="inputGroupFile02">표지를 골라주세요 !</label>
-			 <div class="valid-feedback">표지를 선택하지 않으면 기본이미지가 선택돼요. </div>
+			 <div class="valid-feedback">표지를 선택하지 않으면 기본이미지가 선택됩니다. </div>
 			</div>
 			<textarea name="r_content" class="form-control" id="summernote" required></textarea>
 			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
