@@ -9,8 +9,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main>
-웰컴페이지를 준비중입니다
-<img alt="" src="https://pbs.twimg.com/media/EhmDUHRXsAEOS2S?format=jpg&name=medium">
+<h1 class="text-center mx-10 my-5">웰컴페이지를 준비중입니다</h1>
 </main>
 <jsp:include page="footer.jsp"/>
 </body>
