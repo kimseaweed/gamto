@@ -13,16 +13,15 @@ import com.ex.gamto.freeboard.dao.IFreeboardDao;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/board")
 public class FreeboardController {
 	@Autowired
 	IFreeboardDao dao;
 	
-	@RequestMapping()
+	@RequestMapping("/board")
 	public String userlistPage(Model model) {
 		model.addAttribute("board",dao.listDao());
 		
-		return "freeboard/board";
+		return "/board";
 	}
 	
 	@RequestMapping("/view")
@@ -30,12 +29,13 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
-		return "freeboard/view";
+		
+		return "/view";
 	}
 	
 	@RequestMapping("/writeForm")
 	public String writeForm() {
-		return "freeboard/writeForm";
+		return "/writeForm";
 	}
 	
 	@RequestMapping("/write")
@@ -59,7 +59,7 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("updateForm", dao.viewDao(fId));
 		
-		return "freeboard/updateForm";
+		return "/updateForm";
 	}
 	
 	@RequestMapping("/update")
@@ -68,18 +68,12 @@ public class FreeboardController {
 		String fContent = request.getParameter("f_content");
 		String fId = request.getParameter("f_seq_number");
 		
-		System.out.println(fTitle);
-		System.out.println(fContent);
-		System.out.println(fId);
-		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", fTitle);
 		map.put("item2", fContent);
 		map.put("item3", fId);
 		dao.updateDao(map);
-		
-		/* dao.updateDao(fTitle, fContent, fId); */
-		
+
 		return "redirect:/board";
 	}
 	
@@ -87,10 +81,7 @@ public class FreeboardController {
 	public String goodCount(HttpServletRequest request, Model model) {
 		System.out.println("good출력");
 		String fId = request.getParameter("f_seq_number");
-		/* int fId = Integer.parseInt(request.getParameter("f_seq_number")); */
 		dao.goodCnt(fId);
-		System.out.println("fid : "+fId);
-		
 		 
 		return "redirect:/board";
 	}
@@ -101,4 +92,84 @@ public class FreeboardController {
 		dao.deleteDao(fId);
 		return "redirect:/board";
 	}
+	
+	@RequestMapping("/viewComment")
+	public String viewComment(HttpServletRequest request, Model model ) {
+		String fId = request.getParameter("f_seq_number"); 
+		model.addAttribute("dto",dao.viewDao(fId));
+		model.addAttribute("cDto",dao.cListDao());
+		
+		return "/viewComment";
+	}
+	
+	@RequestMapping("/insertCommend")
+	public String insertCommend(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		model.addAttribute("dto",dao.viewDao(fId));
+		model.addAttribute("cDto",dao.cListDao());
+		
+		String fName = "세션에 저장된 작성자";		
+		String fContent = request.getParameter("c_content");
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("item1", fName);
+		map.put("item2", fContent);
+		dao.cWriteDao(map);
+		
+		return "redirect:/viewComment?f_seq_number="+fId;
+	}
+	
+	@RequestMapping("/cGoodCnt")
+	public String commentGoodButton(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		String cId = request.getParameter("c_seq_number");
+		dao.cGoodCnt(cId);
+		 
+		return "redirect:/viewComment?f_seq_number="+fId;	
+	}
+	
+	@RequestMapping("/cBadCnt")
+	public String commentBadButton(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		String cId = request.getParameter("c_seq_number");
+		dao.cBadCnt(cId);
+		 
+		return "redirect:/viewComment?f_seq_number="+fId;	
+	}
+	
+	
+	@RequestMapping("/cUpdateForm")
+	public String commentUpdateForm(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		String cId = request.getParameter("c_seq_number");
+		model.addAttribute("dto", dao.viewDao(fId));
+		model.addAttribute("cDto",dao.cViewDao(cId));
+		
+		return "/commentUpdateForm";
+	}
+	
+	@RequestMapping("/cUpdate")
+	public String commentUpdate(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		String cContent = request.getParameter("c_content");
+		String cId = request.getParameter("c_seq_number");
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("item1", cContent);
+		map.put("item2", cId);
+		dao.cUpdateDao(map);
+		
+		return "redirect:/viewComment?f_seq_number="+fId;
+	}
+	
+	@RequestMapping("/cDelete")
+	public String commentDelete(HttpServletRequest request, Model model) {
+		String fId = request.getParameter("f_seq_number");
+		String cId = request.getParameter("c_seq_number");
+		dao.cDeleteDao(cId);
+		
+		return "redirect:/viewComment?f_seq_number="+fId;
+	}
+	
+	
 }
