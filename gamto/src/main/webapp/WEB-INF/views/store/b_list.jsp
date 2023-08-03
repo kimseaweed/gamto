@@ -50,6 +50,9 @@
 			</c:forEach>
 		</div>
 	</main>
+	<script type="text/javascript">
+		
+	</script>
 	<jsp:include page="../footer.jsp" />
 </body>
 </html>
