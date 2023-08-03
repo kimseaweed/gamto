@@ -40,6 +40,10 @@ a {
   color: black;
 }
 
+html{	
+	cursor: url("../img/logo/cursor1_mRD_icon.ico"),auto !important;
+}
+
 body {
 	font-family: "NanumSquareNeo-Variable";
 	background-color: rgb(255, 254, 252);
@@ -75,7 +79,7 @@ body {
  .ribbon-wrapp {
 	 position: relative;
   }
-  .ribbon{	  
+ .ribbon{	  
     position: absolute;
     color: white;
 	z-index:9;
@@ -139,6 +143,17 @@ header>div>ul>li>a{
 	font-size: 2rem;
 	font-weight: bold;
 }
+.logobox .img{
+	width:50px;
+	height: 86.5px;
+	background-image: url("../img/logo/logo1.png");
+	background-size: contain;
+}
+.logobox:hover .img{
+	background-image: url("../img/logo/logo1_closed.png");
+	background-size: contain;
+}
+
 
 main.b_list * {
 

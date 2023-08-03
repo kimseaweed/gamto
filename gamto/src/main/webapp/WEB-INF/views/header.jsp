@@ -17,7 +17,7 @@
  <div class="pt-4 pb-1 d-flex justify-content-between">
 	 <div class="logobox pb-2">
 	      <a href="/" class="text-decoration-none d-flex align-items-end">
-	       <img src="/img/logo/logo1.png" width="50px" alt="토끼그릠이 그려진 감토 로고" />
+	       <div class="img"></div>
 	        <span class="ms-3 link-dark">감토</span>
 	      </a>
 	</div>
