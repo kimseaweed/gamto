@@ -24,7 +24,7 @@
 	<br>
 	<input type="button" value="댓글 달기" class="btnComment">	
 	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <script>
 	 $(document).ready(function(){ 
 		var btnDelete = $(".btnDelete");

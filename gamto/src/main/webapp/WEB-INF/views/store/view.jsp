@@ -15,7 +15,7 @@
 <div>${dto.b_author}</div>
 <div>${dto.b_publisher}</div>
 <div>${dto.b_release}</div>
-<img src="${dto.b_filename}"/>
+<img src="../img/book/${dto.b_filename}"/>
 <div>${dto.b_genre}</div>
 <div>${dto.b_price}</div>
 <div>${dto.b_description}</div>

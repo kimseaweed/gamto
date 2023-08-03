@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ex.gamto.freeboard.dao.IFreeboardDao">
-	<select id="listDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
+<mapper namespace="com.mrmr.gamto.freeboard.dao.IFreeboardDao">
+	<select id="listDao" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
 		select * from free_board where f_delete = '0'
 	</select>
 	<!-- 선택된 게시판의 상세 정보가 보여지는 페이지 -->
-	<select id="viewDao" resultType="com.ex.gamto.freeboard.dto.FreeboardDto">
+	<select id="viewDao" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
 		select*from free_board where f_seq_number=#{0}
 	</select>
 	<!-- 게시판 작성 -->
@@ -31,7 +31,7 @@
 	</update>
 	
 	<!-- 댓글 리스트 (삭제 번호가 0인 목록) -->
-	<select id="cListDao" resultType="com.ex.gamto.freeboard.dto.CommentDto">
+	<select id="cListDao" resultType="com.mrmr.gamto.freeboard.dto.CommentDto">
 		select * from comment_board where c_delete = 0
 	</select>
 	<!-- 댓글 작성 -->
@@ -39,7 +39,7 @@
 		insert into comment_board values(comment_board_seq.nextval,#{item1},sysdate,sysdate,0,0,0,#{item2})
 	</insert>
 	<!-- 수정할 댓글 가져오기 -->
-	<select id="cViewDao" resultType="com.ex.gamto.freeboard.dto.CommentDto">
+	<select id="cViewDao" resultType="com.mrmr.gamto.freeboard.dto.CommentDto">
 		select*from comment_board where c_seq_number=#{0}
 	</select>
 	<!-- 댓글 수정 -->

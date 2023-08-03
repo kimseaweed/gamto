@@ -1,4 +1,4 @@
-<%@page import="com.ex.gamto.report.dto.Book_reportDTO"%>
+<%@page import="com.mrmr.gamto.report.dto.Book_reportDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
