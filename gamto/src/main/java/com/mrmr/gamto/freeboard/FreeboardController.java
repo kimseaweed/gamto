@@ -45,12 +45,14 @@ public class FreeboardController {
 		String fTitle = request.getParameter("f_title");
 		String fName = request.getParameter("f_writer");		
 		String fContent = request.getParameter("f_content");
+		String fCategory = request.getParameter("f_category");
 		
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", fTitle);
 		map.put("item2", fName);
 		map.put("item3", fContent);
+		map.put("item4", fCategory);
 		dao.writeDao(map);
 		
 		return "redirect:/board";
@@ -69,14 +71,15 @@ public class FreeboardController {
 		String fTitle = request.getParameter("f_title");		
 		String fContent = request.getParameter("f_content");
 		String fId = request.getParameter("f_seq_number");
+		String fCategory = request.getParameter("f_category");
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", fTitle);
 		map.put("item2", fContent);
-		map.put("item3", fId);
-		dao.updateDao(map);
+		map.put("item3", fCategory);
+		map.put("item4", fId);
 
-		return "redirect:/board";
+		return "redirect:/view?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/good")
@@ -85,7 +88,7 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		dao.goodCnt(fId);
 		 
-		return "redirect:/board";
+		return "redirect:/view?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/delete")
@@ -99,7 +102,7 @@ public class FreeboardController {
 	public String viewComment(HttpServletRequest request, Model model ) {
 		String fId = request.getParameter("f_seq_number"); 
 		model.addAttribute("dto",dao.viewDao(fId));
-		model.addAttribute("cDto",dao.cListDao());
+		model.addAttribute("cDto",dao.cListDao(fId));
 		
 		return "freeboard/viewComment";
 	}
@@ -108,14 +111,15 @@ public class FreeboardController {
 	public String insertCommend(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto",dao.viewDao(fId));
-		model.addAttribute("cDto",dao.cListDao());
+		model.addAttribute("cDto",dao.cListDao(fId));
 		
 		String fName = "세션에 저장된 작성자";		
 		String fContent = request.getParameter("c_content");
 		
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("item1", fName);
-		map.put("item2", fContent);
+		map.put("item1", fId);
+		map.put("item2", fName);
+		map.put("item3", fContent);
 		dao.cWriteDao(map);
 		
 		return "redirect:/viewComment?f_seq_number="+fId;
