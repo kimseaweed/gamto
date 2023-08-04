@@ -4,7 +4,7 @@
 <mapper namespace="com.mrmr.gamto.freeboard.dao.IFreeboardDao">
 	<!-- 자유게시판 리스트 (삭제 번호가 0인 목록)-->
 	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="getPageList"  parameterType="Map" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+	<select id="getPageList"  parameterType="Map" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
     select * from (
         	select 	rownum rn, free_board.*
         		from(
