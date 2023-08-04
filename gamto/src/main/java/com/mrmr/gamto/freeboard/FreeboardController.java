@@ -42,7 +42,7 @@ public class FreeboardController {
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
 		
-		return "/board";
+		return "freeboard/board";
 	}
 	
 	@RequestMapping("/view")
