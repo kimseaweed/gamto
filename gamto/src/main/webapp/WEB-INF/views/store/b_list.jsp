@@ -28,7 +28,7 @@
 					<div onclick="location='b_list/view?b_code=${dto.b_code}'"
 						class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 						<div class="col-6">
-							<img src="../img/book/${dto.b_filename}" class="rounded b_list-thumbnail" width=""/>
+							<img src="../img/book/${dto.b_filename}" class="rounded b_list-thumbnail shadow-sm" width=""/>
 						</div>
 						<div class="col px-md-3 px-5 d-flex flex-column position-static">
 							<strong class="fs-7 d-inline-block mb-2 text-primary">[${dto.b_genre}]</strong>

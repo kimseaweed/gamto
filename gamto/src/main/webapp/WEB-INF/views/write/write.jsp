@@ -21,7 +21,7 @@ Stirng userid = session.getAttribute("u_id");
 %> --%>
 	<jsp:include page="../header.jsp" />
 
-	<main class="container-md pt-3 pb-5">
+	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
 		<form id="writeForm" action="/write/writeBook_report" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" 
 			enctype="multipart/form-data" novalidate>
 			<input type="hidden" name="r_writer" value="" />

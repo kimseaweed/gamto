@@ -23,6 +23,6 @@
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">신고가이드</a></li>
     </ul>
   </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/js/gamto.js"></script>
 </body>
 </html>
