@@ -29,9 +29,6 @@ public class FreeboardController {
 				int pageNo, Model model) {
 		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
 		
-		System.out.println("test1");
-		System.out.println(page.getStartNo());
-		System.out.println(page.getEndNo());
 		Map<String, Integer> map = new HashMap<>();
 		pageNo = (pageNo<1)? 1:pageNo;
 		

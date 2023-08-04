@@ -13,10 +13,6 @@ public class PagingVO {
 		/* 계산 시작 : 페이지 개수 */
 		totalPage = (totalCount -1)/pageSize +1;
 		
-		/* pageNo은 현재 페이지가 잘못된 값이 전달되었을 때 : 1보다 작은 값 또는 totalPage보다 큰 값 */
-		if(this.pageNo == 0) {
-			pageNo = 1;
-		}
 		this.pageNo = (pageNo<1)? 1:pageNo;
 		this.pageNo = (pageNo>totalPage)? totalPage:pageNo;
 	

@@ -38,19 +38,19 @@
 	<p><a href="/board/writeForm">글작성</a></p>
 	<div>
 		<a href="?pageNo=1">&lt;&lt;</a>
-		<c:out value="page.startPage"></c:out>
-		<c:if test="${page.startPage eq 1}">
-			<c:out value='<a href="?pageNo=1">&lt;</a>'/>
+
+		<c:if test="${page.startNo eq 1}">
+			<a href="?pageNo=1">&lt;</a>
 		</c:if>
-		<c:if test="${page.startPage ne 1}">
-			<c:out value='<a href="?pageNo=${page.startPage-1}">&lt;</a>'/>
+		<c:if test="${page.startNo ne 1}">
+			<a href="?pageNo=${page.pageNo-1}">&lt;</a>
 		</c:if>
-			
+		
 		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 			<a href="?pageNo=${i}">${i}</a>
 		</c:forEach>
 		
-		<a href="?pageNo=${page.endPage+1}">&gt;</a>
+		<a href="?pageNo=${page.pageNo+1}">&gt;</a>
 		<a href="?pageNo=${page.totalPage}">&gt;&gt;</a>
 	</div>
 </main>

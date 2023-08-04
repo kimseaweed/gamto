@@ -13,7 +13,7 @@
 	</select>
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">
-		select count(*) from free_board
+		select count(*) from free_board where f_delete = '0'
 	</select>
 	<!-- 선택된 게시판의 상세 정보가 보여지는 페이지 -->
 	<select id="viewDao" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
