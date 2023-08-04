@@ -153,6 +153,9 @@ body {
 .bg-gray{
 	background-color:rgb(228, 228, 228) !important;
 }
+.h-500px{
+	height: 500px;
+}
 
 /****************************************/
 
@@ -226,6 +229,13 @@ main{
 }
 .b-table td, .b-table th{
 	padding-left: 1.5rem;
+}
+
+.caro-img{
+	position: relative;
+	left: 50%;
+	top: 10%;
+	transform: translateX(-50%);
 }
 
 main {

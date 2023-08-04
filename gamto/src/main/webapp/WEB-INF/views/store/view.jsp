@@ -13,7 +13,7 @@
 	<main class="b_view container-md bg-light px-5 pt-4 rounded shadow-sm">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item link-primary"><a href="#">상점</a></li>
+				<li class="breadcrumb-item link-primary"><a href="/b_list">상점</a></li>
 				<li class="breadcrumb-item link-primary"><a href="#">책</a></li>
 				<li class="breadcrumb-item link-primary"><a href="#">${dto.b_genre}</a></li>
 				<li class="breadcrumb-item active" aria-current="page">${dto.b_name}</li>

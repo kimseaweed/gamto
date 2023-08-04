@@ -10,44 +10,141 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	<main class="b_list container-md bg-light px-5">
-	
-	<div class="">
-	<h1 class="text-center pt-5 pb-3 border-bottom"> 상점 페이지 </h1>
-	</div>
-	
-	/*케로셀*/
-	/*베스트 셀러 */
-	/*문학 굿즈샵*/
-	
-	
-		<div class="row mt-5 px-4">
-			<c:forEach var="dto" items="${b_list}" end="5">
-				<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
-				<div class="ribbon" >best</div>
-					<div onclick="location='b_list/view?b_code=${dto.b_code}'"
-						class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
-						<div class="col-6">
-							<img src="../img/book/${dto.b_filename}" class="rounded b_list-thumbnail shadow-sm" width=""/>
+	<!-- main > 메인헤더 + 케로셀블럭 + 책상점 블럭 + 굿즈블럭  -->
+	<main class="b_list container-md bg-light p-5">
+		<!-- 메인헤더  -->
+		<div class="">
+			<h1 class="text-center pb-3 border-bottom mb-3">상점</h1>
+		</div>
+		<!-- 케로셀블럭  -->
+		<div class="py-3 mb-5">
+			<div id="carouselExampleDark" class="carousel carousel-dark slide"
+				data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="0" class="active" aria-current="true"
+						aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="1" aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="2" aria-label="Slide 3"></button>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active" data-bs-interval="8000">
+						<div class="d-block w-100 h-500px bg-secondary">
+							<img src="https://via.placeholder.com/800x400" alt="..."
+								class="caro-img">
 						</div>
-						<div class="col px-md-3 px-5 d-flex flex-column position-static">
-							<strong class="fs-7 d-inline-block mb-2 text-primary">[${dto.b_genre}]</strong>
-							<h3 class="mb-0 fs-2">${dto.b_name}</h3>
-							<div class="fs-7 ms-auto mt-2 text-muted">
-								<b>${dto.b_author}</b> 저
-							</div>
-							<div class="fs-7 ms-auto mb-auto text-muted">
-								<b>${dto.b_publisher} </b>출판
-							</div>
-
-							<div class="mb-1 text-muted text-end">
-								<B>${dto.b_price}</B> 원
-							</div>
-							<a href="#" class="btn btn-outline-primary text-center fs-6">장바구니</a>
+						<div class="carousel-caption d-none d-md-block">
+							<h5>책 제목</h5>
+							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
+						</div>
+					</div>
+					<div class="carousel-item" data-bs-interval="2000">
+						<div class="d-block w-100 h-500px bg-secondary">
+							<img src="https://via.placeholder.com/800x400" alt="..."
+								class="caro-img">
+						</div>
+						<div class="carousel-caption d-none d-md-block">
+							<h5>책 광고입니다</h5>
+							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="d-block w-100 h-500px bg-secondary"
+							data-bs-interval="2000">
+							<img src="https://via.placeholder.com/800x400" alt="..."
+								class="caro-img">
+						</div>
+						<div class="carousel-caption d-none d-md-block">
+							<h5>굿즈도 광고합니다</h5>
+							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
 						</div>
 					</div>
 				</div>
-			</c:forEach>
+				<button class="carousel-control-prev" type="button"
+					data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-bs-target="#carouselExampleDark" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+		<!--책상점 블럭  -->
+		<div class=" py-3">
+			<div class="border-bottom row">
+				<h3 class=" ps-5 col">책 상점</h3>
+				<p class="col text-end">감토에서 추천하는 책들을 만나보세요</p>
+			</div>
+			<div class="row mt-5 px-4 mb-5">
+				<c:forEach var="dto" items="${b_list}" end="5">
+					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
+						<div class="ribbon">best</div>
+						<div onclick="location='b_list/view?b_code=${dto.b_code}'"
+							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
+							<div class="col-6">
+								<img src="../img/book/${dto.b_filename}"
+									class="rounded b_list-thumbnail shadow-sm" width="" />
+							</div>
+							<div class="col px-md-3 px-5 d-flex flex-column position-static">
+								<strong class="fs-7 d-inline-block mb-2 text-primary">[${dto.b_genre}]</strong>
+								<h3 class="mb-0 fs-2">${dto.b_name}</h3>
+								<div class="fs-7 ms-auto mt-2 text-muted">
+									<b>${dto.b_author}</b> 저
+								</div>
+								<div class="fs-7 ms-auto mb-auto text-muted">
+									<b>${dto.b_publisher} </b>출판
+								</div>
+
+								<div class="mb-1 text-muted text-end">
+									<B>${dto.b_price}</B> 원
+								</div>
+								<a href="#" class="btn btn-outline-primary text-center fs-6">장바구니</a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		<!-- 굿즈 블럭(임시) -->
+		<div class="py-3">
+			<div class="border-bottom row">
+				<h3 class="col ps-5">문학 굿즈</h3>
+				<p class=" col text-end">감토에서 준비한 굿즈도 확인해보세요</p>
+			</div>
+			<div class="row mt-5 px-4 mb-5">
+				<c:forEach var="dto" items="${b_list}" end="5">
+					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
+						<div class="ribbon">best</div>
+						<div onclick="location='b_list/view?b_code=${dto.b_code}'"
+							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
+							<div class="col-6">
+								<img src="../img/book/${dto.b_filename}"
+									class="rounded b_list-thumbnail shadow-sm" width="" />
+							</div>
+							<div class="col px-md-3 px-5 d-flex flex-column position-static">
+								<strong class="fs-7 d-inline-block mb-2 text-primary">[${dto.b_genre}]</strong>
+								<h3 class="mb-0 fs-2">${dto.b_name}</h3>
+								<div class="fs-7 ms-auto mt-2 text-muted">
+									<b>${dto.b_author}</b> 저
+								</div>
+								<div class="fs-7 ms-auto mb-auto text-muted">
+									<b>${dto.b_publisher} </b>출판
+								</div>
+
+								<div class="mb-1 text-muted text-end">
+									<B>${dto.b_price}</B> 원
+								</div>
+								<a href="#" class="btn btn-outline-primary text-center fs-6">장바구니</a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 	</main>
 	<script type="text/javascript">
