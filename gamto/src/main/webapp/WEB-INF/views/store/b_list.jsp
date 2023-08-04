@@ -84,7 +84,7 @@
 				<c:forEach var="dto" items="${b_list}" end="5">
 					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
 						<div class="ribbon">best</div>
-						<div onclick="location='b_list/view?b_code=${dto.b_code}'"
+						<div onclick="location='b_list/view?b_code=${dto.b_code}'; return false;" 
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
 								<img src="../img/book/${dto.b_filename}"
@@ -103,7 +103,7 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a href="#" class="btn btn-outline-primary text-center fs-6">장바구니</a>
+								<a href="/cart" class="btn btn-outline-primary text-center fs-6" onclick="event.stopPropagation()">장바구니</a>
 							</div>
 						</div>
 					</div>
@@ -118,8 +118,7 @@
 			</div>
 			<div class="row mt-5 px-4 mb-5">
 				<c:forEach var="dto" items="${b_list}" end="5">
-					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
-						<div class="ribbon">best</div>
+					<div class="col-xl-4 col-md-6 py-2 px-xl-4 px-1">
 						<div onclick="location='b_list/view?b_code=${dto.b_code}'"
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
@@ -147,9 +146,6 @@
 			</div>
 		</div>
 	</main>
-	<script type="text/javascript">
-		
-	</script>
 	<jsp:include page="../footer.jsp" />
 </body>
 </html>
