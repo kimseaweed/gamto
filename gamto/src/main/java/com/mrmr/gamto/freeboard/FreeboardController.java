@@ -1,14 +1,18 @@
 package com.mrmr.gamto.freeboard;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mrmr.gamto.freeboard.dao.IFreeboardDao;
+import com.mrmr.gamto.freeboard.dto.FreeboardDto;
+import com.mrmr.gamto.freeboard.dto.PagingVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -18,12 +22,27 @@ import jakarta.servlet.http.HttpServletRequest;
 public class FreeboardController {
 	@Autowired
 	IFreeboardDao dao;
-	
+
+	/* 페이징하는 리스트 test */
 	@RequestMapping()
-	public String userlistPage(Model model) {
-		model.addAttribute("board",dao.listDao());
+	public String boardList(@RequestParam(required=false, defaultValue="1")
+				int pageNo, Model model) {
+		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
 		
-		return "freeboard/board";
+		System.out.println("test1");
+		System.out.println(page.getStartNo());
+		System.out.println(page.getEndNo());
+		Map<String, Integer> map = new HashMap<>();
+		pageNo = (pageNo<1)? 1:pageNo;
+		
+		map.put("startNo", page.getStartNo());
+		map.put("endNo", page.getEndNo());
+		List<FreeboardDto> list = dao.getPageList(map);
+		
+		model.addAttribute("page",page);
+		model.addAttribute("board",list);
+		
+		return "/board";
 	}
 	
 	@RequestMapping("/view")

@@ -35,6 +35,17 @@
 		</c:forEach>
 	</table>
 	<p><a href="/board/writeForm">글작성</a></p>
+	<div>
+		<a href="?pageNo=1">&lt;&lt;</a>
+		<a href="?pageNo=${page.startPage-1}">&lt;</a>
+		
+		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+			<a href="?pageNo=${i}">${i}</a>
+		</c:forEach>
+		
+		<a href="?pageNo=${page.endPage+1}">&gt;</a>
+		<a href="?pageNo=${page.totalPage}">&gt;&gt;</a>
+	</div>
 </main>
 <jsp:include page="../header.jsp" />
 </body>

@@ -10,7 +10,9 @@ import com.mrmr.gamto.freeboard.dto.FreeboardDto;
 
 @Mapper
 public interface IFreeboardDao {
-	public List<FreeboardDto> listDao();
+	/* 페이징하는 부분 */
+	public int countBoard();
+	public List<FreeboardDto> getPageList(Map<String, Integer> map);
 	public FreeboardDto viewDao(String f_seq_number);
 	public int writeDao(Map<String, String> map);
 	public int deleteDao(String f_seq_number);
