@@ -42,9 +42,9 @@ Stirng userid = session.getAttribute("u_id");
 			<textarea name="r_content" class="form-control" id="summernote" required></textarea>
 			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
 			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
-				<button class="btn btn-warning me-3" onclick="location='list'; return false;">너의생각으로 이동</button>
-				<button class="btn btn-warning me-3" onclick="location='board'; return false;">우리생각으로 이동</button>
-				<button class="btn btn-primary ms-auto p-2" type="submit">작성하기</button>
+				<button class="btn btn-warning me-md-3" onclick="location='list'; return false;">너의생각으로 이동</button>
+				<button class="btn btn-warning me-md-3" onclick="location='board'; return false;">우리생각으로 이동</button>
+				<button class="btn btn-primary ms-md-auto p-2 mt-3 mt-md-0" type="submit">작성하기</button>
 			</div>
 		</form>
 	</main>
