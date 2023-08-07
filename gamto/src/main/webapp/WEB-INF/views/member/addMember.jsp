@@ -7,10 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
 <script>
 	function checkForm(){
 		if(!document.newMember.u_id.value){
@@ -26,8 +22,10 @@
 </script>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
+<main class="container bg-light p-5">
 	<div class="container mt-2">
-		<form action="member/newMember" method="post" name="newMember">
+		<form action="/member/newMember" method="post" name="newMember">
 			<div class="form-group row">
 				<label class="col-sm-2">회원 아이디</label> 
 				<input type="text" class="form-control col-sm-3" name="u_id" placeholder="id">
@@ -41,9 +39,12 @@
 				<input type="text" class="form-control col-sm-3" name="u_name" placeholder="name">
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-2">이메일</label> 
-				<input type="text" class="form-control col-sm-3 mr-3" name="u_email1" maxleng="50">@ 
-				<select name="u_email2" class="ml-3">
+				<div class="col-6">
+				<label class="">이메일</label> 
+				<input type="text" class="form-control mr-3" name="u_email1" maxlength="50">
+				<p>@</p>
+				</div>
+				<select name="u_email2" class="ml-3  col-6">
 					<option value="naver.com">naver.com</option>
 					<option value="daum.net">daum.net</option>
 					<option value="gamil.com">gamil.com</option>
@@ -67,5 +68,7 @@
 			</div>
 		</form>
 	</div><!-- container -->
+</main>
+<jsp:include page="../footer.jsp" />
 </body>
 </html>

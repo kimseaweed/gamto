@@ -17,10 +17,11 @@ import jakarta.servlet.http.HttpSession;
 public class MemberController {
 	@Autowired
 	MemberDao dao;
+	@Autowired
+	MemberService service;
 	
 	@RequestMapping()
 	public String Member() {
-		System.out.println("member요청");
 		return "member/welcome"; // 임시페이지
 	}
 	
@@ -87,10 +88,11 @@ public class MemberController {
 			request.getParameter("u_address"),
 			request.getParameter("u_delete")
 		);
+		System.out.println("newmember 요청");
 		
-		return  "redirect:/resultMember?msg="+1;
+		return  "redirect:member/resultMember?msg="+1;
 		}else {
-			return "redirect:/addFalseMember";
+			return "redirect:member/addFalseMember";
 		}
 		
 	}
