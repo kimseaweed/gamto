@@ -29,7 +29,7 @@
 					String loginId = (String)session.getAttribute("sessionId");
 					out.print("<h2 class='alert alert-danger text-center'>"+loginId+ "님 환영합니다.</h2>");
 					%>
-						<form action="member/welcome" method="post">
+						<form action="/member/welcome" method="post">
 							<input type="submit" value="홈페이지 바로가기"/>
 						</form>
 					<%
@@ -37,7 +37,7 @@
 			}else{
 				out.print("<h2 class='alert alert-danger'>회원정보가 삭제되었습니다.</h2>");
 				%>
-					<form action="member/welcome" method="post">
+					<form action="/member/welcome" method="post">
 						<input type="submit" value="홈페이지 바로가기"/>
 					</form>
 				<%

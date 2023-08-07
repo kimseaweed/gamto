@@ -3,6 +3,8 @@ package com.mrmr.gamto.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mrmr.gamto.member.dao.MemberDao;
@@ -45,12 +47,12 @@ public class MemberController {
 		
 		if(dto.getU_id() != null && dto.getU_delete().equals("0")){
 			session.setAttribute("sessionId", id);
-			return "redirect:/memeber/resultMember?msg="+2;
+			return "redirect:/member/resultMember?msg="+2;
 		}
 		else if(dto == null ) {
-			return "redirect:member/loginMemberForm?error="+1;
+			return "redirect:/member/loginMemberForm?error="+1;
 		}else {
-			return "redirect:member/addMember";
+			return "redirect:/member/addMember";
 		}
 	}
 	@RequestMapping("/resultMember")
@@ -65,15 +67,15 @@ public class MemberController {
 	@RequestMapping("/memberCheck")
 	public String userlistPage(Model model) {
 		model.addAttribute("list", dao.listDao());
-		return "memeber/memberCheck";
+		return "member/memberCheck";
 	}
 	@RequestMapping("/addFalseMember")
 	public String addFalseMember() {
-		return "memeber/addFalseMember";
+		return "member/addFalseMember";
 	}
 	
 	@RequestMapping("/newMember")
-	public String newMember(HttpServletRequest request) {
+	public String newMember(HttpServletRequest request, MemberDTO dto) {
 		if(dao.overlapDao(request.getParameter("u_id")) == null) {
 		
 		String u_email1=request.getParameter("u_email1");
@@ -88,29 +90,32 @@ public class MemberController {
 			request.getParameter("u_address"),
 			request.getParameter("u_delete")
 		);
-		System.out.println("newmember 요청");
 		
-		return  "redirect:member/resultMember?msg="+1;
+		dto.setU_email(u_email);
+		service.createMail(dto);
+		
+		return  "redirect:/member/resultMember?msg="+1;
 		}else {
-			return "redirect:member/addFalseMember";
+			return "redirect:/member/addFalseMember";
 		}
 		
 	}
 	
 	@RequestMapping("/deleteMember")
 	public String u_delete(HttpServletRequest request) {
-		return "memeber/deleteMember";
+		return "member/deleteMember";
 	}
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request) {
 		dao.deleteMemberDao(request.getParameter("u_id"));
-		return "memeber/resultMember";
+		return "member/resultMember";
 	}
 	
 	
 	@RequestMapping("/logoutMember")
 	public String logoutMember() {
-		return "memeber/logoutMember";
+		System.out.println("로그아웃 요청");
+		return "member/logoutMember";
 	}
 
 	@RequestMapping("/updateMember")
@@ -120,7 +125,7 @@ public class MemberController {
 		
 		model.addAttribute("rows",dao.readMemberDao(u_id));
 		System.out.println("model : "+model.getAttribute("rows"));
-		return "memeber/updateMember";
+		return "member/updateMember";
 	}
 	
 	@RequestMapping("/processUpdateMember")
@@ -129,6 +134,30 @@ public class MemberController {
 		dao.updateMemberDao(
 				dto
 			);
-		return "memeber/resultMember";
+		return "member/resultMember";
 	}
+	
+	//비밀번호찾기
+	@GetMapping("/reset-pw")
+	public String resetPw() {
+		return "member/resetPw";
+	}
+	
+	@PostMapping("/reset-pw/mail")
+	public String resetPwMail(MemberDTO memberdto,Model model) {
+		String inputMail=memberdto.getU_email();
+		memberdto = dao.readMemberDao(memberdto.getU_id());
+		if(memberdto.getU_id().equals("")||memberdto==null) {
+		}else {
+			if(inputMail.equals(memberdto.getU_email())){
+				
+			}else {
+				
+				service.resetPwMail(memberdto);
+			}
+			
+		}
+		return "뭘보내지";
+	}
+	
 }

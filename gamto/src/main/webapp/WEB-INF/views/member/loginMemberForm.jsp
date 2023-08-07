@@ -32,7 +32,7 @@
 						}
 					%>
 					<!-- 17-11)action,name을 수정하고 processLoginMember.jsp로 이동 -->
-					<form action="member/processLoginMember" method="post">
+					<form action="/member/processLoginMember" method="post">
 						<div class="input-group input-group-lg my-2">
 							<input required placeholder="ID" type="text" class="form-control"
 								aria-label="Sizing example input"
@@ -46,6 +46,7 @@
 						</div>
 						<button class="btn btn-success btn-block btn-lg" type="submit">로그인</button>
 					</form>
+					<a href="/member/reset-pw">비밀번호 찾기</a>
 				</div><!-- col-md-4 col-md-offset-4 -->
 			</div>
 		</div>

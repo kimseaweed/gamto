@@ -11,14 +11,14 @@
 </style>
 </head>
 <body>
-<%-- <%
+<%
 if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
     out.println("<script>alert('로그인이 필요합니다.');</script>");
-    out.println("<script>window.location.href='/login';</script>");
+    out.println("<script>window.location.href='/member';</script>");
 }
 
-Stirng userid = session.getAttribute("u_id");
-%> --%>
+String userid = (String)session.getAttribute("u_id");
+%>
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">

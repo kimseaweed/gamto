@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace속성은 이 매퍼가 어떤 인터페이스와 관련된 매퍼인지를 알려준다. -->
-<mapper namespace="com.ex.gamto.dao.ISimpleBbsDao">
-   <select id="listDao" resultType="com.ex.gamto.dto.MemberDTO">
+<mapper namespace="com.mrmr.gamto.member.dao.MemberDao">
+   <select id="listDao" resultType="com.mrmr.gamto.member.dto.MemberDTO">
       select*from member_function order by id desc
    </select>
-     <select id="loginDao" resultType="com.ex.gamto.dto.MemberDTO">
+     <select id="loginDao" resultType="com.mrmr.gamto.member.dto.MemberDTO">
         select * from member_function where u_id = #{param1} and u_pw=#{param2}
    </select>
    <insert id="addMemberDao">
@@ -15,17 +15,17 @@
    <update id="deleteMemberDao">
       update member_function set u_delete=1 where u_id=#{param1}
    </update>
-   <select id="readMemberDao" resultType="com.ex.gamto.dto.MemberDTO">
+   <select id="readMemberDao" resultType="com.mrmr.gamto.member.dto.MemberDTO">
         select * from member_function where u_id=#{param1}
    </select>
    <update id="updateMemberDao">
       <!-- update member_function set u_pw=#{dto.u_pw}, u_name=#{dto.u_name}, u_phone=#{dto.u_phone} , u_email=#{dto.u_email} , u_address=#{dto.u_address} where u_id=#{dto.u_id} -->
       update member_function set u_pw=#{dto.u_pw}, u_name=#{dto.u_name}, u_phone=#{dto.u_phone} , u_email=#{dto.u_email}, u_address=#{dto.u_address} where u_id=#{dto.u_id}
    </update>
-   <select id="overlapDao" resultType="com.ex.gamto.dto.MemberDTO">
+   <select id="overlapDao" resultType="com.mrmr.gamto.member.dto.MemberDTO">
         select u_id from member_function where u_id=#{param1}
    </select>
-   <select id="findId" resultType="com.ex.gamto.dto.MemberDTO"><!-- 아이디 찾기 -->
+   <select id="findId" resultType="com.mrmr.gamto.member.dto.MemberDTO"><!-- 아이디 찾기 -->
         select u_id from member_function where u_email=#{param1}
    </select>
 </mapper>
