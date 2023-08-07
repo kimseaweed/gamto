@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div class="container mt-2">
-		<form action="newMember" method="post" name="newMember">
+		<form action="member/newMember" method="post" name="newMember">
 			<div class="form-group row">
 				<label class="col-sm-2">회원 아이디</label> 
 				<input type="text" class="form-control col-sm-3" name="u_id" placeholder="id">

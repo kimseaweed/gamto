@@ -32,7 +32,7 @@
 						}
 					%>
 					<!-- 17-11)action,name을 수정하고 processLoginMember.jsp로 이동 -->
-					<form action="processLoginMember" method="post">
+					<form action="member/processLoginMember" method="post">
 						<div class="input-group input-group-lg my-2">
 							<input required placeholder="ID" type="text" class="form-control"
 								aria-label="Sizing example input"

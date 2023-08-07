@@ -39,7 +39,7 @@
 				<c:set var="mail1" value="${mail.split('@')[0]}"/>
 				<c:set var="mail2" value="${mail.split('@')[1]}"/> 
 				<div class="container">
-					<form action="processUpdateMember" method="post" name="newMember" onsubmit="return checkForm()">
+					<form action="member/processUpdateMember" method="post" name="newMember" onsubmit="return checkForm()">
 						<div class="form-group row ">
 							<label class="col-sm-2">아이디</label> 
 							<input type="text" class="form-control col-sm-3" name="u_id" placeholder="id" value="<c:out value='${row.u_id}'/>"/>

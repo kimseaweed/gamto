@@ -13,23 +13,20 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 	@Autowired
 	MemberDao dao;
 	
-	@RequestMapping("/")
-	public String root() {
-		return "welcome";
-	}
-	
-	@RequestMapping("/welcome")
+	@RequestMapping()
 	public String Member() {
-		return "welcome";
+		System.out.println("member요청");
+		return "member/welcome"; // 임시페이지
 	}
 	
 	@RequestMapping("/loginMemberForm")
 	public String loginMember() {
-		return "loginMemberForm";
+		return "member/loginMemberForm";
 	}
 	@RequestMapping("/processLoginMember")
 	public String processLoginMember(HttpServletRequest request, Model model) {
@@ -47,31 +44,31 @@ public class MemberController {
 		
 		if(dto.getU_id() != null && dto.getU_delete().equals("0")){
 			session.setAttribute("sessionId", id);
-			return "redirect:/resultMember?msg="+2;
+			return "redirect:/memeber/resultMember?msg="+2;
 		}
 		else if(dto == null ) {
-			return "redirect:/loginMemberForm?error="+1;
+			return "redirect:member/loginMemberForm?error="+1;
 		}else {
-			return "redirect:/addMember";
+			return "redirect:member/addMember";
 		}
 	}
 	@RequestMapping("/resultMember")
 	public String resultMemberOk(Model model) {
-		return "resultMember";
+		return "member/resultMember";
 	}
 	@RequestMapping("/addMember")
 	public String resultMemberFail(Model model) {
-		return "addMember";
+		return "member/addMember";
 	}
 	
 	@RequestMapping("/memberCheck")
 	public String userlistPage(Model model) {
 		model.addAttribute("list", dao.listDao());
-		return "memberCheck";
+		return "memeber/memberCheck";
 	}
 	@RequestMapping("/addFalseMember")
 	public String addFalseMember() {
-		return "addFalseMember";
+		return "memeber/addFalseMember";
 	}
 	
 	@RequestMapping("/newMember")
@@ -100,18 +97,18 @@ public class MemberController {
 	
 	@RequestMapping("/deleteMember")
 	public String u_delete(HttpServletRequest request) {
-		return "deleteMember";
+		return "memeber/deleteMember";
 	}
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request) {
 		dao.deleteMemberDao(request.getParameter("u_id"));
-		return "resultMember";
+		return "memeber/resultMember";
 	}
 	
 	
 	@RequestMapping("/logoutMember")
 	public String logoutMember() {
-		return "logoutMember";
+		return "memeber/logoutMember";
 	}
 
 	@RequestMapping("/updateMember")
@@ -121,7 +118,7 @@ public class MemberController {
 		
 		model.addAttribute("rows",dao.readMemberDao(u_id));
 		System.out.println("model : "+model.getAttribute("rows"));
-		return "updateMember";
+		return "memeber/updateMember";
 	}
 	
 	@RequestMapping("/processUpdateMember")
@@ -130,6 +127,6 @@ public class MemberController {
 		dao.updateMemberDao(
 				dto
 			);
-		return "resultMember";
+		return "memeber/resultMember";
 	}
 }

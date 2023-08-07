@@ -17,7 +17,7 @@
 		request.setAttribute("msg",2);
 	%>
 	test page
-	<c:redirect url="resultMember" />
+	<c:redirect url="member/resultMember" />
 	<%-- <c:redirect url="loginMember.jsp?error=1" /> --%>
 </body>
 </html>;

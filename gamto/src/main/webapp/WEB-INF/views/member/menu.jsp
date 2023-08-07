@@ -34,10 +34,10 @@
 				<c:choose>
 					<c:when test="${empty sessionId}">
 						<li class="nav-item">
-							<a class="nav-link" href="loginMemberForm">로그인</a>
+							<a class="nav-link" href="member/loginMemberForm">로그인</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="addMember">회원가입</a>
+							<a class="nav-link" href="member/addMember">회원가입</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -45,13 +45,13 @@
 							[<%=sessionId%>님 로그인중]
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="logoutMember">로그아웃</a>
+							<a class="nav-link" href="member/logoutMember">로그아웃</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="updateMember?u_id=${sessionId}">회원수정</a>
+							<a class="nav-link" href="member/updateMember?u_id=${sessionId}">회원수정</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="deleteMember">회원탈퇴</a>
+							<a class="nav-link" href="member/deleteMember">회원탈퇴</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
