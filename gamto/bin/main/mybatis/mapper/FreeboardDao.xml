@@ -68,4 +68,27 @@
 	<update id="cDeleteDao">
 		update comment_board set c_delete ='1' where c_seq_number = #{item1}
 	</update>
+	
+	<!-- 페이징 처리 후 카테고리 검색 게시글 조회 -->
+	<select id="SearchCategory"  parameterType="Map" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+   select * from (
+        	select 	rownum rn, free_board.*
+        		from(
+        			select* from free_board where f_delete = '0' order by f_seq_number DESC) free_board)
+        	WHERE RN BETWEEN #{startNo} AND #{endNo} and f_category = #{category}
+	</select>
+	
+	<!-- 페이징 처리 후 주제별 검색 게시글 조회 -->
+	<select id="SearchTotal"  parameterType="Map" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+  	select * from 
+   		(select rownum as rn, f.* 
+   			from(
+   				select * from free_board where f_delete = 0 AND
+   				
+   					<if test="item == 'f_title'">f_title like '%'||#{text}||'%'</if> 
+   					<if test="item == 'f_content'">f_content like '%'||#{text}||'%'</if> 
+   					<if test="item == 'f_writer'">f_writer like '%'||#{text}||'%'</if> 
+   				
+   					 order by f_seq_number desc) f) where rn BETWEEN #{startNo} AND #{endNo}	
+	</select>
 </mapper>

@@ -6,41 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>board.jsp</title>
+<script>
+	function checkForm(){
+	    if(!document.SearchCategory.f_category.value){
+	       alert("카테고리를 선택해주세요");
+	       return;
+	    }
+	    document.SearchCategory.submit();
+	 }
+</script>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	<main>
-		<table border="1">
-			<tr>
-			</tr>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>수정일</th>
-				<th>추천수</th>
-				<th>조회수</th>
-			</tr>
-			<c:forEach items="${board}" var="dto">
-				<tr>
-					<td>${dto.f_seq_number}</td>
-					<td><a href="view?f_seq_number=${dto.f_seq_number}">${dto.f_title}</a></td>
-					<td>${dto.f_writer}</td>
-					<td>${dto.f_regist_day}</td>
-					<td>${dto.f_update_day}</td>
-					<td>${dto.f_recommand}</td>
-					<td>${dto.f_view}</td>
-				</tr>
-			</c:forEach>
-		</table>
-
-		<p>
-			<a href="/board/writeForm">글작성</a>
-		</p>
-
-		<p>카테고리별 검색</p>
-		<form action="">
+	<main class="container">
+		<form action="board/SearchCategory" name="SearchCategory" method="post">
 			<select name="f_category">
 				<option value="">카테고리</option>
 				<option value="토론회 모집">토론회 모집</option>
@@ -48,28 +27,45 @@
 				<option value="책추천">책추천</option>
 				<option value="책교환">책교환</option>
 			</select>
+			<input type="button" value="카테고리별 검색" onclick="checkForm()"/>
 		</form>
-		<td width="100%" align="left">&nbsp;&nbsp; 
-		<select name="items"
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+					<th scope="col">추천수</th>
+					<th scope="col">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${board}" var="dto">
+					<tr>
+						<td>${dto.f_seq_number}</td>
+						<td><a href="board/view?f_seq_number=${dto.f_seq_number}">${dto.f_title}</a></td>
+						<td>${dto.f_writer}</td>
+						<td>${dto.f_regist_day}</td>
+						<td>${dto.f_recommend}</td>
+						<td>${dto.f_view}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<p>
+			<a href="/board/writeForm">글작성</a>
+		</p>
+
+		<td width="100%" align="left">&nbsp;&nbsp; <select name="items"
 			class="txt">
 				<!--검색버튼을 클릭하면 request 내장객체에 items의 값을 저장 -->
 				<option value="subject">제목에서</option>
 				<option value="content">본문에서</option>
 				<option value="name">글쓴이에서</option>
-		</select>
-			<input type="submit" class="btn btn-primary " value="검색 " />
+		</select> <input type="submit" class="btn btn-primary " value="검색 " />
 		</td>
-
-
-
-
-
-
-
-
-
-
-
 		<div>
 			<a href="?pageNo=1">&lt;&lt;</a>
 

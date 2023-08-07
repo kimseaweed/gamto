@@ -30,7 +30,6 @@ public class FreeboardController {
 		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
 		
 		Map<String, Integer> map = new HashMap<>();
-		pageNo = (pageNo<1)? 1:pageNo;
 		
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
@@ -44,11 +43,13 @@ public class FreeboardController {
 	
 	@RequestMapping("/view")
 	public String freeview(HttpServletRequest request, Model model) {
+		System.out.println("test");
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
+		System.out.println(fId);
 		
-		return "freeboard/view";
+		return "/view";
 	}
 	
 	@RequestMapping("/writeForm")
@@ -191,6 +192,49 @@ public class FreeboardController {
 		dao.cDeleteDao(cId);
 		
 		return "redirect:/viewComment?f_seq_number="+fId;
+	}
+	
+	@RequestMapping("/SearchCategory")
+	public String SearchCategory(HttpServletRequest request, @RequestParam(required=false, defaultValue="1")
+				int pageNo, Model model) {
+		
+		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
+		String fCategory = request.getParameter("f_category");
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("startNo", Integer.toString(page.getStartNo()));
+		map.put("endNo",  Integer.toString(page.getEndNo()));
+		map.put("category", fCategory);
+		List<FreeboardDto> list = dao.SearchCategory(map);
+		
+		model.addAttribute("page",page);
+		model.addAttribute("board",list);
+		
+		return "/board";
+	}
+	
+	@RequestMapping("/SearchTotal")
+	public String SearchTotal(HttpServletRequest request, @RequestParam(required=false, defaultValue="1")
+				int pageNo, Model model) {
+		
+		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
+		String item = request.getParameter("item");
+		String text = request.getParameter("text");
+
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("startNo", Integer.toString(page.getStartNo()));
+		map.put("endNo",  Integer.toString(page.getEndNo()));
+		map.put("item", item);
+		map.put("text", text);
+		
+		List<FreeboardDto> list = dao.SearchTotal(map);
+		
+		model.addAttribute("page",page);
+		model.addAttribute("board",list);
+		
+		return "/board";
 	}
 	
 	
