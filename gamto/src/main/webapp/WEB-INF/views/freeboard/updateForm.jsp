@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="../header.jsp" />
 <main>
-<form action="update" method="post">
+<form action="update" method="post" name="updateform">
 		<table border="1">
 		<input type="hidden" value="${updateForm.f_seq_number}" name="f_seq_number"/>
 			<tr>
@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-				<input type="submit" value="수정완료"/>&nbsp;&nbsp;
+				<input type="button" value="수정완료" onclick="checkForm()"/>&nbsp;&nbsp;
 				<input type="reset" value="다시작성" />
 			</tr>
 
@@ -45,5 +45,22 @@
 	</form>
 </main>
 <jsp:include page="../footer.jsp" />
+<script>
+	function checkForm(){
+	    if(!document.updateform.f_category.value){
+			   alert("카테고리를 선택해주세요");
+			   return;
+			}
+	    if(!document.updateform.f_title.value){
+	       alert("제목을 작성해 주세요");
+	       return;
+	    }
+	    if(!document.updateform.f_content.value){
+		   alert("내용을 작성해 주세요");
+		   return;
+		}
+	    document.updateform.submit();
+	 }
+</script>
 </body>
 </html>

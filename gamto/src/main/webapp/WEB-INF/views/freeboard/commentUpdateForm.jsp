@@ -8,6 +8,7 @@
 <title>댓글 수정 페이지</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
 	내용보기
 	<br>
 	<hr>
@@ -36,12 +37,13 @@
 				<td>${cDto.c_update_day}</td>
 				<td><button type="button">${cDto.c_recommend}</button></td>
 				<td><button type="button">${cDto.c_derecommend}</button></td>
-				<td><button type="submit" formaction="cUpdate">수정확인</button></td>
-				<td><button type="submit" formaction="cDelete">삭제</button></td>
+				<td><button type="submit" formaction="/board/cUpdate">수정확인</button></td>
+				<td><button type="submit" formaction="/board/cDelete">삭제</button></td>
 			</tr>
 	</table>
 	</form>
 	<br>	
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>
 

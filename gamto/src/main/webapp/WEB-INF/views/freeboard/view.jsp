@@ -7,6 +7,7 @@
 <title>회원정보 상세 페이지</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
 	내용보기 <br>
 	<hr>
 	제목 : ${dto.f_title}<br>
@@ -20,11 +21,10 @@
 	<input type="button" value="수정" class="btnUpdate">
 	<input type="button" value="삭제" class="btnDelete">	
 	<br>
-	<a href="board">목록보기</a>
+	<a href="/board">목록보기</a>
 	<br>
 	<input type="button" value="댓글 달기" class="btnComment">	
-	
-
+	<jsp:include page="../footer.jsp" />
 <script>
 	 $(document).ready(function(){ 
 		var btnDelete = $(".btnDelete");
@@ -32,7 +32,7 @@
 			if(!confirm("수정하시겠습니까?")){
 				return false;
 			}else{
-				$(location).attr('href','updateForm?f_seq_number=${dto.f_seq_number}');
+				$(location).attr('href','/board/updateForm?f_seq_number=${dto.f_seq_number}');
 			}
 		})
 		btnDelete.click(function(){
@@ -40,14 +40,14 @@
 				return false;
 			}else{
 				alert("삭제되었습니다.");
-				$(location).attr('href','delete?f_seq_number=${dto.f_seq_number}');
+				$(location).attr('href','/board/delete?f_seq_number=${dto.f_seq_number}');
 			}
 		})
 		$(".btnGood").click(function(){
-			$(location).attr('href','good?f_seq_number=${dto.f_seq_number}');
+			$(location).attr('href','/board/good?f_seq_number=${dto.f_seq_number}');
 		})
 		$(".btnComment").click(function(){
-			$(location).attr('href','viewComment?f_seq_number=${dto.f_seq_number}');
+			$(location).attr('href','/board/viewComment?f_seq_number=${dto.f_seq_number}');
 		})
 	}) 
 </script>

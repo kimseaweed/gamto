@@ -49,7 +49,7 @@ public class FreeboardController {
 		dao.updateCnt(fId);
 		System.out.println(fId);
 		
-		return "/view";
+		return "freeboard/view";
 	}
 	
 	@RequestMapping("/writeForm")
@@ -85,18 +85,21 @@ public class FreeboardController {
 	
 	@RequestMapping("/update")
 	public String update(HttpServletRequest request, Model model) {
+		System.out.println("test222");
 		String fTitle = request.getParameter("f_title");		
 		String fContent = request.getParameter("f_content");
 		String fId = request.getParameter("f_seq_number");
 		String fCategory = request.getParameter("f_category");
-		
+		System.out.println(fTitle);
+		System.out.println(fContent);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", fTitle);
 		map.put("item2", fContent);
 		map.put("item3", fCategory);
 		map.put("item4", fId);
+		dao.updateDao(map);
 
-		return "redirect:/view?f_seq_number="+fId;
+		return "redirect:/board/view?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/good")
@@ -105,7 +108,7 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		dao.goodCnt(fId);
 		 
-		return "redirect:/view?f_seq_number="+fId;
+		return "redirect:/board/view?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/delete")
@@ -139,7 +142,7 @@ public class FreeboardController {
 		map.put("item3", fContent);
 		dao.cWriteDao(map);
 		
-		return "redirect:/viewComment?f_seq_number="+fId;
+		return "redirect:/board/viewComment?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/cGoodCnt")
@@ -148,7 +151,7 @@ public class FreeboardController {
 		String cId = request.getParameter("c_seq_number");
 		dao.cGoodCnt(cId);
 		 
-		return "redirect:/viewComment?f_seq_number="+fId;	
+		return "redirect:/board/viewComment?f_seq_number="+fId;	
 	}
 	
 	@RequestMapping("/cBadCnt")
@@ -157,7 +160,7 @@ public class FreeboardController {
 		String cId = request.getParameter("c_seq_number");
 		dao.cBadCnt(cId);
 		 
-		return "redirect:/viewComment?f_seq_number="+fId;	
+		return "redirect:/board/viewComment?f_seq_number="+fId;	
 	}
 	
 	
@@ -182,7 +185,7 @@ public class FreeboardController {
 		map.put("item2", cId);
 		dao.cUpdateDao(map);
 		
-		return "redirect:/viewComment?f_seq_number="+fId;
+		return "redirect:/board/viewComment?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/cDelete")
@@ -191,7 +194,7 @@ public class FreeboardController {
 		String cId = request.getParameter("c_seq_number");
 		dao.cDeleteDao(cId);
 		
-		return "redirect:/viewComment?f_seq_number="+fId;
+		return "redirect:/board/viewComment?f_seq_number="+fId;
 	}
 	
 	@RequestMapping("/SearchCategory")
@@ -211,7 +214,7 @@ public class FreeboardController {
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
 		
-		return "/board";
+		return "freeboard/board";
 	}
 	
 	@RequestMapping("/SearchTotal")
@@ -234,7 +237,7 @@ public class FreeboardController {
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
 		
-		return "/board";
+		return "freeboard/board";
 	}
 	
 	

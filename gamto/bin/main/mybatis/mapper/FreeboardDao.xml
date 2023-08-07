@@ -17,7 +17,7 @@
 	</select>
 	<!-- 선택된 게시판의 상세 정보가 보여지는 페이지 -->
 	<select id="viewDao" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
-		select*from free_board where f_seq_number=#{0}
+		select * from free_board where f_seq_number=#{0}
 	</select>
 	<!-- 게시판 작성 -->
 	<insert id="writeDao">
@@ -25,7 +25,7 @@
 	</insert>
 	<!-- 게시판 수정 -->
 	<update id="updateDao">
-		update free_board set f_title = #{item1}, f_content = #{item2}, f_update_day = sysdate, f_view = f_view-1 where f_seq_number = #{item3}
+		update free_board set f_title = #{item1}, f_content = #{item2}, f_category = #{item3}, f_update_day = sysdate, f_view = f_view-1 where f_seq_number = #{item4}
 	</update>
 	<!-- 조회수를 카운트하는 update문 -->
 	<update id="updateCnt">
@@ -50,7 +50,7 @@
 	</insert>
 	<!-- 수정할 댓글 가져오기 -->
 	<select id="cViewDao" resultType="com.mrmr.gamto.freeboard.dto.CommentDto">
-		select*from comment_board where c_seq_number=#{0}
+		select * from comment_board where c_seq_number=#{0}
 	</select>
 	<!-- 댓글 수정 -->
 	<update id="cUpdateDao">
@@ -70,7 +70,7 @@
 	</update>
 	
 	<!-- 페이징 처리 후 카테고리 검색 게시글 조회 -->
-	<select id="SearchCategory"  parameterType="Map" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+	<select id="SearchCategory"  parameterType="Map" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
    select * from (
         	select 	rownum rn, free_board.*
         		from(
@@ -79,7 +79,7 @@
 	</select>
 	
 	<!-- 페이징 처리 후 주제별 검색 게시글 조회 -->
-	<select id="SearchTotal"  parameterType="Map" resultType="com.ex.springboot.freeboard.dto.FreeboardDto">
+	<select id="SearchTotal"  parameterType="Map" resultType="com.mrmr.gamto.freeboard.dto.FreeboardDto">
   	select * from 
    		(select rownum as rn, f.* 
    			from(
