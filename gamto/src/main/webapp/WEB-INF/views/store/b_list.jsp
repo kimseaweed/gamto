@@ -103,7 +103,7 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a href="/cart" class="btn btn-outline-primary text-center fs-6" onclick="event.stopPropagation()">장바구니</a>
+								<a href="/cart.jsp" class="btn btn-outline-primary text-center fs-6" onclick="event.stopPropagation()">장바구니</a>
 							</div>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a href="#" class="btn btn-outline-primary text-center fs-6">장바구니</a>
+								<a href="/addCart" class="btn btn-outline-primary text-center fs-6">장바구니 담기</a>
 							</div>
 						</div>
 					</div>

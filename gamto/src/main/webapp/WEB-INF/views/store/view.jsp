@@ -61,7 +61,7 @@
 						<tr class="row mt-5 mt-lg-5 mt-md-4 mb-3">
 							<td class="b_priceTot col text-end">
 								<button class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
-								<button class="btn btn-primary btn-lg">장바구니</button>
+								<button class="btn btn-primary btn-lg">장바구니 담기</button>
 							</td>
 						</tr>
 					</table>

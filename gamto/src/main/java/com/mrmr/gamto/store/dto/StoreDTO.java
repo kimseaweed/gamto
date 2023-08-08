@@ -18,4 +18,6 @@ public class StoreDTO {
 	private int b_stock; // 책 재고 
 	private String b_description; //책 설명 
 	private int b_quantity; // 책 수량 
+	private int total; //수량 * 가격 
+	private int sum; // 소계  
 }
