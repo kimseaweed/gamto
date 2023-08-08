@@ -127,9 +127,7 @@ public class MemberController {
 	public String processUpdateMember(HttpServletRequest request, MemberDTO dto) {
 		dto.setU_email(request.getParameter("mail1")+"@"+request.getParameter("mail2"));
 		System.out.println("dto값 : "+dto);
-		dao.updateMemberDao(
-				dto
-			);
+		dao.updateMemberDao(dto);
 		return "/member/resultMember";
 	}
 	
