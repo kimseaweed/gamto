@@ -17,6 +17,7 @@
 </script>
 </head>
 <body>
+	c:for
 	<jsp:include page="../header.jsp" />
 	<main class="container pt-1">
 		<form action="/board/SearchCategory" name="SearchCategory"
@@ -36,21 +37,23 @@
 					<th scope="col">카테고리</th>
 					<th scope="col">제목</th>
 					<th scope="col">작성자</th>
-					<th scope="col">작성일</th>
 					<th scope="col">추천수</th>
 					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${board}" var="dto">
+				<c:set var="day" value="${dto.f_regist_day}"/>
+				<c:set var="regist_day" value="${day.split(' ')[0]}"/>
 					<tr>
 						<td>${dto.f_seq_number}</td>
 						<td>${dto.f_category}</td>
 						<td><a href="/board/view?f_seq_number=${dto.f_seq_number}">${dto.f_title}</a></td>
 						<td>${dto.f_writer}</td>
-						<td>${dto.f_regist_day}</td>
 						<td>${dto.f_recommend}</td>
 						<td>${dto.f_view}</td>
+						<td><c:out value="${regist_day}"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -59,8 +62,7 @@
 		<p class="row">
 			<a href="board/writeForm" class="col ms-3">글작성</a>
 			<a href="/board" class="col ms-auto text-end me-5">목록보기</a> 
-		</p>
-		 <br>
+		</p> <br>
 		<form action="/board/SearchTotal" name="SearchTotal" method="post">
 			<select name="item">
 				<option value="f_title" selected>제목에서</option>
