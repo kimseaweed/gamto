@@ -21,7 +21,7 @@
 	</select>
 	<!-- 게시판 작성 -->
 	<insert id="writeDao">
-		insert into free_board values(free_board_seq.nextval,#{item1},#{item2},sysdate,sysdate,'img.png',0,0,0,#{item3})
+		insert into free_board values(free_board_seq.nextval,#{item1},#{item2},sysdate,sysdate,0,0,0,#{item3},#{item4})
 	</insert>
 	<!-- 게시판 수정 -->
 	<update id="updateDao">

@@ -67,7 +67,7 @@
 				if (!confirm("수정하시겠습니까?")) {
 					return false;
 				} else {
-					$(location).attr('href','/updateForm?f_seq_number=${dto.f_seq_number}');
+					$(location).attr('href','/board/updateForm?f_seq_number=${dto.f_seq_number}');
 					}
 				})
 				
@@ -76,12 +76,12 @@
 					return false;
 				} else {
 					alert("삭제되었습니다.");
-					$(location).attr('href','/delete?f_seq_number=${dto.f_seq_number}');
+					$(location).attr('href','/board/delete?f_seq_number=${dto.f_seq_number}');
 					}
 				})
 				
 			$(".btnGood").click(function() {
-				$(location).attr('href','/good?f_seq_number=${dto.f_seq_number}');
+				$(location).attr('href','/board/good?f_seq_number=${dto.f_seq_number}');
 				})
 			})
 	</script>

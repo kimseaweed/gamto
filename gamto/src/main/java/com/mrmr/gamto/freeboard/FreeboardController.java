@@ -47,7 +47,6 @@ public class FreeboardController {
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
-		System.out.println(fId);
 		
 		return "freeboard/view";
 	}
@@ -90,9 +89,9 @@ public class FreeboardController {
 		String fContent = request.getParameter("f_content");
 		String fId = request.getParameter("f_seq_number");
 		String fCategory = request.getParameter("f_category");
-		System.out.println(fTitle);
-		System.out.println(fContent);
+	
 		Map<String,String> map = new HashMap<String,String>();
+		
 		map.put("item1", fTitle);
 		map.put("item2", fContent);
 		map.put("item3", fCategory);
@@ -104,7 +103,6 @@ public class FreeboardController {
 	
 	@RequestMapping("/good")
 	public String goodCount(HttpServletRequest request, Model model) {
-		System.out.println("good출력");
 		String fId = request.getParameter("f_seq_number");
 		dao.goodCnt(fId);
 		 
@@ -239,6 +237,4 @@ public class FreeboardController {
 		
 		return "freeboard/board";
 	}
-	
-	
 }

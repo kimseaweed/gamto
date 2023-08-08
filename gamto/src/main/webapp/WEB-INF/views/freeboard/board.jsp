@@ -66,7 +66,7 @@
 			<input type="submit" value="검색" />
 		</form>
 		<p>
-			<a href="writeForm">글작성</a>
+			<a href="board/writeForm">글작성</a>
 		</p>
 		<div>
 			<a href="?pageNo=1">&lt;&lt;</a>
