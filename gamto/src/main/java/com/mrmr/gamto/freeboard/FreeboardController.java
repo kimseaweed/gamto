@@ -43,7 +43,6 @@ public class FreeboardController {
 	
 	@RequestMapping("/view")
 	public String freeview(HttpServletRequest request, Model model) {
-		System.out.println("test");
 		String fId = request.getParameter("f_seq_number");
 		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
@@ -84,7 +83,6 @@ public class FreeboardController {
 	
 	@RequestMapping("/update")
 	public String update(HttpServletRequest request, Model model) {
-		System.out.println("test222");
 		String fTitle = request.getParameter("f_title");		
 		String fContent = request.getParameter("f_content");
 		String fId = request.getParameter("f_seq_number");

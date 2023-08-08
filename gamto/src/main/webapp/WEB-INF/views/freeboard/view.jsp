@@ -9,24 +9,32 @@
 </head>
 <body>
 <jsp:include page="../header.jsp" />
-	내용보기 <br>
+	<main class="container pt-5">
+	<div class="row">
+	<p class="col mt-2">제목 : ${dto.f_title}</p> <p class="col ms-auto text-end me-5">작성자 : ${dto.f_writer}</p>
 	<hr>
-	제목 : ${dto.f_title}<br>
-	작성자 : ${dto.f_writer}<br>
+	</div>
+	<div style="padding-bottom:400px;" class="row">
+	<p class="col mt-2">내용 : ${dto.f_content}<br></p>
+	<p class="col ms-auto text-end me-5"> 
+	추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 : ${dto.f_view} <br>
+	</p>
+	</div>
+	<hr>
+
 	작성 날짜 : ${dto.f_regist_day} <br>
 	수정 날짜 : ${dto.f_update_day} <br>
-	추천 수 : ${dto.f_recommend} <br>
-	조회 수 : ${dto.f_view} <br>
-	내용 : ${dto.f_content}<br>
-	<input type="button" value="좋아요♡" class="btnGood"/>
 	<c:if test = "${sessionId==u_id}">
 		<input type="button" value="수정" class="btnUpdate">
 		<input type="button" value="삭제" class="btnDelete">
 	</c:if>	
+	<input type="button" value="좋아요♡" class="btnGood"/>
 	<br>
 	<a href="/board">목록보기</a>
 	<br>
 	<input type="button" value="댓글 달기" class="btnComment">	
+	
+	</main>
 	<jsp:include page="../footer.jsp" />
 <script>
 	 $(document).ready(function(){ 

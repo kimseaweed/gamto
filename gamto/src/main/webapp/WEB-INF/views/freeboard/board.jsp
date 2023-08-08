@@ -18,9 +18,9 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	<main class="container">
+	<main class="container pt-1">
 		<form action="/board/SearchCategory" name="SearchCategory"
-			method="post">
+			method="post" class="mt-5 ms-2">
 			<select name="f_category">
 				<option value="">카테고리</option>
 				<option value="토론회 모집">토론회 모집</option>
@@ -29,7 +29,7 @@
 				<option value="책교환">책교환</option>
 			</select> <input type="button" value="카테고리별 검색" onclick="checkForm()" />
 		</form>
-		<table class="table table-hover">
+		<table class="table table-hover text-center mt-3">
 			<thead>
 				<tr>
 					<th scope="col">번호</th>
@@ -55,7 +55,12 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="/board">목록보기</a> <br> <br>
+		<br>
+		<p class="row">
+			<a href="board/writeForm" class="col ms-3">글작성</a>
+			<a href="/board" class="col ms-auto text-end me-5">목록보기</a> 
+		</p>
+		 <br>
 		<form action="/board/SearchTotal" name="SearchTotal" method="post">
 			<select name="item">
 				<option value="f_title" selected>제목에서</option>
@@ -65,10 +70,7 @@
 			<input type="text" name="text" /> 
 			<input type="submit" value="검색" />
 		</form>
-		<p>
-			<a href="board/writeForm">글작성</a>
-		</p>
-		<div>
+		<div class="text-center mt-2">
 			<a href="?pageNo=1">&lt;&lt;</a>
 
 			<c:if test="${page.startNo eq 1}">
