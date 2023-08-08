@@ -34,4 +34,16 @@ public class StoreController {
 		
 		return "redirect:b_list";
 	}
+	
+	@RequestMapping("/cart") //장바구니 목록 
+	public String cart(Model model, HttpServletRequest request) {
+		model.addAttribute("cart", dao.cartDao());
+		return "store/cart";
+	}
+	
+	@RequestMapping("/addCart") // 장바구니 담기 
+	public String addCart(Model model, HttpServletRequest request) {
+		dao.addCartDao(request.getParameter("b_code"));
+		return "store/b_list";
+	}
 }
