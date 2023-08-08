@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
     
     <update id="addCartDao">
-    update  book_info set b_quantity=b_quantity+1 where b_code=#{b_code}
+    update book_info set b_quantity=b_quantity+1 where b_code=#{b_code}
     </update>	
     
     <update id="removeCartDao">

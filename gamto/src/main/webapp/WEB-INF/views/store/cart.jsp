@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,58 +19,53 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 	<jsp:include page="../header.jsp" />
 	<main>
 		<div class="container-fluid px-0">
-			<div class="jumbotron">
-				<div class="container">
-					<h1 class="display-3">장바구니</h1>
-				</div>
-				<!-- container -->
-			</div>
-			<!-- jumbotron -->
 			<div class="container">
-			 <div class="row">
-			 <talbe>
-                    <tr>
-						<th>상품</th>
-						<th>가격</th>
-						<th>수량</th>
-						<th>소계</th>
-						<th>비고</th>
-					</tr>			 
-			 </talbe>
-			 </div>
-				<div class="row">
-				
-					<c:forEach var="dto" items="${cart}">
-							<table class="table table-hover pt-6">
-					
-					${dto.total} = ${dto.b_quantity * dto.b_price};
-					${dto.sum} = ${dto.sum + dto.total};
-		
+				<h1 class="display-3">장바구니</h1>
+			</div>
+			<!-- container -->
+			<div class="container">
+				<div class="row bg-light">
+					<table class="table table-hover pt-6">
 						<tr>
-							<td>${dto.b_filename}</td>
-							<td>${dto.b_price}</td>
-							<td>${dto.b_quantity }</td>
-							<td>${dto.total}</td>
-							<!-- 15-30)제품 하나에 대한 데이터를 삭제하는 버튼 구현 -->
-							<td> <a href="./removeCart.jsp?id=${dto.b_code}" class="badge badge-danger">삭제</a> </td>
+							<th>상품</th>
+							<th>가격</th>
+							<th>수량</th>
+							<th>소계</th>
+							<th>비고</th>
 						</tr>
+						<c:forEach var="dto" items="${cart}">
 
-					<tr>
-						<th></th>
-						<th></th>
-						<th>총액</th>
-						<th>${dto.sum}</th>
-						<th></th>
-					</tr>
-				</table>
-					</c:forEach>
+
+							<tr>
+								<td><img src="../img/book/${dto.b_filename}" alt=""
+									width="100px" /></td>
+								<td>${dto.b_price}</td>
+								<td>${dto.b_quantity }</td>
+								<td>${dto.total}</td>
+								<td><a href="/removeCart" class="badge badge-danger">삭제</a>
+								</td>
+							</tr>
+
+							<tr>
+								<th></th>
+								<th></th>
+								<th>총액</th>
+								<th>${dto.sum}</th>
+								<th></th>
+							</tr>
+							</c:forEach>
+					</table>
+					
 				</div>
 				<!-- row -->
 				<div class="row">
-						<!-- 주문하기 버튼에 링크 주소 추가 -->
-							<a href="./deleteCart.jsp?cartId=<%=cartId %>" class="btn btn-danger float-left">장바구니 리스트 모두 삭제하기</a>
-							<a href="./shippingInfo.jsp?cartId=<%=cartId %>" class="btn btn-success float-right">주문하기</a>
+					<!-- 주문하기 버튼에 링크 주소 추가 -->
+					<a href="./deleteCart.jsp?cartId=<%=cartId%>"
+						class="btn btn-danger float-left">장바구니 리스트 모두 삭제하기</a> <a
+						href="./shippingInfo.jsp?cartId=<%=cartId%>"
+						class="btn btn-success float-right">주문하기</a>
 				</div>
+				<!-- row -->
 			</div>
 			<!-- container -->
 	</main>

@@ -80,11 +80,15 @@
 				<h3 class=" ps-5 col">책 상점</h3>
 				<p class="col text-end">감토에서 추천하는 책들을 만나보세요</p>
 			</div>
+			
 			<div class="row mt-5 px-4 mb-5">
 				<c:forEach var="dto" items="${b_list}" end="5">
+			
 					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
 						<div class="ribbon">best</div>
+						
 						<div onclick="location='b_list/view?b_code=${dto.b_code}'; return false;" 
+						
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
 								<img src="../img/book/${dto.b_filename}"
@@ -103,7 +107,9 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a href="/b_list/addCart?b_code=${dto.b_code}" class="btn btn-outline-primary text-center fs-6" onclick="event.stopPropagation()">장바구니</a>
+								<a src="/b_list/addCart?${dto.b_code}" class="btn btn-outline-primary text-center fs-6 addCart" onclick="event.stopPropagation();" id="${dto.b_code}">장바구니	
+								</a>
+								<span class="b_code">${dto.b_code}</span>
 							</div>
 						</div>
 					</div>
@@ -138,7 +144,9 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a href="/addCart" class="btn btn-outline-primary text-center fs-6">장바구니 담기</a>
+								<%-- <button type="button" class="btn btn-outline-primary text-center fs-6" id="addCart">장바구니 담기
+								</button>
+								<input type="hidden" value="${dto.g_code}" class="g_code"/> --%>
 							</div>
 						</div>
 					</div>
@@ -147,5 +155,31 @@
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+			var linkElements = document.querySelectorAll('a.addCart'); // 모든 a 태그 선택
+
+			linkElements.forEach(function(link) {
+			  link.addEventListener('click', function(event) {
+			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
+
+			    alert('장바구니 담기 성공: ');
+				 $.ajax({
+					  url:"/b_list/addCart",
+		               dataType:'json',
+		               type:"post",
+					data: {'b_code': linkId},
+					success: function(result){
+						console.log("success");
+					},
+					error:function(result){  
+			           console.log("fail");
+					}
+				}) 
+			  });
+			});
+				
+	</script>
 </body>
 </html>

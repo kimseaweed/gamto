@@ -1,11 +1,16 @@
 package com.mrmr.gamto.store;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.store.dao.StoreDAO;
+import com.mrmr.gamto.store.dto.StoreDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -41,9 +46,18 @@ public class StoreController {
 		return "store/cart";
 	}
 	
-	@RequestMapping("/addCart") // 장바구니 담기 
-	public String addCart(Model model, HttpServletRequest request) {
-		dao.addCartDao(request.getParameter("b_code"));
-		return "store/b_list";
+	@PostMapping("/addCart") // 장바구니 담기 
+	@ResponseBody
+	public String addCart(Model model, HttpServletRequest request, String b_code) {
+		System.out.println("코드 이름: "+b_code);
+		int result = dao.addCartDao(b_code);
+		System.out.println("result:"+result);
+		return Integer.toString(result);
+	}
+	
+	@RequestMapping("/removeCart") //장바구니 목록 삭제  
+	public String removeCart(Model model, HttpServletRequest request) {
+		dao.removeCartDao(request.getParameter("b_quantity"));
+		return "store/cart";
 	}
 }

@@ -20,7 +20,7 @@
 			<div class="container">
 				<h1 class="display-3">배송 정보</h1>
 			</div><!-- container -->
-		</div><!-- jumbotron -->
+		</div>
 		<div class="container">
 		<!-- 14-2) form 양식 입력 -->
 		<form action="./processShippingInfo.jsp" method="post">
