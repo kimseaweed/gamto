@@ -20,10 +20,10 @@
 			</tr>
 			<select name="f_category" value="${updateForm.f_category}">				
 				<option value="">카테고리</option>
-				<option value="mozip">토론회 모집</option>
-				<option value="toron">토론</option>
-				<option value="recomend">책추천</option>
-				<option value="change">책교환</option>
+				<option value="토론회 모집">토론회 모집</option>
+				<option value="토론">토론</option>
+				<option value="책추천">책추천</option>
+				<option value="책교환">책교환</option>
 			</select>
 			<tr>
 				<td>제목</td>

@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 상세 페이지</title>
+<%
+	String c_writer = (String)session.getAttribute("sessionId");
+%>
 <script>
 	function checkForm(){
 	    if(!document.comment.c_content.value){
@@ -52,7 +55,7 @@
 	<br>
 	<form action="/board/insertCommend?f_seq_number=${dto.f_seq_number}" method="post" name="comment">
 			댓글 : <input type="text" name="c_content" /> <br>
-			작성자 : 로그인한 세션 아이디를 담은 c_writer; <br>
+			작성자 : <%=c_writer%> <br>
 			<!-- <input type="submit" value="댓글 등록" class=""/> -->
 			<button type="button" onclick="checkForm()">댓글 등록</button>
 		<br> 
@@ -85,5 +88,11 @@
 				})
 			})
 	</script>
+<%
+		if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
+    		out.println("<script>alert('로그인이 필요합니다.');</script>");
+    		out.println("<script>window.location.href='/login';</script>");
+		}
+%>
 </body>
 </html>

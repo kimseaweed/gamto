@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,10 @@
 	조회 수 : ${dto.f_view} <br>
 	내용 : ${dto.f_content}<br>
 	<input type="button" value="좋아요♡" class="btnGood"/>
-	<input type="button" value="수정" class="btnUpdate">
-	<input type="button" value="삭제" class="btnDelete">	
+	<c:if test = "${sessionId==u_id}">
+		<input type="button" value="수정" class="btnUpdate">
+		<input type="button" value="삭제" class="btnDelete">
+	</c:if>	
 	<br>
 	<a href="/board">목록보기</a>
 	<br>

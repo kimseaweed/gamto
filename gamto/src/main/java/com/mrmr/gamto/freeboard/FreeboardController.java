@@ -128,10 +128,10 @@ public class FreeboardController {
 	@RequestMapping("/insertCommend")
 	public String insertCommend(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");
+		String fName = request.getParameter("f_writer");	
 		model.addAttribute("dto",dao.viewDao(fId));
-		model.addAttribute("cDto",dao.cListDao(fId));
-		
-		String fName = "세션에 저장된 작성자";		
+		model.addAttribute("cDto",dao.cListDao(fId));		
+			
 		String fContent = request.getParameter("c_content");
 		
 		Map<String,String> map = new HashMap<String,String>();

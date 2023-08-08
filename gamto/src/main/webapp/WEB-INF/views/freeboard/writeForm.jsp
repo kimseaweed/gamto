@@ -5,12 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>writeForm</title>
+<%
+	String f_writer = (String)session.getAttribute("sessionId");
+%>
 <script>
 	function checkForm(){
-	    if(!document.newWrite.f_writer.value){
-	       alert("작성자는 세션 아이디");
-	       return;
-	    }
 	    if(!document.newWrite.f_category.value){
 			   alert("카테고리를 선택해주세요");
 			   return;
@@ -34,7 +33,7 @@
 		<form name="newWrite" action="write" method="post">
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="f_writer" size="100"/></td>
+				<td><%=f_writer%></td>
 			</tr>
 			<select name="f_category">				
 				<option value="">카테고리</option>
@@ -61,11 +60,11 @@
 	</table>
 </main>
 <jsp:include page="../footer.jsp" />
-	<%-- <%
+<%
 		if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
     		out.println("<script>alert('로그인이 필요합니다.');</script>");
     		out.println("<script>window.location.href='/login';</script>");
 		}
-%> --%>
+%>
 </body>
 </html>

@@ -55,7 +55,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="board">목록보기</a> <br> <br>
+		<a href="/board">목록보기</a> <br> <br>
 		<form action="/board/SearchTotal" name="SearchTotal" method="post">
 			<select name="item">
 				<option value="f_title" selected>제목에서</option>
