@@ -1,5 +1,6 @@
 package com.mrmr.gamto.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class MemberService {
 	private final JavaMailSender javaMailSender;
 	private static final String sencderEmail = "gamt5476@gmail.com";
 	private static int number;
-	private MemberDao dao;
+	@Autowired
+	public MemberDao dao;
 
 	// 랜덤숫자 5자리 생성
 	private static void createNumber() {
@@ -38,13 +40,11 @@ public class MemberService {
 
 	public int resetPwMail(String id,String email) {
 		MemberDTO  memberdto = dao.readMemberDao(id);
-		System.out.println("dao 작동 확인 : "+memberdto.getU_email());
-		if(memberdto.getU_id()==null) {
+		if(memberdto==null) {
 			return 2;
 		}else if(!memberdto.getU_email().equals(email)){
 			return 1;
 		}else {
-			System.out.println("인증메일을 전송합니다");
 			createNumber();
 			MimeMessage message = javaMailSender.createMimeMessage();
 			try {
