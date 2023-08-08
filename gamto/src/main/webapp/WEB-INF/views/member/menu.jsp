@@ -22,7 +22,7 @@
 				<ul class="navbar-nav mr-auto">
 					<a class="navbar-brand">관리자 모드</a>	
 					<li class="nav-item">
-						<a class="nav-link text-white" href="memberList">회원 목록</a>
+						<a class="nav-link text-white" href="member/memberCheck">회원 목록</a>
 					</li>
 				</ul>
 			</nav>
@@ -34,10 +34,10 @@
 				<c:choose>
 					<c:when test="${empty sessionId}">
 						<li class="nav-item">
-							<a class="nav-link" href="/member/loginMemberForm">로그인</a>
+							<a class="nav-link" href="member/loginMemberForm">로그인</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/member/addMember">회원가입</a>
+							<a class="nav-link" href="member/addMember">회원가입</a>
 						</li>
 					</c:when>
 					<c:otherwise>

@@ -14,7 +14,7 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	$(function(){
-		alert("중복된 아이디입니다.");
+		alert("중복된 아이디이거나 중복된 이메일입니다.");
 	})
 	function checkForm(){
 		if(!document.newMember.u_id.value){
@@ -31,7 +31,7 @@
 </head>
 <body>
 	<div class="container mt-2">
-		<form action="member/newMember" method="post" name="newMember">
+		<form action="newMember" method="post" name="newMember">
 			<div class="form-group row">
 				<label class="col-sm-2">회원 아이디</label> 
 				<input type="text" class="form-control col-sm-3" name="u_id" placeholder="id">

@@ -15,7 +15,8 @@ public interface MemberDao {
 	public int addMemberDao(String u_id, String u_pw, String u_name, String u_phone, String u_email, String u_address, String u_delete);
 	public int deleteMemberDao(String u_id);
 	public MemberDTO readMemberDao(String u_id);
-	//public int updateMemberDao(String u_pw, String u_name, String u_phone, String u_email, String u_address, String u_delete, String u_id);
 	public int updateMemberDao(@Param("dto") MemberDTO dto);
-	public MemberDTO overlapDao(String u_id);
+	public MemberDTO overlapIdDao(String u_id);
+	public MemberDTO overlapMailDao(String u_id);
+	public MemberDTO findIdDao(String u_email);
 }

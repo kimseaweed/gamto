@@ -46,7 +46,9 @@
 						</div>
 						<button class="btn btn-success btn-block btn-lg" type="submit">로그인</button>
 					</form>
+					<a href="emailCAuthentication">아이디 찾기</a>
 					<a href="/member/reset-pw">비밀번호 찾기</a>
+					<a href="addMember">회원가입</a>
 				</div><!-- col-md-4 col-md-offset-4 -->
 			</div>
 		</div>
