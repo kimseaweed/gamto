@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.member.dao.MemberDao;
 import com.mrmr.gamto.member.dto.MemberDTO;
@@ -131,33 +133,22 @@ public class MemberController {
 	@RequestMapping("/processUpdateMember")
 	public String processUpdateMember(HttpServletRequest request, MemberDTO dto) {
 		dto.setU_email(request.getParameter("mail1")+"@"+request.getParameter("mail2"));
-		dao.updateMemberDao(
-				dto
-			);
+		dao.updateMemberDao(dto);
 		return "member/resultMember";
 	}
 	
-	//비밀번호찾기
+	//비밀번호찾기 : 페이지이동
 	@GetMapping("/reset-pw")
-	public String resetPw() {
+	public String resetPwPage() {
 		return "member/resetPw";
 	}
-	
-	@PostMapping("/reset-pw/mail")
-	public String resetPwMail(MemberDTO memberdto,Model model) {
-		String inputMail=memberdto.getU_email();
-		memberdto = dao.readMemberDao(memberdto.getU_id());
-		if(memberdto.getU_id().equals("")||memberdto==null) {
-		}else {
-			if(inputMail.equals(memberdto.getU_email())){
-				
-			}else {
-				
-				service.resetPwMail(memberdto);
-			}
-			
-		}
-		return "뭘보내지";
+	//비밀번호찾기 : 아이디,메일확인
+	@PostMapping("mail")
+	@ResponseBody
+	public int resetPw(String id, String email) {
+		System.out.println("ajax 수신 확인 : "+id+","+email);
+		return service.resetPwMail(id,email);
 	}
+
 	
 }
