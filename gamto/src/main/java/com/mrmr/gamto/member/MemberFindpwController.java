@@ -62,7 +62,7 @@ public class MemberFindpwController {
 			}else if(result==0){
 				mv.addObject("message","<script>alert('기존비번과 동일한 비밀번호입니다. 다른비밀번호를 입력핸주세요'); history.back();</script>");
 			}else {
-				mv.addObject("message","비밀번호 변경이 실패했습니다. 다시 인증해주세요. "); //시스템오류
+				mv.addObject("message","비밀번호 변경이 실패했습니다. 다시 인증해주세요."); //시스템오류
 			}
 			return mv;
 	}

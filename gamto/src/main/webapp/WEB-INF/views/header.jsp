@@ -51,10 +51,22 @@
 					class="me-4 link-dark" data-bs-placement="bottom"
 					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="상점 "><i
 						class="bi bi-cart3"></i></a></li>
-				<li class="nav-item"><a href="/member/login" class="me-4 link-dark"
-					data-bs-placement="bottom" data-bs-html="true"
-					data-bs-toggle="tooltip" data-bs-title="로그인 "><i
-						class="bi bi-person"></i></a></li>
+				<li class="nav-item dropdown">
+				  <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				    <i class="bi bi-person"></i>
+				  </a>
+				
+				  <ul class="dropdown-menu">
+				  <% if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null){ %>
+				    <li><a class="dropdown-item" href="/member/loginMemberForm">로그인</a></li>
+				    <li><a class="dropdown-item" href="/member/">회원가입</a></li>
+				   <% } else { %>
+				   	<li><a class="dropdown-item" href="/member/">로그아웃</a></li>
+				    <li><a class="dropdown-item" href="/member/">회원수정</a></li>
+				   <% } %>
+				  </ul>
+				</li>
+						
 			</ul>
 		</nav>
 	</header>

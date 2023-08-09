@@ -27,18 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 	@Autowired
 	public MemberDao dao;
-
-	private final JavaMailSender javaMailSender;
-	private static final String SENDER = "gamt5476@gmail.com";
-	private static int number;
 	
-
-	// 랜덤숫자 5자리 생성
-	private static void createNumber() {
-		number = (int) (Math.random() * (90000)) + 10000;
-		// 0이상 90000미만의 랜덤수를 생성하여 1000을 더한다
-		// 즉 10000이상 99999이하의 숫자가 생성된다
-	}
 	/** 테스트*/
 	/*
 	 * public void createMail(MemberDTO memberdto) { SimpleMailMessage message = new
@@ -48,8 +37,16 @@ public class MemberService {
 	 * 
 	 * javaMailSender.send(message); }
 	 */
-	
+	// 랜덤숫자 5자리 생성
+	private static int number;
+	private static void createNumber() {
+			number = (int) (Math.random() * (90000)) + 10000;
+			// 0이상 90000미만의 랜덤수를 생성하여 1000을 더한다
+			// 즉 10000이상 99999이하의 숫자가 생성된다
+		}
 	// 인증메일 발송
+	private final JavaMailSender javaMailSender;
+	private static final String SENDER = "gamt5476@gmail.com";
 	public int sendMail(String id,String email) {
 		MemberDTO  memberdto = dao.readMemberDao(id);
 		if(memberdto==null) {
@@ -71,11 +68,11 @@ public class MemberService {
 				e.printStackTrace();
 			}
 			javaMailSender.send(message);
-			
 			return number;
 		}
 	}
 	
+	//정보확인후 일치하면 인증메일 발송
 	public int matchingInfo(String u_id, String u_email) {
 		MemberDTO  memberdto = dao.readMemberDao(u_id);
 		if(memberdto==null) {
@@ -88,6 +85,7 @@ public class MemberService {
 		}
 		
 	}
+	//인증메일 발송 (matchingInfo() 에서 사용)
 	private void sendPwResetMail(MemberDTO  memberdto) {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		try {
@@ -106,7 +104,7 @@ public class MemberService {
 		javaMailSender.send(message);
 		
 	}
-	//JWT시크릿키
+	//JWT시크릿키 (sendPwResetMail()에서 사용)
 	private static final String SECRET_KEY = "SecretkeywhattodowithcharacterlimitannoyingHowtofill256bits";
 	//토큰 생성
 	private String createToken(String u_id) {
@@ -137,7 +135,7 @@ public class MemberService {
 				.getBody();
 		return claims.getSubject();
 	}
-	
+	//이전비번을 로드 및 비교하여 같으면 변경하지 않는다
 	public int resetPw(String u_id,String u_pw) {
 		String u_pwBefore = dao.ResetPwCheck(u_id);
 		if(u_pwBefore.equals("")||u_pwBefore==null) {
