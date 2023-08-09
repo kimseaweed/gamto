@@ -2,6 +2,8 @@ package com.mrmr.gamto.member;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -48,7 +50,7 @@ public class MemberService {
 	 */
 	
 	// 인증메일 발송
-	public int resetPwMail(String id,String email) {
+	public int sendMail(String id,String email) {
 		MemberDTO  memberdto = dao.readMemberDao(id);
 		if(memberdto==null) {
 			return 2;
@@ -73,30 +75,60 @@ public class MemberService {
 			return number;
 		}
 	}
-	//JWT시크릿키
-	private static final String SECRET_KEY = "ggaammttoo";
-	//토큰생성
-	public String createToken(String subject, long expTime) {
-		if(expTime<=0) {
-			throw new RuntimeException("만료시간이 0보다 커야함");
+	
+	public int matchingInfo(String u_id, String u_email) {
+		MemberDTO  memberdto = dao.readMemberDao(u_id);
+		if(memberdto==null) {
+			return 2; //아이디에 맞는 레코드가 존재하지 않음
+		}else if(!memberdto.getU_email().equals(u_email)){
+			return 1; //아이디에 맞는 레코드에 등록된 이메일과 일치하지 않음
+		}else {
+			sendPwResetMail(memberdto);
+			return 0; //아이디일치, 메일 일치하여 인증메일 발송될수 있도록 진행함
 		}
-		// 서명알고리즘. 원하는걸로 고르면 됨.
-		SignatureAlgorithm algorithm = SignatureAlgorithm.ES512;
+		
+	}
+	private void sendPwResetMail(MemberDTO  memberdto) {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		try {
+			message.setFrom(SENDER);
+			message.setRecipients(MimeMessage.RecipientType.TO, memberdto.getU_email());
+			message.setSubject("[감토] 비밀번호 재설정 인증메일");
+			String body = "<p><b>" + memberdto.getU_name() + "</b>님의 비밀번호를 재설정 하기 위한 인증 메일을 보내드립니다. </p>"
+					+ "<div style=\"border:1px solid gray; padding: 10px 20px;\"><h1><a href=\"http://localhost:8089/member/reset-pw/token?t="
+					+ createToken(memberdto.getU_id()) 
+					+ "\"> 메일 인증하기</a></h1></div>"
+					+ "<p>링크를 클릭하시면 비밀전호 재설정을 진행합니다. <br> 해당 메일은 10분 후 만료됩니다.</p>";
+			message.setText(body, "utf-8", "html");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		javaMailSender.send(message);
+		
+	}
+	//JWT시크릿키
+	private static final String SECRET_KEY = "SecretkeywhattodowithcharacterlimitannoyingHowtofill256bits";
+	//토큰 생성
+	private String createToken(String u_id) {
+		// 서명알고리즘. H로 시작하는걸로(HMAC hash알고리즘) 해야한다.
+		SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
 		//시크릿키를 64진법으로 변환한다.
 		byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
 		// java Security. 변환된 시크릿키와 알고리즘을 넣어 키를 생성한다.
 		Key signingKey = new SecretKeySpec(secretKeyBytes, algorithm.getJcaName());
+		// 만료시간. 밀리초*60초*몇분인지.
+		long expTime = 1000*60*10;
 		
 		return Jwts.builder() //JWT생성 빌더
-				.setSubject(subject) //주로 아이디로 설정
-				.signWith(signingKey, algorithm) //
+				.setSubject(u_id)
+				.signWith(signingKey, algorithm) //이 알고리즘으로 서명한다
 				.setExpiration( //만료시간 설정
 						new Date(System.currentTimeMillis()+expTime)) //현재시간에 만료시간을 더한다.
 				//헤더정보,발급자,대상자 등 더 많은 정보와 검증과정을 만들수있다.
 				.compact(); // 위 내용을 종합하여 JWT생성하여 리턴
 	}
 	//토큰 복호화
-	public String getSubject(String token) {
+	public String getClaim(String token) {
 		//클레임이란 JWT의 Payload(내용) 부분의 한 조각을 뜻한다. 여러클레임이 들어있을수도 있다.
 		Claims claims =  Jwts.parserBuilder() //복호화빌더
 				.setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
@@ -104,7 +136,16 @@ public class MemberService {
 				.parseClaimsJws(token)
 				.getBody();
 		return claims.getSubject();
-		 
-
+	}
+	
+	public int resetPw(String u_id,String u_pw) {
+		String u_pwBefore = dao.ResetPwCheck(u_id);
+		if(u_pwBefore.equals("")||u_pwBefore==null) {
+			return -1; //값이없음
+		}else if(u_pwBefore.equals(u_pw)) {
+			return 0; //이전비번과 같음
+		}else {
+			return dao.ResetPwDo(u_id, u_pw); //성공함
+		}
 	}
 }

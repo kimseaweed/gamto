@@ -30,4 +30,10 @@
 	<select id="findIdDao" resultType="com.mrmr.gamto.member.dto.MemberDTO"><!-- 아이디 찾기 -->
         select u_id from member_function where u_email=#{param1}
 	</select>
+	<select id="ResetPwCheck" resultType="String"><!-- 비번찾기 : 기존비번 확인 -->
+        select u_pw from member_function where u_id=#{param1}
+	</select>
+	<update id="ResetPwDo"><!-- 비번찾기 : 변경해주기 확인 -->
+		update member_function set u_pw=#{param2} where u_id=#{param1}
+	</update>
 </mapper>

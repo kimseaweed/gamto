@@ -19,4 +19,6 @@ public interface MemberDao {
 	public MemberDTO overlapIdDao(String u_id);
 	public MemberDTO overlapMailDao(String u_id);
 	public MemberDTO findIdDao(String u_email);
+	public String ResetPwCheck(String u_id);
+	public int ResetPwDo(@Param("u_id") String u_id,@Param("u_pw")String u_pw);
 }
