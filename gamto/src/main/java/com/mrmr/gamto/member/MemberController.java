@@ -48,7 +48,7 @@ public class MemberController {
 			String id = u_id;
 			System.out.println("dto.getU_delete() : "+dto.getU_delete());
 			HttpSession session = request.getSession();
-			session.setAttribute("sessionId", id);
+			session.setAttribute("u_id", id);
 			return "redirect:/member/resultMember?msg="+2;
 		}else {
 			return "/member/addMember";
@@ -133,8 +133,8 @@ public class MemberController {
 	
 	@RequestMapping("/emailCAuthentication")//아이디 찾기 0807
 	public String emailCAuthentication(HttpServletRequest request) {
-		String sessionId = request.getParameter("sessionId");
-		System.out.println(sessionId);
+		String u_id = request.getParameter("u_id");
+		System.out.println(u_id);
 		return "/member/findId";
 	}
 	

@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-	String sessionId = (String)session.getAttribute("sessionId");
+	String u_id = (String)session.getAttribute("u_id");
 %>
 <jsp:include page="header.jsp"/>
 <main>
