@@ -51,7 +51,6 @@ public class StoreController {
 	public String addCart(Model model, HttpServletRequest request, String b_code) {
 		System.out.println("코드 이름: "+b_code);
 		int result = dao.addCartDao(b_code);
-		System.out.println("result:"+result);
 		return Integer.toString(result);
 	}
 	
@@ -60,4 +59,5 @@ public class StoreController {
 		dao.removeCartDao(request.getParameter("b_quantity"));
 		return "store/cart";
 	}
+	
 }

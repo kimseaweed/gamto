@@ -34,5 +34,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="removeCartDao">
      update  book_info set b_quantity=0 where b_code=#{b_code}
     </update>
- 
 </mapper>

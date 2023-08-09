@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,16 @@
 <%
 String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서 cartId로 사용함.
 %>
+<style>
+.custom-h1 {
+	display: inline;
+}
+
+.custom-line {
+	
+}
+
+</style>
 <meta charset="UTF-8">
 <title>감토 | 장바구니</title>
 </head>
@@ -20,50 +31,119 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 	<main>
 		<div class="container-fluid px-0">
 			<div class="container">
-				<h1 class="display-3">장바구니</h1>
-			</div>
-			<!-- container -->
-			<div class="container">
 				<div class="row bg-light">
-					<table class="table table-hover pt-6">
-						<tr>
-							<th>상품</th>
-							<th>가격</th>
-							<th>수량</th>
-							<th>소계</th>
-							<th>비고</th>
-						</tr>
-						<c:forEach var="dto" items="${cart}">
+					<section class="h-100 h-custom">
+						<div class="container h-100 py-5">
+							<div
+								class="row d-flex justify-content-center align-items-center h-100">
+								<div class="col">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col" class="h5">Shopping Bag</th>
+													<th scope="col">Quantity</th>
+													<th scope="col">Price</th>
+													<th scope="col">합계</th>
+													<th scope="col"> 
+													<a href="./deleteCart.jsp?cartId=<%=cartId%>" class="custom-line my-auto">모두 비우기</a>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="dto" items="${cart}" varStatus="status">
+												<c:set var="sum" value="${sum +(dto.b_price * dto.b_quantity)}"></c:set>
+										        <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.b_price}" var="price"/>
+										        <fmt:formatNumber type="number" value="${dto.b_quantity}" var="quantity"/>
+											    <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.b_price * dto.b_quantity}" var="total"/>
+													<tr>
+														<th scope="row">
+															<div class="d-flex align-items-center">
+																<img src="../img/book/${dto.b_filename}"
+																	class="img-fluid rounded-3" style="width: 120px;"
+																	alt="Book">
+																<div class="flex-column ms-4">
+																	<p class="mb-2">${dto.b_name}</p>
+																	<p class="mb-0">${dto.b_author}</p>
+																</div>
+															</div>
+														</th>
+														<td class="align-middle">
+															<div class="d-flex flex-row">
+																<button class="btn btn-link px-2"
+																	onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+																	<i class="fas fa-minus"></i>
+																</button>
 
+																<input id="form1" min="0" name="quantity" value="2"
+																	type="number" class="form-control form-control-sm"
+																	style="width: 50px;" />
 
-							<tr>
-								<td><img src="../img/book/${dto.b_filename}" alt=""
-									width="100px" /></td>
-								<td>${dto.b_price}</td>
-								<td>${dto.b_quantity }</td>
-								<td>${dto.total}</td>
-								<td><a href="/removeCart" class="badge badge-danger">삭제</a>
-								</td>
-							</tr>
+																<button class="btn btn-link px-2"
+																	onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+																	<i class="fas fa-plus"></i>
+																</button>
+															</div>
+														</td>
+														<td class="align-middle">
+															<p class="mb-0" style="font-weight: 500;">${price}원</p>
+														</td>
+														
+														<td class="align-middle">
+															<p class="mb-0" style="font-weight: 500;">${total}원</p>
+														</td>
+														<td class="align-middle">
+														<a href="./removeCart.jsp?id=" class="">X</a>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
 
-							<tr>
-								<th></th>
-								<th></th>
-								<th>총액</th>
-								<th>${dto.sum}</th>
-								<th></th>
-							</tr>
-							</c:forEach>
-					</table>
-					
-				</div>
-				<!-- row -->
-				<div class="row">
-					<!-- 주문하기 버튼에 링크 주소 추가 -->
-					<a href="./deleteCart.jsp?cartId=<%=cartId%>"
-						class="btn btn-danger float-left">장바구니 리스트 모두 삭제하기</a> <a
-						href="./shippingInfo.jsp?cartId=<%=cartId%>"
-						class="btn btn-success float-right">주문하기</a>
+									<div class="card shadow-2-strong mb-5 mb-lg-0"
+										style="border-radius: 16px;">
+										<div class="card-body p-4">
+											<div class="row">
+
+												<div class="col-lg-4 col-xl-3">
+													<div class="d-flex justify-content-between"
+														style="font-weight: 500;">
+														<p class="mb-2">총합 금액</p>
+														<p class="mb-2">${sum}</p>
+													</div>
+
+													<div class="d-flex justify-content-between"
+														style="font-weight: 500;">
+														<p class="mb-0">배송비</p>
+														<p class="mb-0">3000원</p>
+													</div>
+
+													<hr class="my-4">
+
+													<div class="d-flex justify-content-between mb-4"
+														style="font-weight: 500;">
+														<p class="mb-2">결제 금액</p>
+														<p class="mb-2">${sum+3000}원 </p>
+													</div>
+
+													<button type="button"
+														class="btn btn-primary btn-block btn-lg">
+														<div class="d-flex justify-content-between">
+															<span>결제하기</span> <span>${sum+3000}원</span>
+														</div>
+													</button>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
 				<!-- row -->
 			</div>
