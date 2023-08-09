@@ -109,7 +109,6 @@
 								</div>
 								<a src="/b_list/addCart?${dto.b_code}" class="btn btn-outline-primary text-center fs-6 addCart" onclick="event.stopPropagation();" id="${dto.b_code}">장바구니	
 								</a>
-								<span class="b_code">${dto.b_code}</span>
 							</div>
 						</div>
 					</div>

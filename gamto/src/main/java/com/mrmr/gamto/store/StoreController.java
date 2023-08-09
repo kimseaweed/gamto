@@ -35,7 +35,7 @@ public class StoreController {
 	
 	@RequestMapping("/delete")
 	public String delete(Model model, HttpServletRequest request) {
-		dao.deleteDao(request.getParameter("id"));
+		dao.deleteDao(request.getParameter(""));
 		
 		return "redirect:b_list";
 	}
@@ -49,15 +49,21 @@ public class StoreController {
 	@PostMapping("/addCart") // 장바구니 담기 
 	@ResponseBody
 	public String addCart(Model model, HttpServletRequest request, String b_code) {
-		System.out.println("코드 이름: "+b_code);
 		int result = dao.addCartDao(b_code);
 		return Integer.toString(result);
 	}
 	
 	@RequestMapping("/removeCart") //장바구니 목록 삭제  
 	public String removeCart(Model model, HttpServletRequest request) {
-		dao.removeCartDao(request.getParameter("b_quantity"));
+		dao.removeCartDao(request.getParameter("b_code"));
+		return "redirect:/b_list/cart";
+	}
+	
+	@RequestMapping("/removeAllCart") //장바구니 목록 전체 삭제 
+	public String removeAllCartDao(Model model, HttpServletRequest request) {
+		dao.removeAllCartDao();
 		return "store/cart";
 	}
+	
 	
 }

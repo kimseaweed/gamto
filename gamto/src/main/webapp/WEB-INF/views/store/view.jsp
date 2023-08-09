@@ -61,7 +61,7 @@
 						<tr class="row mt-5 mt-lg-5 mt-md-4 mb-3">
 							<td class="b_priceTot col text-end">
 								<button class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
-								<button class="btn btn-primary btn-lg">장바구니 담기</button>
+								<a class="btn btn-primary btn-lg addCart" id="${dto.b_code}">장바구니 담기</a>
 							</td>
 						</tr>
 					</table>
@@ -143,6 +143,32 @@
 			document.buyForm.b_quantity.value = parseInt(document.buyForm.b_quantity.value) - 1;
 			getPrice();
 		}
+	</script>
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+			var linkElements = document.querySelectorAll('a.addCart'); // 모든 a 태그 선택
+
+			linkElements.forEach(function(link) {
+			  link.addEventListener('click', function(event) {
+			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
+
+			    alert('장바구니 담기 성공: ');
+				 $.ajax({
+					  url:"/b_list/addCart",
+		               dataType:'json',
+		               type:"post",
+					data: {'b_code': linkId},
+					success: function(result){
+						console.log("success");
+					},
+					error:function(result){  
+			           console.log("fail");
+					}
+				}) 
+			  });
+			});
+				
 	</script>
 	<jsp:include page="../footer.jsp" />
 </body>

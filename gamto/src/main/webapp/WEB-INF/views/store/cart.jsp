@@ -46,7 +46,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 													<th scope="col">Price</th>
 													<th scope="col">합계</th>
 													<th scope="col"> 
-													<a href="./deleteCart.jsp?cartId=<%=cartId%>" class="custom-line my-auto">모두 비우기</a>
+													<a href="/b_list/removeAllCart" class="custom-line my-auto">모두 비우기</a>
 													</th>
 												</tr>
 											</thead>
@@ -92,8 +92,8 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 														<td class="align-middle">
 															<p class="mb-0" style="font-weight: 500;">${total}원</p>
 														</td>
-														<td class="align-middle">
-														<a href="./removeCart.jsp?id=" class="">X</a>
+														<td class="align-middle ps-5">
+														<a href="/b_list/removeCart?b_code=${dto.b_code}">X</a>
 														</td>
 													</tr>
 												</c:forEach>
