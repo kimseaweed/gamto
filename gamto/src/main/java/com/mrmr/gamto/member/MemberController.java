@@ -29,7 +29,7 @@ public class MemberController {
 		return "redirect:/"; // 임시페이지
 	}
 	
-	@RequestMapping("/loginMemberForm")
+	@RequestMapping("/login")
 	public String loginMember() {
 		return "/member/loginMemberForm";
 	}

@@ -51,7 +51,7 @@
 					class="me-4 link-dark" data-bs-placement="bottom"
 					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="상점 "><i
 						class="bi bi-cart3"></i></a></li>
-				<li class="nav-item"><a href="/member/loginMemberForm" class="me-4 link-dark"
+				<li class="nav-item"><a href="/member/login" class="me-4 link-dark"
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="로그인 "><i
 						class="bi bi-person"></i></a></li>
