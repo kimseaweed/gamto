@@ -13,11 +13,12 @@ import com.mrmr.gamto.report.dao.IBook_reportDAO;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/list")
 public class reportController {
 	@Autowired
 	IBook_reportDAO dao;
 	
-	@RequestMapping("/list")
+	@RequestMapping()
 	public String userlistPage(Model model) {
 		model.addAttribute("list", dao.listDao());
 		return "list";

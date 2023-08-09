@@ -7,9 +7,6 @@
 <title>감토 | 신개념 독서토론</title>
 </head>
 <body>
-<%
-	String u_id = (String)session.getAttribute("u_id");
-%>
 <jsp:include page="header.jsp"/>
 <main>
 <h1 class="text-center mx-10 my-5">웰컴페이지를 준비중입니다</h1>

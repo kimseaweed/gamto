@@ -3,6 +3,8 @@ package com.mrmr.gamto.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mrmr.gamto.member.dao.MemberDao;
@@ -19,24 +21,23 @@ public class MemberController {
 	MemberDao dao;
 	
 	@RequestMapping()
-	public String Member() {
-		System.out.println("member요청");
-		return "/member/welcome"; // 임시페이지
+	public String Member(HttpSession session) {
+		//여기에 마이페이지 이동 + 로그인 안한경우 로그인창 연결 해주세요
+		String u_id = (String)session.getAttribute("name");
+		if(u_id==null) {
+		return "member/login";
+		}
+		return "member/마이페이지파일명 넣어주세요";
 	}
-	@RequestMapping("/index")
-	public String index() {
-		System.out.println("member요청");
-		return "redirect:/"; // 임시페이지
+
+	@RequestMapping("/login")
+	public String needLoginMember(String connect,Model model) {
+		model.addAttribute("connect",connect);
+		return "member/loginMemberForm";
 	}
 	
-	@RequestMapping("/login")
-	public String loginMember() {
-		return "/member/loginMemberForm";
-	}
 	@RequestMapping("/processLoginMember")
-	public String processLoginMember(HttpServletRequest request, Model model) {
-		String u_id = request.getParameter("u_id");
-		String u_pw = request.getParameter("u_pw");
+	public String processLoginMember(HttpSession session,String u_id, String u_pw, Model model,String connect) {
 		System.out.println("test1-----------------"+u_id+","+u_pw);
 		MemberDTO dto = dao.loginDao(u_id, u_pw);
 		System.out.println("dto값 : "+dto);
@@ -45,15 +46,15 @@ public class MemberController {
 			return "redirect:/member/loginMemberForm?error="+1;
 		}
 		if(dto != null && dto.getU_delete().equals("0")){
-			String id = u_id;
 			System.out.println("dto.getU_delete() : "+dto.getU_delete());
-			HttpSession session = request.getSession();
-			session.setAttribute("u_id", id);
+			session.setAttribute("u_id", u_id);
+			if(!connect.equals("")) {
+				return "redirect:"+connect;
+			}
 			return "redirect:/member/resultMember?msg="+2;
 		}else {
 			return "/member/addMember";
 		}
-	
 	}
 	@RequestMapping("/resultMember")
 	public String resultMemberOk(Model model) {
@@ -110,7 +111,7 @@ public class MemberController {
 	
 	@RequestMapping("/logoutMember")
 	public String logoutMember() {
-		return "/member/logoutMember";
+		return "member/logoutMember";
 	}
 
 	@RequestMapping("/updateMember")

@@ -11,6 +11,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script
@@ -24,7 +25,7 @@
 	<!-- 당근커서. 데스크탑용  -->
 	<div class="carrot d-none d-lg-block"></div>
 	<!-- 데스크탑헤더 : lg 이상 환경 : 992px이상 -->
-	<header class="d-none d-lg-block position-fixed top-0 d-flex justify-content-between">
+	<header class="d-none d-lg-block position-fixed top-0 d-flex justify-content-between px-3">
 	<nav class="flex-wrap justify-content-between pt-3 pb-2 d-flex">
 			<div class="logobox pb-2">
 				<a href="/" class="text-decoration-none d-flex align-items-end">
@@ -48,21 +49,29 @@
 					data-bs-toggle="tooltip"
 					data-bs-title="| 게시판 |<br>감토님들과 생각을 <br>나눠보세요">우리 생각</a></li>
 				<li class="nav-item ms-5"><a href="/b_list"
-					class="me-4 link-dark" data-bs-placement="bottom"
-					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="상점 "><i
-						class="bi bi-cart3"></i></a></li>
-				<li class="nav-item dropdown">
-				  <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				    <i class="bi bi-person"></i>
-				  </a>
-				
-				  <ul class="dropdown-menu">
+					class="me-5 link-dark" data-bs-placement="bottom"
+					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="상점 ">
+					<span class="material-symbols-outlined fs-1">local_mall</span></a></li>
+				<li class="nav-item"><a href="/b_list/cart"
+					class="me-2 link-dark" data-bs-placement="bottom"
+					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="장바구니">
+					<span class="material-symbols-outlined fs-1">shopping_cart</span></a></li>
 				  <% if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null){ %>
-				    <li><a class="dropdown-item" href="/member/loginMemberForm">로그인</a></li>
-				    <li><a class="dropdown-item" href="/member/">회원가입</a></li>
+				  <li class="nav-item dropdown link-dark">
+				  <a class="dropdown-toggle" href="/member/login" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  <span class="material-symbols-outlined fs-1">input</span>
+				  </a>
+				  <ul class="dropdown-menu">
+				    <li><a class="dropdown-item" href="/member/login">로그인</a></li>
+				    <li><a class="dropdown-item" href="/member/addmember">회원가입</a></li>
 				   <% } else { %>
-				   	<li><a class="dropdown-item" href="/member/">로그아웃</a></li>
-				    <li><a class="dropdown-item" href="/member/">회원수정</a></li>
+				   <li class="nav-item dropdown link-dark">
+				  <a class="dropdown-toggle" href="/member" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				   <span class="material-symbols-outlined fs-1">account_circle</span>
+				  </a>
+				  <ul class="dropdown-menu">
+				   	<li><a class="dropdown-item" href="/member/logoutMember">로그아웃</a></li>
+				    <li><a class="dropdown-item" href="/member/updateMember">회원수정</a></li>
 				   <% } %>
 				  </ul>
 				</li>
@@ -100,23 +109,34 @@
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/board"><i class="bi bi-blockquote-left me-3"></i>너의 생각</a></li>
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/list"><i class="bi bi-blockquote-left me-3"></i>우리 생각</a></li>
 							<hr/>
-							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/b_list"><i
-						class="bi bi-cart3 me-3"></i>상점</a></li>
-							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/member"><i
-						class="bi bi-person me-3"></i>나의 공간</a></li>
+							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/b_list">
+							<span class="material-symbols-outlined fs-1 align-middle me-3">local_mall</span>상점</a></li>
+							<li class="nav-item"><a class="nav-link fs-2 fw-bold" href="/b_list/cart">
+							<span class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span>장바구니</a></li>
+							<% if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null){ %>
+							  <li class="nav-item dropdown fs-2 fw-bold">
+					            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					             <span class="material-symbols-outlined fs-1 align-middle me-3">input</span>로그인</a>
+					            </a>
+							 	<ul class="dropdown-menu">
+				              	<li><a class="dropdown-item fw-bold fs-3 fw-bold" href="/member/login">로그인</a></li>
+				              	<li><a class="dropdown-item fw-bold fs-3 fw-bold" href="/member/addmember">회원가입</a></li>
+				            	</ul>
+							</li>
+							<% } else { %>
+							<li class="nav-item dropdown fs-1 fw-bold">
+					            <a class="nav-link dropdown-toggle fs-2 fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					             <span class="material-symbols-outlined fs-1 align-middle me-3">account_circle</span>나의 공간</a>
+					            </a>
+								 <ul class="dropdown-menu">
+					              <li><a class="dropdown-item fs-3 fw-bold" href="/member/logoutMember">로그아웃</a></li>
+					              <li><hr class="dropdown-divider"></li>
+					              <li><a class="dropdown-item fs-3 fw-bold" href="/member/logoutMember">나의공간</a></li>
+					              <li><a class="dropdown-item fs-3 fw-bold" href="/member/updateMember">회원수정</a></li>
+					            </ul>
+							</li>
+							<% } %>
 							<hr/>
-					<!-- 		<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle" href="#" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li>
-										<hr class="dropdown-divider">
-									</li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul></li> -->
 						</ul>
 						<form class="d-flex mt-3" role="search">
 							<input class="form-control me-2" type="search"

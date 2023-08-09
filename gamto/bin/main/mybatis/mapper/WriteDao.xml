@@ -5,6 +5,6 @@
 <mapper namespace="com.mrmr.gamto.write.IWriteDAO">
 	<insert id="writeBook_report">
 		insert into book_report values(book_report_seq.nextval,
-		#{dto.r_filename},#{dto.r_title},#{dto.r_title},#{dto.r_content},sysdate,sysdate,0,0,0)
+		#{dto.r_filename},#{dto.r_title},#{dto.r_writer},#{dto.r_content},sysdate,sysdate,0,0,0)
 	</insert>
 </mapper>	

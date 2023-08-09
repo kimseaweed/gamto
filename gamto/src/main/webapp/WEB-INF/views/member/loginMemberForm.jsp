@@ -33,6 +33,7 @@
 					%>
 					<!-- 17-11)action,name을 수정하고 processLoginMember.jsp로 이동 -->
 					<form action="/member/processLoginMember" method="post">
+						<input type="hidden" name=connect value="${connect}">
 						<div class="input-group input-group-lg my-2">
 							<input required placeholder="ID" type="text" class="form-control"
 								aria-label="Sizing example input"
@@ -47,7 +48,7 @@
 						<button class="btn btn-success btn-block btn-lg" type="submit">로그인</button>
 					</form>
 					<a href="emailCAuthentication">아이디 찾기</a>
-					<a href="/member/reset-pw">비밀번호 찾기</a>
+					<a href="reset-pw">비밀번호 찾기</a>
 					<a href="addMember">회원가입</a>
 				</div><!-- col-md-4 col-md-offset-4 -->
 			</div>

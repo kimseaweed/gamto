@@ -11,20 +11,12 @@
 </style>
 </head>
 <body>
-<%
-if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
-    out.println("<script>alert('로그인이 필요합니다.');</script>");
-    out.println("<script>window.location.href='/member';</script>");
-}
-
-String userid = (String)session.getAttribute("u_id");
-%>
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
 		<form id="writeForm" action="/write/writeBook_report" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" 
 			enctype="multipart/form-data" novalidate>
-			<input type="hidden" name="r_writer" value="" />
+			<input type="hidden" name="r_writer" value="${u_id}" />
 			<div class="mb-5">
 				<h3>나의생각 | 독후감 작성하기</h3>
 			</div>
@@ -53,8 +45,6 @@ String userid = (String)session.getAttribute("u_id");
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 		$('#summernote').summernote({
 			placeholder : '감토님의 생각을 표현해보세요.',

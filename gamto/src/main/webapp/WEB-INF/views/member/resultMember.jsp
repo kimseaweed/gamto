@@ -26,10 +26,10 @@
 				if(msg.equals("0")) out.print("<h2 class='alert alert-danger text-center'>회원정보가 수정되었습니다.</h2>");
 				else if(msg.equals("1")) out.print("<h2 class='alert alert-danger text-center'>회원가입을 축하드립니다. 다시 로그인해주세요</h2>");
 				else if(msg.equals("2")) {
-					String loginId = (String)session.getAttribute("sessionId");
+					String loginId = (String)session.getAttribute("u_id");
 					out.print("<h2 class='alert alert-danger text-center'>"+loginId+ "님 환영합니다.</h2>");
 					%>
-						<form action="index" method="post">
+						<form action="/" method="get">
 							<input type="submit" value="홈페이지 바로가기"/>
 						</form>
 					<%

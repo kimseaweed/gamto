@@ -5,11 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
 <%
 String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서 cartId로 사용함.
 %>
@@ -128,7 +123,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 													</div>
 
 													<button type="button"
-														class="btn btn-primary btn-block btn-lg">
+														class="btn btn-primary btn-block btn-lg col-12">
 														<div class="d-flex justify-content-between">
 															<span>결제하기</span> <span>${sum+3000}원</span>
 														</div>
