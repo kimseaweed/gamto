@@ -263,4 +263,47 @@ header span.badge{
 	top: 10%;
 	transform: translateX(-50%);
 }
+.find-id.form-v4-content .form-left {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+ .form-left {
+background: linear-gradient(344deg, rgba(238,204,164,0.8141631652661064) 16%, rgba(248,233,188,1) 97%);
+}
+.reset-pw.form-v4-content .form-left {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+.form-v4-content  {
+	width: 850px;
+	border-radius: 10px;
+}
+.form-v4-content .form-detail {
+	position: relative;
+	width: 100%;
+}
+.form-v4-content .btn-warning{
+	background-color: #F5CB9E;
+}
+.form-v4-content .btn-warning:hover{
+	background-color: #F9E0C4;
+	border-color: #F5CB9E;
+}
+@media screen and (max-width: 991px) {
+	.form-v4-content {
+		margin: 120px 20px;
+		flex-direction:  column;
+		width:80%;
+	}
+	.form-v4-content .form-left {
+		border-top-right-radius: 10px;
+		border-bottom-left-radius: 0;
+	}
+	.form-v4-content .form-detail {
+		padding: 30px 20px 30px 20px;
+	    width: auto;
+	}
+}
+
+
 

@@ -19,7 +19,12 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 <link rel="stylesheet" href="/css/gamto.css" />
+
 </head>
 <body>
 	<!-- 당근커서. 데스크탑용  -->
