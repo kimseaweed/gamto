@@ -40,7 +40,7 @@ public class MemberController {
 		System.out.println("dto값 : "+dto);
 		
 		if(dto == null ) {
-			return "redirect:/member/loginMemberForm?error="+1;
+			return "redirect:/member/login?error="+1;
 		}
 		if(dto != null && dto.getU_delete().equals("0")){
 			System.out.println("dto.getU_delete() : "+dto.getU_delete());
