@@ -36,11 +36,9 @@
 	<br>
 	</div>
 	<div class="pb-2">
-		<a href="/board" class="pb-5">목록보기</a>
+		<a href="/list" class="pb-5">목록보기</a>
 	</div>
-	<br>
-	<input type="button" value="댓글 달기" class="btnComment">	
-	
+	<br>	
 	</main>
 	<jsp:include page="../footer.jsp" />
 <script>
@@ -64,9 +62,6 @@
 		$(".btnGood").click(function(){
 			$(location).attr('href','/list/good?r_seq_number=${dto.r_seq_number}');
 			
-		})
-		$(".btnComment").click(function(){
-			$(location).attr('href','/list/viewComment?r_seq_number=${dto.r_seq_number}');
 		})
 	}) 
 </script>

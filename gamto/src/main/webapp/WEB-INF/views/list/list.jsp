@@ -6,18 +6,38 @@
 <head>
 <meta charset="UTF-8">
 <title>list.jsp</title>
+<script>
+	.center{
+		
+	}
+</script>
 </head>
 <body>
-	<table border="1" width="500">
+<jsp:include page="../header.jsp" />
+	<main class="container">
+		<div class="mb-5">
+				<h3>너의생각 | 독후감 목록</h3>
+			</div>
+<form action="/list/SearchTotal" name="SearchTotal" method="post">
+			<select name="item">
+				<option value="r_title" selected>제목에서</option>
+				<option value="r_content">본문에서</option>
+				<option value="r_writer">글쓴이에서</option>
+			</select> 
+			<input type="text" name="text" /> 
+			<input type="submit" value="검색" />
+		</form>
+		<br />
+	<table class="row">
 		<tr>
-			<td>번호</td>
-			<td>이미지</td>
-			<td>제목</td>
-			<td>작성자</td>
-			<td>작성일</td>
-			<td>수정일</td>
-			<td>조회</td>
-			<td>추천</td>
+			<td class="col col-lg-1">번호</td>
+			<td class="col col-lg-1">이미지</td>
+			<td class="col col-lg-3">제목</td>
+			<td class="col col-lg-1">작성자</td>
+			<td class="col col-lg-2">작성일</td>
+			<td class="col col-lg-2">수정일</td>
+			<td class="col col-lg-1">조회</td>
+			<td class="col col-lg-1">추천</td>
 		</tr>
 		<c:forEach items="${list}" var="dto">
 			<tr>
@@ -25,7 +45,7 @@
 				<td>
 					<img src="../img/book/${dto.r_filename}" width="100" height="141">
 				</td>
-				<td><a href="view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
+				<td><a href="list/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
 				<td>${dto.r_writer}</td>
 				<td>${dto.r_regist_day}</td>
 				<td>${dto.r_update_day}</td>
@@ -39,15 +59,6 @@
 			<a href="list/writeForm" class="col ms-3">글작성</a>
 			<a href="/list" class="col ms-auto text-end me-5">목록보기</a> 
 		</p> <br>
-		<form action="/list/SearchTotal" name="SearchTotal" method="post">
-			<select name="item">
-				<option value="r_title" selected>제목에서</option>
-				<option value="r_content">본문에서</option>
-				<option value="r_writer">글쓴이에서</option>
-			</select> 
-			<input type="text" name="text" /> 
-			<input type="submit" value="검색" />
-		</form>
 		<div class="text-center mt-2">
 			<a href="?pageNo=1">&lt;&lt;</a>
 
@@ -65,7 +76,7 @@
 			<a href="?pageNo=${page.pageNo+1}">&gt;</a> <a
 				href="?pageNo=${page.totalPage}">&gt;&gt;</a>
 		</div>
-	
-	<p><a href="writeForm">글작성</a></p>
+	</main>
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>
