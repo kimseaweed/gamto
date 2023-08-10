@@ -1,10 +1,7 @@
 package com.mrmr.gamto.member;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mrmr.gamto.member.dao.MemberDao;
@@ -61,7 +58,7 @@ public class MemberController {
 		return "/member/resultMember";
 	}
 	@RequestMapping("/addMember")
-	public String resultMemberFail(Model model) {
+	public String resultMemberFail() {
 		return "/member/addMember";
 	}
 	
@@ -75,27 +72,32 @@ public class MemberController {
 		return "/member/addFalseMember";
 	}
 	
+	/*
+	 * @RequestMapping("/newMember") public String newMember(HttpServletRequest
+	 * request,MemberDTO dto) {
+	 * 
+	 * if(dao.overlapIdDao(request.getParameter("u_id")) == null &&
+	 * dao.overlapMailDao(request.getParameter("u_email"))==null) { String
+	 * u_email1=request.getParameter("u_email1"); String
+	 * u_email2=request.getParameter("u_email2"); String
+	 * u_email=u_email1+"@"+u_email2; dao.addMemberDao(
+	 * request.getParameter("u_id"), request.getParameter("u_pw"),
+	 * request.getParameter("u_name"), request.getParameter("u_phone"), u_email,
+	 * request.getParameter("u_address"), request.getParameter("u_delete") ); return
+	 * "redirect:/resultMember?msg="+1; }else {  }
+	 * 
+	 * }
+	 */
 	@RequestMapping("/newMember")
-	public String newMember(HttpServletRequest request) {
-		
-		if(dao.overlapIdDao(request.getParameter("u_id")) == null && dao.overlapMailDao(request.getParameter("u_email"))==null) {
-				String u_email1=request.getParameter("u_email1");
-				String u_email2=request.getParameter("u_email2");
-				String u_email=u_email1+"@"+u_email2;
-			dao.addMemberDao(
-				request.getParameter("u_id"),
-				request.getParameter("u_pw"),
-				request.getParameter("u_name"),
-				request.getParameter("u_phone"),
-				u_email,
-				request.getParameter("u_address"),
-				request.getParameter("u_delete")
-			);
-			return  "redirect:/resultMember?msg="+1;
+	public String newMember(MemberDTO dto,String u_email1,String u_email2) {
+		dto.setU_email(u_email1+"@"+u_email2);
+		if(dao.overlapIdDao(dto.getU_id()) == null &&dao.overlapMailDao(dto.getU_email())==null){
+			dao.addMemberDao(dto.getU_id(), dto.getU_pw(), dto.getU_name(), dto.getU_phone(), dto.getU_email(), dto.getU_address(), "0");
+			return "redirect:/member/resultMember?msg="+1;
 		}else {
-			return "redirect:/addFalseMember";
+			System.out.println("확인");
+			return "member/addFalseMember";
 		}
-		
 	}
 	
 	@RequestMapping("/deleteMember")

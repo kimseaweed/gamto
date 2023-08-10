@@ -139,6 +139,11 @@ header > nav >ul>li>a{
 header{
 	width: 100%;
 }
+header span.badge{
+	font-size: 15px;
+	top: -12px;
+	z-index: 99999;
+}
 /*헤더 데탑 */
 @media (min-width: 992px) {
 	header{

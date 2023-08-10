@@ -48,35 +48,43 @@
 					data-bs-placement="left" data-bs-html="true"
 					data-bs-toggle="tooltip"
 					data-bs-title="| 게시판 |<br>감토님들과 생각을 <br>나눠보세요">우리 생각</a></li>
-				<li class="nav-item ms-5"><a href="/b_list"
-					class="me-5 link-dark" data-bs-placement="bottom"
+				<li class="nav-item ms-5 pb-1"><a href="/b_list"
+					class="link-dark" data-bs-placement="bottom"
 					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="상점 ">
 					<span class="material-symbols-outlined fs-1">local_mall</span></a></li>
 				<li class="nav-item"><a href="/b_list/cart"
-					class="me-2 link-dark" data-bs-placement="bottom"
+					class="ms-1 me-5 link-dark  position-relative" data-bs-placement="bottom"
 					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="장바구니">
-					<span class="material-symbols-outlined fs-1">shopping_cart</span></a></li>
+					<span class="material-symbols-outlined fs-1">shopping_cart
+ 					</span>
+ 					<% if(session.getAttribute("u_id")!=null){ %>
+						<span class="badge position-absolute start-100 translate-middle badge rounded-pill bg-danger">99</span>
+ 					<% } %>
+ 				</a>
+ 			</li>
 				  <% if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null){ %>
-				  <li class="nav-item dropdown link-dark">
-				  <a class="dropdown-toggle" href="/member/login" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  <li class="nav-item dropdown">
+				  <a class="dropdown-toggle link-dark" href="/member/login" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				  <span class="material-symbols-outlined fs-1">input</span>
 				  </a>
 				  <ul class="dropdown-menu">
 				    <li><a class="dropdown-item" href="/member/login">로그인</a></li>
-				    <li><a class="dropdown-item" href="/member/addmember">회원가입</a></li>
+				    <li><a class="dropdown-item" href="/member/addMember">회원가입</a></li>
+				    	   </ul>
+					</li>
 				   <% } else { %>
-				   <li class="nav-item dropdown link-dark">
-				  <a class="dropdown-toggle" href="/member" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				   <span class="material-symbols-outlined fs-1">account_circle</span>
-				  </a>
-				  <ul class="dropdown-menu">
-				   	<li><a class="dropdown-item" href="/member/logoutMember">로그아웃</a></li>
-				    <li><a class="dropdown-item" href="/member/updateMember">회원수정</a></li>
+				   <li class="nav-item dropdown">
+					  <a class="dropdown-toggle link-dark" href="/member" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					   <span class="material-symbols-outlined fs-1">account_circle</span>
+					  </a>
+					  <ul class="dropdown-menu">
+					   	<li><a class="dropdown-item" href="/member/logoutMember">로그아웃</a></li>
+					    <li><a class="dropdown-item" href="/member/updateMember">회원수정</a></li>
+					   </ul>
+					</li>
 				   <% } %>
+				   
 				  </ul>
-				</li>
-						
-			</ul>
 		</nav>
 	</header>
 	<!-- 랩탑,태블릿,모바일 헤더 : md 이상 환경 : 991px이하 -->
@@ -117,17 +125,15 @@
 							  <li class="nav-item dropdown fs-2 fw-bold">
 					            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					             <span class="material-symbols-outlined fs-1 align-middle me-3">input</span>로그인</a>
-					            </a>
 							 	<ul class="dropdown-menu">
 				              	<li><a class="dropdown-item fw-bold fs-3 fw-bold" href="/member/login">로그인</a></li>
-				              	<li><a class="dropdown-item fw-bold fs-3 fw-bold" href="/member/addmember">회원가입</a></li>
+				              	<li><a class="dropdown-item fw-bold fs-3 fw-bold" href="/member/addMember">회원가입</a></li>
 				            	</ul>
 							</li>
 							<% } else { %>
 							<li class="nav-item dropdown fs-1 fw-bold">
 					            <a class="nav-link dropdown-toggle fs-2 fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					             <span class="material-symbols-outlined fs-1 align-middle me-3">account_circle</span>나의 공간</a>
-					            </a>
 								 <ul class="dropdown-menu">
 					              <li><a class="dropdown-item fs-3 fw-bold" href="/member/logoutMember">로그아웃</a></li>
 					              <li><hr class="dropdown-divider"></li>

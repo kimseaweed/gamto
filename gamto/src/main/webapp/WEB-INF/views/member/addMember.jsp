@@ -59,7 +59,7 @@
 					class="form-control col-sm-3" name="u_address" placeholder="address">
 			</div>
 			<div class="form-group row">
-			<input type="hidden" value="0"name="u_delete"">
+			<input type="hidden" value="0"name="u_delete">
 			</div>
 			<div class="form-group row">
 				<input class="btn btn-success mx-2" type="button" onclick="checkForm()" value="회원가입" /> 
