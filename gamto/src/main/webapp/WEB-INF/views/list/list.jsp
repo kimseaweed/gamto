@@ -18,7 +18,6 @@
 			<td>수정일</td>
 			<td>조회</td>
 			<td>추천</td>
-			<!-- <td>삭제</td> -->
 		</tr>
 		<c:forEach items="${list}" var="dto">
 			<tr>
