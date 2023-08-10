@@ -58,7 +58,7 @@
 					<span class="material-symbols-outlined fs-1">shopping_cart
  					</span>
  					<% if(session.getAttribute("u_id")!=null){ %>
-						<span class="badge position-absolute start-100 translate-middle badge rounded-pill bg-danger">99</span>
+						<span class="badge position-absolute start-100 translate-middle badge rounded-pill bg-danger"></span>
  					<% } %>
  				</a>
  			</li>

@@ -47,19 +47,19 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 											</thead>
 											<tbody>
 												<c:forEach var="dto" items="${cart}" varStatus="status">
-												<c:set var="sum" value="${sum +(dto.b_price * dto.b_quantity)}"></c:set>
-										        <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.b_price}" var="price"/>
-										        <fmt:formatNumber type="number" value="${dto.b_quantity}" var="quantity"/>
-											    <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.b_price * dto.b_quantity}" var="total"/>
+												<c:set var="sum" value="${sum +(dto.cart_price * dto.cart_quantity)}"></c:set>
+										        <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.cart_price}" var="price"/>
+										        <fmt:formatNumber type="number" value="${dto.cart_quantity}" var="quantity"/>
+											    <fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.cart_price * dto.cart_quantity}" var="total"/>
 													<tr>
 														<th scope="row">
 															<div class="d-flex align-items-center">
-																<img src="../img/book/${dto.b_filename}"
+																<img src="../img/book/${dto.cart_filename}"
 																	class="img-fluid rounded-3" style="width: 120px;"
 																	alt="Book">
 																<div class="flex-column ms-4">
-																	<p class="mb-2">${dto.b_name}</p>
-																	<p class="mb-0">${dto.b_author}</p>
+																	<p class="mb-2">${dto.cart_name}</p>
+																	<p class="mb-0">${dto.cart_author}</p>
 																</div>
 															</div>
 														</th>
@@ -88,7 +88,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 															<p class="mb-0" style="font-weight: 500;">${total}원</p>
 														</td>
 														<td class="align-middle ps-5">
-														<a href="/b_list/removeCart?b_code=${dto.b_code}">X</a>
+														<a href="/b_list/removeCart?b_code=${dto.cart_code}">X</a>
 														</td>
 													</tr>
 												</c:forEach>

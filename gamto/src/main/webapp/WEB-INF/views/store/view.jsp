@@ -152,15 +152,18 @@
 			linkElements.forEach(function(link) {
 			  link.addEventListener('click', function(event) {
 			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
-
-			    alert('장바구니 담기 성공: ');
 				 $.ajax({
 					  url:"/b_list/addCart",
 		               dataType:'json',
 		               type:"post",
 					data: {'b_code': linkId},
 					success: function(result){
-						console.log("success");
+						if(result == -1){
+							alert("로그인 하세요 ");
+							location = '/member/login';
+						} else {
+							alert("상품이 제대로 담겼다 이 자식아 ");
+						}
 					},
 					error:function(result){  
 			           console.log("fail");

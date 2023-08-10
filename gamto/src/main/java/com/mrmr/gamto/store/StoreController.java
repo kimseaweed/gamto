@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.store.dao.StoreDAO;
-import com.mrmr.gamto.store.dto.StoreDTO;
+import com.mrmr.gamto.store.dto.CartDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/b_list")
@@ -41,16 +42,32 @@ public class StoreController {
 	}
 	
 	@RequestMapping("/cart") //장바구니 목록 
-	public String cart(Model model, HttpServletRequest request) {
-		model.addAttribute("cart", dao.cartDao());
-		return "store/cart";
+	public String cart(Model model, HttpServletRequest request, HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		System.out.println();	
+		if(getId == null) {
+			System.out.println("실패했어  다시 해 ");
+			return "/member/login";
+		} else {
+			List<CartDTO> dto = dao.cartDao(getId);
+            System.out.println(dto.get(1).toString());
+			model.addAttribute("cart", dto);
+			return "store/cart";
+		}
+		
 	}
 	
 	@PostMapping("/addCart") // 장바구니 담기 
 	@ResponseBody
-	public String addCart(Model model, HttpServletRequest request, String b_code) {
-		int result = dao.addCartDao(b_code);
-		return Integer.toString(result);
+	public int addCart(Model model, HttpServletRequest request, HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		if(getId == null) {
+			System.out.println("실패했어  다시 해 ");
+			return -1;
+		} else {
+			int result = dao.addCartDao(getId);
+			return result;
+		}
 	}
 	
 	@RequestMapping("/removeCart") //장바구니 목록 삭제  
@@ -65,5 +82,16 @@ public class StoreController {
 		return "store/cart";
 	}
 	
-	
+	@RequestMapping("/header")
+	@ResponseBody
+	public int listNum(HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		if(getId == null) {
+			System.out.println("실패했어  다시 해 ");
+			return 0;
+		} else {
+			int result = dao.listNumDao(getId);
+			return result;
+		}
+	}
 }

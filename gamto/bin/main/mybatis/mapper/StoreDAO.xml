@@ -22,20 +22,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<!-- 장바구니 -->
-	<select id="cartDao"
-		resultType="com.mrmr.gamto.store.dto.StoreDTO">
-		select * from book_info where b_quantity>0
+	<select id="cartDao" resultType="com.mrmr.gamto.store.dto.CartDTO">
+	select cart.cart_code as cart_code, book_info.b_name as cart_name, book_info.b_filename as cart_filename, book_info.b_price as cart_price, book_info.b_author as cart_author, cart.cart_quantity as cart_quantity FROM cart join book_info on cart.cart_code = book_info.b_code where cart.cart_id = 'qwer1234'
 	</select>
-    
-    <update id="addCartDao">
-    update book_info set b_quantity=b_quantity+1 where b_code=#{b_code}
-    </update>	
-    
-    <update id="removeCartDao">
-     update  book_info set b_quantity=0 where b_code=#{b_code}
-    </update>
-    
-    <update id="removeAllCartDao">
-    update book_info set b_quantity=0
-    </update>
+
+	<update id="addCartDao">
+		MERGE INTO cart USING (SELECT b_code, b_name,
+		b_filename, b_price FROM book_info WHERE b_code = #{b_code}) bi ON
+		(cart.cart_code = bi.b_code)
+		WHEN MATCHED THEN
+		UPDATE SET
+		cart.cart_quantity = cart.cart_quantity+1
+		WHEN NOT MATCHED THEN
+		INSERT
+		(cart.cart_seq_number, cart.cart_id, cart.cart_code,
+		cart.cart_quantity)
+		VALUES (#{cart_seq}, #{cart_id}, #{cart_code},
+		#{cart_quantity})
+	</update>
+
+	<update id="removeCartDao">
+		update book_info set b_quantity=0 where
+		b_code=#{b_code}
+	</update>
+
+	<update id="removeAllCartDao">
+		update book_info set b_quantity=0
+	</update>
+	
+	<select id="listNumDao" resultType="int">
+	   select count(cart_code) from cart where cart_quantity>0 and cart_id = ${param1}
+	</select>
 </mapper>
