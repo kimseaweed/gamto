@@ -22,7 +22,7 @@ public interface IFreeboardDao {
 	
 	public List<CommentDto> cListDao(String f_seq_number);
 	public CommentDto cViewDao(String f_seq_number);
-	public int cWriteDao(Map<String, String> map);
+	public int cWriteDao(String f_seq_number, String c_writer, String c_content);
 	public int cDeleteDao(String c_seq_number);
 	public int cUpdateDao(Map<String, String> map);
 	public int cGoodCnt(String c_seq_number);
@@ -33,4 +33,5 @@ public interface IFreeboardDao {
 	//검색하는 부분
 	public List<FreeboardDto> SearchCategory(Map<String, String> map);
 	public List<FreeboardDto> SearchTotal(Map<String, String> map);
+	
 }

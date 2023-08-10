@@ -17,7 +17,6 @@
 </script>
 </head>
 <body>
-	c:for
 	<jsp:include page="../header.jsp" />
 	<main class="container pt-1">
 		<form action="/board/SearchCategory" name="SearchCategory"
@@ -51,7 +50,7 @@
 						<td>${dto.f_writer}</td>
 						<td>${dto.f_recommend}</td>
 						<td>${dto.f_view}</td>
-						<td><c:out value="${dto.regist_day}"/></td>
+						<td>${dto.f_regist_day}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
