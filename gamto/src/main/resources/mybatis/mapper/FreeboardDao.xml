@@ -44,6 +44,10 @@
 	<select id="cListDao" resultType="com.mrmr.gamto.freeboard.dto.CommentDto">
 		select * from comment_board where c_delete = 0 and f_seq_number = #{item1}
 	</select>
+	<!-- 댓글 갯수 -->
+	<select id="commentTotal" resultType="int">
+		select count(*) from comment_board where f_seq_number = #{item1}
+	</select>
 	<!-- 댓글 작성 -->
 	<insert id="cWriteDao">
 		insert into comment_board values(comment_board_seq.nextval,#{item1},#{item2},sysdate,sysdate,0,0,0,#{item3})
@@ -91,4 +95,17 @@
    				
    					 order by f_seq_number desc) f) where rn BETWEEN #{startNo} AND #{endNo}	
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

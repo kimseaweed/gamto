@@ -27,6 +27,8 @@ public interface IFreeboardDao {
 	public int cUpdateDao(Map<String, String> map);
 	public int cGoodCnt(String c_seq_number);
 	public int cBadCnt(String c_seq_number);
+	public int commentTotal(); //게시글마다 댓글수 카운트
+	
 	
 	//검색하는 부분
 	public List<FreeboardDto> SearchCategory(Map<String, String> map);

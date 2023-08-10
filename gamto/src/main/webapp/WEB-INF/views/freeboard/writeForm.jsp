@@ -48,7 +48,7 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><input type="text" name="f_content" size="100"/></td>
+				<td><input type="textarea" name="f_content" size="100"/></td>
 			</tr>
 			<tr>
 				<td colspan="2">

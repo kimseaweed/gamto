@@ -64,6 +64,7 @@
 		})
 		$(".btnGood").click(function(){
 			$(location).attr('href','/board/good?f_seq_number=${dto.f_seq_number}');
+			
 		})
 		$(".btnComment").click(function(){
 			$(location).attr('href','/board/viewComment?f_seq_number=${dto.f_seq_number}');
