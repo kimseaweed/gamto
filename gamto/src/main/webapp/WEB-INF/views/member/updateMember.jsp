@@ -26,7 +26,7 @@
 	<main class="main">
 			<div class="container-fluid">
                 <div class="row">
-                    <jsp:include page="myPageSideBar.jsp"/>
+                    <jsp:include page="../myPageSideBar.jsp"/>
                     <div class="col-md-8 c-p-t">
 					<div class="container">
 						<form action="processUpdateMember" method="post" name="newMember"

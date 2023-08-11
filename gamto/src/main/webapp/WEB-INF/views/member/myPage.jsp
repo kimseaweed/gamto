@@ -56,7 +56,7 @@
 	<main class="main">
 			<div class="container-fluid">
                 <div class="row">
-                    <jsp:include page="myPageSideBar.jsp"/>
+                    <jsp:include page="../myPageSideBar.jsp"/>
                     <div class="col-md-8 c-t-200 text-1vw c-p-t">
                         <div class="row c-bo">
                             <div class="col-md-4 D5D5D5">
