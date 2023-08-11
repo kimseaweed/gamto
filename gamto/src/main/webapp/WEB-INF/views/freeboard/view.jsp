@@ -36,44 +36,53 @@
 	</p>
 	<br>
 	</div>
-	<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          댓글보기
-        </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <table id="commentTable" border="1"> 
-            <c:forEach items="${cDto}" var="cdto">
-              <tr>
-                <td>${cdto.c_writer}</td>
-                <td id="${cdto.c_seq_number}conment">${cdto.c_content}</td>
-                <td>${cdto.c_regist_day}</td>
-                <td>${cdto.c_update_day}</td>
-                <td><button type="submit" onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></td>
-                <td><button type="submit" onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></td>
-                <td><button type="button" class="updateComment enable" id="${cdto.c_seq_number}">수정</button></td>
-                <td><button type="submit" onClick="location.href='cDelete?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">삭제</button></td>
-              </tr>
-            </c:forEach>
-            <tr id="newComment"></tr>
-          </table>
-          <input type="hidden" name="f_seq_number" value="${dto.f_seq_number}"/>
-          <input type="hidden" name="c_writer" value="임시작성자" />
-          <div class="form-group">
-            <textarea name="c_content" class="form-control" rows="3"></textarea>
-          </div>
-          <button type="button" class="btn btn-primary btnComment" >Submit</button>
-        </div>
-      </div>
-    </div>
-  </div>
+		<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingOne">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#collapseOne"
+						aria-expanded="false" aria-controls="collapseOne">
+						댓글보기</button>
+				</h2>
+				<div id="collapseOne" class="accordion-collapse collapse"
+					aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+						<input type="hidden" name="f_seq_number"
+							value="${dto.f_seq_number}" /> <input type="hidden"
+							name="c_writer" value="임시작성자" />
+						<div class="form-group">
+							<textarea name="c_content" class="form-control" rows="3"></textarea>
+						</div>
+						<button type="button" class="btn btn-primary text-end btn-sm btnComment m-3">댓글 등록</button>
+						<table id="commentTable" border="1">
+							<c:forEach items="${cDto}" var="cdto">
+								<tr>
+									<td>${cdto.c_writer}</td>
+									<td id="${cdto.c_seq_number}conment">${cdto.c_content}</td>
+									<td>${cdto.c_regist_day}</td>
+									<td>${cdto.c_update_day}</td>
+									<td><button type="submit"
+											onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></td>
+									<td><button type="submit"
+											onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></td>
+									<td><button type="button" class="updateComment enable" id="${cdto.c_seq_number}">수정</button></td>
+									<td><button type="button" class="deleteComment" id="${cdto.c_seq_number}">삭제</button></td>
+								</tr>
+							</c:forEach>
+							<tr id="newComment"></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<a href="/board" class="btn btn-outline-primary mt-3">목록보기</a>
+		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />
 <script>
-$(document).ready(function() {
+/* $(document).ready(function() { */
+	
 	var btnDelete = $(".btnDelete");
 	$(".btnUpdate").click(function() {
 		if (!confirm("수정하시겠습니까?")) {
@@ -157,18 +166,41 @@ $(document).ready(function() {
 				success:function(result){
 					if(result==1) {
 						$('#commentTable').load(location.href+' #commentTable');
-						console.log("통신성공");
+						console.log("수정 통신성공");
 					}else {
 						alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
 					}
 					
 				}, error: function(result){
-					console.log("통신실패");
+					console.log("수정 통신실패");
 				}
 			})
 		}
 	})
-})
+	
+		$('.deleteComment').click(function(){
+		alert('삭제 시작');
+		var c_seq_number =  $(this).attr("id");
+		
+		alert('ajax시작');
+		$.ajax({
+			type:'GET',
+			url :'/board/cDelete',
+			data : {'c_seq_number': c_seq_number},
+			success:function(result){
+				if(result==1) {
+					$('#commentTable').load(location.href+' #commentTable');
+					console.log("삭제 통신성공");
+				}else {
+					alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
+				}
+				
+			}, error: function(result){
+				console.log("삭제 통신실패");
+			}
+		})
+	})
+/* }) */
 </script>
 </body>
 </html>
