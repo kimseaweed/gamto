@@ -148,17 +148,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script>
 			var linkElements = document.querySelectorAll('a.addCart'); // 모든 a 태그 선택
-			var b_quantity = document.buyForm.b_quantity.value;
+			
 			linkElements.forEach(function(link) {
 			  link.addEventListener('click', function(event) {
 			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
+			    var b_quantity = document.buyForm.b_quantity.value;
 			    alert(b_quantity + linkId);
 				 $.ajax({
 					  url:"/b_list/addCart",
 		               dataType:'json',
 		               type:"post",
 					data: {'b_code': linkId,
-						   'cart_quantity': b_quantity
+						   'b_quantity': b_quantity
 						   },
 					success: function(result){
 						if(result == -1){

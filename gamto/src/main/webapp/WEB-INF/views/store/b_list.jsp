@@ -167,7 +167,7 @@
 		               dataType:'json',
 		               type:"post",
 					data: {'b_code': linkId,
-						   'cart_quantity': 1},
+						   'b_quantity': '1'},
 					success: function(result){
 						if(result == -1){
 							alert("로그인 하세요 ");
@@ -177,7 +177,7 @@
 						}
 					},
 					error:function(result){  
-			           console.log("fail");
+			           alert("fail");
 					}
 				}) 
 			  });

@@ -121,14 +121,9 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 														<p class="mb-2">결제 금액</p>
 														<p class="mb-2">${sum+3000}원 </p>
 													</div>
-
-													<button type="button"
-														class="btn btn-primary btn-block btn-lg col-12">
 														<div class="d-flex justify-content-between">
-															<span>결제하기</span> <span>${sum+3000}원</span>
+															<button class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
 														</div>
-													</button>
-
 												</div>
 											</div>
 

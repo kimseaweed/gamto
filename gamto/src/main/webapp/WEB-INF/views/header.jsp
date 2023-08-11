@@ -157,22 +157,6 @@
 			</div>
 			</nav>
 		</header>
-<script>
-	$(document).ready(function(){
-		$.ajax({
-			url:"/b_list/header",
-			dataType:'json',
-			type:"get",
-			success : function(result){
-				if(result>0){
-					$('#badge').text(result);
-				}
-				}else{
-					
-				}
-			},
-		
-	});
-</script>
+
 </body>
 </html>

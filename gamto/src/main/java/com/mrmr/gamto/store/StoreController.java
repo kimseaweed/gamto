@@ -44,13 +44,11 @@ public class StoreController {
 	@RequestMapping("/cart") //장바구니 목록 
 	public String cart(Model model, HttpServletRequest request, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		System.out.println();	
 		if(getId == null) {
 			System.out.println("실패했어  다시 해 ");
 			return "/member/login";
 		} else {
 			List<CartDTO> dto = dao.cartDao(getId);
-            System.out.println(dto.get(1).toString());
 			model.addAttribute("cart", dto);
 			return "store/cart";
 		}
@@ -59,26 +57,29 @@ public class StoreController {
 	
 	@PostMapping("/addCart") // 장바구니 담기 
 	@ResponseBody
-	public int addCart(Model model, HttpServletRequest request, HttpSession session) {
+	public int addCart(String b_code, String b_quantity,  HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
+		System.out.println(b_code + b_quantity + getId);
 		if(getId == null) {
 			System.out.println("실패했어  다시 해 ");
 			return -1;
 		} else {
-			int result = dao.addCartDao(getId);
+			int result = dao.addCartDao(getId, b_code, b_quantity);
 			return result;
 		}
 	}
 	
 	@RequestMapping("/removeCart") //장바구니 목록 삭제  
-	public String removeCart(Model model, HttpServletRequest request) {
-		dao.removeCartDao(request.getParameter("b_code"));
+	public String removeCart(Model model, String b_code, HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		dao.removeCartDao(getId, b_code);
 		return "redirect:/b_list/cart";
 	}
 	
 	@RequestMapping("/removeAllCart") //장바구니 목록 전체 삭제 
-	public String removeAllCartDao(Model model, HttpServletRequest request) {
-		dao.removeAllCartDao();
+	public String removeAllCartDao(Model model, HttpServletRequest request, HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		dao.removeAllCartDao(getId);
 		return "store/cart";
 	}
 	
