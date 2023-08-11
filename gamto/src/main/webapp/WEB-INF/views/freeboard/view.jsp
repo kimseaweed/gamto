@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 상세 페이지</title>
+<style>
+	.comment{
+		border: 1px solid black;
+		padding: 10px;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
@@ -18,7 +24,7 @@
 	<div style="padding-bottom:200px;" class="row">
 	<p class="col mt-2">내용 : ${dto.f_content}<br></p>
 	<p class="col ms-auto text-end me-5"> 
-	추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 : ${dto.f_view} <br>
+	댓글 수 <spen id="countComment">${result}</spen> &nbsp;| &nbsp;추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 : ${dto.f_view} <br>
 	</p>
 	</div>
 	<hr>
@@ -36,12 +42,12 @@
 	</p>
 	<br>
 	</div>
-		<div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+		<div class="accordion mt-3" id="accordionExample">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
 					<button class="accordion-button collapsed" type="button"
 						data-bs-toggle="collapse" data-bs-target="#collapseOne"
-						aria-expanded="false" aria-controls="collapseOne">
+						aria-expanded="false" aria-controls="collapseOne" id="test">
 						댓글보기</button>
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse"
@@ -54,23 +60,30 @@
 							<textarea name="c_content" class="form-control" rows="3"></textarea>
 						</div>
 						<button type="button" class="btn btn-primary text-end btn-sm btnComment m-3">댓글 등록</button>
-						<table id="commentTable" border="1">
+						<div class="comment" id="commentTable">
 							<c:forEach items="${cDto}" var="cdto">
-								<tr>
-									<td>${cdto.c_writer}</td>
-									<td id="${cdto.c_seq_number}conment">${cdto.c_content}</td>
-									<td>${cdto.c_regist_day}</td>
-									<td>${cdto.c_update_day}</td>
-									<td><button type="submit"
-											onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></td>
-									<td><button type="submit"
-											onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></td>
-									<td><button type="button" class="updateComment enable" id="${cdto.c_seq_number}">수정</button></td>
-									<td><button type="button" class="deleteComment" id="${cdto.c_seq_number}">삭제</button></td>
-								</tr>
+
+								<div>
+									<p>*${cdto.c_writer}*</p>
+									<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
+								</div>
+								<div class="col text-end">
+									<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
+								</div>
+								<div class="col text-end">
+									<span><button type="submit"
+											onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
+									<span><button type="submit"
+											onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
+									<span><button type="button" class="updateComment enable"
+											id="${cdto.c_seq_number}">수정</button></span> <span><button
+											type="button" class="deleteComment" id="${cdto.c_seq_number}">삭제</button></span>
+								</div>
+
 							</c:forEach>
-							<tr id="newComment"></tr>
-						</table>
+						</div>
+						<div id="newComment"></div>
+						
 					</div>
 				</div>
 			</div>
@@ -81,18 +94,16 @@
 	</main>
 	<jsp:include page="../footer.jsp" />
 <script>
-/* $(document).ready(function() { */
-	
-	var btnDelete = $(".btnDelete");
-	$(".btnUpdate").click(function() {
+ $(document).ready(function() { 
+	 
+	 $(document).on('click','.btnUpdate',function (e) { 
 		if (!confirm("수정하시겠습니까?")) {
 			return false;
 		} else {
 			$(location).attr('href','updateForm?f_seq_number=${dto.f_seq_number}');
 			}
 		})
-		
-	btnDelete.click(function() {
+	 $(document).on('click','.btnDelete',function (e) { 
 		if (!confirm("삭제하시겠습니까?")) {
 			return false;
 		} else {
@@ -104,12 +115,17 @@
 	$(".btnGood").click(function() {
 		$(location).attr('href','good?f_seq_number=${dto.f_seq_number}');
 		})
-	$(".btnComment").click(function() {
-		alert("btnComment요청");
+		
+	$(document).on('click','.btnComment',function (e) {
 		getCommentList();
+		var result = Number(document.getElementById('countComment').innerHTML);
+		
+		document.getElementById('countComment').innerHTML= result+1;
 		})
 		
+		
 	function getCommentList(){
+		 alert("test");
 		var f_seq_number = $('input[name=f_seq_number]').val();
 		var c_writer = $('input[name=c_writer]').val();
 		var c_content = $('textarea[name=c_content]').val();
@@ -123,6 +139,7 @@
 			success:function(result){
 				if(result==1) {
 					$('#commentTable').load(location.href+' #commentTable');
+					$('textarea').val('');
 					console.log("통신성공");
 				}else {
 					alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
@@ -134,30 +151,31 @@
 		})
 	}
 	
-	
-	$('.updateComment').click(function(){
+	 $(document).on('click','.updateComment',function (e) {
+
+		
 		alert($(this).attr('class'));
 		if($(this).attr('class')=='updateComment enable'){
-			alert('수정시작');
+			
 		var c_seq_number =  $(this).attr("id");
 		$(this).addClass('disable');
 		$(this).removeClass('enable');
-		var value=document.getElementById(c_seq_number+'conment').innerText;
+		var value=document.getElementById(c_seq_number+'comment').innerText;
 		
-		document.getElementById(c_seq_number+'conment').innerHTML=
+		document.getElementById(c_seq_number+'comment').innerHTML=
 		'<input type="text" value="'+value+'"/>';
 		}else if($(this).attr('class')=='updateComment disable'){
 			var c_seq_number = $(this).attr("id");
-			alert('수정값 받을거임~'+c_seq_number);
+			
 			$(this).addClass('enable');
 			$(this).removeClass('disable');
 			//수정한 값 불러옴
-			var value=document.getElementById(c_seq_number+'conment').firstChild.value;
-			alert(value);
+			var value=document.getElementById(c_seq_number+'comment').firstChild.value;
+			
 			//완성된값으로 수정함
-			document.getElementById(c_seq_number+'conment').innerHTML=value;
+			document.getElementById(c_seq_number+'comment').innerHTML=value;
+			
 			//ajax시작
-			alert('ajax시작');
 			$.ajax({
 				type:'GET',
 				url :'/board/cUpdate',
@@ -176,13 +194,12 @@
 				}
 			})
 		}
+		
 	})
-	
-		$('.deleteComment').click(function(){
-		alert('삭제 시작');
+	 $(document).on('click','.deleteComment',function (e) {
+		 
 		var c_seq_number =  $(this).attr("id");
 		
-		alert('ajax시작');
 		$.ajax({
 			type:'GET',
 			url :'/board/cDelete',
@@ -200,7 +217,7 @@
 			}
 		})
 	})
-/* }) */
+ }) 
 </script>
 </body>
 </html>

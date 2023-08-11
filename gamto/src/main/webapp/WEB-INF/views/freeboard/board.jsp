@@ -32,13 +32,13 @@
 		<table class="table table-hover text-center mt-3">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">카테고리</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">추천수</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
+					<th scope="col" col width=10%>번호</th>
+					<th scope="col" col width=10%>카테고리</th>
+					<th scope="col" col width=40%>제목</th>
+					<th scope="col" col width=10%>작성자</th>
+					<th scope="col" col width=10%>추천수</th>
+					<th scope="col" col width=10%>조회수</th>
+					<th scope="col" col width=10%>작성일</th>
 				</tr>
 			</thead>
 			<tbody>

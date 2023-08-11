@@ -46,11 +46,11 @@
 	</select>
 	<!-- 댓글 갯수 -->
 	<select id="commentTotal" resultType="int">
-		select count(*) from comment_board where f_seq_number = #{item1}
+		select count(*) from comment_board where f_seq_number = #{item1} and c_delete = 0 
 	</select>
 	<!-- 댓글 작성 -->
 	<insert id="cWriteDao">
-		insert into comment_board values(comment_board_seq.nextval,#{param1},#{param2},sysdate,sysdate,0,0,0,#{param3})
+		insert into comment_board values(comment_board_seq.nextval,#{param1},#{param2},sysdate,sysdate,0,0,0,#{param3},0)
 	</insert>
 	<!-- 댓글 수정 -->
 	<update id="cUpdateDao">
