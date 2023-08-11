@@ -1,11 +1,15 @@
 package com.mrmr.gamto;
-
 import org.springframework.ui.Model;
-
 import jakarta.servlet.http.HttpSession;
 
 public class GamtoService {
 	
+	/*1. 로그인 필요한 서비스에 로그인여부 확인후 로그인창 연결 메소드
+	 *2. 로그인 되어있으면 안되는 서비스에 로그인되어있을시 뒤로가기 시키는 메소드
+	 *3. 
+	 * */
+	
+	//1)
 	/** 로그인이 필요한 페이지에  사용합니다
 	*로그인 안되어있으면 로그인페이지로,<br> 로그인되어있으면 입력한 view로 이동 및 모델에 u_id 셋팅<br><br>
 	*@param session : 로그인아이디를 확인하는데 씁니다
@@ -34,6 +38,7 @@ public class GamtoService {
 		}
 	}
 	
+	//2)
 	/** 로그인 되어있지 않아야 하는 페이지에 사용합니다<br>
 	 * 로그인 되어있으면 이미 로그인 되어있다고 alert 띄운후 뒤로 돌아갑니다<br>
 	 * 로그인 되어있지 않다면 원래 리턴해야 하는 값으로 진행됩니다<br><br>

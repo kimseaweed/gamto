@@ -32,11 +32,15 @@
 				</div>
 				<div class="checkCode" style="display:none;">
 				<div class="row px-2 pb-4">
-						<label class="pt-5 pb-2">인증번호</label>
-						<input type="text" name="code" class="form-control" >
+						<p class="pt-5 fs-3 pb-2">인증번호가 발송되었습니다.</p>
+						<label class=" pb-2">인증번호</label>
+						<input type="text" id="code" name="code" class="form-control" autocomplete="off" >
+						<p id="resultMessage" class="fs- text-danger fw-bold" style="display:none;">
+							 인증번호가 일치하지 않습니다. 
+						</p>
 				</div>
 					<div class="form-row-last d-flex ">
-					<input type="button" id="authSummit" class="btn btn-warning  ms-auto" value="인증하기">
+					<input type="submit" id="authSummit" class="btn btn-warning  ms-auto" value="인증하기">
 				</div>
 				</div>
 			</form>
@@ -44,7 +48,7 @@
 				<p class="text-1 pt-4">가입하실때 입력하셨던 <b class="fw-bold">이름</b>과 <b class="fw-bold">이메일주소</b>를 알려주시면 이메일로 인증번호를 보내드립니다.</p>
 				<p class="text-2 pt-4 pb-3"><b class="fw-bold ms-2 me-2">비밀번호가 기억나지 않나요?</b> 아래의 비밀번호 찾기 버튼을 눌러주시면 아이디와 이메일을 확인하고 비밀번호를 변경해드리겠습니다. </p>
 				<div class="form-left-last row px-5">
-					<a href="/member/reset-pw" class="btn btn-light">비밀번호 찾기</a>
+					<a href="/member/help/reset-pw" class="btn btn-light">비밀번호 찾기</a>
 				</div>
 			</div>
 			</div>
@@ -52,7 +56,7 @@
 	<jsp:include page="../footer.jsp" />
 	<script type="text/javascript">
 	var authCode;
-	
+	var message = '';
 		$('#submit').click(function(){
 			if(	$('#u_name').val() == "" ){
 				alert('이름을 입력해주세요');
@@ -61,37 +65,47 @@
 				alert('이메일을 입력해주세요');
 				return false;
 			}else{
-				$('#spinner').css('display','block');
-				$.ajax({
-					url:"/member/findId 유알엘 수정하고 컨트롤러 수정할것 ",
-					dataType:'json',
-					type:"post",
-					data: {	"u_name" : $('#u_name').val(),
-							"u_email" : $('#u_email').val()},
-					success : function(result){
-						if(result=='2'){			
-							alert('존재하지 않는 이메일 입니다');
-							$('#spinner').css('display','none');
-							return false;
-						}else if(result=='1'){
-							alert('회원가입시 등록한 이름과 일치하지 않습니다');
-							$('#spinner').css('display','none');
-							return false;
-						}else{
-							$('#spinner').css('display','none');
-							$('.sendmail').css('display','none');
-							$('.checkCode').css('display','block');
+				$('#spinner').toggle(function (){
+					$.ajax({
+						url:"/member/help/find-id/check",
+						dataType:'json',
+						type:"post",
+						data: {	"u_name" : $('#u_name').val(),
+								"u_email" : $('#u_email').val()},
+						success : function(result){
+							if(result=='2'){			
+								message='존재하지않는 이메일입니다';
+							}else if(result=='1'){
+								message='회원가입시 입력한 이름과 일치하지 않습니다';
+							}else{
+								authCode=result;
+								$('#spinner').text(message);
+							}
+						},
+						error : function(){
+					        alert("서버 요청에 실패했습니다. 다시 시도해주세요");
+					        location='/'; 
+						},
+						complete : function(){
+							if(message==''){
+								$('.sendmail').addClass('d-none');
+								$('.checkCode').css('display','block');
+							}
 						}
-					},
-					error : function(){
-				        alert("서버 요청에 실패했습니다.");
-				        location='/'; 
-					}
+					});
 				});
 			}
+
 		})
 		
-		$('#authSummit').click
+		$('#authSummit').click(function (){
+			var input = parseInt($('#code').val());
+			if(input == authCode){
+				$('#myform').attr("action","/member/help/find-id/ok")
+			}else{
+				$('#resultMessage').css('display','block');
+			}
+		})
 	</script>
 </body>
 </html>

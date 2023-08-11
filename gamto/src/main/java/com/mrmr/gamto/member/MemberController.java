@@ -140,18 +140,4 @@ public class MemberController {
 		return "/member/resultMember";
 	}
 	
-	@RequestMapping("/emailCAuthentication")//아이디 찾기 0807
-	public String emailCAuthentication(HttpServletRequest request) {
-		String u_id = request.getParameter("u_id");
-		System.out.println(u_id);
-		return "/member/findId";
-	}
-	
-	@RequestMapping("/findId")
-	public String findId(HttpServletRequest request, Model model) {
-		String u_email = request.getParameter("u_email");
-		model.addAttribute("dto", dao.findIdDao(u_email));
-		//model.addAttribute(null)
-		return "/member/findMember";
-	}	
 }
