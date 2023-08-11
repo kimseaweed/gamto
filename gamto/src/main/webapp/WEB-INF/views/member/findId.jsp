@@ -8,7 +8,7 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-		<main class="pt-4 pb-5 mb-5">
+		<main class="mb-5 findform">
 			<div class="find-id shadow mt-5 bg-body porsiton-relative d-flex form-v4-content mx-auto animate__animated animate__fadeInRight">
 
 			<form class="form-detail p-5"  method="post" id="myform">

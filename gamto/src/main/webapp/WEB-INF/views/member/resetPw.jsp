@@ -8,10 +8,10 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-		<main class="pt-4 pb-5 mb-5">
+		<main class="findform">
 			<div class="reset-pw shadow mt-5 bg-body porsiton-relative d-flex form-v4-content mx-auto animate__animated animate__fadeInLeft">
 			<div class="form-left py-5 px-4">
-				<p class="text-1 pt-4">가입하실때 입력하셨던 <b class="fw-bold">아이디</b>와 <b class="fw-bold">이메일주소</b>를 알려주시면 이메일로 비밀번호를 변경할 수 있는 링크를 보내드립니다. 발송된 메일은 10분동안 유효합니다.</p>
+				<p class="text-1 pt-4">가입하실때 입력하셨던 <b class="fw-bold">아이디</b>와 <b class="fw-bold">이메일주소</b>를 알려주시면 이메일로 비밀번호를 변경할 수 있는 링크를 보내드립니다. 발송된 메일은 <b>10분동안</b> 유효합니다.</p>
 				<p class="text-2 pt-4 pb-3"><b class="fw-bold ms-2 me-2">아이디가 기억나지 않나요?</b> 아래의 아이디 찾기 버튼을 눌러주시면 이름과 이메일을 확인하고 아이디를 안내해드리겠습니다. </p>
 				<div class="form-left-last row px-5">
 					<a href="/member/help/find-id" class="btn btn-light">아이디 찾기</a>

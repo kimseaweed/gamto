@@ -5,54 +5,82 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
+<title>감토 | 로그인</title>
+<style>
+
+</style>
 </head>
 <body>
-	<div class="container-fluid px-0">
-		<div class="jumbotron">
-			<div class="container">
-				<h1 class="display-3">로그인</h1>
-			</div><!-- container -->
-		</div><!-- jumbotron -->
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-4">
-					<h3>please sign in</h3>
-					<%
-						String error = request.getParameter("error");
-						if(error != null){
-							out.println("<div class='alert alert-danger'>");
-							out.println("아이디와 비밀번호를 확인해주세요");
-							out.println("</div>");
-						}
-					%>
-					<!-- 17-11)action,name을 수정하고 processLoginMember.jsp로 이동 -->
-					<form action="/member/processLoginMember" method="post">
-						<input type="hidden" name=connect value="${connect}">
-						<div class="input-group input-group-lg my-2">
-							<input required placeholder="ID" type="text" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-lg" name="u_id"
-								autofocus>
-						</div>
-						<div class="input-group input-group-lg my-2">
-							<input required placeholder="PASSWORD" type="password"
-								class="form-control" aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-lg" name="u_pw">
-						</div>
-						<button class="btn btn-success btn-block btn-lg" type="submit">로그인</button>
-					</form>
-					<a href="/member/help/find-id">아이디 찾기</a>
-					<a href="/member/help/reset-pw">비밀번호 찾기</a>
-					<a href="addMember">회원가입</a>
-				</div><!-- col-md-4 col-md-offset-4 -->
-			</div>
-		</div>
-	</div><!-- container-fluid -->
+<jsp:include page="../header.jsp" />
+
+<main class="loginform container animate__animated animate__fadeIn">
+                <div class="col-md-11 my-5 py-5 mx-md-auto">
+                    <div class="login-box bg-white pl-lg-5 pl-0">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-md-6">
+                                <div class="form-wrap bg-body shadow ms-md-5">
+                                    <h2 class="btm-sep pb-3 fw-bold">로그인</h2>
+                                    <form class="form" method="post" action="/member/processLoginMember">
+                                   	 <input type="hidden" name=connect value="${connect}">
+                                        <div class="row">
+                                            <div class="col-12 py-3">
+                                                <div class="form-group position-relative ">
+                                                    <span class="zmdi zmdi-account m-auto"> <i class="bi bi-person-fill"></i> </span>
+                                                    <input type="text" name="u_id" id="u_id" class="form-control form-control-lg" placeholder="ID">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 pb-3">
+                                                <div class="form-group position-relative">
+                                                    <span class="zmdi zmdi-email m-auto"> <i class="bi bi-key-fill"></i> </span>
+                                                    <input type="password" id="u_pw" name="u_pw" class="form-control form-control-lg" placeholder="Password">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 text-lg-right">
+                                                <a href="/member/help/find-id">아이디 찾기</a> | 
+												<a href="/member/help/reset-pw">비밀번호 찾기</a>
+                                            </div>
+                                            <div class="col-12 mt-3 text-end">
+                                                <button type="submit" id="submit" class="btn btn-lg">로그인 </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="content text-center">
+                                    <div class="border-bottom pt-5 pb-5 mb-5">
+                                        <h3 class="c-black"><span class="fs-1 fw-bold">감토</span>가 처음이신가요?</h3>
+                                        <a href="addMember" class="btn btn-custom link2 link2-purple link"> <i class="bi bi-arrow-right-short"></i> 회원가입 하러가기</a>
+                                    </div>
+                                    <h5 class="c-black mb-4 mt-n1"> 여기다 뭐넣지 </h5>
+                                    <div class="socials pe-3">
+                                    <div class='alert alert-danger d-none'></div>
+                                    <%
+									String error = request.getParameter("error");
+                                    if(error!=null){
+										if(error.equals("1")){
+											out.println("<div class='alert alert-danger'>");
+											out.println("아이디와 비밀번호를 입력해주세요");
+											out.println("</div>");
+										}else if(error.equals("2")){
+											out.println("<div class='alert alert-danger'>");
+											out.println("아이디와 비밀번호를 확인해주세요");
+											out.println("</div>");
+										}else if(error.equals("3")){
+											out.println("<div class='alert alert-danger'>");
+											out.println("탈퇴한 회원입니다");
+											out.println("</div>");
+										}
+                                    }
+									%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+<jsp:include page="../footer.jsp" />
 </body>
 </html>

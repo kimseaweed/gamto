@@ -38,22 +38,22 @@ public class MemberController {
 	
 	@RequestMapping("/processLoginMember")
 	public String processLoginMember(HttpSession session,String u_id, String u_pw, Model model,String connect) {
-		System.out.println("test1-----------------"+u_id+","+u_pw);
+		//로그인 정보확인
 		MemberDTO dto = dao.loginDao(u_id, u_pw);
-		System.out.println("dto값 : "+dto);
-		
-		if(dto == null ) {
-			return "redirect:/member/login?error="+1;
-		}
-		if(dto != null && dto.getU_delete().equals("0")){
-			System.out.println("dto.getU_delete() : "+dto.getU_delete());
-			session.setAttribute("u_id", u_id);
-			if(!connect.equals("")) {
-				return "redirect:"+connect;
-			}
-			return "redirect:/member/resultMember?msg="+2;
+		if(u_id.trim().equals("")||u_pw.trim().equals("")) {
+			return "redirect:/member/login?error="+1+"&connect="+connect;
+			// 로그인폼 입력을 안하거나 빈칸이라서
+		}else if(dto == null) {
+			return "redirect:/member/login?error="+2+"&connect="+connect;
+			// 로그인정보가 없어 실패메세지
+		}else if(dto.getU_delete().equals("1")){
+			return "redirect:/member/login?error="+3+"&connect="+connect;
+			// 로그인정보가 있으나 탈퇴회원
 		}else {
-			return "/member/addMember";
+			session.setAttribute("u_id", u_id);
+			if(connect=="") connect="/";
+			return "redirect:"+connect;
+			// 로그인정보가 있어서 원래 가려던 페이지로 연결
 		}
 	}
 	@RequestMapping("/resultMember")
@@ -88,7 +88,6 @@ public class MemberController {
 	 * request.getParameter("u_name"), request.getParameter("u_phone"), u_email,
 	 * request.getParameter("u_address"), request.getParameter("u_delete") ); return
 	 * "redirect:/resultMember?msg="+1; }else {  }
-	 * 
 	 * }
 	 */
 	@RequestMapping("/newMember")
