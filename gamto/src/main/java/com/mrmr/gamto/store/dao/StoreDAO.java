@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.mrmr.gamto.store.dto.CartDTO;
 import com.mrmr.gamto.store.dto.StoreDTO;
+import com.mrmr.gamto.store.dto.imsiDto;
 
 @Mapper
 public interface StoreDAO {
@@ -18,4 +19,6 @@ public interface StoreDAO {
 	public int removeCartDao(String b_code); //장바구니 삭제 메소드 
 	public int removeAllCartDao(); //장바구니 목록 전체 삭제 메소드
 	public int listNumDao(String u_id); //장바구니 갯수.
+	
+	public List<imsiDto> purchaseListDao();//구매내역
 }

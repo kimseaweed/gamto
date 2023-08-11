@@ -24,9 +24,12 @@ public class MemberController {
 		if(u_id==null) {
 		return "member/login";
 		}
-		return "member/마이페이지파일명 넣어주세요";
+		return "member/myPage";
 	}
-
+	@RequestMapping("/myPage")
+	public String needLoginMember() {
+		return "member/myPage";
+	}
 	@RequestMapping("/login")
 	public String needLoginMember(String connect,Model model) {
 		model.addAttribute("connect",connect);

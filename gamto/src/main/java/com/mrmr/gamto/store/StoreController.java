@@ -94,4 +94,10 @@ public class StoreController {
 			return result;
 		}
 	}
+	
+	@RequestMapping("/purchaseList")//구매내역
+	public String purchaseListDao(Model model) {
+		model.addAttribute("list", dao.purchaseListDao());
+		return "store/purchaseList";
+	}
 }

@@ -53,4 +53,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listNumDao" resultType="int">
 	   select count(cart_code) from cart where cart_quantity>0 and cart_id = ${param1}
 	</select>
+	
+	<!-- 구매내역 -->
+    <select id="purchaseListDao" resultType="com.mrmr.gamto.store.dto.imsiDto">
+    	select * from product_order
+    </select>
 </mapper>
