@@ -168,8 +168,7 @@ public class FreeboardController {
 	@RequestMapping("/cUpdate")
 	@ResponseBody
 	public int commentUpdate(@RequestParam("c_seq_number")String c_seq_number,@RequestParam("c_content")String c_content) {
-		System.out.println("ajax로 받아온값 : "+c_seq_number+c_content);
-		
+		System.out.println("수정 test");
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", c_content);
 		map.put("item2", c_seq_number);
@@ -179,12 +178,14 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping("/cDelete")
-	public String commentDelete(HttpServletRequest request, Model model) {
-		String fId = request.getParameter("f_seq_number");
-		String cId = request.getParameter("c_seq_number");
-		dao.cDeleteDao(cId);
+	@ResponseBody
+	public int commentDelete(@RequestParam("c_seq_number")String c_seq_number) {
 		
-		return "redirect:/board/viewComment?f_seq_number="+fId;
+		int result = dao.cDeleteDao(c_seq_number);
+		
+		System.out.println(c_seq_number);
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping("/SearchCategory")

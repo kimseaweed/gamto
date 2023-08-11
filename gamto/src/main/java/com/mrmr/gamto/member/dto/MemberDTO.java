@@ -14,6 +14,7 @@ public class MemberDTO implements Serializable{
 	private String u_address; //회원주소
 	private String u_delete; //회원탈퇴 u_delete가 0이면 회원이고 1이면 탈퇴 
 	private static final long serialVersionUID = 1L;
+	
 	public String getU_id() {
 		return u_id;
 	}

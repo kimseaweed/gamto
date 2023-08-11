@@ -43,6 +43,8 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${board}" var="dto">
+					<c:set var="day" value="${dto.f_regist_day}" />
+					<c:set var="regist_day" value="${day.split(' ')[0]}" />
 					<tr>
 						<td>${dto.f_seq_number}</td>
 						<td>${dto.f_category}</td>
@@ -50,7 +52,7 @@
 						<td>${dto.f_writer}</td>
 						<td>${dto.f_recommend}</td>
 						<td>${dto.f_view}</td>
-						<td>${dto.f_regist_day}</td>
+						<td><c:out value="${regist_day}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
