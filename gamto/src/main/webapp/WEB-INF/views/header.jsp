@@ -62,9 +62,7 @@
 					data-bs-html="true" data-bs-toggle="tooltip" data-bs-title="장바구니">
 					<span class="material-symbols-outlined fs-1">shopping_cart
  					</span>
- 					<% if(session.getAttribute("u_id")!=null){ %>
 						<span class="badge position-absolute start-100 translate-middle badge rounded-pill bg-danger"></span>
- 					<% } %>
  				</a>
  			</li>
 				  <% if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null){ %>
@@ -159,6 +157,22 @@
 			</div>
 			</nav>
 		</header>
-
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			url:"/b_list/header",
+			dataType:'json',
+			type:"get",
+			success : function(result){
+				if(result>0){
+					$('#badge').text(result);
+				}
+				}else{
+					
+				}
+			},
+		
+	});
+</script>
 </body>
 </html>

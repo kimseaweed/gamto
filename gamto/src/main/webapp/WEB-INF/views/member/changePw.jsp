@@ -12,7 +12,7 @@
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
-		<form action="/member/reset-pw/token.do" method="post" class="" id="form" >
+		<form action="/member/help/reset-pw/tokendo" method="post" class="" id="form" >
 		<input type="hidden" value="${u_id}"name="u_id"/>
 		<input type="text" value="${u_id}" disabled="disabled"/>
 		<input type="password" name="u_pw" autocomplete="off"/>
