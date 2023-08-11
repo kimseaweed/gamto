@@ -38,6 +38,20 @@
 		}
 		document.newMember.submit();
 	}	
+	function checkEmail() { //도메인 자동 선택
+		/* if (document.frm.emailList.value != "") {
+			document.frm.email2.value = document.frm.emailList.value;
+		} else {
+			document.frm.email2.value = "";
+			document.frm.email2.focus();
+		} */
+		if ($("#u_email3").val() != "") {
+			document.querySelector("#u_email2").value = document.querySelector("#u_email3").value
+		} else {
+			document.querySelector("#u_email2").value = ""
+				document.querySelector("#u_email2").focus();
+		}
+	}
 </script>
 </head>
 <body>
@@ -58,13 +72,14 @@
 			<div class="form-group row">
 				<label class="col-sm-2">이메일</label> 
 				<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50">@
-				<select name="u_email2" class="ml-3">
-					<option value="Directinput">직접입력</option>
+				<input type="text" name="u_email2" id="u_email2"> 
+				<select id="u_email3" size='1' onchange="return checkEmail()">
+					<option value="">직접 입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="daum.net">daum.net</option>
 					<option value="gamil.com">gamil.com</option>
 					<option value="nate.com">nate.com</option>
-				</select>
+				</select> 
 				<div id="warningMessage" style="color: red;"></div>
 			</div>
 			<div class="form-group row">
@@ -133,6 +148,8 @@
             }
         }).open();
     }
+    
+    ${u_id}
 </script>
 </body>
 </html>
