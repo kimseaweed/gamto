@@ -40,11 +40,11 @@
 <jsp:include page="../footer.jsp" />
 <script>
 	function checkForm(){
-	    if(!document.updateform.f_title.value){
+	    if(!document.updateform.r_title.value){
 	       alert("제목을 작성해 주세요");
 	       return;
 	    }
-	    if(!document.updateform.f_content.value){
+	    if(!document.updateform.r_content.value){
 		   alert("내용을 작성해 주세요");
 		   return;
 		}

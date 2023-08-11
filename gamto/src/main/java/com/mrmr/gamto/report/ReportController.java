@@ -88,13 +88,13 @@ public class ReportController {
 		String rTitle = request.getParameter("r_title");		
 		String rContent = request.getParameter("r_content");
 		String rId = request.getParameter("r_seq_number");
-		String rCategory = request.getParameter("r_category");
+		String rFilename = request.getParameter("r_filename");
 	
 		Map<String,String> map = new HashMap<String,String>();
 		
 		map.put("item1", rTitle);
 		map.put("item2", rContent);
-		map.put("item3", rCategory);
+		map.put("item3", rFilename);
 		map.put("item4", rId);
 		dao.updateDao(map);
 

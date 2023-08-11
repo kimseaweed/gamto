@@ -28,15 +28,15 @@
 	</p>
 	<p class="col ms-auto text-end me-5">
 		<c:if test = "${sessionId==u_id}">
-			<input type="button" value="수정" class="btnUpdate">
-			<input type="button" value="삭제" class="btnDelete">
+			<input type="button" value="수정" class="btnUpdate btn btn-outline-Success">
+			<input type="button" value="삭제" class="btnDelete btn btn-outline-Danger">
 		</c:if>	
-		<input type="button" value="좋아요♡" class="btnGood"/>
+		<input type="button" value="추천" class="btnGood btn btn-outline-Warning"/>
 	</p>
 	<br>
 	</div>
 	<div class="pb-2">
-		<a href="/list" class="pb-5">목록보기</a>
+		<a href="/list" class="btn btn-outline-primary">목록보기</a>
 	</div>
 	<br>	
 	</main>

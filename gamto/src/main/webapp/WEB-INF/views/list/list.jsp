@@ -6,16 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>list.jsp</title>
-<script>
+<style>
 	.center{
-		
+		text-align: center;
 	}
-</script>
+	.full{
+		width: 100%;
+	}
+	.tab_top{
+		background-color: #7CADDE;
+		height: 50px;
+		color: #F9F9F9;
+	}
+	.tab_bottom{
+		background-color: #E4E4E4;
+		color: #181818;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
 	<main class="container">
-		<div class="mb-5">
+		<div class="mb-5 center">
 				<h3>너의생각 | 독후감 목록</h3>
 			</div>
 <form action="/list/SearchTotal" name="SearchTotal" method="post">
@@ -28,8 +40,8 @@
 			<input type="submit" value="검색" />
 		</form>
 		<br />
-	<table class="row">
-		<tr>
+	<table class="center full">
+		<tr class="tab_top">
 			<td class="col col-lg-1">번호</td>
 			<td class="col col-lg-1">이미지</td>
 			<td class="col col-lg-3">제목</td>
@@ -40,12 +52,12 @@
 			<td class="col col-lg-1">추천</td>
 		</tr>
 		<c:forEach items="${list}" var="dto">
-			<tr>
+			<tr class="tab_bottom">
 				<td>${dto.r_seq_number}</td>
 				<td>
 					<img src="../img/book/${dto.r_filename}" width="100" height="141">
 				</td>
-				<td><a href="list/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
+				<td><a href="/list/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
 				<td>${dto.r_writer}</td>
 				<td>${dto.r_regist_day}</td>
 				<td>${dto.r_update_day}</td>
@@ -55,11 +67,11 @@
 		</c:forEach>
 	</table>
 	<br>
-		<p class="row">
-			<a href="list/writeForm" class="col ms-3">글작성</a>
-			<a href="/list" class="col ms-auto text-end me-5">목록보기</a> 
+		<p>
+			<a href="write/write" class="btn btn-outline-primary">글작성</a>
+			<a href="/list" class="btn btn-outline-primary">목록보기</a> 
 		</p> <br>
-		<div class="text-center mt-2">
+		<div class="center mt-2">
 			<a href="?pageNo=1">&lt;&lt;</a>
 
 			<c:if test="${page.startNo eq 1}">
