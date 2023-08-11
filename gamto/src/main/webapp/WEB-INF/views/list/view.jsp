@@ -10,15 +10,17 @@
 <body>
 <jsp:include page="../header.jsp" />
 	<main class="container pt-5">
-	<div class="row">
-	<p class="col mt-2">제목 : ${dto.r_title}</p> <p class="col ms-auto text-end me-5">작성자 : ${dto.r_writer}</p>
+	<div>
+		<div>
+			<p class="col mt-2">제목 : ${dto.r_title}</p> <p class="col ms-auto me-5">작성자 : ${dto.r_writer}</p>
+			<p class="col ms-auto text-end me-5"> 
+		</div>
+		<p class="text-end">추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view}</p>
 	<hr>
 	</div>
-	<div style="padding-bottom:200px;" class="row">
+	<div style="padding-bottom:200px;">
+	<img src="../img/book/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;">
 	<p class="col mt-2">내용 : ${dto.r_content}<br></p>
-	<p class="col ms-auto text-end me-5"> 
-	추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view} <br>
-	</p>
 	</div>
 	<hr>
 	<div class="row">
@@ -28,10 +30,10 @@
 	</p>
 	<p class="col ms-auto text-end me-5">
 		<c:if test = "${sessionId==u_id}">
-			<input type="button" value="수정" class="btnUpdate btn btn-outline-Success">
-			<input type="button" value="삭제" class="btnDelete btn btn-outline-Danger">
+			<input type="button" value="수정" class="btnUpdate btn btn-outline-success">
+			<input type="button" value="삭제" class="btnDelete btn btn-outline-danger">
 		</c:if>	
-		<input type="button" value="추천" class="btnGood btn btn-outline-Warning"/>
+		<input type="button" value="추천" class="btnGood btn btn-outline-warning"/>
 	</p>
 	<br>
 	</div>

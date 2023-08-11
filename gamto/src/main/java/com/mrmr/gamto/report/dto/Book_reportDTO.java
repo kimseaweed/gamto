@@ -1,5 +1,7 @@
 package com.mrmr.gamto.report.dto;
 
+import java.text.SimpleDateFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,4 +16,13 @@ public class Book_reportDTO {
 	private int r_view; //조회수
 	private int r_recommend; //추천수
 	private int r_delete; //삭제
+	
+	public void setR_regist_day(java.sql.Timestamp r_regist_day) {
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+		this.r_regist_day = format.format(r_regist_day);
+	}
+	public void setR_update_day(java.sql.Timestamp r_update_day) {
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+		this.r_update_day = format.format(r_update_day);
+	}
 }

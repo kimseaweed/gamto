@@ -68,7 +68,7 @@
 	</table>
 	<br>
 		<p>
-			<a href="write/write" class="btn btn-outline-primary">글작성</a>
+			<a href="/write" class="btn btn-outline-primary">글작성</a>
 			<a href="/list" class="btn btn-outline-primary">목록보기</a> 
 		</p> <br>
 		<div class="center mt-2">

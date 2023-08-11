@@ -15,7 +15,7 @@
 		<table border="1">
 		<input type="hidden" value="${updateForm.r_seq_number}" name="r_seq_number"/>
 			<tr>
-				<td>작성자</td>
+				<td>작성자 :</td>
 				<td>${updateForm.r_writer}</td>
 			</tr>
 			<tr>
@@ -40,15 +40,15 @@
 <jsp:include page="../footer.jsp" />
 <script>
 	function checkForm(){
-	    if(!document.updateform.r_title.value){
+	    if(!document.updateForm.r_title.value){
 	       alert("제목을 작성해 주세요");
 	       return;
 	    }
-	    if(!document.updateform.r_content.value){
+	    if(!document.updateForm.r_content.value){
 		   alert("내용을 작성해 주세요");
 		   return;
 		}
-	    document.updateform.submit();
+	    document.updateForm.submit();
 	 }
 </script>
 </body>
