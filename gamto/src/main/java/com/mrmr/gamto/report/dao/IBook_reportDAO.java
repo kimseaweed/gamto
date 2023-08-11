@@ -20,4 +20,6 @@ public interface IBook_reportDAO {
 	public int updateCnt(String r_seq_number);
 	public int goodCnt(String r_seq_number);
 	public List<Book_reportDTO> SearchTotal(Map<String, String> map);
+	public void updateCnt(int r_seq_number);
+	public void viewCountUp(int u_id);
 }

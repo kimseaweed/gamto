@@ -7,16 +7,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mrmr.gamto.freeboard.dto.FreeboardDto;
-import com.mrmr.gamto.freeboard.dto.PagingVO;
 import com.mrmr.gamto.report.dao.IBook_reportDAO;
-import com.mrmr.gamto.report.dto.PageDTO;
 import com.mrmr.gamto.report.dto.Book_reportDTO;
+import com.mrmr.gamto.report.dto.PageDTO;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/list")
@@ -138,4 +140,38 @@ public class ReportController {
 		
 		return "list/list";
 	}
+	
+	@GetMapping(value = "/views/{u_id}")
+    private void viewCountUp(@PathVariable int u_id,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
+
+        Cookie oldCookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("viewCount")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + u_id + "]")) {
+                // 기존 쿠키가 있지만 해당 board 조회가 없을 때 
+                dao.viewCountUp(u_id);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + u_id + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(oldCookie);
+            }
+        } else {
+            // 기존 쿠키가 없을 때
+            dao.viewCountUp(u_id);
+            Cookie newCookie = new Cookie("viewCount","[" + u_id + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            response.addCookie(newCookie);
+        }
+    }
 }

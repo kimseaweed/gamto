@@ -67,11 +67,12 @@
 		</c:forEach>
 	</table>
 	<br>
-		<p>
+		<div>
+			<p>
 			<a href="/write" class="btn btn-outline-primary">글작성</a>
 			<a href="/list" class="btn btn-outline-primary">목록보기</a> 
-		</p> <br>
-		<div class="center mt-2">
+			</p> <br>
+		<div class="center">
 			<a href="?pageNo=1">&lt;&lt;</a>
 
 			<c:if test="${page.startNo eq 1}">
@@ -87,6 +88,7 @@
 
 			<a href="?pageNo=${page.pageNo+1}">&gt;</a> <a
 				href="?pageNo=${page.totalPage}">&gt;&gt;</a>
+		</div>
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />

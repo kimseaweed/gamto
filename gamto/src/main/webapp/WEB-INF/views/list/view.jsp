@@ -6,18 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 상세 페이지</title>
+<style>
+	.out{
+		outline: none;
+		border: none;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
 	<main class="container pt-5">
 	<div>
-		<div>
-			<p class="col mt-2">제목 : ${dto.r_title}</p> <p class="col ms-auto me-5">작성자 : ${dto.r_writer}</p>
-			<p class="col ms-auto text-end me-5"> 
+		<div class="row">
+			<p>제목 : ${dto.r_title}</p> <span class="col col-lg-6" style="float: left;">작성자 : ${dto.r_writer}</span>
+			<span class="text-end col col-lg-6">추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view}</span>
 		</div>
-		<p class="text-end">추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view}</p>
-	<hr>
 	</div>
+	<hr>
 	<div style="padding-bottom:200px;">
 	<img src="../img/book/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;">
 	<p class="col mt-2">내용 : ${dto.r_content}<br></p>
@@ -33,7 +38,8 @@
 			<input type="button" value="수정" class="btnUpdate btn btn-outline-success">
 			<input type="button" value="삭제" class="btnDelete btn btn-outline-danger">
 		</c:if>	
-		<input type="button" value="추천" class="btnGood btn btn-outline-warning"/>
+		<%-- <input type="button" value="<i class='bi bi-hand-thumbs-up'></i>" class="btnGood btn btn-outline-warning"/> --%>
+		<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
 	</p>
 	<br>
 	</div>
