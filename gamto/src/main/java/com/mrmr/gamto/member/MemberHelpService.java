@@ -121,7 +121,7 @@ public class MemberHelpService {
 		}else {
 			String subject = "[감토] 비밀번호 재설정 인증메일";
 			String body = "<p><b>" + memberdto.getU_name() + "</b>님의 비밀번호를 재설정 하기 위한 인증 메일을 보내드립니다. </p>"
-							+ "<div style=\"border:1px solid gray; padding: 10px 20px;\"><h1><a href=\"http://localhost:8089/member/reset-pw/token?t="
+							+ "<div style=\"border:1px solid gray; padding: 10px 20px;\"><h1><a href=\"http://localhost:8089/member/help/reset-pw/token?t="
 							+ createToken(memberdto.getU_id()) 
 							+ "\"> 메일 인증하기</a></h1></div>"
 							+ "<p>링크를 클릭하시면 비밀전호 재설정을 진행합니다. <br> 해당 메일은 10분 후 만료됩니다.</p>";

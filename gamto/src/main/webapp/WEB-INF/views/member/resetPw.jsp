@@ -49,7 +49,7 @@
 			}else{
 				$('#spinner').css('display','block');
 				$.ajax({
-					url:"/member/reset-pw/matching",
+					url:"/member/help/reset-pw/check",
 					dataType:'json',
 					type:"post",
 					data: {	"u_id" : $('#u_id').val(),
@@ -65,7 +65,7 @@
 							return false;
 						}else{
 							$('#spinner').css('display','block');
-							location="/member/reset-pw/send";
+							location="/member/help/reset-pw/send";
 						}
 					},
 					error : function(){
