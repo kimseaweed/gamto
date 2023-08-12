@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+	<%
+		String u_id = (String)session.getAttribute("u_id");
+	%>
 <style>
 	.c-p-t{
             padding-top: 100px;
@@ -18,14 +23,44 @@
 	.l-bd{
 		border-left:1px solid black;
 	}
+	.c-wid{
+		width: 70px;
+	}
+	.c-wid-100{
+		width: 100%;
+	}
 </style>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
-	<%
-		String u_id = (String)session.getAttribute("u_id");
-	%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	  $("#u_email1").on("input", function() {
+	    var inputText = $(this).val();
+
+	    // 대문자 확인 정규식
+	    var uppercasePattern = /^[A-Z]*$/;
+
+	    if (uppercasePattern.test(inputText)) {
+	    	$("#warningMessage").text("대문자는 입력이 불가능합니다.");
+	    } else {
+	      $("#warningMessage").text("");
+	    }
+	});
+});
+function checkEmail() { //도메인 자동 선택
+	/* if (document.frm.emailList.value != "") {
+		document.frm.email2.value = document.frm.emailList.value;
+	} else {
+		document.frm.email2.value = "";
+		document.frm.email2.focus();
+	} */
+	if ($("#u_email3").val() != "") {
+		document.querySelector("#mail2").value = document.querySelector("#u_email3").value
+	} else {
+		document.querySelector("#mail2").value = ""
+			document.querySelector("#u_email2").focus();
+	}
+}
+</script>
 </head>
 
 <body onload="init()">
@@ -41,44 +76,73 @@
                     <div class="col-md-8 c-p-t">
 					<div class="container">
 						<div class="row l-bd">
-							<div class="col-12">
+							<div class="col-12 c-wid-100">
 								<form action="processUpdateMember" method="post" name="newMember">
-									<div class="form-group row">
-										<label class="col-sm-2 ">아이디</label> <input type="text" readonly
-											class="form-control col-sm-3" name="u_id" placeholder="id"
-											value="<c:out value='${row.u_id}'/>" />
+									<div class="row g-3 align-items-center">
+									  <div class="col-auto">
+									  <label class="c-wid">아이디</label>
+									  </div>
+									  <div class="col-auto">
+									  	<input type="text" name="u_id" placeholder="id" class="form-control" readonly aria-describedby="passwordHelpInline" value="<c:out value='${row.u_id}'/>">
+									  </div>
+									</div><!-- row -->
+									<div class="row g-3 align-items-center">
+									  <div class="col-auto">
+									  <label class="c-wid">비밀번호</label>
+									  </div>
+									  <div class="col-auto">
+									  	<input type="password" name="u_pw" placeholder="password" class="form-control" aria-describedby="passwordHelpInline" value="<c:out value='${row.u_pw}'/>">
+									  </div>
 									</div>
-									<div class="form-group row">
-										<label class="col-sm-2">비밀번호</label> <input type="text"
-											class="form-control col-sm-3" name="u_pw" placeholder="password"
-											value="<c:out value='${row.u_pw}'/>">
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-2">이름</label> <input type="text"
-											class="form-control col-sm-3" name="u_name" placeholder="name"
-											value="<c:out value='${row.u_name}'/>" />
-									</div>
-					                  <div class="form-group row">
-											<label class="col-sm-2">이메일</label> 
-											<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50" value="${mail1}">@
-											<select name="mail2" id="mail2" class="col-sm-3 ml-3">
-												<option value="Directinput">직접입력</option>
-												<option value="naver.com">naver.com</option>
-												<option value="daum.net">daum.net</option>
-												<option value="gamil.com">gamil.com</option>
-												<option value="nate.com">nate.com</option>
-											</select>
-											<div id="warningMessage" style="color: red;"></div>
+									<div class="row g-3 align-items-center">
+									  <div class="col-auto">
+									  <label for="inputPassword6" class="c-wid">이름</label>
+									  </div>
+									  <div class="col-auto">
+									  	<input type="text" name="u_name" placeholder="name" class="form-control" aria-describedby="passwordHelpInline" value="<c:out value='${row.u_name}'/>">
+									  </div>
+									</div><!-- row -->
+									<div class="row g-3 align-items-center">
+										<div class="col-auto">
+											<label class="c-wid">이메일</label>
 										</div>
-									<div class="form-group row">
-										<label class="col-sm-2">연락처</label> <input type="text"
-											class="form-control col-sm-3" name="u_phone" placeholder="phone"
-											value="<c:out value='${row.u_phone}'/>">
+										<div class="col-auto">
+											<input type="text" id="mail1" name="mail1" class="form-control" value="${mail1}">
+										</div>@
+										<div class="col-auto">
+											<input type="text" name="mail2" id="mail2" class="form-control" value="${mail2}"> 
+										</div>
+										<div class="col-auto">
+											<select id="u_email3" size='1' onchange="return checkEmail()">
+													<option value="">직접입력</option>
+													<option value="naver.com">naver.com</option>
+													<option value="daum.net">daum.net</option>
+													<option value="gamil.com">gamil.com</option>
+													<option value="nate.com">nate.com</option>
+											</select>
+										</div>
+										<div id="warningMessage" style="color: red;"></div>
+									</div><!-- row -->
+									<div class="g-3 align-items-center row">
+										<div class="col-auto">
+											<label class="c-wid">연락처</label>
+										</div>
+										<div class="col-auto">
+											<input type="text" class="form-control" name="u_phone" placeholder="phone" value="<c:out value='${row.u_phone}'/>">
+										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-sm-2">주소</label> 
-										<input type="text" class="form-control col-sm-3" id="u_address" name="u_address" placeholder="주소" value="<c:out value='${row.u_address}'/>">
-										<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="col-sm-2 ml-2 "><br>
+									<div class="g-3 align-items-center row">
+										<div class="col-auto">
+											<label class="c-wid">주소</label>
+										</div>
+										<div class="col-auto">
+											<input type="text" class="form-control" id="u_address" name="u_address" placeholder="주소" value="<c:out value='${row.u_address}'/>">
+										</div>
+										
+										<div class="col-auto">
+											<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-secondary">
+										</div>
+										
 									</div>
 									<input type="hidden" name="u_delete"
 										value="<c:out value='${row.u_delete}'/>">	
