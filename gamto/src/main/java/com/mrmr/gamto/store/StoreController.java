@@ -83,12 +83,11 @@ public class StoreController {
 		return "store/cart";
 	}
 	
-	@RequestMapping("/header")
+	@RequestMapping("/header") //해더 장바구니뱃지
 	@ResponseBody
 	public int listNum(HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		if(getId == null) {
-			System.out.println("실패했어  다시 해 ");
+		if(getId == null) { 
 			return 0;
 		} else {
 			int result = dao.listNumDao(getId);
