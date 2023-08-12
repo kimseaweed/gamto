@@ -17,35 +17,42 @@
 %>
 </head>
 <body>
-<jsp:include page="../header.jsp" />
+	<jsp:include page="../header.jsp" />
 	<main class="container pt-5">
-	*${dto.f_category}<br>
-	<div class="row">
-	<p class="col mt-2">제목 : ${dto.f_title}</p> <p class="col ms-auto text-end me-5">작성자 : ${dto.f_writer}</p>
-	<hr>
-	</div>
-	<div style="padding-bottom:200px;" class="row">
-	<p class="col mt-2">내용 : ${dto.f_content}<br></p>
-	<p class="col ms-auto text-end me-5"> 
-	댓글 수 <spen id="countComment">${result}</spen> &nbsp;| &nbsp;추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 : ${dto.f_view} <br>
-	</p>
-	</div>
-	<hr>
-	<div class="row">
-	<p class="col mt-2">
-		작성 날짜 : ${dto.f_regist_day} <br>
-		수정 날짜 : ${dto.f_update_day} <br>
-	</p>
-	<p class="col ms-auto text-end me-5">
+		*${dto.f_category}<br>
+		<div class="row">
+			<p class="col mt-2">제목 : ${dto.f_title}</p>
+			<p class="col ms-auto text-end me-5">작성자 : ${dto.f_writer}</p>
+			<hr>
+		</div>
+		<div style="padding-bottom: 200px;" class="row">
+			<p class="col mt-2">
+				내용 : ${dto.f_content}<br>
+			</p>
+			<p class="col ms-auto text-end me-5">
+				댓글 수
+				<spen id="countComment">${result}</spen>
+				&nbsp;| &nbsp;추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 :
+				${dto.f_view} <br>
+			</p>
+		</div>
+		<hr>
+		<div class="row">
+			<p class="col mt-2">
+				작성 날짜 : ${dto.f_regist_day} <br> 수정 날짜 : ${dto.f_update_day} <br>
+			</p>
+			<p class="col ms-auto text-end me-5">
 				<c:set var="userId" value="<%=f_writer%>" />
 				<c:if test="${dto.f_writer==userId}">
-					<input type="button" value="수정" class="btnUpdate btn btn-outline-success">
-					<input type="button" value="삭제" class="btnDelete btn btn-outline-danger">
+					<input type="button" value="수정"
+						class="btnUpdate btn btn-outline-success">
+					<input type="button" value="삭제"
+						class="btnDelete btn btn-outline-danger">
 				</c:if>
 				<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
-	</p>
-	<br>
-	</div>
+			</p>
+			<br>
+		</div>
 		<div class="accordion mt-3" id="accordionExample">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
@@ -56,23 +63,23 @@
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse"
 					aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-					<c:if test="${empty cDto}">
-						<div class="text-center p-5">등록된 댓글이 없습니다.</div>
-					</c:if>
-					<c:if test="${not empty cDto}">
-						<div class="accordion-body">
-							<input type="hidden" name="f_seq_number"
-								value="${dto.f_seq_number}" /> <input type="hidden"
-								name="c_writer" value="<%=f_writer%>" />
-							<div class="form-group">
-								<textarea name="c_content" class="form-control" rows="3"></textarea>
-							</div>
-							<button type="button"
-								class="btn btn-primary text-end btn-sm btnComment m-3">댓글
-								등록</button>
-							<div class="comment" id="commentTable">
-								<c:forEach items="${cDto}" var="cdto">
+					<div class="accordion-body">
+						<input type="hidden" name="f_seq_number"
+							value="${dto.f_seq_number}" /> <input type="hidden"
+							name="c_writer" value="<%=f_writer%>" id="writer" />
+						<div class="form-group">
+							<textarea name="c_content" class="form-control" rows="3"></textarea>
+						</div>
+						<button type="button"
+							class="btn btn-primary text-end btn-sm btnComment m-3">댓글
+							등록</button>
+						<div class="comment" id="commentTable">
+							<c:if test="${empty cDto}">
+								<div class="text-center p-5">등록된 댓글이 없습니다.</div>
+							</c:if>
+							<c:if test="${not empty cDto}">
 
+								<c:forEach items="${cDto}" var="cdto">
 									<div>
 										<p>*${cdto.c_writer}*</p>
 										<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
@@ -91,10 +98,9 @@
 												id="${cdto.c_seq_number}">삭제</button></span>
 									</div>
 								</c:forEach>
-							</div>
-							<div id="newComment"></div>
-
 						</div>
+						<div id="newComment"></div>
+					</div>
 					</c:if>
 				</div>
 			</div>
@@ -104,7 +110,7 @@
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />
-<script>
+	<script>
  $(document).ready(function() { 
 	 
 	 $(document).on('click','.btnUpdate',function (e) { 
@@ -128,10 +134,17 @@
 		})
 		
 	$(document).on('click','.btnComment',function (e) {
-		getCommentList();
-		var result = Number(document.getElementById('countComment').innerHTML);
-		
-		document.getElementById('countComment').innerHTML= result+1;
+		var writer = document.getElementById('writer').value;
+		alert(writer);
+		if(writer == "null"){
+			alert('로그인이 필요합니다.');
+			return false;
+		}else{
+			getCommentList();
+			var result = Number(document.getElementById('countComment').innerHTML);
+			
+			document.getElementById('countComment').innerHTML= result+1;
+			}
 		})
 		
 		

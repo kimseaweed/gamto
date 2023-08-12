@@ -54,7 +54,7 @@
 		
 			
 		$('.reset').click(function(){
-		   //$('#summernote').summernote('reset');=>textarea안의 글 아애 없애기
+		   //$('#summernote').summernote('reset');=>textarea안의 글 아예 없애기
 		   $('#summernote').summernote('undo'); //=textarea안의 글 reset()하기!!
 		})
 			 

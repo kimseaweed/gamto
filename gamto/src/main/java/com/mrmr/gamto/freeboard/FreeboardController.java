@@ -52,7 +52,6 @@ public class FreeboardController {
 		model.addAttribute("cDto",dao.cListDao(fId));
 		model.addAttribute("result", dao.commentTotal(fId));
 		
-		
 		return "freeboard/view";
 	}
 	
@@ -134,7 +133,8 @@ public class FreeboardController {
 	@GetMapping("/getComentList")
 	@ResponseBody
 	private int getCommentList(@RequestParam("f_seq_number") String f_seq_number, @RequestParam("c_content") String c_content, @RequestParam("c_writer") String c_writer){
-		
+		System.out.println("test");
+		System.out.println(f_seq_number+c_writer+c_content);
 		return dao.cWriteDao(f_seq_number, c_writer, c_content);
 	}
 	
