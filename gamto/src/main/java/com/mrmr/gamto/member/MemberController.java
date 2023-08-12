@@ -133,6 +133,7 @@ public class MemberController {
 	    model.addAttribute("rows",dao.readMemberDao(u_id));
 	    return "/member/updateMember";
 	 }
+	 
 	
 	@RequestMapping("/processUpdateMember")
 	public String processUpdateMember(HttpServletRequest request, MemberDTO dto) {

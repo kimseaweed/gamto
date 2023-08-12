@@ -12,6 +12,9 @@
 		padding: 10px;
 	}
 </style>
+<%
+	String f_writer = (String)session.getAttribute("u_id");
+%>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
@@ -34,11 +37,12 @@
 		수정 날짜 : ${dto.f_update_day} <br>
 	</p>
 	<p class="col ms-auto text-end me-5">
-		<c:if test = "${sessionId==u_id}">
-			<input type="button" value="수정" class="btnUpdate">
-			<input type="button" value="삭제" class="btnDelete">
-		</c:if>	
-		<input type="button" value="좋아요♡" class="btnGood"/>
+				<c:set var="userId" value="<%=f_writer%>" />
+				<c:if test="${dto.f_writer==userId}">
+					<input type="button" value="수정" class="btnUpdate btn btn-outline-success">
+					<input type="button" value="삭제" class="btnDelete btn btn-outline-danger">
+				</c:if>
+				<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
 	</p>
 	<br>
 	</div>
@@ -52,39 +56,46 @@
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse"
 					aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<input type="hidden" name="f_seq_number"
-							value="${dto.f_seq_number}" /> <input type="hidden"
-							name="c_writer" value="임시작성자" />
-						<div class="form-group">
-							<textarea name="c_content" class="form-control" rows="3"></textarea>
-						</div>
-						<button type="button" class="btn btn-primary text-end btn-sm btnComment m-3">댓글 등록</button>
-						<div class="comment" id="commentTable">
-							<c:forEach items="${cDto}" var="cdto">
+					<c:if test="${empty cDto}">
+						<div class="text-center p-5">등록된 댓글이 없습니다.</div>
+					</c:if>
+					<c:if test="${not empty cDto}">
+						<div class="accordion-body">
+							<input type="hidden" name="f_seq_number"
+								value="${dto.f_seq_number}" /> <input type="hidden"
+								name="c_writer" value="<%=f_writer%>" />
+							<div class="form-group">
+								<textarea name="c_content" class="form-control" rows="3"></textarea>
+							</div>
+							<button type="button"
+								class="btn btn-primary text-end btn-sm btnComment m-3">댓글
+								등록</button>
+							<div class="comment" id="commentTable">
+								<c:forEach items="${cDto}" var="cdto">
 
-								<div>
-									<p>*${cdto.c_writer}*</p>
-									<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
-								</div>
-								<div class="col text-end">
-									<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
-								</div>
-								<div class="col text-end">
-									<span><button type="submit"
-											onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
-									<span><button type="submit"
-											onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
-									<span><button type="button" class="updateComment enable"
-											id="${cdto.c_seq_number}">수정</button></span> <span><button
-											type="button" class="deleteComment" id="${cdto.c_seq_number}">삭제</button></span>
-								</div>
+									<div>
+										<p>*${cdto.c_writer}*</p>
+										<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
+									</div>
+									<div class="col text-end">
+										<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
+									</div>
+									<div class="col text-end">
+										<span><button type="submit"
+												onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
+										<span><button type="submit"
+												onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
+										<span><button type="button"
+												class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
+										<span><button type="button" class="deleteComment"
+												id="${cdto.c_seq_number}">삭제</button></span>
+									</div>
+								</c:forEach>
+							</div>
+							<div id="newComment"></div>
 
-							</c:forEach>
 						</div>
-						<div id="newComment"></div>
-						
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -125,7 +136,6 @@
 		
 		
 	function getCommentList(){
-		 alert("test");
 		var f_seq_number = $('input[name=f_seq_number]').val();
 		var c_writer = $('input[name=c_writer]').val();
 		var c_content = $('textarea[name=c_content]').val();

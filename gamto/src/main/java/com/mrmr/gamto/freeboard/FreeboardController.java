@@ -46,8 +46,8 @@ public class FreeboardController {
 	@RequestMapping("/view")
 	public String freeview(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");
-		model.addAttribute("dto", dao.viewDao(fId));
 		dao.updateCnt(fId);
+		model.addAttribute("dto", dao.viewDao(fId));
 		
 		model.addAttribute("cDto",dao.cListDao(fId));
 		model.addAttribute("result", dao.commentTotal(fId));
@@ -63,10 +63,12 @@ public class FreeboardController {
 	
 	@RequestMapping("/write")
 	public String freeWrite(HttpServletRequest request, Model model) {
+		System.out.println("test글쓰기");
 		String fTitle = request.getParameter("f_title");
 		String fName = request.getParameter("f_writer");		
 		String fContent = request.getParameter("f_content");
 		String fCategory = request.getParameter("f_category");
+		System.out.println(fTitle+fName+fContent+fCategory);
 		
 		
 		Map<String,String> map = new HashMap<String,String>();

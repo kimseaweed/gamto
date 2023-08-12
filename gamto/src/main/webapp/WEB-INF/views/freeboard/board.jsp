@@ -6,15 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>board.jsp</title>
-<script>
-	function checkForm() {
-		if (!document.SearchCategory.f_category.value) {
-			alert("카테고리를 선택해주세요");
-			return;
-		}
-		document.SearchCategory.submit();
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
@@ -22,12 +13,12 @@
 		<form action="/board/SearchCategory" name="SearchCategory"
 			method="post" class="mt-5 ms-2">
 			<select name="f_category">
-				<option value="">카테고리</option>
 				<option value="토론회 모집">토론회 모집</option>
 				<option value="토론">토론</option>
 				<option value="책추천">책추천</option>
 				<option value="책교환">책교환</option>
-			</select> <input type="button" value="카테고리별 검색" onclick="checkForm()" />
+				<option value="자유로운 이야기" selected>자유로운 이야기</option>
+			</select> <input type="button" value="카테고리별 검색" />
 		</form>
 		<table class="table table-hover text-center mt-3">
 			<thead>

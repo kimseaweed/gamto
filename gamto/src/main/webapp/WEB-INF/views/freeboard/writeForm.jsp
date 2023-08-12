@@ -6,64 +6,99 @@
 <meta charset="UTF-8">
 <title>writeForm</title>
 <%
-	String f_writer = (String)session.getAttribute("sessionId");
+	String f_writer = (String)session.getAttribute("u_id");
 %>
-<script>
-	function checkForm(){
-	    if(!document.newWrite.f_category.value){
-			   alert("카테고리를 선택해주세요");
-			   return;
-			}
-	    if(!document.newWrite.f_title.value){
-	       alert("제목을 작성해 주세요");
-	       return;
-	    }
-	    if(!document.newWrite.f_content.value){
-		   alert("내용을 작성해 주세요");
-		   return;
-		}
-	    document.newWrite.submit();
-	 }
-</script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css">
+
 </head>
 <body>
-<jsp:include page="../header.jsp" />
-<main>
-	<table border="1">
-		<form name="newWrite" action="write" method="post">
-			<tr>
-				<td>작성자</td>
-				<td><%=f_writer%></td>
-			</tr>
-			<select name="f_category">				
-				<option value="">카테고리</option>
-				<option value="토론회 모집">토론회 모집</option>
-				<option value="토론">토론</option>
-				<option value="책추천">책추천</option>
-				<option value="책교환">책교환</option>
-			</select>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="f_title" size="100"/></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><input type="textarea" name="f_content" size="100"/></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="button" value="입력" onclick="checkForm()"/>&nbsp;&nbsp;
-					<a href="board">목록보기</a>
-				</td>
-			</tr>
+	<jsp:include page="../header.jsp" />
+
+	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
+		<form id="writeForm" action="/board/write" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" novalidate>
+			<input type="hidden" name="f_writer" value="<%=f_writer %>" />
+			<div class="mb-5">
+				<h3>우리생각 | 자유롭게 작성해주세요</h3>
+				<h6>작성자 : <%=f_writer %></h6>
+			</div>
+			<div class="mb-2">
+				<select name="f_category">
+					<option value="토론회 모집">토론회 모집</option>
+					<option value="토론">토론</option>
+					<option value="책추천">책추천</option>
+					<option value="책교환">책교환</option>
+					<option value="자유로운 이야기" selected>자유로운 이야기</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<input name="f_title" class="form-control" type="text"
+					id="validationCustomUsername" placeholder="제목을 입력해주세요"
+					aria-label="default input example" required>
+				<div class="invalid-feedback">제목을 입력해주세요</div>
+			</div>
+			<textarea name="f_content" class="form-control" id="summernote" required></textarea>
+			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
+			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
+				<button class="btn btn-warning me-md-3" onclick="location='list'; return false;">너의생각으로 이동</button>
+				<button class="btn btn-warning me-md-3" onclick="location='/board'; return false;">목록으로 이동</button>
+				<button class="btn btn-primary ms-md-auto p-2 mt-3 mt-md-0" type="submit">작성하기</button>
+			</div>
 		</form>
-	</table>
-</main>
-<jsp:include page="../footer.jsp" />
+	</main>
+	<jsp:include page="../footer.jsp" />
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"></script>
+	<script>
+		$('#summernote').summernote({
+			placeholder : '감토님의 생각을 자유롭게 표현해보세요.',
+			tabsize : 2,
+			height : 500,
+			lang : 'ko-KR',
+			focus : true,
+			disableGrammar: false,
+			toolbar: [
+				    ['fontname',['fontname']],
+				    ['fontsize', ['fontsize']],
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    ['color', ['forecolor','color']],
+				    ['table', ['table']],
+				    ['para', ['ul', 'ol', 'paragraph']],
+				    ['height', ['height']],
+				    ['insert',['picture','link','hr']],
+				    ['view', ['fullscreen','codeview']]//codeview 삭제예정
+				  ],
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+			,
+			});	
+		
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(() => {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  const forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.from(forms).forEach(form => {
+		    form.addEventListener('submit', event => {
+		      if (!form.checkValidity()) {
+		        event.preventDefault()
+		        event.stopPropagation()
+		      }
+
+		      form.classList.add('was-validated')
+		    }, false)
+		  })
+		})()
+	</script>
 <%
 		if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
     		out.println("<script>alert('로그인이 필요합니다.');</script>");
-    		out.println("<script>window.location.href='/login';</script>");
+    		out.println("<script>window.location.href='/member/login';</script>");
 		}
 %>
 </body>
