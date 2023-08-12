@@ -92,10 +92,12 @@
 												onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
 										<span><button type="submit"
 												onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
-										<span><button type="button"
-												class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
-										<span><button type="button" class="deleteComment"
-												id="${cdto.c_seq_number}">삭제</button></span>
+										<c:if test="${dto.f_writer==userId}">
+											<span><button type="button"
+													class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
+											<span><button type="button" class="deleteComment"
+													id="${cdto.c_seq_number}">삭제</button></span>
+										</c:if>
 									</div>
 								</c:forEach>
 						</div>
@@ -135,7 +137,7 @@
 		
 	$(document).on('click','.btnComment',function (e) {
 		var writer = document.getElementById('writer').value;
-		alert(writer);
+		
 		if(writer == "null"){
 			alert('로그인이 필요합니다.');
 			return false;
