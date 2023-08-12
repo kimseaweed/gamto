@@ -12,13 +12,19 @@
 	.c-p-t{
             padding-top: 100px;
         }
+	.D0D3D8{
+		background-color: #D0D3D8;
+	}
+	.l-bd{
+		border-left:1px solid black;
+	}
 </style>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 	<%
-		String sessionId = (String)session.getAttribute("sessionId");
+		String u_id = (String)session.getAttribute("u_id");
 	%>
 </head>
 
@@ -34,49 +40,52 @@
                     <jsp:include page="../myPageSideBar.jsp"/>
                     <div class="col-md-8 c-p-t">
 					<div class="container">
-						<form action="processUpdateMember" method="post" name="newMember">
-						<div class="form-group row ">
-							<label class="col-sm-2">아이디</label> <input type="text" readonly
-								class="form-control col-sm-3" name="u_id" placeholder="id"
-								value="<c:out value='${row.u_id}'/>" />
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2">비밀번호</label> <input type="text"
-								class="form-control col-sm-3" name="u_pw" placeholder="password"
-								value="<c:out value='${row.u_pw}'/>">
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-2">이름</label> <input type="text"
-								class="form-control col-sm-3" name="u_name" placeholder="name"
-								value="<c:out value='${row.u_name}'/>" />
-						</div>
-		                  <div class="form-group row">
-								<label class="col-sm-2">이메일</label> 
-								<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50" value="${mail1}">@
-								<select name="mail2" id="mail2" class="col-sm-3 ml-3">
-									<option value="Directinput">직접입력</option>
-									<option value="naver.com">naver.com</option>
-									<option value="daum.net">daum.net</option>
-									<option value="gamil.com">gamil.com</option>
-									<option value="nate.com">nate.com</option>
-								</select>
-								<div id="warningMessage" style="color: red;"></div>
+						<div class="row l-bd">
+							<div class="col-12">
+								<form action="processUpdateMember" method="post" name="newMember">
+									<div class="form-group row">
+										<label class="col-sm-2 ">아이디</label> <input type="text" readonly
+											class="form-control col-sm-3" name="u_id" placeholder="id"
+											value="<c:out value='${row.u_id}'/>" />
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2">비밀번호</label> <input type="text"
+											class="form-control col-sm-3" name="u_pw" placeholder="password"
+											value="<c:out value='${row.u_pw}'/>">
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2">이름</label> <input type="text"
+											class="form-control col-sm-3" name="u_name" placeholder="name"
+											value="<c:out value='${row.u_name}'/>" />
+									</div>
+					                  <div class="form-group row">
+											<label class="col-sm-2">이메일</label> 
+											<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50" value="${mail1}">@
+											<select name="mail2" id="mail2" class="col-sm-3 ml-3">
+												<option value="Directinput">직접입력</option>
+												<option value="naver.com">naver.com</option>
+												<option value="daum.net">daum.net</option>
+												<option value="gamil.com">gamil.com</option>
+												<option value="nate.com">nate.com</option>
+											</select>
+											<div id="warningMessage" style="color: red;"></div>
+										</div>
+									<div class="form-group row">
+										<label class="col-sm-2">연락처</label> <input type="text"
+											class="form-control col-sm-3" name="u_phone" placeholder="phone"
+											value="<c:out value='${row.u_phone}'/>">
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2">주소</label> 
+										<input type="text" class="form-control col-sm-3" id="u_address" name="u_address" placeholder="주소" value="<c:out value='${row.u_address}'/>">
+										<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="col-sm-2 ml-2 "><br>
+									</div>
+									<input type="hidden" name="u_delete"
+										value="<c:out value='${row.u_delete}'/>">	
+									<input class="btn btn-outline-secondary mx-2" type="submit" value="회원수정" />
+								</form>
 							</div>
-						<div class="form-group row">
-							<label class="col-sm-2">연락처</label> <input type="text"
-								class="form-control col-sm-3" name="u_phone" placeholder="phone"
-								value="<c:out value='${row.u_phone}'/>">
 						</div>
-						<div class="form-group row">
-							<label class="col-sm-2">주소</label> 
-							<input type="text" class="form-control col-sm-3" id="u_address" name="u_address" placeholder="주소" value="<c:out value='${row.u_address}'/>">
-							<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="col-sm-3 ml-3 "><br>
-						</div>
-						<input type="hidden" name="u_delete"
-							value="<c:out value='${row.u_delete}'/>">	
-						<input class="btn btn-success mx-2" type="submit" value="회원수정" />
-						<a href="deleteMember.jsp" class="btn btn-primary">회원탈퇴</a>
-					</form>
 					</div>
 				</div><!-- col-md-8 -->
                 </div><!-- row -->

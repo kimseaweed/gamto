@@ -41,11 +41,14 @@
         .c-bo{
         	margin-bottom: 4px;
         }
-        .D5D5D5{
-        	background-color:#D5D5D5;
+        .D0D3D8{
+        	background-color: #D0D3D8;
         }
         .E4E4E4{
         	background-color:#E4E4E4;
+        }
+        .c-w100{
+        	width: 100%;
         }
         </style>
 <meta charset="UTF-8">
@@ -57,37 +60,37 @@
 			<div class="container-fluid">
                 <div class="row">
                     <jsp:include page="../myPageSideBar.jsp"/>
-                    <div class="col-md-8 c-t-200 text-1vw c-p-t">
+                    <div class="col-md-7 c-t-200 text-1vw c-p-t c-w100">
                         <div class="row c-bo">
-                            <div class="col-md-4 D5D5D5">
+                            <div class="col-4 D0D3D8">
                                 <h1 class="c-lh c-m-20 text2-5vw">Gamto ID</h1>
                             </div>
-                            <div class="col-md-6 c-p-t5 E4E4E4">
-                                <span>sadfsad</span>
+                            <div class="col-6 c-p-t5 E4E4E4">
+                                <span>${rows.u_id}</span>
                             </div>
                         </div>
                         <div class="row c-bo">
-                            <div class="col-md-4 D5D5D5">
-                                <h1 class="c-lh c-m-20 text2-5vw">EMAIL<br></h1>
+                            <div class="col-4 D0D3D8">
+                                <h1 class="c-lh c-m-20 text2-5vw">Email<br></h1>
                             </div>
-                            <div class="col-md-6 c-p-t5 E4E4E4">
-                                <span>sadfsad</span>
-                            </div>
-                        </div>
-                        <div class="row c-bo">
-                            <div class="col-md-4 D5D5D5">
-                               <h1 class="c-lh c-m-20 text2-5vw">PHONE<br></h1>
-                            </div>
-                            <div class="col-md-6 c-p-t5 E4E4E4">
-                                <span>sadfsad</span>
+                            <div class="col-6 c-p-t5 E4E4E4">
+                                <span>${rows.u_email}</span>
                             </div>
                         </div>
                         <div class="row c-bo">
-                            <div class="col-md-4 D5D5D5">
-                               <h1 class="c-lh c-m-20 text2-5vw">ADDRESS<br></h1>
+                            <div class="col-4 D0D3D8">
+                               <h1 class="c-lh c-m-20 text2-5vw">Phone<br></h1>
                             </div>
-                            <div class="col-md-6 c-p-t5 E4E4E4">
-                                <span>sadfsad</span>
+                            <div class="col-6 c-p-t5 E4E4E4">
+                                <span>${rows.u_phone}</span>
+                            </div>
+                        </div>
+                        <div class="row c-bo">
+                            <div class="col-4 D0D3D8">
+                               <h1 class="c-lh c-m-20 text2-5vw">Address<br></h1>
+                            </div>
+                            <div class="col-6 c-p-t5 E4E4E4">
+                                <span>${rows.u_address}</span>
                             </div>
                         </div>
                     </div><!-- col-md-8 -->

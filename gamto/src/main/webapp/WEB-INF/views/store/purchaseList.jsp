@@ -14,18 +14,22 @@
 	.c-p-t{
             padding-top: 100px;
         }
+    .c-w100{
+    	width: 100%;
+    }
     th{
-    	width: 1%;
     	height: 100px;
     }
     td{
     	height: 60px;
     }
-    .c-bd{
-    	border: 2px solid black;
+     .c-bd{
+    	border-top: 1px solid black;
+    	border-bottom: 1px solid black;
+    	background-color: #D0D3D8;
     }
     .c-bd1{
-    	border: 1px solid black;
+    	border-bottom: 1px solid gray;
     }
 </style>
 </head>
@@ -33,15 +37,15 @@
 	<jsp:include page="../header.jsp" />
 	<main class="main">
 			<div class="container-fluid">
-                <div class="row">
+                <div class="row ">
                     <jsp:include page="../myPageSideBar.jsp"/>
-                    <div class="col-md-7 c-p-t text-center">
-                        <table border="2">
-					 		<tr>
-					 			<th class="c-bd">주문번호</th>
-					 			<th class="c-bd">주문날짜</th>
-					 			<th class="c-bd">주문명</th>
-					 			<th class="c-bd">주문주소</th>
+                    <div class="col-md-6 c-p-t text-center">
+                        <table class="c-w100">
+					 		<tr class="c-bd">
+					 			<th>주문번호</th>
+					 			<th>주문날짜</th>
+					 			<th>주문명</th>
+					 			<th>주문주소</th>
 					 		</tr>
 					 		<c:forEach items="${list}" var="dto">
 					 			<tr>

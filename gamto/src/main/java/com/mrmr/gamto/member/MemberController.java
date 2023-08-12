@@ -27,7 +27,9 @@ public class MemberController {
 		return "member/myPage";
 	}
 	@RequestMapping("/myPage")
-	public String needLoginMember() {
+	public String needLoginMember(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("u_id");      
+	    model.addAttribute("rows",dao.readMemberDao(u_id));
 		return "member/myPage";
 	}
 	@RequestMapping("/login")
