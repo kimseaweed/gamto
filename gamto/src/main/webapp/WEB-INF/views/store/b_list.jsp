@@ -30,38 +30,34 @@
 						data-bs-slide-to="2" aria-label="Slide 3"></button>
 				</div>
 				<div class="carousel-inner">
+						<!-- 케로셀1 -->
 					<div class="carousel-item active" data-bs-interval="8000">
-						<div class="d-block w-100 h-500px bg-secondary">
-							<img src="https://via.placeholder.com/800x400" alt="..."
-								class="caro-img">
-						</div>
+							<img src="../img/b_list/b_list_1.gif" alt="..."
+								class="caro-img text-center">
 						<div class="carousel-caption d-none d-md-block">
-							<h5>책 제목</h5>
-							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
+							<h5>제목</h5>
+							<p>내용</p>
 						</div>
 					</div>
-					<div class="carousel-item" data-bs-interval="2000">
-						<div class="d-block w-100 h-500px bg-secondary">
-							<img src="https://via.placeholder.com/800x400" alt="..."
-								class="caro-img">
-						</div>
+					<!-- 케로셀2 -->
+					<div class="carousel-item" data-bs-interval="7000">
+						<img src="../img/b_list/b_list_2.gif" class="caro-img text-center">
 						<div class="carousel-caption d-none d-md-block">
-							<h5>책 광고입니다</h5>
-							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
+							<h5>광고2</h5>
+							<p>광고2의 내용</p>
 						</div>
 					</div>
-					<div class="carousel-item">
-						<div class="d-block w-100 h-500px bg-secondary"
-							data-bs-interval="2000">
-							<img src="https://via.placeholder.com/800x400" alt="..."
+					<!-- 케로셀3 -->
+					<div class="carousel-item" data-bs-interval="7000">
+							<img src="../img/b_list/b_list_3.gif" alt="..."
 								class="caro-img">
-						</div>
 						<div class="carousel-caption d-none d-md-block">
-							<h5>굿즈도 광고합니다</h5>
-							<p>책소개입니다 Lorem ipsum dolor sit amet.</p>
+							<h5>광고3</h5>
+							<p>광고3의 내용</p>
 						</div>
 					</div>
 				</div>
+				
 				<button class="carousel-control-prev" type="button"
 					data-bs-target="#carouselExampleDark" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>

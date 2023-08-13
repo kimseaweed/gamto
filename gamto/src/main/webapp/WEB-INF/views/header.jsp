@@ -33,7 +33,7 @@
 	<div class="carrot d-none d-lg-block"></div>
 	<!-- 데스크탑헤더 : lg 이상 환경 : 992px이상 -->
 	<header
-		class="d-none d-lg-block position-fixed top-0 d-flex justify-content-between px-3">
+		class="d-none d-lg-block position-fixed top-0 d-flex justify-content-between px-5">
 		<nav class="flex-wrap justify-content-between pt-3 pb-2 d-flex">
 			<div class="logobox pb-2">
 				<a href="/" class="text-decoration-none d-flex align-items-end">
@@ -89,7 +89,11 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="/member/logoutMember">로그아웃</a></li>
-						<li><a class="dropdown-item" href="/member/myPage">마이페이지</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="/member/myPage">나의 공간</a></li>
+						<li><a class="dropdown-item" href="b_list/purchaseList">구매내역</a></li>
+						<li><a class="dropdown-item" href="#">내 글보기</a></li>
+						<li><a class="dropdown-item" href="/member/updateMember">회원 수정</a></li>
 					</ul></li>
 				<%
 				}
@@ -170,9 +174,13 @@
 										href="/member/logoutMember">로그아웃</a></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
-										href="/member/logoutMember">나의공간</a></li>
+										href="/member/myPage">나의공간</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
-										href="/member/updateMember">회원수정</a></li>
+										href="/b_list/purchaseList">구매내역</a></li>
+									<li><a class="dropdown-item fs-3 fw-bold"
+										href="/b_list/purchaseList">내글보기</a></li>
+									<li><a class="dropdown-item fs-3 fw-bold"
+										href="/member/updateMember?u_id=">회원수정</a></li>
 								</ul></li>
 							<%
 							}
