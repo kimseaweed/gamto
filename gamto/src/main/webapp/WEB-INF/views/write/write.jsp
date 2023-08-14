@@ -42,7 +42,7 @@
 				<div class="invalid-feedback">제목을 입력해주세요</div>
 			</div>
 			<div class="input-group mb-3">
-			<input name="filename" class="form-control" id="inputGroupFile02" type="file"  value="default.png"/>
+			<input name="filename" class="form-control" id="inputGroupFile02" type="file"/>
 			 <label class="input-group-text" for="inputGroupFile02">글 표지를 골라주세요 !</label>
 			 <div class="valid-feedback">표지를 선택하지 않으면 기본이미지가 선택됩니다. </div>
 			</div>
