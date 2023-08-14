@@ -14,7 +14,7 @@
 	<jsp:include page="../header.jsp" />
 	
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
-		<form id="writeForm" action="/write/writeBook_report" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" 
+		<form id="updateForm" action="/report/updateteForm" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" 
 			enctype="multipart/form-data" novalidate>
 			<input type="hidden" name="r_writer" value="${updateForm.r_writer}" />
 			<div class="mb-5">
