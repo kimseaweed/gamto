@@ -1,4 +1,4 @@
-package com.mrmr.gamto.write;
+package com.mrmr.gamto.write.service;
 
 import java.io.File;
 import java.io.IOException;

@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="../header.jsp" />
 	<!-- main > 메인헤더 + 케로셀블럭 + 책상점 블럭 + 굿즈블럭  -->
-	<main class="b_list container-md bg-light p-5">
+	<main class="store container-md bg-light p-5">
 		<!-- 메인헤더  -->
 		<div class="">
 			<h1 class="text-center pb-3 border-bottom mb-3">상점</h1>

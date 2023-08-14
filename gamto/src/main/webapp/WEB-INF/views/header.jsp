@@ -80,6 +80,8 @@
 </div>
 
 	<script>
+	
+		//bs 토스트 : 검색기능
 		const toastTrigger = document.getElementById('searchSite')
 		const toastLiveExample = document.getElementById('searchToast')
 		if (toastTrigger) {
@@ -92,6 +94,20 @@
 		function boardCategory(){
 			
 		}
+		
+		// 카트 뱃지
+		$(document).ready(function(){
+			$.ajax({
+				url:"/store/header",
+				dataType:'json',
+				type:"get",
+				success : function(result){
+					if(result>0){
+						$('.cartBadge').text(result);
+					}
+				},		
+			});
+		});
 	</script>
 	
 </div>
@@ -112,7 +128,7 @@
 					data-bs-placement="left" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="| 글쓰기 |<br>나의 생각을 적어보세요">나의
 						생각</a></li>
-				<li class="nav-item"><a href="/list"
+				<li class="nav-item"><a href="/report"
 					class="px-3 mx-1 link-dark link2 link2_blue"
 					data-bs-placement="left" data-bs-html="true"
 					data-bs-toggle="tooltip"
@@ -131,7 +147,7 @@
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span
 						class="material-symbols-outlined fs-1">shopping_cart </span> <span
-						class="badge position-absolute start-100 translate-middle badge rounded-pill bg-danger"></span>
+						class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger" > </span>
 				</a></li>
 				<%
 				if (session.getAttribute("u_id") == "" || session.getAttribute("u_id") == null) {
@@ -157,7 +173,7 @@
 						<li><a class="dropdown-item" href="/member/logoutMember">로그아웃</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/member/myPage">나의 공간</a></li>
-						<li><a class="dropdown-item" href="store/purchaseList">구매내역</a></li>
+						<li><a class="dropdown-item" href="/store/purchaseList">구매내역</a></li>
 						<li><a class="dropdown-item" href="#">내 글보기</a></li>
 						<li><a class="dropdown-item" href="/member/updateMember">회원 수정</a></li>
 					</ul></li>
@@ -202,15 +218,16 @@
 								href="/board"><i class="bi bi-blockquote-left me-3"></i>너의
 									생각</a></li>
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
-								href="/list"><i class="bi bi-blockquote-left me-3"></i>우리 생각</a></li>
+								href="/report"><i class="bi bi-blockquote-left me-3"></i>우리 생각</a></li>
 							<hr />
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
 								href="/store"> <span
 									class="material-symbols-outlined fs-1 align-middle me-3">local_mall</span>상점
 							</a></li>
-							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
+							<li class="nav-item"><a class="position-relative nav-link fs-2 fw-bold"
 								href="/store/cart"> <span
-									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span>장바구니
+									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span><span
+						class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1" > </span> 장바구니
 							</a></li>
 							<%
 							if (session.getAttribute("u_id") == "" || session.getAttribute("u_id") == null) {
@@ -244,9 +261,9 @@
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/store/purchaseList">구매내역</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
-										href="/b_list/purchaseList">내글보기</a></li>
+										href="#">내글보기</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
-										href="/member/updateMember?u_id=">회원수정</a></li>
+										href="/member/updateMember">회원수정</a></li>
 								</ul></li>
 							<%
 							}
@@ -263,23 +280,5 @@
 			</div>
 		</nav>
 	</header>
-<script>
-	$(document).ready(function(){
-		$.ajax({
-			url:"/store/header",
-			dataType:'json',
-			type:"get",
-			success : function(result){
-				if(result>0){
-					$('#badge').text(result);
-				}
-			},
-			error : function(){
-				console.log('카트실패')
-			}
-		
-		});
-	});
-</script>
 </body>
 </html>

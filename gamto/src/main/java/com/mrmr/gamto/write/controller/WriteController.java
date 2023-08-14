@@ -1,4 +1,4 @@
-package com.mrmr.gamto.write;
+package com.mrmr.gamto.write.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mrmr.gamto.GamtoService;
 import com.mrmr.gamto.report.dto.BookReportDTO;
+import com.mrmr.gamto.utils.GamtoService;
+import com.mrmr.gamto.write.DAO.IWriteDAO;
+import com.mrmr.gamto.write.service.WriteService;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 

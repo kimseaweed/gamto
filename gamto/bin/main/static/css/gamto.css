@@ -157,10 +157,16 @@ header > nav >ul>li>a{
 header{
 	width: 100%;
 }
-header span.badge{
+header.d-lg-block span.badge{
+letter-spacing: -1px;	
 	font-size: 15px;
 	top: -12px;
 	z-index: 99999;
+}
+
+header.d-lg-none span.badge{
+	top:17px;
+	left: 35px;
 }
 /*스크롤탑버튼*/
 #sidebar button{
@@ -267,7 +273,7 @@ font-size: 2rem;
   
 
 @media (min-width: 768px) {
-	main.b_list h3.fs-2{
+	main.store h3.fs-2{
 		font-size: 1.5rem !important;
 	}
 }

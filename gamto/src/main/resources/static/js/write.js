@@ -139,8 +139,8 @@ var createcard1 = function (context) {
 					size : 10,
 					page : pageNum,
 				}
-			if($('#reportFooter-query').val()!='1'){
-				search['target']=$('#select').val();
+			if($('.addbookinfo[name=select]:checked').val()!=''){
+				search['target']=$('.addbookinfo[name=select]:checked').val();
 			}
 			$.ajax({
 				url:"https://dapi.kakao.com/v3/search/book",
@@ -166,12 +166,12 @@ var createcard1 = function (context) {
 					pageNum++;
 					for(var i=0; i<size; i++){
 						$('.modal-body').append(
-							'<button type="button" data-bs-dismiss="modal" onclick="getBookCard(this.id)" class="btn btn-outline-warning my-3" id="'+res.documents[i].isbn+'"><div class="card p-4 ms-auto bg-white" style="max-width: 800px;">'+
+							'<button type="button" data-bs-dismiss="modal" onclick="getBookCard(this.id)" class="btn btn-outline-warning my-3" id="'+res.documents[i].isbn+'"><div class="card p-2 ms-auto bg-white" style="max-width: 800px;">'+
 							'<div class="row g-0"><div class="col-md-4">'+
 							'<img src="'+ res.documents[i].thumbnail+'" id="reportFooter-thumbnail" class="img-fluid rounded-start" style="max-width: 450px;">'+
 							'</div><div class="col-md-8"><div class="card-body">'+
 							'<h5 class="card-title link-dark" id="reportFooter-title">'+res.documents[i].title+'</h5>'+
-							'<p class="card-text text-end pe-3 link-dark"><small class="text-muted" id="reportFooter-authors">'+res.documents[i].authors+' 저</small> | '+
+							'<p class="card-text text-end pe-1 link-dark mt-3 mb-0"><small class="text-muted" id="reportFooter-authors">'+res.documents[i].authors+' 저</small> | '+
 							'<small class="text-muted" id="reportFooter-publisher">'+res.documents[i].publisher+' 출판</small></p>'+
 							'<p class="card-text text-muted" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;" id="reportFooter-content">'+
 							res.documents[i].contents+'</p></div> </div> </div> </div> </button>'		

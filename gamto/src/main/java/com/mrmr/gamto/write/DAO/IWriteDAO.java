@@ -1,4 +1,4 @@
-package com.mrmr.gamto.write;
+package com.mrmr.gamto.write.DAO;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

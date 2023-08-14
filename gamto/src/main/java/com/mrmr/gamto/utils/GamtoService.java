@@ -1,4 +1,4 @@
-package com.mrmr.gamto;
+package com.mrmr.gamto.utils;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 
