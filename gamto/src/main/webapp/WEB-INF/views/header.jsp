@@ -24,11 +24,77 @@
 <link rel="stylesheet" href="/css/gamto.css" />
 </head>
 <body>
+<!-- 데스크탑 사이드바  -->
+<div id="sidebar">
 	<button
         type="button"
-        class="btn btn-lg rounded-circle"
-        id="btn-back-to-top" ><i class="bi bi-arrow-up"></i>
+        class="btn btn-outline-dark btn-lg rounded-circle"
+        id="shareLink" ><span class="material-symbols-outlined">
+		share
+	</span>
+	</button>
+	<button
+        type="button"
+        class="btn btn-outline-dark btn-lg rounded-circle"
+        id="searchSite" ><span class="material-symbols-outlined">
+		search
+	</span>
+	</button>
+	<button
+        type="button"
+        class="btn btn-outline-dark btn-lg rounded-circle"
+        id="btn-back-to-top" ><span class="material-symbols-outlined">
+		expand_less
+	</span>
+
 </button>
+<!-- 검색 토스트  -->	
+<div class="toast-container position-fixed bottom-0 end-0 p-3 mb-5 me-5 pe-5">
+  <div id="searchToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">사이트내 검색하기</strong>
+      <button type="button" class="btn-close me-5 pe-5" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body ps-4 pe-2">
+     <div class="input-group mb-1">
+	  	<select class="form-select" id="searchCategory1" aria-label="" onchange="boardCategory()">
+		    <option value="0" selected>게시판 선택</option>
+		    <option value="1">너의 생각</option>
+		    <option value="2">우리 생각</option>
+		    <option value="3">상점</option>
+  		</select>
+  		 <select class="form-select" id="searchCategory2" aria-label="" disabled="disabled">
+		    <option selected>선택</option>
+		    <option value="1">너의 생각</option>
+		    <option value="2">우리 생각</option>
+		    <option value="3">상점</option>
+  		</select>
+	  </div>
+	<div class="input-group mb-3">
+	  <input type="text" class="form-control" placeholder="검색어를 입력해주세요" id="searchQuery">
+	  <span class="input-group-text px-5">검색</span>
+	</div>
+      
+    </div>
+  </div>
+</div>
+
+	<script>
+		const toastTrigger = document.getElementById('searchSite')
+		const toastLiveExample = document.getElementById('searchToast')
+		if (toastTrigger) {
+		  toastTrigger.addEventListener('click', () => {
+		    const toast = new bootstrap.Toast(toastLiveExample)
+		
+		    toast.show()
+		  })
+		}
+		function boardCategory(){
+			
+		}
+	</script>
+	
+</div>
 	<!-- 당근커서. 데스크탑용  -->
 	<div class="carrot d-none d-lg-block"></div>
 	<!-- 데스크탑헤더 : lg 이상 환경 : 992px이상 -->
