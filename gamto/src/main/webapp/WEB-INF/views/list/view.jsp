@@ -24,7 +24,7 @@
 	</div>
 	<hr>
 	<div style="padding-bottom:200px;">
-	<img src="../img/book/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;">
+	<img src="../img/userUpload/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;">
 	<p class="col mt-2">내용 : ${dto.r_content}<br></p>
 	</div>
 	<hr>

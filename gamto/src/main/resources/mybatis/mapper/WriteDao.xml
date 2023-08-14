@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mrmr.gamto.write.IWriteDAO">
-	<insert id="writeBook_report">
+	<insert id="writeBookReport">
 		insert into book_report values(book_report_seq.nextval,
 		#{dto.r_filename},#{dto.r_title},#{dto.r_writer},#{dto.r_content},sysdate,sysdate,0,0,0)
 	</insert>

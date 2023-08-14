@@ -55,7 +55,7 @@
 			<tr class="tab_bottom">
 				<td>${dto.r_seq_number}</td>
 				<td>
-					<img src="../img/book/${dto.r_filename}" width="100" height="141">
+					<img src="../img/userUpload/${dto.r_filename}" width="100" height="141">
 				</td>
 				<td><a href="/list/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
 				<td>${dto.r_writer}</td>
