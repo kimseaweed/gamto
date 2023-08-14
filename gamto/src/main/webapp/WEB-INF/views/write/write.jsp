@@ -310,11 +310,23 @@
 					'<div id="reportFooter-card"><hr class="my-3"><div class="card mb-3 p-4 ms-auto" style="max-width: 600px;"> <div class="row g-0"> <div id="" class="col-md-4">'+
 					'<img src="'+res.documents[0].thumbnail+'" id="reportFooter-thumbnail" class="img-fluid rounded-start" alt="..." style="max-width: 450px;"></div>'+
 					'<div class="col-md-8 d-flex flex-column"><h4 class="card-title text-end mb-auto" id="card-title">'+res.documents[0].title+
-					'</h4><div class=""><p class="card-text text-end pe-1 mb-0"><small class="text-muted" id="card-authors"><b>'+res.documents[0].authors+
+					'</h4> <p style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:2;overflow: hidden;" class="pt-3 text-muted" id="card-content">'+res.documents[0].contents+'...</p>'+
+					'<div class=""><p class="card-text text-end pe-1 mb-0"><small class="text-muted" id="card-authors"><b>'+res.documents[0].authors+
 					'</b> 저</small></p> <p class="card-text text-end pe-1"><small class="text-muted" id="card-publisher"><b>'+res.documents[0].publisher+'</b> 출판</small>  |  <small class="text-muted" id="card-date"><b>'+
-					res.documents[0].datetime.substring(0,res.documents[0].datetime.indexOf('T'))+'</b> 출간</small> </p></div></div> <hr class="mt-4 pb-2" > <div class="ps-4"> <b>책 소개</b><div class="pt-2 text-black-50">'+
-					'<p class="" id="card-content">'+res.documents[0].contents+'...</p><a href="'+res.documents[0].url+'" class="text-end btn btn-primary btn-sm float-end"> 상세보기 </a></div> </div></div> </div> </div>'		
+					res.documents[0].datetime.substring(0,res.documents[0].datetime.indexOf('T'))+'</b> 출간</small> </p> <a href="'+res.documents[0].url+'" class="text-end btn btn-primary btn-sm float-end"> 상세보기 </a> </div></div>'+
+					'</div></div> </div>'		
 				);
+				
+				
+/* 				$('#reportFooter-preview').append(
+						'<div id="reportFooter-card"><hr class="my-3"><div class="card mb-3 p-4 ms-auto" style="max-width: 600px;"> <div class="row g-0"> <div id="" class="col-md-4">'+
+						'<img src="'+res.documents[0].thumbnail+'" id="reportFooter-thumbnail" class="img-fluid rounded-start" alt="..." style="max-width: 450px;"></div>'+
+						'<div class="col-md-8 d-flex flex-column"><h4 class="card-title text-end mb-auto" id="card-title">'+res.documents[0].title+
+						'</h4><div class=""><p class="card-text text-end pe-1 mb-0"><small class="text-muted" id="card-authors"><b>'+res.documents[0].authors+
+						'</b> 저</small></p> <p class="card-text text-end pe-1"><small class="text-muted" id="card-publisher"><b>'+res.documents[0].publisher+'</b> 출판</small>  |  <small class="text-muted" id="card-date"><b>'+
+						res.documents[0].datetime.substring(0,res.documents[0].datetime.indexOf('T'))+'</b> 출간</small> </p></div></div> <hr class="mt-4 pb-2" > <div class="ps-4"> <b>책 소개</b><div class="pt-2 text-black-50">'+
+						'<p class="" id="card-content">'+res.documents[0].contents+'...</p><a href="'+res.documents[0].url+'" class="text-end btn btn-primary btn-sm float-end"> 상세보기 </a></div> </div></div> </div> </div>'		
+					); */
 				$('#reportFooter-preview').removeClass('d-none');
 				addCard()
 			})//done end
