@@ -32,7 +32,7 @@ public class WriteController {
 	public String writeAction(MultipartFile filename,BookReportDTO dto,String footer) throws Exception {
 		dto.setR_content(dto.getR_content()+footer);
 		dto.setR_filename(service.saveFile(filename));
-		dao.writeBook_report(dto);
+		dao.writeBookReport(dto);
 		return "redirect:/list";
 	}
 	

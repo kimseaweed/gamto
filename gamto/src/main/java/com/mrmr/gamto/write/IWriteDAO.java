@@ -6,5 +6,5 @@ import com.mrmr.gamto.report.dto.BookReportDTO;
 
 @Mapper
 public interface IWriteDAO {
-	public int writeBook_report(@Param("dto")BookReportDTO dto);
+	public int writeBookReport(@Param("dto")BookReportDTO dto);
 }
