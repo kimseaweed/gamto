@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mrmr.gamto.GamtoService;
-import com.mrmr.gamto.report.dto.Book_reportDTO;
+import com.mrmr.gamto.report.dto.BookReportDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,7 @@ public class WriteController {
 	}
 	
 	@PostMapping("/writeBook_report")
-	public String writeAction(MultipartFile filename,Book_reportDTO dto,String footer) throws Exception {
+	public String writeAction(MultipartFile filename,BookReportDTO dto,String footer) throws Exception {
 		dto.setR_content(dto.getR_content()+footer);
 		dto.setR_filename(service.saveFile(filename));
 		dao.writeBook_report(dto);
