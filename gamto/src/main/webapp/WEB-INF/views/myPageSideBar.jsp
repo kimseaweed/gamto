@@ -31,7 +31,7 @@
 		<a href=""><h1 class="c-p text-3vw">마이페이지</h1></a>
 		<a href="/member/myPage"><p class="c-text">내정보</p></a>
 		<a href="/b_list/purchaseList"><p class="c-text">구매내역</p></a>
-		<a href=""><p class="c-text">내 글보기</p></a>
+		<a href="/ThinkDao?u_id=${sessionId}"><p class="c-text">내 글보기</p></a>
 		<a href="/member/updateMember?u_id=${sessionId}"><p class="c-text">회원수정</p></a>
 		<a href="/member/deleteMember"><p class="c-text">회원탈퇴</p></a>
 	</div>

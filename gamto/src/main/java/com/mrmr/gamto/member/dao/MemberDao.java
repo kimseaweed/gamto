@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.mrmr.gamto.Think.DTO.ThinkDTO;
 import com.mrmr.gamto.member.dto.MemberDTO;
 
 
@@ -21,4 +22,5 @@ public interface MemberDao {
 	public MemberDTO findIdDao(String u_email);
 	public String ResetPwCheck(String u_id);
 	public int ResetPwDo(@Param("u_id") String u_id,@Param("u_pw")String u_pw);
+	public List<ThinkDTO> ThinkDao(String u_id, String u_id2);
 }
