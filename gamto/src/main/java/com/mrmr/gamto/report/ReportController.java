@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mrmr.gamto.report.dao.IBook_reportDAO;
-import com.mrmr.gamto.report.dto.Book_reportDTO;
+import com.mrmr.gamto.report.dao.IBookReportDAO;
+import com.mrmr.gamto.report.dto.BookReportDTO;
 import com.mrmr.gamto.report.dto.PageDTO;
 
 import jakarta.servlet.http.Cookie;
@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/list")
 public class ReportController {
 	@Autowired
-	IBook_reportDAO dao;
+	IBookReportDAO dao;
 
 	/* 페이징하는 리스트 test */
 	@RequestMapping()
@@ -36,7 +36,7 @@ public class ReportController {
 		
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
-		List<Book_reportDTO> list = dao.getPageList(map);
+		List<BookReportDTO> list = dao.getPageList(map);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("list",list);
@@ -133,45 +133,11 @@ public class ReportController {
 		map.put("item", item);
 		map.put("text", text);
 		
-		List<Book_reportDTO> list = dao.SearchTotal(map);
+		List<BookReportDTO> list = dao.SearchTotal(map);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("list",list);
 		
 		return "list/list";
 	}
-	
-	@GetMapping(value = "/views/{u_id}")
-    private void viewCountUp(@PathVariable int u_id,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
-
-        Cookie oldCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("viewCount")) {
-                    oldCookie = cookie;
-                }
-            }
-        }
-
-        if (oldCookie != null) {
-            if (!oldCookie.getValue().contains("[" + u_id + "]")) {
-                // 기존 쿠키가 있지만 해당 board 조회가 없을 때 
-                dao.viewCountUp(u_id);
-                oldCookie.setValue(oldCookie.getValue() + "_[" + u_id + "]");
-                oldCookie.setPath("/");
-                oldCookie.setMaxAge(60 * 60 * 24);
-                response.addCookie(oldCookie);
-            }
-        } else {
-            // 기존 쿠키가 없을 때
-            dao.viewCountUp(u_id);
-            Cookie newCookie = new Cookie("viewCount","[" + u_id + "]");
-            newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 60 * 24);
-            response.addCookie(newCookie);
-        }
-    }
 }

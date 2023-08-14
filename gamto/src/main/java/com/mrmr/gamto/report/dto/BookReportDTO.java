@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import lombok.Data;
 
 @Data
-public class Book_reportDTO {
+public class BookReportDTO {
 	private int r_seq_number; //독후감 번호
 	private String r_filename; //책 이미지
 	private String r_title; //책 제목
