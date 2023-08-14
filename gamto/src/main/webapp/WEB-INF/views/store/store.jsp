@@ -30,10 +30,10 @@
 						data-bs-slide-to="2" aria-label="Slide 3"></button>
 				</div>
 				<div class="carousel-inner">
-						<!-- 케로셀1 -->
+					<!-- 케로셀1 -->
 					<div class="carousel-item active" data-bs-interval="8000">
-							<img src="../img/b_list/b_list_1.gif" alt="..."
-								class="caro-img text-center">
+						<img src="../img/b_list/b_list_1.gif" alt="..."
+							class="caro-img text-center">
 						<div class="carousel-caption d-none d-md-block">
 							<h5>제목</h5>
 							<p>내용</p>
@@ -49,15 +49,14 @@
 					</div>
 					<!-- 케로셀3 -->
 					<div class="carousel-item" data-bs-interval="7000">
-							<img src="../img/b_list/b_list_3.gif" alt="..."
-								class="caro-img">
+						<img src="../img/b_list/b_list_3.gif" alt="..." class="caro-img">
 						<div class="carousel-caption d-none d-md-block">
 							<h5>광고3</h5>
 							<p>광고3의 내용</p>
 						</div>
 					</div>
 				</div>
-				
+
 				<button class="carousel-control-prev" type="button"
 					data-bs-target="#carouselExampleDark" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -76,15 +75,15 @@
 				<h3 class=" ps-5 col">책 상점</h3>
 				<p class="col text-end">감토에서 추천하는 책들을 만나보세요</p>
 			</div>
-			
+
 			<div class="row mt-5 px-4 mb-5">
-				<c:forEach var="dto" items="${b_list}" end="5">
-			
+				<c:forEach var="dto" items="${store}" end="5">
+
 					<div class="ribbon-wrapp col-xl-4 col-md-6 py-2 px-xl-4 px-1">
 						<div class="ribbon">best</div>
-						
-						<div onclick="location='b_list/view?b_code=${dto.b_code}'; return false;" 
-						
+
+						<div
+							onclick="location='store/view?b_code=${dto.b_code}'; return false;"
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
 								<img src="../img/book/${dto.b_filename}"
@@ -103,7 +102,9 @@
 								<div class="mb-1 text-muted text-end">
 									<B>${dto.b_price}</B> 원
 								</div>
-								<a src="/b_list/addCart" class="btn btn-outline-primary text-center fs-6 addCart" onclick="event.stopPropagation();" id="${dto.b_code}">장바구니	
+								<a src="/store/addCart"
+									class="btn btn-outline-primary text-center fs-6 addCart"
+									onclick="event.stopPropagation();" id="${dto.b_code}">장바구니
 								</a>
 							</div>
 						</div>
@@ -118,9 +119,9 @@
 				<p class=" col text-end">감토에서 준비한 굿즈도 확인해보세요</p>
 			</div>
 			<div class="row mt-5 px-4 mb-5">
-				<c:forEach var="dto" items="${b_list}" end="5">
+				<c:forEach var="dto" items="${store}" end="5">
 					<div class="col-xl-4 col-md-6 py-2 px-xl-4 px-1">
-						<div onclick="location='b_list/view?b_code=${dto.b_code}'"
+						<div onclick="location='store/view?b_code=${dto.b_code}'"
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
 								<img src="../img/book/${dto.b_filename}"
@@ -151,34 +152,35 @@
 	</main>
 	<jsp:include page="../footer.jsp" />
 	<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script>
-			var linkElements = document.querySelectorAll('a.addCart'); // 모든 a 태그 선택
+		var linkElements = document.querySelectorAll('a.addCart'); // 모든 a 태그 선택
 
-			linkElements.forEach(function(link) {
-			  link.addEventListener('click', function(event) {
-			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
-				 $.ajax({
-					  url:"/b_list/addCart",
-		               dataType:'json',
-		               type:"post",
-					data: {'b_code': linkId,
-						   'b_quantity': '1'},
-					success: function(result){
-						if(result == -1){
+		linkElements.forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
+				$.ajax({
+					url : "/store/addCart",
+					dataType : 'json',
+					type : "post",
+					data : {
+						'b_code' : linkId,
+						'b_quantity' : '1'
+					},
+					success : function(result) {
+						if (result == -1) {
 							alert("로그인 하세요 ");
 							location = '/member/login';
 						} else {
 							alert("상품이 제대로 담겼다 이 자식아 ");
 						}
 					},
-					error:function(result){  
-			           alert("fail");
+					error : function(result) {
+						alert("fail");
 					}
-				}) 
-			  });
+				})
 			});
-				
+		});
 	</script>
 </body>
 </html>
