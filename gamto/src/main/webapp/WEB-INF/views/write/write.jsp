@@ -23,12 +23,12 @@
 				<div class="input-group input-group-lg my-5 ps-4 row">
 				<div class="valid-feedback">책정보 등록이 완료되었어요! 하단에서 미리 볼 수 있어요</div>
 				<span class="input-group-text col-xl-2 col-6"  >책 정보 추가</span>
-				<select class="form-select col-xl-1 col-6" >
-				    <option selected value="1">전체</option>
-				    <option value="2">제목</option>
-				    <option value="3">저자</option>
-				    <option value="4">출판사</option>
-				    <option value="5">ISBN코드</option>
+				<select class="form-select col-xl-1 col-6" id="select">
+				    <option selected value="">전체</option>
+				    <option value="title">제목</option>
+				    <option value="person">저자</option>
+				    <option value="publisher">출판사</option>
+				    <option value="isbn">ISBN코드</option>
 				  </select>
 				<input type="text" class="form-control-lg col-xl-auto col-12" name="reportFooter" id="reportFooter-query" placeholder="책 정보를 검색해보세요.">
 				  <button class="btn btn-outline-secondary col-xl-2 col-6" type="button" onclick="resetFooter()">책 정보 삭제</button>
@@ -48,10 +48,11 @@
 			</div>
 			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
 			<textarea name="r_content" class="form-control" id="summernote" required></textarea>
+			<input type="hidden" name="footer" id="footer">
+			<div id="reportFooter-preview" class="d-none">
 			
-			<div id="reportFooter-preview" style="display:none">
-				<p>책정보 미리보기</p>
 			</div>
+			
 			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
 				<button class="btn btn-warning me-md-3" onclick="location='list'; return false;">너의생각으로 이동</button>
 				<button class="btn btn-warning me-md-3" onclick="location='board'; return false;">우리생각으로 이동</button>
@@ -151,6 +152,7 @@
 
 		  return button.render(); 
 		}
+
 	 var fontList = ['궁서체','돋움체','한림명조체','잉크립퀴드체','고딕아니고고딩'];
 	$('#summernote').summernote({
 		placeholder : '감토님의 생각을 표현해보세요.',
@@ -205,6 +207,7 @@
 		
 		//펑션 : 책검색 초기화
 		function resetFooter(){
+			$('#footer').val("");
 			$('#reportFooter-preview').load(location.href+' #reportFooter-preview');
 		}
 		//책검색 모달창 종료시 기존내용 삭제
@@ -219,6 +222,9 @@
 					size : 10,
 					page : pageNum,
 				}
+			if($('#reportFooter-query').val()!='1'){
+				search['target']=$('#select').val();
+			}
 			$.ajax({
 				url:"https://dapi.kakao.com/v3/search/book",
 				dataType:'json',
@@ -229,7 +235,19 @@
 					$('.modal-body').append('<p class="text-center py-5">검색결과가 없습니다</p>');
 					run=false;
 				}else{
-					for(var i=0; i<10; i++){
+					if(pageNum==1){
+							var rescount=res.meta.pageable_count
+							if(res.meta.pageable_count==1000){
+								rescount='1000+';
+							}
+							$('.modal-body').append('<p class="text-center py-2">검색결과는 총 '+rescount+'건 입니다</p>');
+					}
+					var size = 10;
+					if(res.meta.pageable_count<((pageNum)*10)){
+						size = res.meta.pageable_count-(10*(pageNum-1));
+					}
+					pageNum++;
+					for(var i=0; i<size; i++){
 						$('.modal-body').append(
 							'<button type="button" data-bs-dismiss="modal" onclick="getBookCard(this.id)" class="btn btn-outline-warning my-3" id="'+res.documents[i].isbn+'"><div class="card p-4 ms-auto bg-white" style="max-width: 800px;">'+
 							'<div class="row g-0"><div class="col-md-4">'+
@@ -242,10 +260,14 @@
 							res.documents[i].contents+'</p></div> </div> </div> </div> </button>'		
 						); //append end
 					}// for end
-				 setTimeout(function(){run = true;},500)
+					if(pageNum*10>res.meta.pageable_count){
+						$('.modal-body').append('<p class="text-center py-5">검색결과가 더이상 없습니다</p>');
+						run=false;
+					}else{
+					 	setTimeout(function(){run = true;},500)
+					}					
 				}//if isend end
 			})//done end
-				pageNum++;
 		}//function end
 		
 		//책검색
@@ -285,19 +307,23 @@
 				data: search,
 			}).done(function (res){
 				$('#reportFooter-preview').append(
-					'<div id="reportFooter-card"><hr><div class="card mb-3 p-4 ms-auto" style="max-width: 800px;"> <div class="row g-0"> <div id="card-imgbox" class="col-md-4">'+
+					'<div id="reportFooter-card"><hr class="my-3"><div class="card mb-3 p-4 ms-auto" style="max-width: 600px;"> <div class="row g-0"> <div id="" class="col-md-4">'+
 					'<img src="'+res.documents[0].thumbnail+'" id="reportFooter-thumbnail" class="img-fluid rounded-start" alt="..." style="max-width: 450px;"></div>'+
-					'<div class="col-md-8"> <div class="card-body"> <h4 class="card-title text-end" id="card-title">'+res.documents[0].title+
-					'</h4><div class="mt-5 pt-3"><p class="card-text text-end pe-3 mb-0"><small class="text-muted" id="card-authors"><b>'+res.documents[0].authors+
-					'</b> 저</small></p> <p class="card-text text-end pe-3"><small class="text-muted" id="card-publisher"><b>'+res.documents[0].publisher+'</b> 출판</small>  |  <small class="text-muted" id="card-date"><b>'+
-					res.documents[0].datetime.substring(0,res.documents[0].datetime.indexOf('T'))+'</b> 출간</small> </p></div>  </div> </div> <hr class="mt-4 pb-2" > <div class="ps-4"> <b>책 소개</b><div class="pt-2 text-black-50">'+
-					'<p class="" id="card-content">'+res.documents[0].contents+'...</p> <div class="row"> <a href="'+res.documents[0].url+'" class=" ms-auto text-end btn btn-primary btn-sm col"> 상세보기 </a></div> </div> </div></div> </div> </div>'		
-				);				
-				$('#reportFooter-preview').css('display','block');
+					'<div class="col-md-8 d-flex flex-column"><h4 class="card-title text-end mb-auto" id="card-title">'+res.documents[0].title+
+					'</h4><div class=""><p class="card-text text-end pe-1 mb-0"><small class="text-muted" id="card-authors"><b>'+res.documents[0].authors+
+					'</b> 저</small></p> <p class="card-text text-end pe-1"><small class="text-muted" id="card-publisher"><b>'+res.documents[0].publisher+'</b> 출판</small>  |  <small class="text-muted" id="card-date"><b>'+
+					res.documents[0].datetime.substring(0,res.documents[0].datetime.indexOf('T'))+'</b> 출간</small> </p></div></div> <hr class="mt-4 pb-2" > <div class="ps-4"> <b>책 소개</b><div class="pt-2 text-black-50">'+
+					'<p class="" id="card-content">'+res.documents[0].contents+'...</p><a href="'+res.documents[0].url+'" class="text-end btn btn-primary btn-sm float-end"> 상세보기 </a></div> </div></div> </div> </div>'		
+				);
+				$('#reportFooter-preview').removeClass('d-none');
+				addCard()
 			})//done end
-		}
-	//#reportFooter-card
+		}//function end
 		
+	//#reportFooter-card
+	function addCard(){
+		$('#footer').val($('#reportFooter-card').html());
+	}
 	</script>
 </body>
 </html>
