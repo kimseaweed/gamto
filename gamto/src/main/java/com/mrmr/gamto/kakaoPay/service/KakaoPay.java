@@ -98,7 +98,7 @@ public class KakaoPay {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
             log.info("" + kakaoPayApprovalVO);
           
-            return kakaoPayApprovalVO;
+            return kakaoPayApprovalVO; //
         
         } catch (RestClientException e) {
             // TODO Auto-generated catch block

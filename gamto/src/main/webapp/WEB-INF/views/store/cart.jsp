@@ -74,7 +74,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 																	<i class="fas fa-minus"></i>
 																</button>
 
-																<input id="form1" min="0" name="quantity" value="2"
+																<input id="form1" min="0" name="quantity" value="${dto.cart_quantity}"
 																	type="number" class="form-control form-control-sm"
 																	style="width: 50px;" />
 
