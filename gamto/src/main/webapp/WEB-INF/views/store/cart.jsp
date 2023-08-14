@@ -69,7 +69,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 														</th>
 														<td class="align-middle">
 															<div class="d-flex flex-row">
-																<button class="btn btn-link px-2"
+																<button class="btn btn-link px-2 addCart"
 																	onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
 																	<i class="fas fa-minus"></i>
 																</button>
@@ -78,7 +78,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 																	type="number" class="form-control form-control-sm"
 																	style="width: 50px;" />
 
-																<button class="btn btn-link px-2"
+																<button class="btn btn-link px-2 addCart"
 																	onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
 																	<i class="fas fa-plus"></i>
 																</button>
@@ -168,10 +168,10 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 			// 결제창에서 보여질 이름
 			// name: '주문명 : ${auction.a_title}',
 			// 위와같이 model에 담은 정보를 넣어 쓸수도 있습니다.
-			amount: ${info.amount.total},
+			amount: '총액 : ${info.amount.total}',
 			// amount: ${bid.b_bid},
 			// 가격 
-			buyer_name: ${info.partner_order_id},
+			buyer_name: '이름 : ${info.partner_order_id}',
 			// 구매자 이름, 구매자 정보도 model값으로 바꿀 수 있습니다.
 			// 구매자 정보에 여러가지도 있으므로, 자세한 내용은 맨 위 링크를 참고해주세요.
 			buyer_postcode: '123-456',
@@ -190,5 +190,36 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 			alert(msg);
 		});
 	});
-</script>
+			var linkElements = document.querySelectorAll('button.addCart'); // 모든 button 태그 선택
+			
+			linkElements.forEach(function(link) {
+			  link.addEventListener('click', function(event) {
+			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
+			    var b_quantity = document.buyForm.b_quantity.value;
+			    alert(b_quantity + linkId);
+				 $.ajax({
+					  url:"/store/addCart",
+		               dataType:'json',
+		               type:"post",
+					data: {'b_code': linkId,
+						   'b_quantity': b_quantity
+						   },
+					success: function(result){
+						if(result == -1){
+							alert("로그인 하세요 ");
+							location = '/member/login';
+						} else if(result == 0){
+						 alert("0");
+						}else{
+							alert("상품이 제대로 담겼다 이 자식아 ");
+						}
+					},
+					error:function(result){  
+			           alert("fail");
+					}
+				}) 
+			  });
+			});
+				
+	</script>
 </html>

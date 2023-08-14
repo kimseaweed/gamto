@@ -60,13 +60,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		(select rownum as rn, f.* 
    			from(
    				select * from book_info where b_delete = 0 AND 
-   				<if test="item == 'b_name'">b_name like '%'||#{text}||'%'</if> 
+   				    <if test="item == 'all'">b_name like '%'||#{text}||'%' or b_author like '%'||#{text}||'%' or b_publisher like '%'||#{text}||'%' or b_code like '%'||#{text}||'%'</if>
+   				    <if test="item == 'b_name'">b_name like '%'||#{text}||'%'</if> 
    					<if test="item == 'b_author'">b_author like '%'||#{text}||'%'</if> 
+   					<if test="item == 'b_publisher'">b_publisher like '%'||#{text}||'%'</if> 
+   					<if test="item == 'b_code'">b_code like '%'||#{text}||'%'</if> 
    					 order by b_seq_number desc) f) where rn BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
 	<select id="listNumDao" resultType="int">
-	   select count(cart_code) from cart where cart_quantity>0 and cart_id = ${param1}
+	   select count(cart_code) from cart where cart_quantity>0 and cart_id = #{param1}
 	</select>
 	
 	<!-- 구매내역 -->

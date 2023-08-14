@@ -126,7 +126,7 @@
 					class="link-dark" data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="상점 "> <span
 						class="material-symbols-outlined fs-1">local_mall</span></a></li>
-				<li class="nav-item"><a href="/b_list/cart"
+				<li class="nav-item"><a href="/store/cart"
 					class="ms-1 me-5 link-dark  position-relative"
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span

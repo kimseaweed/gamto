@@ -42,6 +42,6 @@ public class KakaoPayController {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         
-        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token)); //kakaoPayApprovalVO return
     }
 }

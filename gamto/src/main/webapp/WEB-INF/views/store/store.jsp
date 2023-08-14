@@ -114,8 +114,11 @@
 			<div class="row">
 				<form action="/store/SearchTotal" name="SearchTotal" method="post">
 					<select name="item">
-						<option value="b_name" selected>제목</option>
+					    <option selected value="all">전체</option>
+						<option value="b_name">제목</option>
 						<option value="b_author">저자</option>
+				        <option value="b_publisher">출판사</option>
+				        <option value="b_code">ISBN코드</option>
 					</select> 
 					<input type="text" name="text" /> 
 					<input type="submit" value="검색" />

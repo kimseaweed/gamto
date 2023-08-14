@@ -61,8 +61,7 @@ public class StoreController {
 	public String cart(Model model, HttpServletRequest request, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
 		if(getId == null) {
-			System.out.println("실패했어  다시 해 ");
-			return "/member/login";
+			return "redirect:/member/login";
 		} else {
 			List<CartDTO> dto = dao.cartDao(getId);
 			model.addAttribute("cart", dto);
@@ -77,7 +76,6 @@ public class StoreController {
 		String getId =(String)session.getAttribute("u_id");
 		System.out.println(b_code + b_quantity + getId);
 		if(getId == null) {
-			System.out.println("실패했어  다시 해 ");
 			return -1;
 		} else {
 			int result = dao.addCartDao(getId, b_code, b_quantity);
