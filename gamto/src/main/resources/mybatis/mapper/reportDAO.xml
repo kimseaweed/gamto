@@ -17,7 +17,7 @@
 		delete book_report where r_seq_number=#{param1}
 	</delete>
 	<update id="updateDao">
-		update book_report set r_title = #{item1}, r_content = #{item2}, r_filename = #{item3}, r_update_day = sysdate, r_view = r_view-1 where r_seq_number = #{item4}
+		update book_report set r_title=#{item1}, r_content=#{item2},r_filename=#{item3}, r_update_day=sysdate, r_view=r_view-1 where r_seq_number=#{item4}
 	</update>
 	<!-- 조회수를 카운트하는 update문 -->
 	<update id="updateCnt">

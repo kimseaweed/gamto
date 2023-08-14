@@ -13,6 +13,7 @@ create table book_report(
 );
 --데이터 크기 변경
 alter table book_report modify r_content varchar2(4000);
+alter table book_report modify r_filename varchar2(300);
 
 create sequence book_report_seq; --시퀀스 생성
 drop sequence book_report_seq; --시퀀스 삭제

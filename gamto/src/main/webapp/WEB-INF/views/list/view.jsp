@@ -34,17 +34,20 @@
 		수정 날짜 : ${dto.r_update_day} <br>
 	</p>
 	<p class="col ms-auto text-end me-5">
-		<c:if test = "${sessionId==u_id}">
-			<input type="button" value="수정" class="btnUpdate btn btn-outline-success">
-			<input type="button" value="삭제" class="btnDelete btn btn-outline-danger">
-		</c:if>	
-		<%-- <input type="button" value="<i class='bi bi-hand-thumbs-up'></i>" class="btnGood btn btn-outline-warning"/> --%>
+		<%String r_writer=(String)session.getAttribute("u_id");%>
+		<c:set var="userId" value="<%=r_writer%>" />
+				<c:if test="${dto.r_writer==userId}">
+					<input type="button" value="수정"
+						class="btnUpdate btn btn-outline-success">
+					<input type="button" value="삭제"
+						class="btnDelete btn btn-outline-danger">
+				</c:if>
 		<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
 	</p>
 	<br>
 	</div>
 	<div class="pb-2">
-		<a href="/list" class="btn btn-outline-primary">목록보기</a>
+		<a href="/report" class="btn btn-outline-primary">목록보기</a>
 	</div>
 	<br>	
 	</main>
@@ -56,7 +59,7 @@
 			if(!confirm("수정하시겠습니까?")){
 				return false;
 			}else{
-				$(location).attr('href','/list/updateForm?r_seq_number=${dto.r_seq_number}');
+				$(location).attr('href','/report/updateForm?r_seq_number=${dto.r_seq_number}&r_writer=${dto.r_writer}');
 			}
 		})
 		btnDelete.click(function(){
@@ -64,11 +67,11 @@
 				return false;
 			}else{
 				alert("삭제되었습니다.");
-				$(location).attr('href','/list/delete?r_seq_number=${dto.r_seq_number}');
+				$(location).attr('href','/report/delete?r_seq_number=${dto.r_seq_number}');
 			}
 		})
 		$(".btnGood").click(function(){
-			$(location).attr('href','/list/good?r_seq_number=${dto.r_seq_number}');
+			$(location).attr('href','/report/good?r_seq_number=${dto.r_seq_number}');
 			
 		})
 	}) 

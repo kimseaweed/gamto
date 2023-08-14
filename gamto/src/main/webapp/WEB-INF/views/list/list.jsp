@@ -30,7 +30,7 @@
 		<div class="mb-5 center">
 				<h3>너의생각 | 독후감 목록</h3>
 			</div>
-<form action="/list/SearchTotal" name="SearchTotal" method="post">
+<form action="/report/SearchTotal" name="SearchTotal" method="post">
 			<select name="item">
 				<option value="r_title" selected>제목에서</option>
 				<option value="r_content">본문에서</option>
@@ -57,7 +57,7 @@
 				<td>
 					<img src="../userUpload/${dto.r_filename}" width="100" height="141">
 				</td>
-				<td><a href="/list/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
+				<td><a href="/report/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
 				<td>${dto.r_writer}</td>
 				<td>${dto.r_regist_day}</td>
 				<td>${dto.r_update_day}</td>
@@ -70,7 +70,7 @@
 		<div>
 			<p>
 			<a href="/write" class="btn btn-outline-primary">글작성</a>
-			<a href="/list" class="btn btn-outline-primary">목록보기</a> 
+			<a href="/report" class="btn btn-outline-primary">목록보기</a> 
 			</p> <br>
 		<div class="center">
 			<a href="?pageNo=1">&lt;&lt;</a>

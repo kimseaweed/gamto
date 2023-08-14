@@ -19,9 +19,10 @@ import com.mrmr.gamto.report.dto.PageDTO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/list")
+@RequestMapping("/report")
 public class ReportController {
 	@Autowired
 	IBookReportDAO dao;
@@ -45,8 +46,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/view")
-	public String freeview(String r_seq_number, Model model) {
-		  
+	public String freeview(String r_seq_number, Model model) {			  
 		 model.addAttribute("dto",dao.viewDao(r_seq_number)); 
 		 dao.updateCnt(r_seq_number);
 		 
@@ -74,48 +74,56 @@ public class ReportController {
 		map.put("item4", rCategory);
 		dao.writeDao(map);
 		
-		return "redirect:/list";
+		return "redirect:/report";
 	}
 	
 	@RequestMapping("/updateForm")
-	public String updateForm(HttpServletRequest request, Model model) {
+	public String updateForm(HttpSession session, HttpServletRequest request, Model model) {
 		String rId = request.getParameter("r_seq_number");
-		model.addAttribute("updateForm", dao.viewDao(rId));
-		
-		return "list/updateForm";
+		String rWriter = request.getParameter("r_writer");
+		String u_id = (String)session.getAttribute("u_id");
+		if(u_id==null||u_id.equals("")) {
+			return "redirect:/member/login";
+		}else if(u_id.equals(rWriter)) {
+			model.addAttribute("updateForm", dao.viewDao(rId));
+			return "list/updateForm";			
+		}else {
+			model.addAttribute("script","<script>alert('권한이없습니다.');history.back();</script>");
+			return "script";
+		}	
 	}
 	
-	@RequestMapping("/update")
-	public String update(HttpServletRequest request, Model model) {
-		String rTitle = request.getParameter("r_title");		
-		String rContent = request.getParameter("r_content");
-		String rId = request.getParameter("r_seq_number");
-		String rFilename = request.getParameter("r_filename");
-	
-		Map<String,String> map = new HashMap<String,String>();
-		
-		map.put("item1", rTitle);
-		map.put("item2", rContent);
-		map.put("item3", rFilename);
-		map.put("item4", rId);
-		dao.updateDao(map);
-
-		return "redirect:/list/view?r_seq_number="+rId;
-	}
+	/*
+	 * @RequestMapping("/update") public String update(HttpSession session,
+	 * BookReportDTO dto, Model model) {
+	 * System.out.println("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ : "+dto.getR_filename());
+	 * String u_id = (String)session.getAttribute("u_id");
+	 * 
+	 * if(u_id.equals(dto.getR_writer())) { Map<String,String> map = new
+	 * HashMap<String,String>(); dto.setR_filename(service.saveFile(filename));
+	 * map.put("item1", dto.getR_title()); map.put("item2", dto.getR_content());
+	 * map.put("item3", dto.getR_filename()); map.put("item4",
+	 * Integer.toString(dto.getR_seq_number())); dao.updateDao(map);
+	 * 
+	 * return
+	 * "redirect:/report/view?r_seq_number="+Integer.toString(dto.getR_seq_number())
+	 * ; }else { model.addAttribute("script",
+	 * "<script>alert('권한이없습니다.');history.back();</script>"); return "script"; } }
+	 */
 	
 	@RequestMapping("/good")
 	public String goodCount(HttpServletRequest request, Model model) {
 		String rId = request.getParameter("r_seq_number");
 		dao.goodCnt(rId);
 		 
-		return "redirect:/list/view?r_seq_number="+rId;
+		return "redirect:/report/view?r_seq_number="+rId;
 	}
 	
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		String rId = request.getParameter("r_seq_number");
 		dao.deleteDao(rId);
-		return "redirect:/list";
+		return "redirect:/report";
 	}
 	
 	@RequestMapping("/SearchTotal")
