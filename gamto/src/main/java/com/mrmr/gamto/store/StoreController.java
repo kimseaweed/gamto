@@ -1,30 +1,46 @@
 package com.mrmr.gamto.store;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mrmr.gamto.freeboard.dto.PagingVO;
 import com.mrmr.gamto.store.dao.StoreDAO;
 import com.mrmr.gamto.store.dto.CartDTO;
+import com.mrmr.gamto.store.dto.StoreDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/b_list")
+@RequestMapping("/store")
 public class StoreController {
 	@Autowired
 	StoreDAO dao;
 	
 	@RequestMapping()
-	public String userStroePage(Model model) {
-		model.addAttribute("b_list", dao.listDao());
-		return "store/b_list";
+	public String BookList(@RequestParam(required=false, defaultValue="1") int pageNo, Model model) {
+
+			PagingVO page = new PagingVO(pageNo,10,dao.countBookList());
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			map.put("startNo", page.getStartNo());
+			map.put("endNo", page.getEndNo());
+			List<StoreDTO> list = dao.getPageList(map);
+			
+			model.addAttribute("page",page);
+			model.addAttribute("store",list);
+
+		return "store/store";
 	}
 	
 	@RequestMapping("/view")
@@ -38,7 +54,7 @@ public class StoreController {
 	public String delete(Model model, HttpServletRequest request) {
 		dao.deleteDao(request.getParameter(""));
 		
-		return "redirect:b_list";
+		return "redirect:store";
 	}
 	
 	@RequestMapping("/cart") //장바구니 목록 
@@ -73,7 +89,7 @@ public class StoreController {
 	public String removeCart(Model model, String b_code, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
 		dao.removeCartDao(getId, b_code);
-		return "redirect:/b_list/cart";
+		return "redirect:/store/cart";
 	}
 	
 	@RequestMapping("/removeAllCart") //장바구니 목록 전체 삭제 
@@ -93,6 +109,32 @@ public class StoreController {
 			int result = dao.listNumDao(getId);
 			return result;
 		}
+	}
+	
+	
+
+    //검색기능 	
+	@RequestMapping("/SearchTotal")
+	public String SearchTotal(HttpServletRequest request, @RequestParam(required=false, defaultValue="1")
+				int pageNo, Model model) {
+		
+		PagingVO page = new PagingVO(pageNo,10,dao.countBookList());
+		String item = request.getParameter("item");
+		String text = request.getParameter("text");
+
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("startNo", Integer.toString(page.getStartNo()));
+		map.put("endNo",  Integer.toString(page.getEndNo()));
+		map.put("item", item);
+		map.put("text", text);
+		
+		List<StoreDTO> list = dao.SearchTotal(map);
+		
+		model.addAttribute("page",page);
+		model.addAttribute("store",list);
+		
+		return "store/store";
 	}
 	
 	@RequestMapping("/purchaseList")//구매내역

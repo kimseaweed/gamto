@@ -111,44 +111,36 @@
 					</div>
 				</c:forEach>
 			</div>
-		</div>
-		<!-- 굿즈 블럭(임시) -->
-		<div class="py-3">
-			<div class="border-bottom row">
-				<h3 class="col ps-5">문학 굿즈</h3>
-				<p class=" col text-end">감토에서 준비한 굿즈도 확인해보세요</p>
-			</div>
-			<div class="row mt-5 px-4 mb-5">
-				<c:forEach var="dto" items="${store}" end="5">
-					<div class="col-xl-4 col-md-6 py-2 px-xl-4 px-1">
-						<div onclick="location='store/view?b_code=${dto.b_code}'"
-							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
-							<div class="col-6">
-								<img src="../img/book/${dto.b_filename}"
-									class="rounded b_list-thumbnail shadow-sm" width="" />
-							</div>
-							<div class="col px-md-3 px-5 d-flex flex-column position-static">
-								<strong class="fs-7 d-inline-block mb-2 text-primary">[${dto.b_genre}]</strong>
-								<h3 class="mb-0 fs-2">${dto.b_name}</h3>
-								<div class="fs-7 ms-auto mt-2 text-muted">
-									<b>${dto.b_author}</b> 저
-								</div>
-								<div class="fs-7 ms-auto mb-auto text-muted">
-									<b>${dto.b_publisher} </b>출판
-								</div>
+			<div class="row">
+				<form action="/store/SearchTotal" name="SearchTotal" method="post">
+					<select name="item">
+						<option value="b_name" selected>제목</option>
+						<option value="b_author">저자</option>
+					</select> 
+					<input type="text" name="text" /> 
+					<input type="submit" value="검색" />
+				</form>
+				<div class="text-center mt-2">
+					<a href="?pageNo=1">&lt;&lt;</a>
 
-								<div class="mb-1 text-muted text-end">
-									<B>${dto.b_price}</B> 원
-								</div>
-								<%-- <button type="button" class="btn btn-outline-primary text-center fs-6" id="addCart">장바구니 담기
-								</button>
-								<input type="hidden" value="${dto.g_code}" class="g_code"/> --%>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
+					<c:if test="${page.startNo eq 1}">
+						<a href="?pageNo=1">&lt;</a>
+					</c:if>
+					<c:if test="${page.startNo ne 1}">
+						<a href="?pageNo=${page.pageNo-1}">&lt;</a>
+					</c:if>
+
+					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+						<a href="?pageNo=${i}">${i}</a>
+					</c:forEach>
+
+					<a href="?pageNo=${page.pageNo+1}">&gt;</a> <a
+						href="?pageNo=${page.totalPage}">&gt;&gt;</a>
+				</div>
 			</div>
+			<!-- row -->
 		</div>
+
 	</main>
 	<jsp:include page="../footer.jsp" />
 	<script

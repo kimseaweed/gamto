@@ -63,7 +63,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 																	alt="Book">
 																<div class="flex-column ms-4">
 																	<p class="mb-2">${dto.cart_name}</p>
-																	<p class="mb-0">${dto.cart_author}</p>
+																	<p class="mb-0"><b>${dto.cart_author}</b> 저</p>
 																</div>
 															</div>
 														</th>

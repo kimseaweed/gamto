@@ -1,6 +1,7 @@
 package com.mrmr.gamto.store.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import com.mrmr.gamto.store.dto.imsiDto;
 
 @Mapper
 public interface StoreDAO {
-	public List<StoreDTO> listDao(); //리스트를 보기 위한 select 메서드 정의
+	public List<StoreDTO> BookList(); //리스트를 보기 위한 select 메서드 정의
 	public StoreDTO viewDao(String b_code); //상세 뷰 페이지를 보기 위한 select메서드 정의
 	public int insertDao(String b_code); //제품 등록 메소드
 	public int deleteDao(String b_code); // 제품 삭제 메소드 
@@ -21,4 +22,11 @@ public interface StoreDAO {
 	public int listNumDao(String u_id); //장바구니 갯수.
 	
 	public List<imsiDto> purchaseListDao();//구매내역
+	
+	/* 페이징하는 부분 */
+	public int countBookList();
+	public List<StoreDTO> getPageList(Map<String, Integer> map);
+		
+	//검색하는 부분
+	public List<StoreDTO> SearchTotal(Map<String, String> map);
 }
