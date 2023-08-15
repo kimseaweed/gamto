@@ -8,8 +8,8 @@
     select * from (
         	select 	rownum rn, free_board.*
         		from(
-        			select* from free_board order by f_seq_number DESC) free_board)
-        	WHERE RN BETWEEN #{startNo} AND #{endNo} and f_delete = '0'		
+        			select* from free_board where f_delete = 0 order by f_seq_number DESC) free_board)
+        	WHERE RN BETWEEN #{startNo} AND #{endNo} 		
 	</select>
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">
@@ -33,7 +33,7 @@
 	</update>
 	<!-- 게시판 좋아요 수가 올라가는 update문 -->
 	<update id="goodCnt">
-		update  free_board set f_recommend = f_recommend+1, f_view = f_view-1 where f_seq_number = #{item1}
+		update  free_board set f_recommend = f_recommend+1 where f_seq_number = #{item1}
 	</update>
 	<!-- 삭제를 원하면 삭제 번호가 1로 변경되면서 목록에서는 보이지 않음 -->
 	<update id="deleteDao">

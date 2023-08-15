@@ -7,9 +7,11 @@
 <meta charset="UTF-8">
 <title>회원정보 상세 페이지</title>
 <style>
-	.comment{
-		border: 1px solid black;
+	.commentCustom{
+		border: 1px solid lightgray;
 		padding: 10px;
+		margin : 3px;
+		border-radius: 15px;
 	}
 </style>
 <%
@@ -68,36 +70,37 @@
 							value="${dto.f_seq_number}" /> <input type="hidden"
 							name="c_writer" value="<%=f_writer%>" id="writer" />
 						<div class="form-group">
-							<textarea name="c_content" class="form-control" rows="3"></textarea>
+							<textarea name="c_content" class="form-control" rows="3" id="commentContent"></textarea>
 						</div>
 						<button type="button"
 							class="btn btn-primary text-end btn-sm btnComment m-3">댓글
 							등록</button>
 						<div class="comment" id="commentTable">
 							<c:if test="${empty cDto}">
-								<div class="text-center p-5">등록된 댓글이 없습니다.</div>
+								<div class="commentCustom text-center p-5">등록된 댓글이 없습니다.</div>
 							</c:if>
 							<c:if test="${not empty cDto}">
-
 								<c:forEach items="${cDto}" var="cdto">
-									<div>
-										<p>*${cdto.c_writer}*</p>
-										<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
-									</div>
-									<div class="col text-end">
-										<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
-									</div>
-									<div class="col text-end">
-										<span><button type="submit"
-												onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
-										<span><button type="submit"
-												onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
-										<c:if test="${dto.f_writer==userId}">
-											<span><button type="button"
-													class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
-											<span><button type="button" class="deleteComment"
-													id="${cdto.c_seq_number}">삭제</button></span>
-										</c:if>
+									<div class="commentCustom">
+										<div>
+											<p>*${cdto.c_writer}*</p>
+											<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
+										</div>
+										<div class="col text-end">
+											<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
+										</div>
+										<div class="col text-end">
+											<span><button type="submit"
+													onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
+											<span><button type="submit"
+													onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
+											<c:if test="${dto.f_writer==userId}">
+												<span><button type="button"
+														class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
+												<span><button type="button" class="deleteComment"
+														id="${cdto.c_seq_number}">삭제</button></span>
+											</c:if>
+										</div>
 									</div>
 								</c:forEach>
 						</div>
@@ -137,7 +140,12 @@
 		
 	$(document).on('click','.btnComment',function (e) {
 		var writer = document.getElementById('writer').value;
+		var content = document.getElementById('commentContent').value;
 		
+		if(!content){
+			alert('작성된 내용이 없습니다.');
+			return false;
+		}
 		if(writer == "null"){
 			alert('로그인이 필요합니다.');
 			return false;
@@ -188,7 +196,7 @@
 		var value=document.getElementById(c_seq_number+'comment').innerText;
 		
 		document.getElementById(c_seq_number+'comment').innerHTML=
-		'<input type="text" value="'+value+'"/>';
+		'<input type="textarea" style="height: 80px; width: 100%;" value="'+value+'"/>';
 		}else if($(this).attr('class')=='updateComment disable'){
 			var c_seq_number = $(this).attr("id");
 			

@@ -16,7 +16,9 @@ import com.mrmr.gamto.freeboard.dao.IFreeboardDAO;
 import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
 import com.mrmr.gamto.freeboard.dto.PagingVO;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -44,9 +46,40 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping("/view")
-	public String freeview(HttpServletRequest request, Model model) {
+	public String freeview(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String fId = request.getParameter("f_seq_number");
-		dao.updateCnt(fId);
+		
+		//새로고침시 조회수 +1 되지않고 하루동안 쿠키 유지
+		Cookie oldCookie = null;
+		Cookie[] cookies = request.getCookies();
+
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				System.out.println("cookie.getName " + cookie.getName());
+				System.out.println("cookie.getValue " + cookie.getValue());
+
+				if (cookie.getName().equals("postView")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+
+		if (oldCookie != null) {
+			if (!oldCookie.getValue().contains("[" + fId + "]")) {
+				dao.updateCnt(fId);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + fId + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(60 * 60 * 24);
+				response.addCookie(oldCookie);
+			}
+		} else {
+			dao.updateCnt(fId);
+			Cookie newCookie = new Cookie("postView", "[" + fId + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(60 * 60 * 24);
+			response.addCookie(newCookie);
+		}
+		
 		model.addAttribute("dto", dao.viewDao(fId));
 		
 		model.addAttribute("cDto",dao.cListDao(fId));
@@ -62,13 +95,10 @@ public class FreeboardController {
 	
 	@RequestMapping("/write")
 	public String freeWrite(HttpServletRequest request, Model model) {
-		System.out.println("test글쓰기");
 		String fTitle = request.getParameter("f_title");
 		String fName = request.getParameter("f_writer");		
 		String fContent = request.getParameter("f_content");
 		String fCategory = request.getParameter("f_category");
-		System.out.println(fTitle+fName+fContent+fCategory);
-		
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", fTitle);
@@ -133,8 +163,7 @@ public class FreeboardController {
 	@GetMapping("/getComentList")
 	@ResponseBody
 	private int getCommentList(@RequestParam("f_seq_number") String f_seq_number, @RequestParam("c_content") String c_content, @RequestParam("c_writer") String c_writer){
-		System.out.println("test");
-		System.out.println(f_seq_number+c_writer+c_content);
+		
 		return dao.cWriteDao(f_seq_number, c_writer, c_content);
 	}
 	
@@ -145,7 +174,7 @@ public class FreeboardController {
 		String cId = request.getParameter("c_seq_number");
 		dao.cGoodCnt(cId);
 		 
-		return "redirect:/board/viewComment?f_seq_number="+fId;	
+		return "redirect:/board/view?f_seq_number="+fId;	
 	}
 	
 	@RequestMapping("/cBadCnt")
@@ -154,7 +183,7 @@ public class FreeboardController {
 		String cId = request.getParameter("c_seq_number");
 		dao.cBadCnt(cId);
 		 
-		return "redirect:/board/viewComment?f_seq_number="+fId;	
+		return "redirect:/board/view?f_seq_number="+fId;	
 	}
 	
 	
@@ -171,7 +200,6 @@ public class FreeboardController {
 	@RequestMapping("/cUpdate")
 	@ResponseBody
 	public int commentUpdate(@RequestParam("c_seq_number")String c_seq_number,@RequestParam("c_content")String c_content) {
-		System.out.println("수정 test");
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("item1", c_content);
 		map.put("item2", c_seq_number);
@@ -186,8 +214,6 @@ public class FreeboardController {
 		
 		int result = dao.cDeleteDao(c_seq_number);
 		
-		System.out.println(c_seq_number);
-		System.out.println(result);
 		return result;
 	}
 	

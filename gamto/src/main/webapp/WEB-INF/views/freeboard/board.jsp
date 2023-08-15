@@ -18,7 +18,7 @@
 				<option value="책추천">책추천</option>
 				<option value="책교환">책교환</option>
 				<option value="자유로운 이야기" selected>자유로운 이야기</option>
-			</select> <input type="button" value="카테고리별 검색" />
+			</select> <input type="submit" value="카테고리별 검색" />
 		</form>
 		<table class="table table-hover text-center mt-3">
 			<thead>
