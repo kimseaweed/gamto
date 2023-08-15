@@ -79,9 +79,10 @@ public class ReportController {
 		if(u_id==null||u_id.equals("")) {
 			return "redirect:/member/login";
 		}else{
-			BookReportDTO dto= dao.viewDao(rId);
+			BookReportDTO dto= dao.viewDao(rId); 
 			if(u_id.equals(dto.getR_writer())) {				
 				model.addAttribute("updateForm", dto);
+				model.addAttribute("requestType", "update");
 				return "write/write";			
 			}else {
 			model.addAttribute("script","<script>alert('권한이없습니다.');history.back();</script>");

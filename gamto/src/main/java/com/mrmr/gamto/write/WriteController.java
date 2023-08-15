@@ -15,7 +15,6 @@ import com.mrmr.gamto.write.service.WriteService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/write")
 public class WriteController {
@@ -32,17 +31,15 @@ public class WriteController {
 	}
 	
 	@PostMapping("/writeBook_report")
-	public String writeAction(MultipartFile filename,BookReportDTO dto,String footer) throws Exception {
-		dto.setR_content(dto.getR_content()+footer);
+	public String writeAction(MultipartFile filename,BookReportDTO dto) throws Exception {
 		dto.setR_filename(service.saveFile(filename));
 		dao.writeBookReport(dto);
 		return "redirect:/report";
 	}
-	
-	
+
 	@RequestMapping("/test")
-	public String getWritddde() {
-		return "write/testpage";
+	public String test() {
+		return "kakaoPay/kakaoPaySuccess";
 	}
 	
 	/*

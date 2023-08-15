@@ -66,6 +66,11 @@ var createcard4 = function(context) {
 
 	return button.render();
 }
+
+
+
+
+
 //웹에디터 썸머노트
 var fontList = ['궁서체', '돋움체', '한림명조체', '잉크립퀴드체', '고딕아니고고딩'];
 $('#summernote').summernote({
@@ -77,6 +82,8 @@ $('#summernote').summernote({
 	disableGrammar: false,
 	fontNames: fontList,
 	fontNamesIgnoreCheck: fontList,
+	disableDragAndDrop: true,
+	tabDisable: false,
 	toolbar: [
 		['style', ['bold', 'italic', 'underline', 'clear']],
 		['font', ['strikethrough', 'superscript', 'subscript']],
@@ -120,8 +127,10 @@ $('#summernote').summernote({
 
 //펑션 : 책검색 초기화
 function resetFooter() {
-	$('#footer').val("");
-	$('#reportFooter-preview').load(location.href + ' #reportFooter-preview');
+	$('#reportCard').next("br").remove();
+	$('#reportCard').prev("br").remove();
+	$('#reportCard').remove();
+
 }
 //책검색 모달창 종료시 기존내용 삭제
 $('.searchClose').click(function() {
@@ -202,6 +211,7 @@ $('.modal-body').scroll(function() {
 	}//if end
 })//scroll end
 
+
 //책검색 검색결과 선택
 function getBookCard(clicked_id) {
 	resetFooter();
@@ -219,25 +229,18 @@ function getBookCard(clicked_id) {
 		headers: { Authorization: "KakaoAK b8894c164113fcfcd892cc5d6f1ad2a7" },
 		data: search,
 	}).done(function(res) {
-		$('#reportFooter-preview').append(
-			'<div id="reportFooter-card"><hr class="my-3"><div class="card mb-3 p-4 ms-auto" style="max-width: 600px;"> <div class="row g-0"> <div id="" class="col-md-4">' +
-			'<img src="' + res.documents[0].thumbnail + '" id="reportFooter-thumbnail" class="img-fluid rounded-start" alt="..." style="max-width: 450px;"></div>' +
+		$('#summernote').summernote('pasteHTML',
+			'<br><div id="reportCard"><div class="card mb-3 p-4 ms-auto" style="max-width: 600px;"> <div class="row g-0"> <div id="" class="col-md-4">' +
+			'<img src="' + res.documents[0].thumbnail + '" id="reportFooter-thumbnail" class="img-fluid" alt="..." style="max-width: 450px;"></div>' +
 			'<div class="col-md-8 d-flex flex-column"><h4 class="card-title text-end mb-auto" id="card-title">' + res.documents[0].title +
 			'</h4> <p style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:2;overflow: hidden;" class="pt-3 text-muted" id="card-content">' + res.documents[0].contents + '...</p>' +
 			'<div class=""><p class="card-text text-end pe-1 mb-0"><small class="text-muted" id="card-authors"><b>' + res.documents[0].authors +
 			'</b> 저</small></p> <p class="card-text text-end pe-1"><small class="text-muted" id="card-publisher"><b>' + res.documents[0].publisher + '</b> 출판</small>  |  <small class="text-muted" id="card-date"><b>' +
 			res.documents[0].datetime.substring(0, res.documents[0].datetime.indexOf('T')) + '</b> 출간</small> </p> <a href="' + res.documents[0].url + '" class="text-end btn btn-primary btn-sm float-end"> 상세보기 </a> </div></div>' +
-			'</div></div> </div>'
-		);
-		$('#reportFooter-preview').removeClass('d-none');
-		addCard()
+			'</div></div></div><br>'
+			);
 	})//done end
 }//function end
-
-//action으로 전송뒤 본문과 합체하기 위한 작업
-function addCard() {
-	$('#footer').val($('#reportFooter-card').html());
-}
 
 
 //유효성 검사 : submit
@@ -259,11 +262,9 @@ document.getElementById('writeForm').addEventListener('submit',function(event){
 	var contentinput = document.getElementsByName('r_content')[0];
 	if(contentinput.value.replaceAll(/ |&nbsp;|<p>|<\/p>/g,"")==""){
 		alert('내용을 입력해주세요');
-		contentinput.focus();
 		return false;
 	}else if(contentinput.value.length>4000){
 		alert('내용이 너무 길어요');
-		contentinput.focus();
 		return false;
 	}
 	document.getElementById('writeForm').submit();
@@ -290,3 +291,7 @@ fileinput.addEventListener("input", function(){
 })//event end
 
 
+// 글수정시 이미지 리셋
+
+
+// 글수정시 이미지 변경
