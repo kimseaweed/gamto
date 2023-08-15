@@ -59,7 +59,7 @@
 			if(!confirm("수정하시겠습니까?")){
 				return false;
 			}else{
-				$(location).attr('href','/report/updateForm?r_seq_number=${dto.r_seq_number}&r_writer=${dto.r_writer}');
+				$(location).attr('href','/report/updateForm?r_seq_number=${dto.r_seq_number}');
 			}
 		})
 		btnDelete.click(function(){

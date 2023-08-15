@@ -17,7 +17,7 @@
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
-		<form id="writeForm" action="/write/writeBook_report" method="post"
+		<form id="writeForm" name="writeForm" action="/write/writeBook_report" method="post"
 			class="p-5 mb-4 bg-light rounded-3 needs-validation"
 			enctype="multipart/form-data" novalidate>
 			<div class="mb-1">
@@ -30,7 +30,9 @@
 					</c:otherwise>
 				</c:choose>
 				<input type="hidden" name="r_writer" value="${u_id}" />
-				<input type="hidden" name="r_seq_number" value="${dto.r_seq_number}" />				
+				<c:if test="${not empty requestType}">
+				<input type="hidden" name="r_seq_number" value="${dto.r_seq_number}" />
+				</c:if>
 			</div>
 			
 			<div class="text-center mt-5 mb-2 fs-5">
@@ -60,10 +62,10 @@
 					class="form-check-label" for="isbn"> 도서코드 검색 </label>
 			</div>
 			</div>	
-			<div class="input-group input-group-lg mb-5">
-				<button class="btn btn-secondary col-xl-2" type="button"
+			<div class="input-group input-group-lg mb-5 row">
+				<button class="btn btn-secondary col-xl-2 col-md-3 col-12 fs-6" type="button"
 					onclick="resetFooter()">책 정보 삭제</button>
-				<input type="text" class="form-control-lg col-7"
+				<input type="text" class="form-control-lg col-xl-7 col-md-6 col-9"
 					name="reportFooter" id="reportFooter-query"
 					placeholder="책 정보를 검색해보세요.">
 				<button class="btn btn-primary col-3" type="button"
@@ -81,9 +83,9 @@
 			</div>
 			<div class="input-group mb-3">
 				<input name="filename" class="form-control" id="inputGroupFile02"
-					type="file" /> <label class="input-group-text"
+					type="file" accept="image/*,"/> <label class="input-group-text"
 					for="inputGroupFile02">썸네일을 골라주세요 !</label>
-				<div class="valid-feedback">표지를 선택하지 않으면 기본이미지가 선택됩니다.</div>
+				<div class="valid-feedback">썸네일을 선택하지 않으면 기본이미지가 랜덤으로 선택됩니다.</div>
 			</div>
 			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>
 			<textarea name="r_content" class="form-control" id="summernote"

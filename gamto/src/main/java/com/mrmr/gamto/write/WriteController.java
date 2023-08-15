@@ -1,4 +1,4 @@
-package com.mrmr.gamto.write.controller;
+package com.mrmr.gamto.write;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

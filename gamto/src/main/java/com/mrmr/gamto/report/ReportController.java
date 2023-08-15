@@ -54,11 +54,6 @@ public class ReportController {
 		return "list/view";
 	}
 	
-	@RequestMapping("/writeForm")
-	public String writeForm() {
-		return "list/writeForm";
-	}
-	
 	@RequestMapping("/write")
 	public String freeWrite(HttpServletRequest request, Model model) {
 		String rTitle = request.getParameter("r_title");
@@ -80,14 +75,15 @@ public class ReportController {
 	@RequestMapping("/updateForm")
 	public String updateForm(HttpSession session, HttpServletRequest request, Model model) {
 		String rId = request.getParameter("r_seq_number");
-		String rWriter = request.getParameter("r_writer");
 		String u_id = (String)session.getAttribute("u_id");
 		if(u_id==null||u_id.equals("")) {
 			return "redirect:/member/login";
-		}else if(u_id.equals(rWriter)) {
-			model.addAttribute("updateForm", dao.viewDao(rId));
-			return "list/updateForm";			
-		}else {
+		}else{
+			BookReportDTO dto= dao.viewDao(rId);
+			if(rId.equals(dto.getR_writer())) {				
+				model.addAttribute("updateForm", dto);
+				return "write/write";			
+			}else
 			model.addAttribute("script","<script>alert('권한이없습니다.');history.back();</script>");
 			return "script";
 		}	
