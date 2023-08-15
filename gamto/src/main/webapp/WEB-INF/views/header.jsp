@@ -146,11 +146,13 @@
 					class="ms-1 me-5 link-dark  position-relative"
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span
-						class="material-symbols-outlined fs-1">shopping_cart </span> <span
-						class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger" > </span>
+						class="material-symbols-outlined fs-1">shopping_cart </span> 
+						<%	if (session.getAttribute("u_id") != null) {	%>
+						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger" > </span>
+						<% } %>
 				</a></li>
 				<%
-				if (session.getAttribute("u_id") == "" || session.getAttribute("u_id") == null) {
+				if (session.getAttribute("u_id") == null) {
 				%>
 				<li class="nav-item dropdown"><a
 					class="dropdown-toggle link-dark" href="/member/login"
@@ -226,11 +228,14 @@
 							</a></li>
 							<li class="nav-item"><a class="position-relative nav-link fs-2 fw-bold"
 								href="/store/cart"> <span
-									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span><span
-						class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1" > </span> 장바구니
+									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span>
+											<%	if (session.getAttribute("u_id") != null) {	%>
+									<span class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1" > </span>
+									<%} %>
+									 장바구니
 							</a></li>
 							<%
-							if (session.getAttribute("u_id") == "" || session.getAttribute("u_id") == null) {
+							if (session.getAttribute("u_id") == null) {
 							%>
 							<li class="nav-item dropdown fs-2 fw-bold"><a
 								class="nav-link dropdown-toggle" href="#" role="button"

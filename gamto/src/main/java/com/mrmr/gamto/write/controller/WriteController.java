@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mrmr.gamto.report.dto.BookReportDTO;
 import com.mrmr.gamto.utils.GamtoService;
-import com.mrmr.gamto.write.DAO.IWriteDAO;
+import com.mrmr.gamto.write.dao.IWriteDAO;
 import com.mrmr.gamto.write.service.WriteService;
 
 import jakarta.servlet.http.HttpSession;

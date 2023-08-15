@@ -3,7 +3,7 @@ package com.mrmr.gamto.freeboard.dto;
 import lombok.Data;
 
 @Data
-public class FreeboardDto {
+public class FreeboardDTO {
 	private String f_title; //게시판 제목
 	private String f_writer; //게시판 작성자
 	private String f_regist_day; //등록 날짜

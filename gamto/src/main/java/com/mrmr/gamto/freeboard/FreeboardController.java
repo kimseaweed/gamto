@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mrmr.gamto.freeboard.dao.IFreeboardDao;
-import com.mrmr.gamto.freeboard.dto.FreeboardDto;
+import com.mrmr.gamto.freeboard.dao.IFreeboardDAO;
+import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
 import com.mrmr.gamto.freeboard.dto.PagingVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/board")
 public class FreeboardController {
 	@Autowired
-	IFreeboardDao dao;
+	IFreeboardDAO dao;
 
 	/* 페이징하는 리스트 test */
 	@RequestMapping()
@@ -35,7 +35,7 @@ public class FreeboardController {
 		
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
-		List<FreeboardDto> list = dao.getPageList(map);
+		List<FreeboardDTO> list = dao.getPageList(map);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
@@ -203,7 +203,7 @@ public class FreeboardController {
 		map.put("startNo", Integer.toString(page.getStartNo()));
 		map.put("endNo",  Integer.toString(page.getEndNo()));
 		map.put("category", fCategory);
-		List<FreeboardDto> list = dao.SearchCategory(map);
+		List<FreeboardDTO> list = dao.SearchCategory(map);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
@@ -226,7 +226,7 @@ public class FreeboardController {
 		map.put("item", item);
 		map.put("text", text);
 		
-		List<FreeboardDto> list = dao.SearchTotal(map);
+		List<FreeboardDTO> list = dao.SearchTotal(map);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);

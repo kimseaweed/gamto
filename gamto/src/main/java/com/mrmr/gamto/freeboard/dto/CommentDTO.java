@@ -3,7 +3,7 @@ package com.mrmr.gamto.freeboard.dto;
 import lombok.Data;
 
 @Data
-public class CommentDto {
+public class CommentDTO {
 	private int c_seq_number; //댓글 코드
 	private String c_writer; //댓글 작성자
 	private String c_regist_day; //댓글 등록 날짜
