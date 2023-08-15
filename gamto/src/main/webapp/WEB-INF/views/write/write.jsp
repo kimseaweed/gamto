@@ -17,8 +17,18 @@
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
-		<form id="writeForm" name="writeForm" action="/write/writeBook_report"
-			method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation"
+		<form id="writeForm" name="writeForm" 
+		
+				<c:choose>
+					<c:when test="${empty requestType}">
+						method="post" action="/report"
+					</c:when>
+					<c:otherwise>
+						method="post" action="/report/${updateForm.r_seq_number}"
+					</c:otherwise>
+				</c:choose>
+		
+			class="p-5 mb-4 bg-light rounded-3 needs-validation"
 			enctype="multipart/form-data" novalidate>
 			<div class="mb-1">
 				<c:choose>
@@ -27,6 +37,8 @@
 					</c:when>
 					<c:otherwise>
 						<h3>나의생각 | 독후감 수정하기</h3>
+						<input type="hidden" name="_method" value="PUT">
+						<input type="hidden" name="r_filename" value="${updateForm.r_filename}">
 					</c:otherwise>
 				</c:choose>
 				<input type="hidden" name="r_writer" value="${u_id}" />
@@ -91,26 +103,24 @@
 							type="file" accept="image/*," />
 						<label class="input-group-text" for="inputGroupFile02">썸네일을
 							골라주세요 !</label>
-						<div class="valid-feedback">썸네일을 선택하지 않으면 기본이미지가 랜덤으로 선택됩니다.</div>
+						<label for="filename" class="form-label text-primary">썸네일을 선택하지 않으면 기본 썸네일이 선택됩니다.</label>
 					</div>
 					</c:when>
 					<c:otherwise>
-					<div class="input-group mb-3">
+					<div class="input-group mb-3" id="checkImg">
 						 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">메뉴</button>
 							  <ul class="dropdown-menu">
-							    <li><button type="button" id="resetImg" class="dropdown-item" > 등록한 이미지 삭제(기본이미지 선택) </button></li>
-							    <li><button type="button" id="changeImg" class="dropdown-item" > 새로운 이미지 선택 </button></li>
+							    <li><button type="button" id="resetImg" class="dropdown-item" > 등록한 썸네일 삭제(기본썸네일 선택) </button></li>
+							    <li><button type="button" id="changeImg" class="dropdown-item" > 새로운 썸네일 선택 </button></li>
 							  </ul>
-							  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="${updateForm.r_filename}" disabled>
-							  <label class="input-group-text bg-white" for="">썸네일</label>
+							  <input type="text" class="form-control" aria-label="Text input with dropdown button" name="showImg" value="${updateForm.r_filename}"  accept="image/*," disabled>
+						<button type="button" class="btn btn-secondary" id="viewImg">기존 썸네일 확인하기</button>
 					</div>
-					
-					<div class="input-group mb-3 d-none">
-						<input name="filename" class="form-control" id="inputGroupFile02"
+					<div class="mb-3 newfile d-none">
+						<input name="filename" class="form-control" id="filename"
 							type="file" accept="image/*," />
-						<label class="input-group-text" for="inputGroupFile02">썸네일을
-							골라주세요 !</label>
-						</div>
+						  <label for="filename" class="form-label text-primary">새로운 썸네일을 선택하지 않으면 기존 썸네일로 유지됩니다.</label>
+					</div>
 					</c:otherwise>
 				</c:choose>
 			<div class="invalid-feedback text-end mt-3 fs-5">내용이 비어있어요!</div>

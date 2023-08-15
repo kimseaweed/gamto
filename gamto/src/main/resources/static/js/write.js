@@ -267,17 +267,16 @@ document.getElementById('writeForm').addEventListener('submit',function(event){
 		alert('내용이 너무 길어요');
 		return false;
 	}
+	
 	document.getElementById('writeForm').submit();
 })
+
 
 //유효성 검사 : 파일업로드
 var fileinput = document.querySelector('input[type="file"]');
 fileinput.addEventListener("input", function(){
 	const fileForm = /(.*?)\.(jpg|jpge|png|gif|bmp|pdf)$/;
 	const maxSize = 1024*1024*5;
-	if(fileinput.value==""){
-		fileinput.value = 'deault'+d+'.png';
-	}else{
 		if(!fileinput.value.match(fileForm)){
 			alert('이미지파일 만 선택할 수 있습니다'); 
 			fileinput.value = "";
@@ -286,12 +285,25 @@ fileinput.addEventListener("input", function(){
 			alert('5mb 이하 만 선택할 수 있습니다'); 
 			fileinput.value = "";
 			return;
-		}//if in if end
-	}//else end
+		}//if end
 })//event end
+
+//글수정시 등록이미지 보기
+$("#viewImg").click(function(){
+	var oldFilname= $('input[name="r_filename"]').val();
+	window.open('/userUpload/'+oldFilname);
+})
 
 
 // 글수정시 이미지 리셋
-
+$("#resetImg").click(function(){
+	$('input[name="showImg"]').val("기본이미지");
+	$('.newfile').addClass('d-none');
+})
 
 // 글수정시 이미지 변경
+$("#changeImg").click(function(){
+	$('input[name="showImg"]').val($('input[name="r_filename"]').val());
+	 $('.newfile').removeClass('d-none');
+
+})

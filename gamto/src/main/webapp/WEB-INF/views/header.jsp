@@ -123,7 +123,7 @@
 				</a>
 			</div>
 			<ul class="nav-pills d-flex align-items-end mb-1">
-				<li class="nav-item"><a href="/write"
+				<li class="nav-item"><a href="/report/new"
 					class="px-3 mx-1 link-dark link2 link2_green"
 					data-bs-placement="left" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="| 글쓰기 |<br>나의 생각을 적어보세요">나의
@@ -214,7 +214,7 @@
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 							<!-- active -->
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
-								aria-current="page" href="/write"><i
+								aria-current="page" href="/report/new"><i
 									class="bi bi-blockquote-left me-3"></i>나의 생각</a></li>
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
 								href="/board"><i class="bi bi-blockquote-left me-3"></i>너의

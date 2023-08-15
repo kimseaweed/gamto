@@ -63,9 +63,23 @@
 							</div>
 							<h5 class="c-black mb-4 mt-n1">테스트</h5>
 							<div class="socials pe-3">
+							<% if(request.getParameter("error")!=null){
+								int error=Integer.parseInt(request.getParameter("error")); 
+								if(error==0){
+									out.println("<div class='alert alert-danger'> 로그인이 필요한 서비스입니다. </div>");
+								}else if(error==1){
+									out.println("<div class='alert alert-danger'> 아이디와 비밀번호를 입력해주세요 </div>");
+								}else if(error==2){
+									out.println("<div class='alert alert-danger'> 아이디와 비밀번호를 확인해주세요 </div>");
+								}else if(error==3){
+									out.println("<div class='alert alert-danger'> 탈퇴한 회원입니다</div>");
+								}
+							}
+							%>
 								<c:if test="${not empty error}">
 									<div class='alert alert-danger'>
 										<c:choose>
+											<c:when test="${error eq 0}">로그인이 필요한 서비스입니다. </c:when>
 											<c:when test="${error eq 1}"> 아이디와 비밀번호를 입력해주세요 </c:when>
 											<c:when test="${error eq 2}"> 아이디와 비밀번호를 확인해주세요</c:when>
 											<c:when test="${error eq 3}"> 탈퇴한 회원입니다 </c:when>

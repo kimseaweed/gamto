@@ -77,7 +77,7 @@ public class ReportController {
 		String rId = request.getParameter("r_seq_number");
 		String u_id = (String)session.getAttribute("u_id");
 		if(u_id==null||u_id.equals("")) {
-			model.addAttribute("error","로그인이 필요한 서비스입니다.");
+			model.addAttribute("error",0);
 			return "member/login";
 		}else{
 			BookReportDTO dto= dao.viewDao(rId); 
