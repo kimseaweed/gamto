@@ -61,7 +61,8 @@ public class StoreController {
 	public String cart(Model model, HttpServletRequest request, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
 		if(getId == null) {
-			return "redirect:/member/login";
+			model.addAttribute("error","로그인이 필요한 서비스입니다");
+			return "member/login";
 		} else {
 			List<CartDTO> dto = dao.cartDao(getId);
 			model.addAttribute("cart", dto);

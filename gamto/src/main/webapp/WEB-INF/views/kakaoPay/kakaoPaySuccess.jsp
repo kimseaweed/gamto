@@ -11,51 +11,20 @@
 main>table {
 	border-collapse: separate;
 }
-.bt-1-dot{
-	border-top-style:dotted;
-	border-top-width: 1px;
-}
-.bb-1-dot{
-	border-bottom-style:dotted;
-	border-bottom-width: 1px;
-}
-.bt-2-dot{
-	border-top-style:dotted;
-	border-top-width: 2px;
-}
-.bb-2-dot{
-	border-bottom-style:dotted;
-	border-bottom-width: 2px;
-}
-
-.bt-1-dash{
-	border-top-style:dashed;
-	border-top-width: 1px;
-}
-.bb-1-dash{
-	border-bottom-style:dashed;
-	border-bottom-width: 1px;
-}
-
-.bt-2-dash{
-	border-top-style:dashed;
-	border-top-width: 2px;
-}
-.bb-2-dash{
-	border-bottom-style:dashed;
-	border-bottom-width: 2px;
-}
-
 </style>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	/결제일시: [[${info.approved_at}]] / 주문번호: [[${info.partner_order_id}]] /
-	상품명: [[${info.item_name}]] / 상품수량: [[${info.quantity}]] / 결제금액:
-	[[${info.amount.total}]] / 결제방법: [[${info.payment_method_type}]]
+	<%-- 	
+	::: 필수로 출력해야할정보:::
+	/결제일시: [[${info.approved_at}]] 
+	주문번호: [[${info.partner_order_id}]]
+	상품명: [[${info.item_name}]]
+	상품수량: [[${info.quantity}]]
+	결제금액:	[[${info.amount.total}]]
+	결제방법: [[${info.payment_method_type}]]
+	 --%>
 	<main class="pb-5">
-
-
 		<table style="width: 580px;" class="shadow mx-auto mt-5 bg-white p-5"
 			style="">
 			<tr class="px-3">
@@ -67,99 +36,106 @@ main>table {
 				<td class="text-center pt-3 pb-5"><img
 					src="https://img.icons8.com/carbon-copy/100/000000/checked-checkbox.png"
 					width="125" height="120" /><br>
-					<p class="pt-2"><span class="text-muted px-2">주문번호</span> [[${info.partner_order_id}]] </p>
+					<p class="pt-2">
+						<span class="text-muted px-2">주문번호</span>
+						[[${info.partner_order_id}]]
+					</p>
 					<h2 class="">
 						결제가 정상적으로 <b>완료</b>되었습니다.
 					</h2>
 					<p class="text-muted">
 						주문내역 확인은 <br> <a class="" href="/store/purchaseList"><b>나의공간/주문내역</b></a>에서
 						확인하실 수 있습니다.
-					</p>
-					</td>
+					</p></td>
 			</tr>
 			<tr>
 				<td>
-						<div class="row bb-2-dot py-2 mb-4">
-										<p class="mb-1 col-6 fw-bold ">주문 상품</p>
-										<p class="mb-1 col-2 fw-bold text-center">수량</p>
-										<p class="mb-1 col-4 fw-bold text-end">가격&nbsp;&nbsp;&nbsp;</p>
-						</div>
+					<div class="row bb-2-dot py-2 mb-4">
+						<p class="mb-1 col-6 fw-bold ">주문 상품</p>
+						<p class="mb-1 col-2 fw-bold text-center">수량</p>
+						<p class="mb-1 col-4 fw-bold text-end">가격&nbsp;&nbsp;&nbsp;</p>
+					</div> <!-- ▼ 여기서 구매목록 반복 -->
 
-									
-									<!-- ▼ 여기서 구매목록 반복 -->
+					<div class="row">
+						<p class="col-6 ">${"상품명"}</p>
+						<p class="col-2 text-center">
+							<fmt:formatNumber value="${100}" pattern="#,### 개" />
+						</p>
+						<p class="col-4 text-end">
+							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
+						</p>
+					</div> <!-- ▲ 여기까지 반복 --> <!-- ▼▼▼▼ 반복샘플 (지우고 사용하세요) -->
 
-						<div class="row">
-										<p class="col-6 "> ${"상품명"} </p>
-										<p class="col-2 text-center"> <fmt:formatNumber
-									value="${100}" pattern="#,### 개" /> </p>
-										<p class="col-4 text-end"> <fmt:formatNumber
-									value="${1000000}" pattern="￦ #,###" /></p>
-						</div>
-						<!-- ▲ 여기까지 반복 -->
-						<!-- ▼▼▼▼ 반복샘플 (지우고 사용하세요) -->
-						
-						<div class="row">
-										<p class="col-6 "> ${"상품명"} </p>
-										<p class="col-2 text-center"> <fmt:formatNumber
-									value="${100}" pattern="#,### 개" /> </p>
-										<p class="col-4 text-end"> <fmt:formatNumber
-									value="${1000000}" pattern="￦ #,###" /></p>
-						</div>
-						<div class="row">
-										<p class="col-6 "> ${"상품명"} </p>
-										<p class="col-2 text-center"> <fmt:formatNumber
-									value="${100}" pattern="#,### 개" /> </p>
-										<p class="col-4 text-end"> <fmt:formatNumber
-									value="${1000000}" pattern="￦ #,###" /></p>
-						</div>
-							<!-- ▲▲▲ 반복샘플 (지우고 사용하세요) -->		
+					<div class="row">
+						<p class="col-6 ">${"상품명"}</p>
+						<p class="col-2 text-center">
+							<fmt:formatNumber value="${100}" pattern="#,### 개" />
+						</p>
+						<p class="col-4 text-end">
+							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
+						</p>
+					</div>
+					<div class="row">
+						<p class="col-6 ">${"상품명"}</p>
+						<p class="col-2 text-center">
+							<fmt:formatNumber value="${100}" pattern="#,### 개" />
+						</p>
+						<p class="col-4 text-end">
+							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
+						</p>
+					</div> <!-- ▲▲▲ 반복샘플 (지우고 사용하세요) -->
 
-							<div class="row bt-2-dot py-2 mt-4">
-										<p class="my-2 col-8 fw-bold">배송비</p>
-										<p class="my-2 col-4 fw-bold text-end"> <fmt:formatNumber
-									value="${3000}" pattern="￦ #,###.##" /></p>
-						</div>
-								<div class="row bt-2-dash bb-2-dash py-2 fs-5 mb-4">
-										<p class="my-3 col-6 fw-bold">최종 결제금액</p>
-										<p class="my-3 col-6 fw-bold text-end fs-5"> <fmt:formatNumber
-									value="${info.amount.total}" pattern="#,###" /> <span class="fs-6">원</span></p>
-						</div>
+					<div class="row bt-2-dot py-2 mt-4">
+						<p class="my-2 col-8 fw-bold">배송비</p>
+						<p class="my-2 col-4 fw-bold text-end">
+							<fmt:formatNumber value="${3000}" pattern="￦ #,###.##" />
+						</p>
+					</div>
+					<div class="row bt-2-dash bb-2-dash py-2 fs-5 mb-4">
+						<p class="my-3 col-6 fw-bold">최종 결제금액</p>
+						<p class="my-3 col-6 fw-bold text-end fs-5">
+							<fmt:formatNumber value="${info.amount.total}" pattern="#,###" />
+							<span class="fs-6">원</span>
+						</p>
+					</div>
 
 				</td>
 			</tr>
-			
+
 		</table>
-					<table style="width: 580px;" class="shadow mx-auto mt-3 bg-white p-5">
-					<tr >
-					 <th>결제일시</th>
-					 <td>  [[${info.approved_at}]] </td>
-					</tr>
-					<tr>
-					 <th>결제수단</th>
-					 <td> [[${info.payment_method_type}]]  </td>
-					</tr>
-					<tr>
-					 <th>승인일시</th>
-					 <td>  [[${info.partner_order_id}]] </td>
-					</tr>
-					<tr>
-					 <th>배송방법</th>
-					 <td>택배 </td>
-					</tr>
-					<tr>
-					 <th>배송지 정보</th>
-					 <td>${u_address} </td>
-					</tr>
-					</table>
-	<table style="width: 580px;" class="shadow mx-auto mt-3 mb-5 bg-white p-5 text-center">
-	<tr>
-		<td> 구매해 주셔서 감사합니다. </td>
-		</tr>
-		<tr>
-		<td> <a href="/store" class="btn btn-primary ">상점으로 돌아가기</a> </td> </tr>
-	</table>
-	
-		
+		<table style="width: 580px;" class="shadow mx-auto mt-3 bg-white p-5">
+			<tr>
+				<th>결제일시</th>
+				<td>[[${info.approved_at}]]</td>
+			</tr>
+			<tr>
+				<th>결제수단</th>
+				<td>[[${info.payment_method_type}]]</td>
+			</tr>
+			<tr>
+				<th>승인일시</th>
+				<td>[[${info.partner_order_id}]]</td>
+			</tr>
+			<tr>
+				<th>배송방법</th>
+				<td>택배</td>
+			</tr>
+			<tr>
+				<th>배송지 정보</th>
+				<td>${u_address}</td>
+			</tr>
+		</table>
+		<table style="width: 580px;"
+			class="shadow mx-auto mt-3 mb-5 bg-white p-5 text-center">
+			<tr>
+				<td>구매해 주셔서 감사합니다.</td>
+			</tr>
+			<tr>
+				<td><a href="/store" class="btn btn-primary ">상점으로 돌아가기</a></td>
+			</tr>
+		</table>
+
+
 
 
 

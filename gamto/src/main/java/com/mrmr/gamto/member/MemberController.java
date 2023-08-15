@@ -43,13 +43,19 @@ public class MemberController {
 		//로그인 정보확인
 		MemberDTO dto = dao.loginDao(u_id, u_pw);
 		if(u_id.trim().equals("")||u_pw.trim().equals("")) {
-			return "redirect:/member/login?error="+1+"&connect="+connect;
+			model.addAttribute("connect",connect);
+			model.addAttribute("error",1);
+			return "member/loginMemberForm";
 			// 로그인폼 입력을 안하거나 빈칸이라서
 		}else if(dto == null) {
-			return "redirect:/member/login?error="+2+"&connect="+connect;
+			model.addAttribute("connect",connect);
+			model.addAttribute("error",2);
+			return "member/loginMemberForm";
 			// 로그인정보가 없어 실패메세지
 		}else if(dto.getU_delete().equals("1")){
-			return "redirect:/member/login?error="+3+"&connect="+connect;
+			model.addAttribute("connect",connect);
+			model.addAttribute("error",3);
+			return "member/loginMemberForm";
 			// 로그인정보가 있으나 탈퇴회원
 		}else {
 			session.setAttribute("u_id", u_id);
