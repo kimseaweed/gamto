@@ -25,4 +25,5 @@ public class BookReportDTO {
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		this.r_update_day = format.format(r_update_day);
 	}
+	
 }

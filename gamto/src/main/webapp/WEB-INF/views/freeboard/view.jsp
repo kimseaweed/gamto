@@ -24,18 +24,19 @@
 		*${dto.f_category}<br>
 		<div class="row">
 			<p class="col mt-2">제목 : ${dto.f_title}</p>
-			<p class="col ms-auto text-end me-5">작성자 : ${dto.f_writer}</p>
+			<p class="col ms-auto text-end me-5">작성자 : <span id="f_writer">${dto.f_writer}</span></p>
 			<hr>
 		</div>
 		<div style="padding-bottom: 200px;" class="row">
 			<p class="col mt-2">
 				내용 : ${dto.f_content}<br>
 			</p>
-			<p class="col ms-auto text-end me-5">
-				댓글 수
-				<spen id="countComment">${result}</spen>
-				&nbsp;| &nbsp;추천 수 : ${dto.f_recommend} &nbsp;| &nbsp;조회 수 :
-				${dto.f_view} <br>
+			<p class="col ms-auto text-end me-5" id="good">
+				<span>
+					댓글 수
+				<span id="countComment">${result}</span> &nbsp;| &nbsp;추천 수 :
+				${dto.f_recommend} &nbsp;| &nbsp;조회 수 : ${dto.f_view} <br>
+				</span>
 			</p>
 		</div>
 		<hr>
@@ -44,7 +45,7 @@
 				작성 날짜 : ${dto.f_regist_day} <br> 수정 날짜 : ${dto.f_update_day} <br>
 			</p>
 			<p class="col ms-auto text-end me-5">
-				<c:set var="userId" value="<%=f_writer%>" />
+				<c:set var="userId" value="<%=f_writer%>"/>
 				<c:if test="${dto.f_writer==userId}">
 					<input type="button" value="수정"
 						class="btnUpdate btn btn-outline-success">
@@ -87,9 +88,7 @@
 											<p id="${cdto.c_seq_number}comment">${cdto.c_content}</p>
 										</div>
 										<div class="col text-end">
-											<span><small>${cdto.c_regist_day}</small></span> <br> <span><small>${cdto.c_update_day}</small></span>
-										</div>
-										<div class="col text-end">
+											<span><small>등록 날짜 : ${cdto.c_regist_day}</small></span> | <span><small>수정 날짜 : ${cdto.c_update_day}</small></span>
 											<span><button type="submit"
 													onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
 											<span><button type="submit"
@@ -113,6 +112,7 @@
 		<div>
 			<a href="/board" class="btn btn-outline-primary mt-3">목록보기</a>
 		</div>
+		<span style="" id="f_seq_number">${dto.f_seq_number}</span> 
 	</main>
 	<jsp:include page="../footer.jsp" />
 	<script>
@@ -134,8 +134,34 @@
 			}
 		})
 		
-	$(".btnGood").click(function() {
-		$(location).attr('href','good?f_seq_number=${dto.f_seq_number}');
+	$('.btnGood').click(function() {
+		var l_number = document.getElementById('f_seq_number').innerHTML;
+		alert('ajax 시작');
+
+			$.ajax({
+				type:'POST',
+				url:'/board/updateLike',
+				dataType : 'json',
+				data : {'l_number': l_number,
+						},
+				error : function(){
+					alert('좋아요 실패');
+				}, 
+				success : function(result){
+					if(result=="3"){
+						alert('로그인이 필요합니다.');
+					}else if(result=="1"){
+						
+						alert('추천 성공');
+						//하트 활성화 상태
+					}else{
+						alert('추천 취소');
+						//하트 끄셈
+					}
+					
+					$('#good').load(window.location.href+" #good>span");
+				}
+			})
 		})
 		
 	$(document).on('click','.btnComment',function (e) {

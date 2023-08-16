@@ -26,4 +26,5 @@ public class PageDTO {
 	
 		this.endPage = this.endPage>totalPage? totalPage:this.endPage;
 	}
+
 }

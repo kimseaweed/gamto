@@ -19,6 +19,7 @@ import com.mrmr.gamto.freeboard.dto.PagingVO;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -259,4 +260,51 @@ public class FreeboardController {
 		
 		return "freeboard/board";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/updateLike")
+	public String updateLike(String l_number, HttpSession session) {
+		
+		String l_id =(String)session.getAttribute("u_id");
+		
+		if(l_id==null) {
+			return "3";
+		}else {
+			int l_numberValue = Integer.parseInt(l_number);
+			System.out.println(l_number);
+			
+			int result = dao.likeCheck(l_numberValue, l_id);
+			
+			if(result==0) {
+				int num = dao.goodCnt(l_number);
+				dao.insertLike(l_numberValue, l_id);
+				
+				return "1";
+			}else{
+				dao.badCnt(l_number);
+				dao.deleteLike(l_numberValue, l_id);
+				return "0";
+			}
+			
+			//상황 0 좋아요 성공
+			//상황 1 로그인이 안되어있을때
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

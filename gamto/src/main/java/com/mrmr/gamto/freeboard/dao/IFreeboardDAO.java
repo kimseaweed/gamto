@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mrmr.gamto.freeboard.dto.CommentDTO;
+import com.mrmr.gamto.freeboard.dto.FeelingDTO;
 import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
 
 @Mapper
@@ -19,6 +20,7 @@ public interface IFreeboardDAO {
 	public int updateDao(Map<String, String> map);
 	public int updateCnt(String f_seq_number);
 	public int goodCnt(String f_seq_number);
+	public int badCnt(String f_seq_number);
 	
 	public List<CommentDTO> cListDao(String f_seq_number);
 	public CommentDTO cViewDao(String f_seq_number);
@@ -33,5 +35,11 @@ public interface IFreeboardDAO {
 	//검색하는 부분
 	public List<FreeboardDTO> SearchCategory(Map<String, String> map);
 	public List<FreeboardDTO> SearchTotal(Map<String, String> map);
+	
+	
+	//좋아요 버튼
+	public int insertLike(int l_number, String l_id);
+	public int deleteLike(int l_number, String l_id);
+	public int likeCheck(int l_number, String l_id);
 	
 }
