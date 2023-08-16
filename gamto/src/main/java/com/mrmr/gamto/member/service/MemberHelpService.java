@@ -1,4 +1,4 @@
-package com.mrmr.gamto.member;
+package com.mrmr.gamto.member.service;
 
 import java.security.Key;
 import java.util.Date;
@@ -74,9 +74,9 @@ public class MemberHelpService {
 		}else {
 			int code = createNumber();
 			String subject = "[감토] 아이디 찾기 인증번호";
-			String body = "<p><b>" + u_name + "</b>님의 아이디 확인 인증번호를 안내해드립니다. </p>"
-					+ "<div style=\"border:1px solid gray; padding: 10px 20px;\"><h1>" + code + "</h1></div>"
-					+ "<p>인증번호 발송을 요청한 페이지에 인증번호를 입력하시면 아이디를 안내해드립니다. <br> 감사합니다.</p>";
+			String body = "<div style=\"text-align:center\"><p><b>" + u_name + "</b>님의 아이디 확인 인증번호를 안내해드립니다. </p>"
+					+ "<div style=\"border:1px solid gray; padding: 10px 20px;width: fit-content;margin: 0 auto;\"><h1>" + code + "</h1></div>"
+					+ "<p>인증번호 발송을 요청한 페이지에 인증번호를 입력하시면 아이디를 안내해드립니다. <br> 감사합니다.</p></div>";
 			sendMail(u_email,subject,body);
 			return code;
 		}
@@ -120,11 +120,11 @@ public class MemberHelpService {
 			return 1;
 		}else {
 			String subject = "[감토] 비밀번호 재설정 인증메일";
-			String body = "<p><b>" + memberdto.getU_name() + "</b>님의 비밀번호를 재설정 하기 위한 인증 메일을 보내드립니다. </p>"
-							+ "<div style=\"border:1px solid gray; padding: 10px 20px;\"><h1><a href=\"http://localhost:8089/member/help/reset-pw/token?t="
+			String body = "<div style=\"text-align:center\"><p><b>" + memberdto.getU_name() + "</b>님의 비밀번호를 <br> 재설정 하기 위한 인증 메일을 보내드립니다.<br> </p>"
+							+ "<div style=\"border:1px solid gray; padding: 10px 20px;width: fit-content;margin: 0 auto;\"><h1><a href=\"http://localhost:8089/member/help/pw/token?t="
 							+ createToken(memberdto.getU_id()) 
 							+ "\"> 메일 인증하기</a></h1></div>"
-							+ "<p>링크를 클릭하시면 비밀전호 재설정을 진행합니다. <br> 해당 메일은 10분 후 만료됩니다.</p>";
+							+ "<p><br>링크를 클릭하시면 비밀전호 재설정을 진행합니다. <br> 해당 메일은 10분 후 만료됩니다.</p></div>";
 			sendMail(u_email,subject,body);
 			return 0;
 		}

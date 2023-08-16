@@ -39,8 +39,8 @@
 										</div>
 									</div>
 									<div class="col-12 text-lg-right">
-										<a href="/member/help/find-id">아이디 찾기</a> | <a
-											href="/member/help/reset-pw">비밀번호 찾기</a>
+										<a href="/member/help/id">아이디 찾기</a> | <a
+											href="/member/help/pw">비밀번호 찾기</a>
 									</div>
 									<div class="col-12 mt-3 text-end">
 										<button type="submit" id="submit" class="btn btn-lg">로그인
