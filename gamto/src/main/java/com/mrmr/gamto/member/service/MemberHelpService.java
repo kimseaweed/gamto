@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.mrmr.gamto.member.dao.MemberDao;
+import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MemberDTO;
 
 import io.jsonwebtoken.Claims;
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberHelpService {
 	@Autowired
-	public MemberDao dao;
+	public MemberDAO dao;
 	
 	/** 메일관련정보 */
 	private final JavaMailSender javaMailSender;

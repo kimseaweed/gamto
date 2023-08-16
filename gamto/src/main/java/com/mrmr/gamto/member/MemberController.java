@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mrmr.gamto.member.dao.MemberDao;
+import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/member")
 public class MemberController {
 	@Autowired
-	MemberDao dao;
+	MemberDAO dao;
 	
 	@RequestMapping()
 	public String Member(HttpSession session) {

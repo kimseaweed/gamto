@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.mrmr.gamto.member.dao.MemberDao;
+import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MemberDTO;
 import com.mrmr.gamto.member.service.MemberHelpService;
 import com.mrmr.gamto.utils.GamtoService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -25,7 +23,7 @@ public class MemberHelpController {
 	@Autowired
 	MemberHelpService service;
 	@Autowired
-	MemberDao dao;
+	MemberDAO dao;
 	
 	/*
 	 * id : 폼이동 POST) 
