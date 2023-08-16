@@ -94,20 +94,6 @@
 		function boardCategory(){
 			
 		}
-		
-		// 카트 뱃지
-		$(document).ready(function(){
-			$.ajax({
-				url:"/store/header",
-				dataType:'json',
-				type:"get",
-				success : function(result){
-					if(result>0){
-						$('.cartBadge').text(result);
-					}
-				},		
-			});
-		});
 	</script>
 	
 </div>
@@ -147,9 +133,7 @@
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span
 						class="material-symbols-outlined fs-1">shopping_cart </span> 
-						<%	if (session.getAttribute("u_id") != null) {	%>
-						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger" > </span>
-						<% } %>
+						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger d-none" > </span>
 				</a></li>
 				<%
 				if (session.getAttribute("u_id") == null) {
@@ -229,9 +213,7 @@
 							<li class="nav-item"><a class="position-relative nav-link fs-2 fw-bold"
 								href="/store/cart"> <span
 									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span>
-											<%	if (session.getAttribute("u_id") != null) {	%>
-									<span class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1" > </span>
-									<%} %>
+									<span class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1 d-none" > </span>
 									 장바구니
 							</a></li>
 							<%

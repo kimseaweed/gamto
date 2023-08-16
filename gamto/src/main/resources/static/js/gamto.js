@@ -3,7 +3,20 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
 	return new bootstrap.Tooltip(tooltipTriggerEl)
 })
-
+/* 헤더) 카트뱃지 */
+$(document).ready(function(){
+			$.ajax({
+				url:"/store/header",
+				dataType:'json',
+				type:"get",
+				success : function(result){
+					if(result>0){
+						$('.cartBadge').removeClass('d-none');
+						$('.cartBadge').text(result);
+					}
+				},		
+			});
+});
 
 /* 마우스 당근 */
 let x = 0,
@@ -30,6 +43,9 @@ $(window).mousemove(function(e) {
 
 
 	gsap.to(".carrot", { duration: 0.3, left: x, top: y });
+
+
+
 
 	/* 제품상세페이지 이미지 */
 	$(".moveImg").css({ "transform": "perspective(600px) rotateX(" + fmouseX + "deg) rotateY(" + -fmouseY + "deg)" });

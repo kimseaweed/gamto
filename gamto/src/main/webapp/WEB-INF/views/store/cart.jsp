@@ -25,7 +25,6 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 <body>
 	<jsp:include page="../header.jsp" />
 	<main>
-		<div class="container-fluid px-0">
 			<div class="container">
 				<div class="row bg-light">
 					<section class="h-100 h-custom">
@@ -144,6 +143,7 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 				<!-- row -->
 			</div>
 			<!-- container -->
+			
 	</main>
 	<jsp:include page="../footer.jsp" />
 </body>

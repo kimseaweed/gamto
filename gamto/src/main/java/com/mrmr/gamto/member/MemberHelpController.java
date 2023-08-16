@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mrmr.gamto.member.dao.MemberDao;
+import com.mrmr.gamto.member.dto.MemberDTO;
 import com.mrmr.gamto.member.service.MemberHelpService;
 import com.mrmr.gamto.utils.GamtoService;
 
@@ -25,7 +26,12 @@ public class MemberHelpController {
 	MemberHelpService service;
 	@Autowired
 	MemberDao dao;
-
+	
+	/*
+	 * id : 폼이동 POST) 
+	 * POST) id/check - ajax요청으로 인증번호 발송 
+	 * POST) id/res - 아이디 보여줌
+	 */
 	//아이디 찾기 : 로그인여부 확인후 폼 이동
 	@RequestMapping("/id") 
 	public String emailCAuthentication(HttpSession session, Model model) {
@@ -39,8 +45,21 @@ public class MemberHelpController {
 	}
 	//아이디찾기 : 인증코드 입력후 이동
 	@PostMapping("/id/res")
-	public String ifOk(Model model,String u_email) {
-		String u_id = dao.findIdDao(u_email).getU_id();
+	public String ifOk(Model model,String u_email,String u_name) {
+		MemberDTO dto = dao.findIdDao(u_email);
+		//유효성 검사) 강제로 이메일이름만 넣고 submit 시킬경우 튕겨냄
+		String u_nameCheck = dto.getU_name();
+		if(u_name.equals(u_nameCheck)) {
+			String script= 
+					"<script>"
+					+ "alert('잘못된 접근입니다.다시 인증해주세요.');"
+					+ "hitory.back();"
+					+ "</script>";
+			model.addAttribute("script",script);		
+			return "script";
+		}
+		
+		String u_id = dto.getU_id();
 		String message=  
 				"가입하신 아이디는 <b>"+u_id+"</b>입니다.<br>"
 						+ "감사합니다. <br>"
