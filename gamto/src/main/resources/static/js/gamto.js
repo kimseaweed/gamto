@@ -5,18 +5,21 @@ var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
 })
 /* 헤더) 카트뱃지 */
 $(document).ready(function(){
-			$.ajax({
-				url:"/store/header",
+			cartBadge();
+});
+function cartBadge(){
+	$.ajax({
+			url:"/store/header",
 				dataType:'json',
 				type:"get",
 				success : function(result){
 					if(result>0){
 						$('.cartBadge').removeClass('d-none');
-						$('.cartBadge').text(result);
+						$('.cartBadge>span').text(result);
 					}
 				},		
 			});
-});
+}
 
 /* 마우스 당근 */
 let x = 0,

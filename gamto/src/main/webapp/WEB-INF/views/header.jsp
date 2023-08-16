@@ -133,7 +133,7 @@
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span
 						class="material-symbols-outlined fs-1">shopping_cart </span> 
-						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger d-none" > </span>
+						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger d-none"><span></span> </span>
 				</a></li>
 				<%
 				if (session.getAttribute("u_id") == null) {
