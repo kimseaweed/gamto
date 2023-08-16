@@ -285,6 +285,9 @@ fileinput.addEventListener("input", function(){
 			alert('5mb 이하 만 선택할 수 있습니다'); 
 			fileinput.value = "";
 			return;
+		}else if(fileinput.value.length>300){
+			fileinput.value = "";
+			return
 		}//if end
 })//event end
 
@@ -294,10 +297,9 @@ $("#viewImg").click(function(){
 	window.open('/userUpload/'+oldFilname);
 })
 
-
 // 글수정시 이미지 리셋
 $("#resetImg").click(function(){
-	$('input[name="showImg"]').val("기본이미지");
+	$('input[name="showImg"]').val("기본");
 	$('.newfile').addClass('d-none');
 })
 
@@ -305,5 +307,4 @@ $("#resetImg").click(function(){
 $("#changeImg").click(function(){
 	$('input[name="showImg"]').val($('input[name="r_filename"]').val());
 	 $('.newfile').removeClass('d-none');
-
 })

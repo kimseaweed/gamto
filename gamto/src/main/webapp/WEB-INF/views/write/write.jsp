@@ -98,22 +98,23 @@
 
 				<c:choose>
 					<c:when test="${empty requestType}">
-						<div class="input-group mb-3">
+						<div class="input-group mb-0">
 						<input name="filename" class="form-control" id="inputGroupFile02"
 							type="file" accept="image/*," />
 						<label class="input-group-text" for="inputGroupFile02">썸네일을
-							골라주세요 !</label>
-						<label for="filename" class="form-label text-primary">썸네일을 선택하지 않으면 기본 썸네일이 선택됩니다.</label>
+							골라주세요!</label>
 					</div>
+						<p class="text-muted mb-2">
+						썸네일을 선택하지 않으면 기본 썸네일이 선택됩니다.</p>
 					</c:when>
 					<c:otherwise>
 					<div class="input-group mb-3" id="checkImg">
 						 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">메뉴</button>
 							  <ul class="dropdown-menu">
-							    <li><button type="button" id="resetImg" class="dropdown-item" > 등록한 썸네일 삭제(기본썸네일 선택) </button></li>
+							    <li><button type="button" id="resetImg" class="dropdown-item" > 썸네일 삭제(기본 썸네일 선택) </button></li>
 							    <li><button type="button" id="changeImg" class="dropdown-item" > 새로운 썸네일 선택 </button></li>
 							  </ul>
-							  <input type="text" class="form-control" aria-label="Text input with dropdown button" name="showImg" value="${updateForm.r_filename}"  accept="image/*," disabled>
+							  <input type="text" class="form-control" name="showImg" value="${updateForm.r_filename}" readonly="readonly">
 						<button type="button" class="btn btn-secondary" id="viewImg">기존 썸네일 확인하기</button>
 					</div>
 					<div class="mb-3 newfile d-none">

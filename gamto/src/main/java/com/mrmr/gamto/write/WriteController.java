@@ -41,32 +41,28 @@ public class WriteController {
 	
 	@PutMapping("/report/{r_seq_number}")
 	public String update(String showImg,MultipartFile filename,BookReportDTO dto) throws Exception {
-		if(showImg.equals(dto.getR_filename())){ //삭제x 업로드x
-			if(filename==null) {
-			}else {
-				dto.getR_filename();//삭제작업
-				dto.setR_filename(service.saveFile(filename));
+		//상황1 : 기존에 있다가 안바꿨다 ->삭제x 업로드x 랜덤셋팅x
+		//상황2 : 기존에 있다가 새로운걸로 바꿨다 ->삭제o 업로드o 랜덤셋팅x
+		//상황3 : 기존에 있다가 기본이미지 하고싶다 ->삭제o 업로드x 랜덤셋팅o
+		//상황4 : 기존에 없었는데 새로 등록했다 ->삭제x 업로드o 랜덤셋팅x
+		//상황5 : 기존에 없었는데 바꾸진 않았다 ->삭제x 업로드x 랜덤셋팅x
+		//상황6 : 기존에 없었는데 기본이미지 하고싶다 ->삭제x 업로드x 랜덤셋팅o
+		//변화가 있는경우 (상황2,3,4,6) 
+		if(!showImg.equals(dto.getR_filename())){
+			//상황2,3
+			if(!dto.getR_filename().substring(0, 6).equals("default")) {
+				service.deleteFile(dto.getR_filename());
 			}
-		}else { //업로드x
-			if(dto.getR_filename().substring(0, 6).equals("default")) { 
-				dto.setR_filename(service.saveFile(null)); //삭제는 없어도되지만 랜덤이미지 
-			}else {
-				
-			}
-		}	
-		
+			//(상황4,6) 여기서시작 + (상황2,3) 처리후 이어서 진행
+			dto.setR_filename(service.saveFile(filename));
+		}
+		//변화가 없는경우 여기서 시작 (상황1,5) + 변화 처리한 (상황 나머지) => 업로드
 		dao.writeBookReport(dto);
 		return "redirect:/report/view?r_seq_number="+dto.getR_seq_number();			
-		//상황1 : 기존에 있다가 안바꿨다 - get o, m x 
-		//상황2 : 기존에 있다가 새로운걸로 바꿨다 get o, m o,
-		//상황3 : 기존에 있다가 기본이미지 하고싶다 get o, m x
-		//상황4 : 기존에 없었는데 새로 등록했다  get 디폴트, m o,
-		//상황5 : 기존에 없었는데 여전히 없다  get 디폴트, m  x,
-		//상황6 : 기존에 없었는데 기본이미지 하고싶다 
-		/*
-		 * dao.writeBookReport(dto); return "redirect:/report";
-		 */
 	}
-
-	
+	/*
+	 * @RequestMapping("/test") public String test(){
+	 * 
+	 * return "member/result"; }
+	 */
 }

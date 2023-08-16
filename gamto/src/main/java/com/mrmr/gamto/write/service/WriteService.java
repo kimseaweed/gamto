@@ -25,7 +25,6 @@ public String saveFile(MultipartFile file) throws Exception {
 
 public void deleteFile(String oldfilename) throws Exception {
 	String projectPath=System.getProperty("user.dir") + "\\src\\main\\resources\\static\\userUpload\\";
-	
 	File deleteFile = new File(projectPath+oldfilename);
 	if(deleteFile.exists()) {
 		deleteFile.delete();

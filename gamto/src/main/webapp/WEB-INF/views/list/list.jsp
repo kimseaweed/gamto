@@ -69,7 +69,7 @@
 	<br>
 		<div>
 			<p>
-			<a href="/write" class="btn btn-outline-primary">글작성</a>
+			<a href="/report/new" class="btn btn-outline-primary">글작성</a>
 			<a href="/report" class="btn btn-outline-primary">목록보기</a> 
 			</p> <br>
 		<div class="center">

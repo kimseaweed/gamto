@@ -4,21 +4,22 @@ var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
 	return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 /* 헤더) 카트뱃지 */
-$(document).ready(function(){
-			cartBadge();
+$(document).ready(function() {
+	cartBadge();
 });
-function cartBadge(){
+//카트뱃지정보 확인 펑션 
+function cartBadge() {
 	$.ajax({
-			url:"/store/header",
-				dataType:'json',
-				type:"get",
-				success : function(result){
-					if(result>0){
-						$('.cartBadge').removeClass('d-none');
-						$('.cartBadge>span').text(result);
-					}
-				},		
-			});
+		url: "/store/header",
+		dataType: 'json',
+		type: "get",
+		success: function(result) {
+			if (result > 0) {
+				$('.cartBadge').removeClass('d-none');
+				$('.cartBadge>span').text(result);
+			}
+		},
+	});
 }
 
 /* 마우스 당근 */

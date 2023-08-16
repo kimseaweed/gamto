@@ -209,6 +209,9 @@ header.d-lg-none span.badge{
 	left: 35px;
 }
 /*스크롤탑버튼*/
+#sidebar{
+	z-index:9998;
+}
 #sidebar button{
   width:50px;
   height: 50px;

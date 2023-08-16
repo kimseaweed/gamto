@@ -59,9 +59,8 @@ public class MemberHelpController {
 		
 		String u_id = dto.getU_id();
 		String message=  
-				"가입하신 아이디는 <b>"+u_id+"</b>입니다.<br>"
-						+ "감사합니다. <br>"
-						+ "<a href=\"/member/help/pw\" class=\"btn btn-warning\">비밀번호 찾기</a>";
+				"가입하신 아이디는<br> <b>"+u_id+"</b>입니다.<br>"
+						+ "감사합니다. <br>";
 		model.addAttribute("message",message);
 		return "member/result";
 	}

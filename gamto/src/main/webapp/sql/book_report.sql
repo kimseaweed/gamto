@@ -5,7 +5,7 @@ create table book_report(
     r_writer varchar2(100) not null, --report writer
     r_regist_day date default sysdate,--report regist_day
     r_update_day date default sysdate, --report update_day
-    r_filename varchar2(30), --report filename
+    r_filename varchar2(300), --report filename
     r_recommend number default 0, --report recommand count
     r_delete number default 0 not null, --report delete check
     r_view number default 0, --report hits count
