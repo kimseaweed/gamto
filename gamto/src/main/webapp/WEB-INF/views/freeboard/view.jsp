@@ -112,7 +112,7 @@
 		<div>
 			<a href="/board" class="btn btn-outline-primary mt-3">목록보기</a>
 		</div>
-		<span style="" id="f_seq_number">${dto.f_seq_number}</span> 
+		<span style="display:none;" id="f_seq_number">${dto.f_seq_number}</span> 
 	</main>
 	<jsp:include page="../footer.jsp" />
 	<script>
