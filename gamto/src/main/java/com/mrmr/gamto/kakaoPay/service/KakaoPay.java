@@ -27,10 +27,13 @@ public class KakaoPay {
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
     public String kakaoPayReady() {
+    	
+    	
+    	System.out.println("123123");
  
         RestTemplate restTemplate = new RestTemplate();
  
-        // 서버로 요청할 Header
+        // 서버로 요청할 Headerß
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "f6fdea9d6fa6ec6554662cdfdfe52d7d");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -44,7 +47,7 @@ public class KakaoPay {
         params.add("item_name", "갤럭시S9");
         params.add("quantity", "1");
         params.add("total_amount", "2100");
-        params.add("tax_free_amount", "100");
+        params.add("tax_free_amount", "0");
         params.add("approval_url", "http://localhost:8089/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8089/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8089/kakaoPaySuccessFail");
@@ -71,7 +74,9 @@ public class KakaoPay {
     }
     
     public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
- 
+        
+    	System.out.println("카카오페");
+    	
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
         
@@ -82,7 +87,8 @@ public class KakaoPay {
         headers.add("Authorization", "KakaoAK " + "f6fdea9d6fa6ec6554662cdfdfe52d7d");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
- 
+        
+        
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");

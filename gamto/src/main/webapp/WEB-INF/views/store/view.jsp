@@ -45,12 +45,12 @@
 							<td class="col-lg-8 col-md-4 col-8 fw-bold ">구매수량</td>
 							<td class="col"><div class="input-group row draggable">
 									<button class="input-group-text  text-center" type="button"
-										onclick="upCount();">+</button>
+										onclick="downCount();">-</button>
 									<input type="text" name="b_quantity"
 										class="form-control text-center" max="${dto.b_stock}"
-										value="1" onchange="getPrice();" />
+										value="1" onchange="getPrice();" />									
 									<button class="input-group-text  text-center" type="button"
-										onclick="downCount();">-</button>
+										onclick="upCount();">+</button>
 								</div></td>
 						</tr>
 						<tr class="row my-3">
@@ -153,7 +153,6 @@
 			  link.addEventListener('click', function(event) {
 			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
 			    var b_quantity = document.buyForm.b_quantity.value;
-			    alert(b_quantity + linkId);
 				 $.ajax({
 					  url:"/store/addCart",
 		               dataType:'json',
@@ -168,7 +167,8 @@
 						} else if(result == 0){
 						 alert("0");
 						}else{
-							alert("상품이 제대로 담겼다 이 자식아 ");
+							console.log("상품이 제대로 담겼다 이 자식아 ");
+							cartBadge();
 						}
 					},
 					error:function(result){  

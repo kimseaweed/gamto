@@ -65,6 +65,7 @@ public class StoreController {
 		} else {
 			List<CartDTO> dto = dao.cartDao(getId);
 			model.addAttribute("cart", dto);
+			model.addAttribute("u_id", getId);
 			return "store/cart";
 		}
 		
@@ -79,6 +80,19 @@ public class StoreController {
 			return -1;
 		} else {
 			int result = dao.addCartDao(getId, b_code, b_quantity);
+			return result;
+		}
+	}
+	
+	@PostMapping("/updateQuantity") // 장바구니에서 수량 변경하기  
+	@ResponseBody
+	public int updateQuantity(String cart_code, String cart_quantity, HttpSession session) {
+		String getId =(String)session.getAttribute("u_id");
+		System.out.println(cart_code + cart_quantity + getId);
+		if(getId == null) {
+			return -1;
+		} else {
+			int result = dao.updateQuantity(getId, cart_code, cart_quantity);
 			return result;
 		}
 	}

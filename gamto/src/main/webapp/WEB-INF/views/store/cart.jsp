@@ -8,7 +8,7 @@
 <html>
 <head>
 <%
-String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서 cartId로 사용함.
+String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 정보를 얻어와서 cartId로 사용함.
 %>
 <style>
 .custom-h1 {
@@ -25,95 +25,91 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 <body>
 	<jsp:include page="../header.jsp" />
 	<main>
-			<div class="container">
-				<div class="row bg-light">
-					<section class="h-100 h-custom">
-						<div class="container h-100 py-5">
-							<div
-								class="row d-flex justify-content-center align-items-center h-100">
-								<div class="col">
-									<div class="table-responsive">
-										<table class="table">
-											<thead>
+		<div class="container">
+			<div class="row bg-light">
+				<section class="h-100 h-custom">
+					<div class="container h-100 py-5">
+						<div
+							class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col">
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col" class="h5">Shopping Bag</th>
+												<th scope="col">Quantity</th>
+												<th scope="col">Price</th>
+												<th scope="col">합계</th>
+												<th scope="col"><a href="/store/removeAllCart"
+													class="custom-line my-auto">모두 비우기</a></th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="dto" items="${cart}" varStatus="status">
+												<c:set var="sum"
+													value="${sum +(dto.cart_price * dto.cart_quantity)}" />
+												<c:set value="${dto.cart_price}" var="price" />
+												<c:set value="${dto.cart_quantity}" var="quantity" />
+												<c:set value="${dto.cart_price * dto.cart_quantity}"
+													var="total" />
 												<tr>
-													<th scope="col" class="h5">Shopping Bag</th>
-													<th scope="col">Quantity</th>
-													<th scope="col">Price</th>
-													<th scope="col">합계</th>
-													<th scope="col"><a href="/store/removeAllCart"
-														class="custom-line my-auto">모두 비우기</a></th>
+													<th scope="row">
+														<div class="d-flex align-items-center">
+															<img src="../img/book/${dto.cart_filename}"
+																class="img-fluid rounded-3" style="width: 120px;"
+																alt="Book">
+															<div class="flex-column ms-4">
+																<p class="mb-2">${dto.cart_name}</p>
+																<p class="mb-0">
+																	<b>${dto.cart_author}</b> 저
+																</p>
+															</div>
+														</div>
+													</th>
+													<td class="align-middle">
+														<div class="d-flex flex-row" id="${dto.cart_code}">
+															<button class="btn btn-link px-2 addCart"
+																data-minus="${status.index}"
+																onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+																<i class="fas fa-minus"></i>
+															</button>
+															<input min="0" value="${dto.cart_quantity}"
+																data-index="${status.index}" type="number"
+																class="form-control form-control-sm addCart"
+																style="width: 50px;" />
+															<button class="btn btn-link px-2 addCart"
+																data-plus="${status.index}" id="${dto.cart_code}"
+																onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+																<i class="fas fa-plus"></i>
+															</button>
+														</div>
+													</td>
+													<td class="align-middle"><span class="mb-0"
+														style="font-weight: 500;" data-price="${status.index}">${price}</span><span>원</span>
+													</td>
+
+													<td class="align-middle"><span class="mb-0"
+														style="font-weight: 500;" data-total="${status.index}">${total}</span>
+													</td>
+													<td class="align-middle ps-5"><a
+														href="/store/removeCart?b_code=${dto.cart_code}">X</a></td>
 												</tr>
-											</thead>
-											<tbody>
-												<c:forEach var="dto" items="${cart}" varStatus="status">
-													<c:set var="sum"
-														value="${sum +(dto.cart_price * dto.cart_quantity)}"></c:set>
-													<fmt:formatNumber type="number" maxFractionDigits="3"
-														value="${dto.cart_price}" var="price" />
-													<fmt:formatNumber type="number"
-														value="${dto.cart_quantity}" var="quantity" />
-													<fmt:formatNumber type="number" maxFractionDigits="3"
-														value="${dto.cart_price * dto.cart_quantity}" var="total" />
-													<tr>
-														<th scope="row">
-															<div class="d-flex align-items-center">
-																<img src="../img/book/${dto.cart_filename}"
-																	class="img-fluid rounded-3" style="width: 120px;"
-																	alt="Book">
-																<div class="flex-column ms-4">
-																	<p class="mb-2">${dto.cart_name}</p>
-																	<p class="mb-0"><b>${dto.cart_author}</b> 저</p>
-																</div>
-															</div>
-														</th>
-														<td class="align-middle">
-															<div class="d-flex flex-row">
-																<button class="btn btn-link px-2 addCart"
-																	onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-																	<i class="fas fa-minus"></i>
-																</button>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 
-																<input id="form1" min="0" name="quantity" value="${dto.cart_quantity}"
-																	type="number" class="form-control form-control-sm"
-																	style="width: 50px;" />
+								<div class="card shadow-2-strong mb-5 mb-lg-0"
+									style="border-radius: 16px;">
+									<div class="card-body p-4">
+										<div class="row">
 
-																<button class="btn btn-link px-2 addCart"
-																	onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-																	<i class="fas fa-plus"></i>
-																</button>
-															</div>
-														</td>
-														<td class="align-middle">
-															<p class="mb-0" style="font-weight: 500;">${price}원</p>
-														</td>
-
-														<td class="align-middle">
-															<p class="mb-0" style="font-weight: 500;">${total}원</p>
-														</td>
-														<td class="align-middle ps-5"><a
-															href="/store/removeCart?b_code=${dto.cart_code}">X</a></td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</div>
-
-									<div class="card shadow-2-strong mb-5 mb-lg-0"
-										style="border-radius: 16px;">
-										<div class="card-body p-4">
-											<div class="row">
-
-												<div class="col-lg-4 col-xl-3">
+											<div class="col-lg-4 col-xl-3" id="cartSum">
+												<div>
 													<div class="d-flex justify-content-between"
 														style="font-weight: 500;">
 														<p class="mb-2">총합 금액</p>
-														<p class="mb-2">${sum}</p>
-													</div>
-
-													<div class="d-flex justify-content-between"
-														style="font-weight: 500;">
-														<p class="mb-0">배송비</p>
-														<p class="mb-0">3000원</p>
+														<p class="mb-2">${sum}원</p>
 													</div>
 
 													<hr class="my-4">
@@ -121,62 +117,67 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 													<div class="d-flex justify-content-between mb-4"
 														style="font-weight: 500;">
 														<p class="mb-2">결제 금액</p>
-														<p class="mb-2">${sum+3000}원</p>
+														<p class="mb-2">${sum}원</p>
 													</div>
 													<div class="d-flex justify-content-between">
 														<form method="post" action="/kakaoPay">
-															<button class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
+															<button
+																class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
 														</form>
 													</div>
-
 												</div>
+
 											</div>
-
+											<!-- cartSum -->
 										</div>
-									</div>
 
+									</div>
 								</div>
+
 							</div>
 						</div>
-					</section>
-				</div>
-				<!-- row -->
+					</div>
+				</section>
 			</div>
-			<!-- container -->
-			
+			<!-- row -->
+		</div>
+		<!-- container -->
+
 	</main>
 	<jsp:include page="../footer.jsp" />
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-	$("#check_module").click(function () {
+	$("#check_module").click(function() {
 		var IMP = window.IMP; // 생략가능
-		IMP.init('imp23781431'); 
+		IMP.init('imp23781431');
 		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 		// ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
 		IMP.request_pay({
-			pg: 'kakao',
-			pay_method: 'card',
-			merchant_uid: 'merchant_' + new Date().getTime(),
+			pg : 'kakao',
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
 			/* 
 			 *  merchant_uid에 경우 
 			 *  https://docs.iamport.kr/implementation/payment
 			 *  위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
 			 */
-			name: '주문명 : ${info.item_name}',
+			name : '주문명 : ${info.item_name}',
 			// 결제창에서 보여질 이름
 			// name: '주문명 : ${auction.a_title}',
 			// 위와같이 model에 담은 정보를 넣어 쓸수도 있습니다.
-			amount: '총액 : ${info.amount.total}',
+			amount : '총액 : ${info.amount.total}',
 			// amount: ${bid.b_bid},
 			// 가격 
-			buyer_name: '이름 : ${info.partner_order_id}',
+			buyer_name : '이름 : ${info.partner_order_id}',
 			// 구매자 이름, 구매자 정보도 model값으로 바꿀 수 있습니다.
 			// 구매자 정보에 여러가지도 있으므로, 자세한 내용은 맨 위 링크를 참고해주세요.
-			buyer_postcode: '123-456',
-			}, function (rsp) {
-				console.log(rsp);
+			buyer_postcode : '123-456',
+		}, function(rsp) {
+			console.log(rsp);
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
 				msg += '결제 금액 : ' + rsp.paid_amount;
@@ -190,36 +191,92 @@ String cartId = session.getId(); //세션에서 아이디 정보를 얻어와서
 			alert(msg);
 		});
 	});
-			var linkElements = document.querySelectorAll('button.addCart'); // 모든 button 태그 선택
-			
-			linkElements.forEach(function(link) {
-			  link.addEventListener('click', function(event) {
-			    var linkId = link.id; // 클릭한 a 태그의 id 속성 값 가져오기
-			    var b_quantity = document.buyForm.b_quantity.value;
-			    alert(b_quantity + linkId);
-				 $.ajax({
-					  url:"/store/addCart",
-		               dataType:'json',
-		               type:"post",
-					data: {'b_code': linkId,
-						   'b_quantity': b_quantity
-						   },
-					success: function(result){
-						if(result == -1){
-							alert("로그인 하세요 ");
-							location = '/member/login';
-						} else if(result == 0){
-						 alert("0");
-						}else{
-							alert("상품이 제대로 담겼다 이 자식아 ");
-						}
-					},
-					error:function(result){  
-			           alert("fail");
-					}
-				}) 
-			  });
-			});
-				
-	</script>
+	//장바구니에서 상품 더하기 빼기 script
+	const quantityIndex = $("[data-index]");
+
+	for (let i = 0; i < quantityIndex.length; i++) {
+		quantityIndex[i].addEventListener('change', function() {
+			const cart_code = $(this).closest('div').attr('id');
+			this.value = checkRange(this.value);
+			const quantity = this.value;
+
+			result(i, quantity, cart_code);
+		})
+	}
+
+	const quantityMinus = $("[data-minus]");
+
+	for (let i = 0; i < quantityIndex.length; i++) {
+		quantityMinus[i].addEventListener('click', function() {
+			let quantity = Number($("[data-index='" + i + "']")[0].value) - 1;
+			const cart_code = $(this).closest('div').attr('id');
+			quantity = checkRange(quantity);
+			$("[data-index='" + i + "']")[0].value = quantity;
+
+			result(i, quantity, cart_code);
+		})
+	}
+
+	const quantityPlus = $("[data-plus]");
+
+	for (let i = 0; i < quantityIndex.length; i++) {
+		quantityPlus[i].addEventListener('click', function() {
+			let quantity = Number($("[data-index='" + i + "']")[0].value) + 1;
+			const cart_code = $(this).closest('div').attr('id');
+			quantity = checkRange(quantity);
+			$("[data-index='" + i + "']")[0].value = quantity;
+
+			result(i, quantity, cart_code);
+		})
+	}
+
+	function checkRange(quantity) {
+		if (quantity < 1) {
+			alert("1개 이상");
+
+			return 1;
+		} else if (quantity > 1000) {
+			alert("1000개 이하");
+
+			return 1000;
+		} else {
+			return quantity;
+		}
+	}
+
+	function result(index, quantity, cart_code) {
+
+		const price = $("[data-price='" + index + "']")[0].innerHTML;
+		const total = quantity * price;
+
+		$("[data-total='" + index + "']")[0].innerHTML = total;
+
+		$.ajax({
+			url : "/store/updateQuantity",
+			dataType : 'json',
+			type : "post",
+			data : {
+				'cart_code' : cart_code,
+				'cart_quantity' : quantity
+			},
+			success : function(result) {
+				if (result == -1) {
+					alert("로그인 하세요 ");
+					location = '/member/login';
+				} else {
+					console.log("상품이 제대로 담겼다 이 자식아 ");
+					cartBadge();
+				}
+			},
+			error : function(result) {
+				console.log("fail");
+			}
+		})
+
+	setTimeout(function() {
+			$("#cartSum").load(location.href + " #cartSum>div");
+		}, 200);
+
+	}
+</script>
 </html>
