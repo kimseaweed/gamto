@@ -21,7 +21,9 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.xml.bind.DatatypeConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberHelpService {
@@ -50,6 +52,7 @@ public class MemberHelpService {
 			e.printStackTrace();
 		}
 		javaMailSender.send(message);
+		log.debug(messageSubject+"로 메일 발송");
 	};
 	
 	/** 랜덤숫자 5자리 리턴 
@@ -76,7 +79,8 @@ public class MemberHelpService {
 			String subject = "[감토] 아이디 찾기 인증번호";
 			String body = "<div style=\"text-align:center\"><p><b>" + u_name + "</b>님의 아이디 확인 인증번호를 안내해드립니다. </p>"
 					+ "<div style=\"border:1px solid gray; padding: 10px 20px;width: fit-content;margin: 0 auto;\"><h1>" + code + "</h1></div>"
-					+ "<p>인증번호 발송을 요청한 페이지에 인증번호를 입력하시면 아이디를 안내해드립니다. <br> 감사합니다.</p></div>";
+					+ "<p>인증번호 발송을 요청한 페이지에 인증번호를 입력하시면 아이디를 안내해드립니다."
+					+ "<br>인증코드는 10분동안만 유효합니다. <br> 감사합니다.</p></div>";
 			sendMail(u_email,subject,body);
 			return code;
 		}

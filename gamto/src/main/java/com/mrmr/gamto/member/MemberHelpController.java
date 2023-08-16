@@ -1,5 +1,7 @@
 package com.mrmr.gamto.member;
 
+import java.nio.file.spi.FileSystemProvider;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,31 +40,49 @@ public class MemberHelpController {
 	//아이디 찾기 : ajax 인증코드 발송
 	@ResponseBody
 	@PostMapping("/id/check")
-	public int idSearch(String u_name,String u_email) {
-		return service.idSearch(u_name, u_email);
-	}
-	//아이디찾기 : 인증코드 입력후 이동
-	@PostMapping("/id/res")
-	public String ifOk(Model model,String u_email,String u_name) {
-		MemberDTO dto = dao.findIdDao(u_email);
-		//유효성 검사) 강제로 이메일이름만 넣고 submit 시킬경우 튕겨냄
-		String u_nameCheck = dto.getU_name();
-		if(u_name.equals(u_nameCheck)) {
-			String script= 
-					"<script>"
-					+ "alert('잘못된 접근입니다.다시 인증해주세요.');"
-					+ "hitory.back();"
-					+ "</script>";
-			model.addAttribute("script",script);		
-			return "script";
+	public int idSearch(String u_name,String u_email,HttpSession session) {
+		int authcode = service.idSearch(u_name, u_email);
+		if(authcode==1||authcode==2) {
+			return authcode;			
+		}else {
+			session.setAttribute("authCode",authcode);
+			session.setMaxInactiveInterval(60*10);//분
+			return 0;
 		}
-		
-		String u_id = dto.getU_id();
-		String message=  
-				"가입하신 아이디는<br> <b>"+u_id+"</b>입니다.<br>"
-						+ "감사합니다. <br>";
-		model.addAttribute("message",message);
-		return "member/result";
+	}
+	
+	//아이디찾기 : 인증코드 맞는지 확인하기
+	@ResponseBody
+	@GetMapping("/id/check")
+	public int codeCheck(HttpSession session,String code) {
+		if(session.getAttribute("authCode")==null) {
+			return 2;			
+		}
+		int authcode = (int)session.getAttribute("authCode");
+		if(!(authcode==Integer.parseInt(code))) {
+			return 1;
+		}else {
+		session.setAttribute("authcode","ok");
+		return 0;
+		}
+	}	
+	
+	//아이디찾기 : 인증코드 입력후 이동
+	@RequestMapping("/id/res")
+	public String ifOk(HttpSession session,String u_email,Model model) {
+		System.out.println("인증코드를 전달받았어요.");
+		String message="";
+		String authcode = (String)session.getAttribute("authcode");	
+		if(authcode.equals("ok")) {
+			MemberDTO dto = dao.findIdDao(u_email);
+			message=  "가입하신 아이디는<br> <b>"+dto.getU_id()+"</b>입니다.<br>"
+					+ "감사합니다. <br>";
+		}else {
+			message = "세션이 만료되었거나 잘못된 접근입니다.<br>처음부터 다시 진행해주세요.";
+		}
+		System.out.println(message);
+		model.addAttribute("script",message);		
+		return "script";
 	}
 	
 	/*****/
