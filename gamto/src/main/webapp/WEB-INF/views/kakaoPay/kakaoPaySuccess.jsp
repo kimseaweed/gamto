@@ -15,16 +15,7 @@ main>table {
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	<%-- 	
-	::: 필수로 출력해야할정보:::
-	/결제일시: [[${info.approved_at}]] 
-	주문번호: [[${info.partner_order_id}]]
-	상품명: [[${info.item_name}]]
-	상품수량: [[${info.quantity}]]
-	결제금액:	[[${info.amount.total}]]
-	결제방법: [[${info.payment_method_type}]]
-	 --%>
-	<main class="pb-5">
+<main class="pb-5">
 		<table style="width: 580px;" class="shadow mx-auto mt-5 bg-white p-5"
 			style="">
 			<tr class="px-3">
@@ -38,7 +29,7 @@ main>table {
 					width="125" height="120" /><br>
 					<p class="pt-2">
 						<span class="text-muted px-2">주문번호</span>
-						[[${info.partner_order_id}]]
+						${info.partner_order_id}
 					</p>
 					<h2 class="">
 						결제가 정상적으로 <b>완료</b>되었습니다.
@@ -106,15 +97,11 @@ main>table {
 		<table style="width: 580px;" class="shadow mx-auto mt-3 bg-white p-5">
 			<tr>
 				<th>결제일시</th>
-				<td>[[${info.approved_at}]]</td>
+				<td>${info.approved_at}</td>
 			</tr>
 			<tr>
 				<th>결제수단</th>
-				<td>[[${info.payment_method_type}]]</td>
-			</tr>
-			<tr>
-				<th>승인일시</th>
-				<td>[[${info.partner_order_id}]]</td>
+				<td>${info.payment_method_type}</td>
 			</tr>
 			<tr>
 				<th>배송방법</th>
@@ -122,7 +109,7 @@ main>table {
 			</tr>
 			<tr>
 				<th>배송지 정보</th>
-				<td>${u_address}</td>
+				<td>${"u_address"}</td>
 			</tr>
 		</table>
 		<table style="width: 580px;"
@@ -130,14 +117,11 @@ main>table {
 			<tr>
 				<td>구매해 주셔서 감사합니다.</td>
 			</tr>
+			<tr><td><h2>[[${info}]]</h2></td></tr>
 			<tr>
 				<td><a href="/store" class="btn btn-primary ">상점으로 돌아가기</a></td>
 			</tr>
 		</table>
-
-
-
-
 
 	</main>
 	<jsp:include page="../footer.jsp" />

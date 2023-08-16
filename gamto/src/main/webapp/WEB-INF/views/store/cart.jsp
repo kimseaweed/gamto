@@ -121,6 +121,9 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 													</div>
 													<div class="d-flex justify-content-between">
 														<form method="post" action="/kakaoPay">
+															<!-- ◎ ↓이거 한줄 추가함~~~~ -->
+															<input type="hidden" value="${sum}" name="total_amount">
+														
 															<button
 																class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
 														</form>

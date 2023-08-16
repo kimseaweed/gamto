@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>감토 | 비밀번호 찾기</title>
+<title>감토 | </title>
 <style>
 
 main.result{
