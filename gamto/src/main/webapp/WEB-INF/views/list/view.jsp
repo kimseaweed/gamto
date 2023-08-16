@@ -42,7 +42,10 @@
 					<input type="button" value="삭제"
 						class="btnDelete btn btn-outline-danger">
 				</c:if>
-		<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
+		<!-- <i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i> -->
+		<div  style="margin-right:1px;">
+			<button type="button" class="btn btn-warning " id="like_btn" onclick="updateLike(); return false;">추천 ${read.like_hit}</button>
+		</div>
 	</p>
 	<br>
 	</div>
@@ -75,6 +78,34 @@
 			
 		})
 	}) 
+	
+		var r_seq_number = ${read.r_seq_number};
+		var u_id = ${login.u_id};
+		
+		 function updateLike(){ 
+		     $.ajax({
+		            type : "POST",  
+		            url : "/board/updateLike",       
+		            dataType : "json",   
+		            data : {'r_seq_number' : r_seq_number, 'u_id' : u_id},
+		            error : function(){
+		               alert("통신 에러");
+		            },
+		            success : function(like_check) {
+		                
+		                    if(like_check == 0){
+		                    	alert("추천완료.");
+		                    	location.reload();
+		                    }
+		                    else if (like_check == 1){
+		                     alert("추천취소");
+		                    	location.reload();
+
+		                    
+		                }
+		            }
+		        });
+		 }
 </script>
 </body>
 </html>

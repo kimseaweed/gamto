@@ -7,18 +7,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.report.dao.IBookReportDAO;
 import com.mrmr.gamto.report.dto.BookReportDTO;
 import com.mrmr.gamto.report.dto.PageDTO;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -146,5 +144,23 @@ public class ReportController {
 		model.addAttribute("list",list);
 		
 		return "list/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/board/updateLike" , method = RequestMethod.POST)
+	public int updateLike(int r_seq_number, String u_id)throws Exception{
+		
+			int likeCheck = service.likeCheck(r_seq_number, u_id);
+			if(likeCheck == 0) {
+				//좋아요 처음누름
+				service.insertLike(r_seq_number, u_id); //like테이블 삽입
+				service.updateLike(r_seq_number);	//게시판테이블 +1
+				service.updateLikeCheck(r_seq_number, u_id);//like테이블 구분자 1
+			}else if(likeCheck == 1) {
+				service.updateLikeCheckCancel(r_seq_number, u_id); //like테이블 구분자0
+                service.updateLikeCancel(r_seq_number); //게시판테이블 - 1
+				service.deleteLike(r_seq_number, u_id); //like테이블 삭제
+			}
+			return likeCheck;
 	}
 }

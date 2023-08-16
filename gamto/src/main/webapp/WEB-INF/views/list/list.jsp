@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <title>list.jsp</title>
 <style>
-	.center{
-		text-align: center;
-	}
 	.full{
 		width: 100%;
 	}
@@ -17,17 +14,18 @@
 		background-color: #7CADDE;
 		height: 50px;
 		color: #F9F9F9;
+		line-height: 50px;
 	}
 	.tab_bottom{
-		background-color: #E4E4E4;
 		color: #181818;
+		line-height: 150px;
 	}
 </style>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
 	<main class="container">
-		<div class="mb-5 center">
+		<div class="mb-5 text-center">
 				<h3>너의생각 | 독후감 목록</h3>
 			</div>
 <form action="/report/SearchTotal" name="SearchTotal" method="post">
@@ -40,7 +38,8 @@
 			<input type="submit" value="검색" />
 		</form>
 		<br />
-	<table class="center full">
+	<table class="full table table-hover text-center">
+		<thead>
 		<tr class="tab_top">
 			<td class="col col-lg-1">번호</td>
 			<td class="col col-lg-1">이미지</td>
@@ -51,8 +50,9 @@
 			<td class="col col-lg-1">조회</td>
 			<td class="col col-lg-1">추천</td>
 		</tr>
+		</thead>
 		<c:forEach items="${list}" var="dto">
-			<tr class="tab_bottom">
+			<tr class="tab_bottom text-center">
 				<td>${dto.r_seq_number}</td>
 				<td>
 					<img src="../userUpload/${dto.r_filename}" width="100" height="141">
@@ -72,7 +72,7 @@
 			<a href="/report/new" class="btn btn-outline-primary">글작성</a>
 			<a href="/report" class="btn btn-outline-primary">목록보기</a> 
 			</p> <br>
-		<div class="center">
+		<div class="text-center">
 			<a href="?pageNo=1">&lt;&lt;</a>
 
 			<c:if test="${page.startNo eq 1}">
