@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mrmr.gamto.kakaoPay.dao.KakaoPayDAO;
 import com.mrmr.gamto.kakaoPay.service.KakaoPay;
-
-import lombok.Setter;
 
 @Controller
 public class KakaoPayController {
-
+    @Autowired
+    KakaoPayDAO dao;
 	
 	private static final Logger log = LoggerFactory.getLogger(KakaoPayController.class);
 
@@ -44,4 +44,12 @@ public class KakaoPayController {
         
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token)); //kakaoPayApprovalVO return
     }
+    
+    @GetMapping("/kakaoPay")
+    public String setKakaoPay(Model model) {
+    	model.addAttribute("kakaopay", dao.setKakaoPay());
+    	System.out.println(model.toString());
+    	return null;
+    }
+    
 }

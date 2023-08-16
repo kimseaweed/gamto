@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.mrmr.gamto.kakaoPay.dto.KakaoPayApprovalVO;
 import com.mrmr.gamto.kakaoPay.dto.KakaoPayReadyVO;
+import com.mrmr.gamto.store.dto.CartDTO;
 
 import lombok.extern.java.Log;
  
@@ -22,18 +23,14 @@ import lombok.extern.java.Log;
 public class KakaoPay {
  
     private static final String HOST = "https://kapi.kakao.com";
-    
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
     public String kakaoPayReady() {
-    	
-    	
-    	System.out.println("123123");
  
         RestTemplate restTemplate = new RestTemplate();
  
-        // 서버로 요청할 Headerß
+        // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "f6fdea9d6fa6ec6554662cdfdfe52d7d");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -74,8 +71,6 @@ public class KakaoPay {
     }
     
     public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
-        
-    	System.out.println("카카오페");
     	
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");

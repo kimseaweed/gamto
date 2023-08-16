@@ -11,7 +11,7 @@ import com.mrmr.gamto.store.dto.imsiDto;
 
 @Mapper
 public interface StoreDAO {
-	public List<StoreDTO> BookList(); //리스트를 보기 위한 select 메서드 정의
+	public List<StoreDTO> BookList(); //상품을 보기 위한 select 메서드 정의
 	public StoreDTO viewDao(String b_code); //상세 뷰 페이지를 보기 위한 select메서드 정의
 	public int insertDao(String b_code); //제품 등록 메소드
 	public int deleteDao(String b_code); // 제품 삭제 메소드 

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class KakaoPayApprovalVO {
-	KakaoPayApprovalVO(){};
+	public KakaoPayApprovalVO(){};
     //response
     private String aid, tid, cid, sid;
     private String partner_order_id, partner_user_id, payment_method_type;

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CardVO {
-	CardVO(){}
+	public CardVO(){}
 	
     private String purchase_corp, purchase_corp_code;
     private String issuer_corp, issuer_corp_code;
