@@ -77,7 +77,7 @@ public class KakaoPayController {
     }
     @RequestMapping("/kakaoPaySuccessFail")
     public String kakaoPaySuccessFail(Model model) {
-    	model.addAttribute("script", "결제가 <b>실패</b>되었습니다.<br> 다시 시도해주세요. <br> <a href=\\\"/store/cart\\\" class=\\\"btn btn-success\\\"> 상점으로 돌아가기 </a>");
+    	model.addAttribute("script", "결제가 <b>실패</b>되었습니다.<br> 다시 시도해주세요. <br> <a href=\"/store/cart\" class=\"btn btn-success\"> 상점으로 돌아가기 </a>");
     	return "script";
     }
 }
