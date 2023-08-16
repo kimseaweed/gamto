@@ -145,22 +145,4 @@ public class ReportController {
 		
 		return "list/list";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/board/updateLike" , method = RequestMethod.POST)
-	public int updateLike(int r_seq_number, String u_id)throws Exception{
-		
-			int likeCheck = service.likeCheck(r_seq_number, u_id);
-			if(likeCheck == 0) {
-				//좋아요 처음누름
-				service.insertLike(r_seq_number, u_id); //like테이블 삽입
-				service.updateLike(r_seq_number);	//게시판테이블 +1
-				service.updateLikeCheck(r_seq_number, u_id);//like테이블 구분자 1
-			}else if(likeCheck == 1) {
-				service.updateLikeCheckCancel(r_seq_number, u_id); //like테이블 구분자0
-                service.updateLikeCancel(r_seq_number); //게시판테이블 - 1
-				service.deleteLike(r_seq_number, u_id); //like테이블 삭제
-			}
-			return likeCheck;
-	}
 }

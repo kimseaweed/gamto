@@ -61,46 +61,4 @@
 		order by r_seq_number desc) f) where rn BETWEEN #{startNo} AND
 		#{endNo}
 	</select>
-	
-	<!-- 게시글 추천수 -->
-	<update id="updateLike" parameterType="int">
-		update book_report set
-		like_hit = like_hit+1
-		where r_seq_number = #{r_seq_number}
-	</update>
-
-	<!-- 게시글 추천수취소 -->
-	<update id="updateLikeCancel" parameterType="int">
-		update book_report set
-		like_hit = like_hit - 1
-		where r_seq_number = #{r_seq_number}
-	</update>
-
-	<!-- 게시글 추천 시 Like 테이블에 insert -->
-	<insert id="insertLike">
-		insert into report_like(like_no , r_seq_number , u_id)
-		values((SELECT NVL(MAX(like_no), 0) + 1 FROM report_like) ,#{r_seq_number} ,#{u_id})
-	</insert>
-
-	<!-- 게시글 추천취소 시 delete -->
-	<delete id="deleteLike">
-		delete from report_like where r_seq_number = #{r_seq_number} and u_id = #{u_id}
-	</delete>
-
-	<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지 -->
-	<update id="updateLikeCheck">
-		update report_like set like_check = 1
-		where r_seq_number = #{r_seq_number} and u_id = #{u_id}
-	</update>
-
-	<!-- 게시글 추천취소 시 다시 0 -->
-	<update id="updateLikeCheckCancel">
-		update report_like set like_check = 0
-		where r_seq_number = #{r_seq_number} and u_id = #{u_id}
-	</update>
-
-	<!-- 게시글 추천 중복방지 select문 -->
-	<select id="likeCheck" resultType="int">
-		select count(*) from report_like where r_seq_number = #{r_seq_number} and u_id = #{u_id}
-	</select>
 </mapper>
