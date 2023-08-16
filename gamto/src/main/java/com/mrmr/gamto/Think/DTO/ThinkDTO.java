@@ -1,4 +1,4 @@
-package com.mrmr.gamto.Think.dto;
+package com.mrmr.gamto.think.dto;
 
 import lombok.Data;
 

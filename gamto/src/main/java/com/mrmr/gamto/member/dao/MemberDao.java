@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.mrmr.gamto.Think.dto.ThinkDTO;
 import com.mrmr.gamto.member.dto.MemberDTO;
+import com.mrmr.gamto.think.dto.ThinkDTO;
 
 
 @Mapper

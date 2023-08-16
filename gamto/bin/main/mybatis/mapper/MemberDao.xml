@@ -36,7 +36,7 @@
 	<update id="ResetPwDo"><!-- 비번찾기 : 변경해주기 확인 -->
 		update member_function set u_pw=#{param2} where u_id=#{param1}
 	</update>
-	<select id="ThinkDao" resultType="com.mrmr.gamto.Think.dto.ThinkDTO">
+	<select id="ThinkDao" resultType="com.mrmr.gamto.think.dto.ThinkDTO">
 		(select '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = #{param1} and r_delete=0)
 		union
 		(select '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)

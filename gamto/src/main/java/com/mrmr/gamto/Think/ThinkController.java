@@ -1,4 +1,4 @@
-package com.mrmr.gamto.Think;
+package com.mrmr.gamto.think;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
