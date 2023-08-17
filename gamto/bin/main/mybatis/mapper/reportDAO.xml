@@ -31,8 +31,11 @@
 	</update>
 	<!-- 게시판 좋아요 수가 올라가는 update문 -->
 	<update id="goodCnt">
-		update book_report set r_recommend = r_recommend+1,
-		r_view = r_view-1 where r_seq_number = #{item1}
+		update book_report set r_recommend = r_recommend+1 where r_seq_number = #{param1}
+	</update>
+	<!-- 좋아요 취소하는 update문 -->
+	<update id="badCnt">
+		update book_report set r_recommend = r_recommend-1 where r_seq_number = #{param1}
 	</update>
 	<select id="getPageList" parameterType="Map"
 		resultType="com.mrmr.gamto.report.dto.BookReportDTO">
@@ -60,5 +63,21 @@
 
 		order by r_seq_number desc) f) where rn BETWEEN #{startNo} AND
 		#{endNo}
+	</select>
+	
+	<!-- 좋아요 테이블 -->
+	<!-- 게시글 추천시 like테이블에 insert -->
+	<insert id="insertLike">
+		insert into feeling values(l_seq_number.nextval,2,#{param1},#{param2},1)
+	</insert>
+	
+	<!-- 게시글 추천 취소시 delete -->
+	<delete id="deleteLike">
+		delete from feeling where l_board = 2 and l_number = #{param1} and l_id = #{param2}
+	</delete>
+	
+	<!-- 게시글 추천 중복 방지 -->
+	<select id="likeCheck" resultType="int">
+		select count(*) from feeling where l_board = 2 and l_number = #{param1} and l_id = #{param2}
 	</select>
 </mapper>

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,7 +15,9 @@ import com.mrmr.gamto.report.dao.IBookReportDAO;
 import com.mrmr.gamto.report.dto.BookReportDTO;
 import com.mrmr.gamto.report.dto.PageDTO;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -44,11 +45,42 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/view")
-	public String freeview(String r_seq_number, Model model) {			  
-		 model.addAttribute("dto",dao.viewDao(r_seq_number)); 
-		 dao.updateCnt(r_seq_number);
-		 
-		 System.out.println(dao.viewDao(r_seq_number).getR_recommend());
+	public String freeview(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String rId = request.getParameter("r_seq_number");
+		
+		//새로고침시 조회수 +1 되지않고 하루동안 쿠키 유지
+		Cookie oldCookie = null;
+		Cookie[] cookies = request.getCookies();
+
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				System.out.println("cookie.getName " + cookie.getName());
+				System.out.println("cookie.getValue " + cookie.getValue());
+
+				if (cookie.getName().equals("postView")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+
+		if (oldCookie != null) {
+			if (!oldCookie.getValue().contains("[" + rId + "]")) {
+				dao.updateCnt(rId);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + rId + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(60 * 60 * 24);
+				response.addCookie(oldCookie);
+			}
+		} else {
+			dao.updateCnt(rId);
+			Cookie newCookie = new Cookie("postView", "[" + rId + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(60 * 60 * 24);
+			response.addCookie(newCookie);
+		}
+		
+		model.addAttribute("dto", dao.viewDao(rId));
+		
 		return "list/view";
 	}
 	
@@ -113,7 +145,7 @@ public class ReportController {
 		String rId = request.getParameter("r_seq_number");
 		dao.goodCnt(rId);
 		 
-		return "redirect:/report/view?r_seq_number="+rId;
+		return "redirect:/list/view?r_seq_number="+rId;
 	}
 	
 	@RequestMapping("/delete")
@@ -144,5 +176,31 @@ public class ReportController {
 		model.addAttribute("list",list);
 		
 		return "list/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateLike")
+	public String updateLike(String l_number, HttpSession session) {
+		String l_id =(String)session.getAttribute("u_id");
+		
+		if(l_id==null) {
+			return "3";
+		}else {
+			int l_numberValue = Integer.parseInt(l_number);
+			System.out.println(l_number);
+			
+			int result = dao.likeCheck(l_numberValue, l_id);
+			
+			if(result==0) {
+				int num = dao.goodCnt(l_number);
+				dao.insertLike(l_numberValue, l_id);
+				
+				return "1";
+			}else{
+				dao.badCnt(l_number);
+				dao.deleteLike(l_numberValue, l_id);
+				return "0";
+			}
+		}
 	}
 }

@@ -12,6 +12,9 @@
 		border: none;
 	}
 </style>
+<%
+	String r_writer = (String)session.getAttribute("u_id");
+%>
 </head>
 <body>
 <jsp:include page="../header.jsp" />
@@ -19,13 +22,16 @@
 	<div>
 		<div class="row">
 			<p>제목 : ${dto.r_title}</p> <span class="col col-lg-6" style="float: left;">작성자 : ${dto.r_writer}</span>
-			<span class="text-end col col-lg-6">추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view}</span>
+			<input type="hidden" id="r_seq_number" value="${dto.r_seq_number}" />
+			<p id="good" class="text-end col col-lg-6">
+				<span>추천 수 : ${dto.r_recommend} &nbsp;| &nbsp;조회 수 : ${dto.r_view}</span>
+			</p>
 		</div>
 	</div>
 	<hr>
 	<div style="padding-bottom:200px;">
-	<img src="../userUpload/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;">
-	<p class="col mt-2">내용 : ${dto.r_content}<br></p>
+	<%-- <img src="../userUpload/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;"> --%>
+	<p class="col mt-2">${dto.r_content}<br></p>
 	</div>
 	<hr>
 	<div class="row">
@@ -34,7 +40,6 @@
 		수정 날짜 : ${dto.r_update_day} <br>
 	</p>
 	<p class="col ms-auto text-end me-5">
-		<%String r_writer=(String)session.getAttribute("u_id");%>
 		<c:set var="userId" value="<%=r_writer%>" />
 				<c:if test="${dto.r_writer==userId}">
 					<input type="button" value="수정"
@@ -42,7 +47,7 @@
 					<input type="button" value="삭제"
 						class="btnDelete btn btn-outline-danger">
 				</c:if>
-		<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood">추천</i>
+				<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood" id="goode">추천</i>
 	</p>
 	<br>
 	</div>
@@ -70,12 +75,40 @@
 				$(location).attr('href','/report/delete?r_seq_number=${dto.r_seq_number}');
 			}
 		})
-		$(".btnGood").click(function(){
-			$(location).attr('href','/report/good?r_seq_number=${dto.r_seq_number}');
-			
+		$('.btnGood').click(function() {
+		var l_number = document.getElementById('r_seq_number').value;
+		alert('ajax 시작');
+
+			$.ajax({
+				type:'POST',
+				url:'/report/updateLike',
+				dataType : 'json',
+				data : {'l_number': l_number,
+						},	
+				success : function(result){
+					if(result=="3"){
+						alert('로그인이 필요합니다.');
+					}else if(result=="1"){
+						alert('추천 성공');
+					    $("#goode").attr("aria-pressed", "bi bi-hand-thumbs-up btn btn-warning");
+					}else{
+						alert('추천 취소');
+						$("#goode").attr("class", "bi bi-hand-thumbs-up btn btn-outline-warning");
+					}
+					
+					$('#good').load(window.location.href+" #good>span");
+				},
+			error : function(){
+				alert('좋아요 실패');
+			} 
 		})
 	}) 
-}
+	window.onload = function(){
+         setTimeout(function(){
+            scrollTo(0,0);
+         },100);
+      }
+})
 </script>
 </body>
 </html>

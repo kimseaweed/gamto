@@ -11,7 +11,7 @@
 		width: 100%;
 	}
 	.tab_top{
-		background-color: #7CADDE;
+		background-color: rgb(139, 194, 250,0.65);
 		height: 50px;
 		color: #F9F9F9;
 		line-height: 50px;
@@ -26,7 +26,7 @@
 <jsp:include page="../header.jsp" />
 	<main class="container">
 		<div class="mb-5 text-center">
-				<h3>너의생각 | 독후감 목록</h3>
+				<h3 class="pt-5">너의생각 | 독후감 목록</h3>
 			</div>
 <form action="/report/SearchTotal" name="SearchTotal" method="post">
 			<select name="item">
@@ -52,25 +52,25 @@
 		</tr>
 		</thead>
 		<c:forEach items="${list}" var="dto">
-			<tr class="tab_bottom text-center">
-				<td>${dto.r_seq_number}</td>
-				<td>
-					<img src="../userUpload/${dto.r_filename}" width="100" height="141">
-				</td>
-				<td><a href="/report/view?r_seq_number=${dto.r_seq_number}">${dto.r_title}</a></td>
-				<td>${dto.r_writer}</td>
-				<td>${dto.r_regist_day}</td>
-				<td>${dto.r_update_day}</td>
-				<td>${dto.r_view}</td>
-				<td>${dto.r_recommend}</td>
+			<tr class="tab_bottom text-center" onclick="location='/report/view?r_seq_number=${dto.r_seq_number}'" style="cursor:pointer;">
+					<td>${dto.r_seq_number}</td>
+					<td>
+						<img src="../userUpload/${dto.r_filename}" width="100" height="141">
+					</td>
+					<td>${dto.r_title}</td>
+					<td>${dto.r_writer}</td>
+					<td>${dto.r_regist_day}</td>
+					<td>${dto.r_update_day}</td>
+					<td>${dto.r_view}</td>
+					<td>${dto.r_recommend}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br>
 		<div>
-			<p>
-			<a href="/report/new" class="btn btn-outline-primary">글작성</a>
-			<a href="/report" class="btn btn-outline-primary">목록보기</a> 
+			<p class="text-end" style="font-weight: bold; color: #181818;">
+			<a href="/report/new">글작성</a> |
+			<a href="/report">목록보기</a> 
 			</p> <br>
 		<div class="text-center">
 			<a href="?pageNo=1">&lt;&lt;</a>
@@ -92,5 +92,12 @@
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />
+	<script>
+      window.onload = function(){
+         setTimeout(function(){
+            scrollTo(0,0);
+         },100);
+      }
+   </script>
 </body>
 </html>
