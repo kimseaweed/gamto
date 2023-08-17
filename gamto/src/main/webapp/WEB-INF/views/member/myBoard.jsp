@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>board.jsp</title>
+
 <style>
 	.c-p-t{
     	padding-top: 100px;
@@ -48,7 +49,24 @@
 									<c:set var="regist_day" value="${day.split(' ')[0]}" />
 									<tr>
 										<td class="c-bd1">${dto.tablename}</td>
-										<td class="c-bd1">${dto.title}</td>
+										<td class="c-bd1">
+ 									 	<c:choose>
+											<c:when test="${dto.tablename eq '우리생각'}">
+												<a href="/board/view?f_seq_number=${dto.seq_number}">
+											${dto.title}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="/report/view?r_seq_number=${dto.seq_number}">
+												
+												${dto.title}
+										 </a>
+											</c:otherwise>
+										</c:choose>
+										<%-- <a href="/report/view?r_seq_number=${dto.seq_number}">
+										${dto.title}
+										</a> --%>
+										
+										</td>
 										<td class="c-bd1"><c:out value="${regist_day}" /></td>
 									</tr>
 								</c:forEach>
@@ -63,7 +81,6 @@
 						</div>
 						<div class="c-tt-ct mt-2">
 							<a href="?pageNo=1">&lt;&lt;</a>
-				
 							<c:if test="${page.startNo eq 1}">
 								<a href="?pageNo=1">&lt;</a>
 							</c:if>

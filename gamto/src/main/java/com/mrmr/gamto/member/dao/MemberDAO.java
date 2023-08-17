@@ -1,6 +1,7 @@
 package com.mrmr.gamto.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,6 @@ public interface MemberDAO {
 	public String ResetPwCheck(String u_id);
 	public int ResetPwDo(@Param("u_id") String u_id,@Param("u_pw")String u_pw);
 	public List<MyBoardDTO> MyBoardDao(String u_id, String u_id2);
+	public int countBoard();
+	public List<MyBoardDTO> getPageList(Map<String, Integer> map);
 }

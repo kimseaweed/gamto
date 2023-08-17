@@ -37,8 +37,19 @@
 		update member_function set u_pw=#{param2} where u_id=#{param1}
 	</update>
 	<select id="MyBoardDao" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
-		(select '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = #{param1} and r_delete=0)
+		(select r_seq_number as seq_number, '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = #{param1} and r_delete=0)
 		union
-		(select '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)
+		(select f_seq_number as seq_number, '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)
+	</select>
+	<select id="getPageList"  parameterType="Map" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
+    select * from (
+        	select 	rownum rn, my.*
+        		from(
+        			select* from my order by seq_number DESC) my)
+        	WHERE RN BETWEEN #{startNo} AND #{endNo}
+	</select>
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countBoard" resultType="int">
+		select count(*) from free_board where f_delete = '0'
 	</select>
 </mapper>

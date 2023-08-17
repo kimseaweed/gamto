@@ -1,11 +1,19 @@
 package com.mrmr.gamto.member;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
+import com.mrmr.gamto.freeboard.dto.PagingVO;
 import com.mrmr.gamto.member.dao.MemberDAO;
+import com.mrmr.gamto.member.dto.MyBoardDTO;
 
 import jakarta.mail.Session;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,11 +26,20 @@ public class MyBoardController {
 	MemberDAO dao;
 	
 	@RequestMapping("/myboard")
-	public String MyBoardDao(HttpSession session, Model model) {
+	public String MyBoardDao(HttpSession session, Model model, @RequestParam(required=false, defaultValue="1") int pageNo) {
+		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNo", page.getStartNo());
+		map.put("endNo", page.getEndNo());
+		List<MyBoardDTO> list = dao.getPageList(map);
+		
+		model.addAttribute("page",page);
+		model.addAttribute("board",list);
+		
+		
 		String u_id = (String)session.getAttribute("u_id");
 		System.out.println("u_id : "+u_id);
 		model.addAttribute("list", dao.MyBoardDao(u_id,u_id));
 		return "/member/myBoard";
 	}
-	
 }
