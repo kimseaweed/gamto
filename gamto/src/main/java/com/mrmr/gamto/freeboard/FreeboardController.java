@@ -56,8 +56,6 @@ public class FreeboardController {
 
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				System.out.println("cookie.getName " + cookie.getName());
-				System.out.println("cookie.getValue " + cookie.getValue());
 
 				if (cookie.getName().equals("postView")) {
 					oldCookie = cookie;
@@ -137,14 +135,6 @@ public class FreeboardController {
 		return "redirect:/board/view?f_seq_number="+fId;
 	}
 	
-	@RequestMapping("/good")
-	public String goodCount(HttpServletRequest request, Model model) {
-		String fId = request.getParameter("f_seq_number");
-		dao.goodCnt(fId);
-		 
-		return "redirect:/board/view?f_seq_number="+fId;
-	}
-	
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		String fId = request.getParameter("f_seq_number");
@@ -152,50 +142,11 @@ public class FreeboardController {
 		return "redirect:/board";
 	}
 	
-	@RequestMapping("/viewComment")
-	public String viewComment(HttpServletRequest request, Model model ) {
-		String fId = request.getParameter("f_seq_number"); 
-		model.addAttribute("dto",dao.viewDao(fId));
-		model.addAttribute("cDto",dao.cListDao(fId));
-		
-		return "freeboard/viewComment";
-	}
-	
 	@GetMapping("/getComentList")
 	@ResponseBody
 	private int getCommentList(@RequestParam("f_seq_number") String f_seq_number, @RequestParam("c_content") String c_content, @RequestParam("c_writer") String c_writer){
 		
 		return dao.cWriteDao(f_seq_number, c_writer, c_content);
-	}
-	
-	
-	@RequestMapping("/cGoodCnt")
-	public String commentGoodButton(HttpServletRequest request, Model model) {
-		String fId = request.getParameter("f_seq_number");
-		String cId = request.getParameter("c_seq_number");
-		dao.cGoodCnt(cId);
-		 
-		return "redirect:/board/view?f_seq_number="+fId;	
-	}
-	
-	@RequestMapping("/cBadCnt")
-	public String commentBadButton(HttpServletRequest request, Model model) {
-		String fId = request.getParameter("f_seq_number");
-		String cId = request.getParameter("c_seq_number");
-		dao.cBadCnt(cId);
-		 
-		return "redirect:/board/view?f_seq_number="+fId;	
-	}
-	
-	
-	@RequestMapping("/cUpdateForm")
-	public String commentUpdateForm(HttpServletRequest request, Model model) {
-		String fId = request.getParameter("f_seq_number");
-		String cId = request.getParameter("c_seq_number");
-		model.addAttribute("dto", dao.viewDao(fId));
-		model.addAttribute("cDto",dao.cViewDao(cId));
-		
-		return "freeboard/commentUpdateForm";
 	}
 	
 	@RequestMapping("/cUpdate")
@@ -266,25 +217,70 @@ public class FreeboardController {
 	public String updateLike(String l_number, HttpSession session) {
 		
 		String l_id =(String)session.getAttribute("u_id");
+		int l_board = 2;
 		
 		if(l_id==null) {
 			return "3";
 		}else {
 			int l_numberValue = Integer.parseInt(l_number);
 			System.out.println(l_number);
-			
-			int result = dao.likeCheck(l_numberValue, l_id);
-			
-			if(result==0) {
+
+			int result = dao.likeCheck(l_board, l_numberValue, l_id);
+
+			if (result == 0) {
 				int num = dao.goodCnt(l_number);
-				dao.insertLike(l_numberValue, l_id);
-				
+				dao.insertLike(l_board, l_numberValue, l_id);
+
 				return "1";
-			}else{
+			} else {
 				dao.badCnt(l_number);
-				dao.deleteLike(l_numberValue, l_id);
+				dao.deleteLike(l_board, l_numberValue, l_id);
 				return "0";
 			}
+			
+			//상황 0 좋아요 성공
+			//상황 1 로그인이 안되어있을때
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/commentGood")
+	public String commentGood(String l_number, HttpSession session, String feeling) {
+		System.out.println("test댓글");
+		
+		String l_id =(String)session.getAttribute("u_id");
+		
+		int l_board = 3;
+		
+		if(l_id==null) {
+			return "3";
+		}else {
+			int l_numberValue = Integer.parseInt(l_number);
+
+			int result = dao.likeCheck(l_board, l_numberValue, l_id);
+
+			if (result == 0) {
+				if(feeling.equals("good")) {
+					dao.cGoodCnt(l_number);
+					dao.insertLike(l_board, l_numberValue, l_id);
+					return "1";
+				}else if(feeling.equals("bad")) {
+					dao.cBadCnt(l_number);
+					dao.insertLike(l_board, l_numberValue, l_id);
+					return "1";
+				}
+				
+			} else {
+				if(feeling.equals("good")) {
+					dao.cGoodCnt(l_number);
+					dao.insertLike(l_board, l_numberValue, l_id);
+					return "2";
+				}else if(feeling.equals("bad")) {
+					dao.cBadCnt(l_number);
+					dao.insertLike(l_board, l_numberValue, l_id);
+					
+				}
+			}	return "2";
 			
 			//상황 0 좋아요 성공
 			//상황 1 로그인이 안되어있을때

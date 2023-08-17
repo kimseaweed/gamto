@@ -6,10 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>board.jsp</title>
+<style>
+	.tab_top{
+		background-color:  rgb(230, 128, 255,0.25);
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
 	<main class="container pt-3">
+		<div class="mb-5 text-center">
+            <h3 class="pt-5">우리생각 | 자유게시판 목록</h3>
+         </div>
 		<div class="row mt-5">
 			<form action="/board/SearchTotal" name="SearchTotal" method="post" class="col">
 				<select name="item">
@@ -34,7 +42,7 @@
 		</div>
 		<table class="table table-hover text-center mt-5">
 			<thead>
-				<tr>
+				<tr class="tab_top">
 					<th scope="col" col width=10%>번호</th>
 					<th scope="col" col width=10%>카테고리</th>
 					<th scope="col" col width=40%>제목</th>
@@ -48,22 +56,23 @@
 				<c:forEach items="${board}" var="dto">
 					<c:set var="day" value="${dto.f_regist_day}" />
 					<c:set var="regist_day" value="${day.split(' ')[0]}" />
-					<tr>
-						<td>${dto.f_seq_number}</td>
-						<td>${dto.f_category}</td>
-						<td><a href="/board/view?f_seq_number=${dto.f_seq_number}">${dto.f_title}</a></td>
-						<td>${dto.f_writer}</td>
-						<td>${dto.f_recommend}</td>
-						<td>${dto.f_view}</td>
-						<td><c:out value="${regist_day}" /></td>
+					<tr onclick="location='/board/view?f_seq_number=${dto.f_seq_number}'" style="cursor:pointer;">
+							<td>${dto.f_seq_number}</td>
+							<td>${dto.f_category}</td>
+							<td>${dto.f_title}</td>
+							<td>${dto.f_writer}</td>
+							<td>${dto.f_recommend}</td>
+							<td>${dto.f_view}</td>
+							<td><c:out value="${regist_day}" /></td>
+						</a>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<br>
-		<p class="row">
-			<a href="board/writeForm" class="col ms-3">글작성</a>
-			<a href="/board" class="col ms-auto text-end me-5">목록보기</a> 
+		<p class="text-end">
+			<a href="board/writeForm" class="col ms-auto">글작성</a> | 
+			<a href="/board" class="col me-2">목록보기</a> 
 		</p> <br>
 		<div class="text-center mt-2">
 			<a href="?pageNo=1">&lt;&lt;</a>
@@ -84,5 +93,12 @@
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />
+	<script>
+		window.onload = function(){
+			setTimeout(function(){
+				scrollTo(0,0);
+			},100);
+		}
+	</script>
 </body>
 </html>

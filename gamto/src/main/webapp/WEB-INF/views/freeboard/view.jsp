@@ -19,6 +19,7 @@
 %>
 </head>
 <body>
+	<%-- <div>cDto : ${cDto.c_writer}</div> --%>
 	<jsp:include page="../header.jsp" />
 	<main class="container pt-5">
 		*${dto.f_category}<br>
@@ -82,6 +83,7 @@
 							</c:if>
 							<c:if test="${not empty cDto}">
 								<c:forEach items="${cDto}" var="cdto">
+									<span style="display:none;" id="c_seq_number">${cdto.c_seq_number}</span> 
 									<div class="commentCustom">
 										<div>
 											<p>*${cdto.c_writer}*</p>
@@ -89,14 +91,12 @@
 										</div>
 										<div class="col text-end">
 											<span><small>등록 날짜 : ${cdto.c_regist_day}</small></span> | <span><small>수정 날짜 : ${cdto.c_update_day}</small></span>
-											<span><button type="submit"
-													onClick="location.href='cGoodCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_recommend}</button></span>
-											<span><button type="submit"
-													onClick="location.href='cBadCnt?f_seq_number=${dto.f_seq_number}&c_seq_number=${cdto.c_seq_number}'">${cdto.c_derecommend}</button></span>
+											<span id="cGood"><button type="button" class="commentGood">${cdto.c_recommend}</button></span>
+											<span id="cBad"><button type="button" class="commentBad">${cdto.c_derecommend}</button></span>
 											<c:if test="${dto.f_writer==userId}">
-												<span><button type="button"
+												<span id="cGood"><button type="button"
 														class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
-												<span><button type="button" class="deleteComment"
+												<span id="cBad"><button type="button" class="deleteComment"
 														id="${cdto.c_seq_number}">삭제</button></span>
 											</c:if>
 										</div>
@@ -136,7 +136,6 @@
 		
 	$('.btnGood').click(function() {
 		var l_number = document.getElementById('f_seq_number').innerHTML;
-		alert('ajax 시작');
 
 			$.ajax({
 				type:'POST',
@@ -164,6 +163,76 @@
 			})
 		})
 		
+		
+		$(document).on('click','.commentGood',function (e) {
+			alert('testGood');
+			var l_number = document.getElementById('c_seq_number').innerHTML;
+			var check = document.getElementsByClassName('commentBad')[0].innerHTML;
+			var feeling = 'good';
+			
+			if(check == 1){
+				alert('이미 싫어요를 누르셨습니다.');
+			}else{
+				$.ajax({
+					type:'POST',
+					url:'/board/commentGood',
+					dataType : 'json',
+					data : {'l_number': l_number,
+							'feeling' : feeling,
+							},
+					error : function(){
+						alert('좋아요 실패');
+					}, 
+					success : function(result){
+						if(result=="0"){
+							alert('로그인이 필요합니다.');
+						}else if(result=="1"){
+							alert('추천 성공');
+							//하트 활성화 상태
+						}else {
+							alert('추천 취소');
+							//하트 끄셈
+						}
+					}
+				})
+			}
+			})
+		
+		$(document).on('click','.commentBad',function (e) {
+				alert('test');
+				var l_number = document.getElementById('c_seq_number').innerHTML;
+				var check = document.getElementsByClassName('commentGood')[0].innerHTML;
+				var feeling = 'bad';
+				
+				if(check==1){
+					alert('이미 좋아요를 누르셨습니다.');
+				}else{
+					$.ajax({
+						type:'POST',
+						url:'/board/commentGood',
+						dataType : 'json',
+						data : {'l_number': l_number,
+								'feeling' : feeling,
+								},
+						error : function(){
+							alert('좋아요 실패');
+						}, 
+						success : function(result){
+							if(result=="3"){
+								alert('로그인이 필요합니다.');
+							}else if(result=="1"){
+								alert('싫어요 선택');
+								//하트 활성화 상태
+							}else{
+								alert('싫어요 취소');
+								//하트 끄셈
+							}
+						}
+					})
+				}
+			})
+		
+		
 	$(document).on('click','.btnComment',function (e) {
 		var writer = document.getElementById('writer').value;
 		var content = document.getElementById('commentContent').value;
@@ -188,7 +257,7 @@
 		var f_seq_number = $('input[name=f_seq_number]').val();
 		var c_writer = $('input[name=c_writer]').val();
 		var c_content = $('textarea[name=c_content]').val();
-		console.log(f_seq_number+c_writer+c_content);
+		
 		$.ajax({
 			type:'GET',
 			url :'/board/getComentList',
@@ -212,8 +281,6 @@
 	
 	 $(document).on('click','.updateComment',function (e) {
 
-		
-		alert($(this).attr('class'));
 		if($(this).attr('class')=='updateComment enable'){
 			
 		var c_seq_number =  $(this).attr("id");
@@ -255,6 +322,7 @@
 		}
 		
 	})
+	
 	 $(document).on('click','.deleteComment',function (e) {
 		 
 		var c_seq_number =  $(this).attr("id");

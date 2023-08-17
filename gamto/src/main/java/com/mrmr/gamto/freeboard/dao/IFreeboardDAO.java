@@ -28,7 +28,9 @@ public interface IFreeboardDAO {
 	public int cDeleteDao(String c_seq_number);
 	public int cUpdateDao(Map<String, String> map);
 	public int cGoodCnt(String c_seq_number);
+	public int cGoodCancel(String c_seq_number);
 	public int cBadCnt(String c_seq_number);
+	public int cBadCancel(String c_seq_number);
 	public int commentTotal(String f_seq_number); //게시글마다 댓글수 카운트
 	
 	
@@ -38,8 +40,8 @@ public interface IFreeboardDAO {
 	
 	
 	//좋아요 버튼
-	public int insertLike(int l_number, String l_id);
-	public int deleteLike(int l_number, String l_id);
-	public int likeCheck(int l_number, String l_id);
+	public int insertLike(int l_board,  int l_number, String l_id);
+	public int deleteLike(int l_board, int l_number, String l_id);
+	public int likeCheck(int l_board, int l_number, String l_id);
 	
 }
