@@ -9,7 +9,8 @@
 <head>
 <%
 String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 정보를 얻어와서 cartId로 사용함.
-%>
+%>   
+
 <style>
 .custom-h1 {
 	display: inline;
@@ -36,9 +37,9 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 									<table class="table">
 										<thead>
 											<tr>
-												<th scope="col" class="h5">Shopping Bag</th>
-												<th scope="col">Quantity</th>
-												<th scope="col">Price</th>
+												<th scope="col" class="h5">장바구니 목록</th>
+												<th scope="col">수량</th>
+												<th scope="col">가격</th>
 												<th scope="col">합계</th>
 												<th scope="col"><a href="/store/removeAllCart"
 													class="custom-line my-auto">모두 비우기</a></th>
@@ -52,6 +53,8 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 												<c:set value="${dto.cart_quantity}" var="quantity" />
 												<c:set value="${dto.cart_price * dto.cart_quantity}"
 													var="total" />
+												<c:set var="quantities" value="${quantities+quantity}"/>
+												<input type="hidden" value="${quantites}"/>
 												<tr>
 													<th scope="row">
 														<div class="d-flex align-items-center">
@@ -121,9 +124,14 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 													</div>
 													<div class="d-flex justify-content-between">
 														<form method="post" action="/kakaoPay">
-															<!-- ◎ ↓이거 한줄 추가함~~~~ -->
-															<input type="hidden" value="${sum}" name="total_amount">
-														
+															<input type="hidden" value="${cart[0].cart_name}"
+																name="bookName" /> 
+															<input type="hidden"
+																value="${quantities}" name="bookQuantity" /> 
+															<input
+																type="hidden" value="${sum}" name="totalCost" />
+															<input
+																type="hidden" value="0" name="orderCode" />
 															<button
 																class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
 														</form>
@@ -154,46 +162,6 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 <script type="text/javascript"
 	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-	$("#check_module").click(function() {
-		var IMP = window.IMP; // 생략가능
-		IMP.init('imp23781431');
-		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-		// ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
-		IMP.request_pay({
-			pg : 'kakao',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			/* 
-			 *  merchant_uid에 경우 
-			 *  https://docs.iamport.kr/implementation/payment
-			 *  위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-			 */
-			name : '주문명 : ${info.item_name}',
-			// 결제창에서 보여질 이름
-			// name: '주문명 : ${auction.a_title}',
-			// 위와같이 model에 담은 정보를 넣어 쓸수도 있습니다.
-			amount : '총액 : ${info.amount.total}',
-			// amount: ${bid.b_bid},
-			// 가격 
-			buyer_name : '이름 : ${info.partner_order_id}',
-			// 구매자 이름, 구매자 정보도 model값으로 바꿀 수 있습니다.
-			// 구매자 정보에 여러가지도 있으므로, 자세한 내용은 맨 위 링크를 참고해주세요.
-			buyer_postcode : '123-456',
-		}, function(rsp) {
-			console.log(rsp);
-			if (rsp.success) {
-				var msg = '결제가 완료되었습니다.';
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				// success.submit();
-				// 결제 성공 시 정보를 넘겨줘야한다면 body에 form을 만든 뒤 위의 코드를 사용하는 방법이 있습니다.
-				// 자세한 설명은 구글링으로 보시는게 좋습니다.
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-	});
 	//장바구니에서 상품 더하기 빼기 script
 	const quantityIndex = $("[data-index]");
 
@@ -270,16 +238,14 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 					console.log("상품이 제대로 담겼다 이 자식아 ");
 					cartBadge();
 				}
+				setTimeout(function() {
+					$("#cartSum").load(location.href + " #cartSum>div");
+				}, 100);
 			},
 			error : function(result) {
 				console.log("fail");
 			}
 		})
-
-	setTimeout(function() {
-			$("#cartSum").load(location.href + " #cartSum>div");
-		}, 200);
-
 	}
 </script>
 </html>

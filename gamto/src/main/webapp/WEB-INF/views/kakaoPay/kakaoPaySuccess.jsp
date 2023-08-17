@@ -14,7 +14,7 @@ main>table {
 </style>
 </head>
 <body>
-	<jsp:include page="../header.jsp" />
+	<jsp:include page="../header.jsp" /><%-- 
 <main class="pb-5">
 		<table style="width: 580px;" class="shadow mx-auto mt-5 bg-white p-5"
 			style="">
@@ -46,37 +46,18 @@ main>table {
 						<p class="mb-1 col-2 fw-bold text-center">수량</p>
 						<p class="mb-1 col-4 fw-bold text-end">가격&nbsp;&nbsp;&nbsp;</p>
 					</div> <!-- ▼ 여기서 구매목록 반복 -->
-
-					<div class="row">
-						<p class="col-6 ">${"상품명"}</p>
-						<p class="col-2 text-center">
-							<fmt:formatNumber value="${100}" pattern="#,### 개" />
-						</p>
-						<p class="col-4 text-end">
-							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
-						</p>
-					</div> <!-- ▲ 여기까지 반복 --> <!-- ▼▼▼▼ 반복샘플 (지우고 사용하세요) -->
-
-					<div class="row">
-						<p class="col-6 ">${"상품명"}</p>
-						<p class="col-2 text-center">
-							<fmt:formatNumber value="${100}" pattern="#,### 개" />
-						</p>
-						<p class="col-4 text-end">
-							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
-						</p>
-					</div>
-					<div class="row">
-						<p class="col-6 ">${"상품명"}</p>
-						<p class="col-2 text-center">
-							<fmt:formatNumber value="${100}" pattern="#,### 개" />
-						</p>
-						<p class="col-4 text-end">
-							<fmt:formatNumber value="${1000000}" pattern="￦ #,###" />
-						</p>
-					</div> <!-- ▲▲▲ 반복샘플 (지우고 사용하세요) -->
-
-					<div class="row bt-2-dot py-2 mt-4">
+                    <c:foreach var="dto" items="${cart}" varStatus="status">
+						<div class="row">
+							<p class="col-6 ">${dto.cart_name}</p>
+							<p class="col-2 text-center">
+								<fmt:formatNumber value="${dto.cart_quantity}" pattern="#,### 개" />
+							</p>
+							<p class="col-4 text-end">
+								<fmt:formatNumber value="${dto.cart_price}" pattern="￦ #,###" />
+							</p>
+						</div>
+						<!-- ▲ 여기까지 반복 -->
+					</c:foreach> <div class="row bt-2-dot py-2 mt-4">
 						<p class="my-2 col-8 fw-bold">배송비</p>
 						<p class="my-2 col-4 fw-bold text-end">
 							<fmt:formatNumber value="${3000}" pattern="￦ #,###.##" />
@@ -117,12 +98,12 @@ main>table {
 			<tr>
 				<td>구매해 주셔서 감사합니다.</td>
 			</tr>
-			<tr><td><h2>[[${info}]]</h2></td></tr>
+			<tr><td><h2>[[${rsp}]]</h2></td></tr>
 			<tr>
 				<td><a href="/store" class="btn btn-primary ">상점으로 돌아가기</a></td>
 			</tr>
 		</table>
-
+ --%>
 	</main>
 	<jsp:include page="../footer.jsp" />
 </body>
