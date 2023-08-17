@@ -23,7 +23,6 @@ public interface MemberDAO {
 	public MemberDTO findIdDao(String u_email);
 	public String ResetPwCheck(String u_id);
 	public int ResetPwDo(@Param("u_id") String u_id,@Param("u_pw")String u_pw);
-	public List<MyBoardDTO> MyBoardDao(String u_id, String u_id2);
-	public int countBoard();
+	public int countBoard(String u_id, String u_id2);
 	public List<MyBoardDTO> getPageList(Map<String, Integer> map);
 }

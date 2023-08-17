@@ -10,13 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
-import com.mrmr.gamto.freeboard.dto.PagingVO;
 import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MyBoardDTO;
 
-import jakarta.mail.Session;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,19 +23,19 @@ public class MyBoardController {
 	
 	@RequestMapping("/myboard")
 	public String MyBoardDao(HttpSession session, Model model, @RequestParam(required=false, defaultValue="1") int pageNo) {
-		PagingVO page = new PagingVO(pageNo,10,dao.countBoard());
+		String u_id = (String)session.getAttribute("u_id");
+		PagingVO page = new PagingVO(pageNo,10,dao.countBoard(u_id,u_id));
+		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
+		System.out.println("map : "+map);
 		List<MyBoardDTO> list = dao.getPageList(map);
 		
 		model.addAttribute("page",page);
-		model.addAttribute("board",list);
+		model.addAttribute("list",list);
 		
-		
-		String u_id = (String)session.getAttribute("u_id");
 		System.out.println("u_id : "+u_id);
-		model.addAttribute("list", dao.MyBoardDao(u_id,u_id));
 		return "/member/myBoard";
 	}
 }

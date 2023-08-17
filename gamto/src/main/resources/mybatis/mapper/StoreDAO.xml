@@ -81,7 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from cart
 	</select>
 	<!-- 구매내역 -->
-    <select id="purchaseListDao" resultType="com.mrmr.gamto.store.dto.imsiDto">
+    <select id="purchaseListDao" resultType="com.mrmr.gamto.store.dto.OrderTableDTO">
     	select * from product_order
     </select>
 </mapper>
