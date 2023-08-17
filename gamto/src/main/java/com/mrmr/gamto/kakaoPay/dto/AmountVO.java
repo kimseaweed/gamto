@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class AmountVO {
-	public AmountVO(){}
+	public AmountVO(){};
+	
     private Integer total, tax_free, vat, point, discount;
 
 	public AmountVO(Integer total, Integer tax_free, Integer vat, Integer point, Integer discount) {
