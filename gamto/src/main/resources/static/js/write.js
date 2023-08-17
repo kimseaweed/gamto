@@ -249,11 +249,11 @@ document.getElementById('writeForm').addEventListener('submit',function(event){
 	//유효성 검사 : 제목
 	var titleinput = document.getElementsByName('r_title')[0];
 	if(titleinput.value.replaceAll(" ","")==""){
-		alert('제목을 입력해주세요');
+		alertY('제목을 입력해주세요');
 		titleinput.focus();
 		return false;
 	}else if(titleinput.value.length>100){
-		alert('제목이 너무 길어요');
+		alertY('제목이 너무 길어요');
 		titleinput.focus();
 		return false;
 	}
@@ -278,11 +278,11 @@ fileinput.addEventListener("input", function(){
 	const fileForm = /(.*?)\.(jpg|jpge|png|gif|bmp|pdf)$/;
 	const maxSize = 1024*1024*5;
 		if(!fileinput.value.match(fileForm)){
-			alert('이미지파일 만 선택할 수 있습니다'); 
+			alertY('이미지파일 만 선택할 수 있습니다'); 
 			fileinput.value = "";
 			return;
 		}else if(document.querySelector('input[type="file"]').files[0].size >= maxSize){
-			alert('5mb 이하 만 선택할 수 있습니다'); 
+			alertY('5mb 이하 만 선택할 수 있습니다'); 
 			fileinput.value = "";
 			return;
 		}else if(fileinput.value.length>300){

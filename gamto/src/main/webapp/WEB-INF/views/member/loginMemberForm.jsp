@@ -16,7 +16,7 @@
 			<div class="login-box bg-white pl-lg-5 pl-0">
 				<div class="row no-gutters align-items-center">
 					<div class="col-md-6">
-						<div class="form-wrap bg-body shadow ms-md-5">
+						<div class="form-wrap bg-body shadow ms-xl-5">
 							<h2 class="btm-sep pb-3 fw-bold">로그인</h2>
 							<form class="form" method="post"
 								action="/member/processLoginMember">
@@ -61,7 +61,7 @@
 									class="bi bi-arrow-right-short"></i> 회원가입 하러가기
 								</a>
 							</div>
-							<h5 class="c-black mb-4 mt-n1">테스트</h5>
+							<h5 class="c-black mb-4 mt-n1">.</h5>
 							<div class="socials pe-3">
 							<% if(request.getParameter("error")!=null){
 								int error=Integer.parseInt(request.getParameter("error")); 

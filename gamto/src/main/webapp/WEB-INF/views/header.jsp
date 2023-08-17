@@ -24,78 +24,112 @@
 <link rel="stylesheet" href="/css/gamto.css" />
 </head>
 <body>
-<!-- 데스크탑 사이드바  -->
-<div id="sidebar">
-	<button
-        type="button"
-        class="btn btn-outline-dark btn-lg rounded-circle"
-        id="shareLink" ><span class="material-symbols-outlined">
-		share
-	</span>
-	</button>
-	<button
-        type="button"
-        class="btn btn-outline-dark btn-lg rounded-circle"
-        id="searchSite" ><span class="material-symbols-outlined">
-		search
-	</span>
-	</button>
-	<button
-        type="button"
-        class="btn btn-outline-dark btn-lg rounded-circle"
-        id="btn-back-to-top" ><span class="material-symbols-outlined">
-		expand_less
-	</span>
-
-</button>
-<!-- 검색 토스트  -->	
-<div class="toast-container position-fixed bottom-0 end-0 p-3 mb-5 me-5 pe-5">
-  <div id="searchToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">사이트내 검색하기</strong>
-      <button type="button" class="btn-close me-5 pe-5" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body ps-4 pe-2">
-     <div class="input-group mb-1">
-	  	<select class="form-select" id="searchCategory1" aria-label="" onchange="boardCategory()">
-		    <option value="0" selected>게시판 선택</option>
-		    <option value="1">너의 생각</option>
-		    <option value="2">우리 생각</option>
-		    <option value="3">상점</option>
-  		</select>
-  		 <select class="form-select" id="searchCategory2" aria-label="" disabled="disabled">
-		    <option selected>선택</option>
-		    <option value="1">너의 생각</option>
-		    <option value="2">우리 생각</option>
-		    <option value="3">상점</option>
-  		</select>
-	  </div>
-	<div class="input-group mb-3">
-	  <input type="text" class="form-control" placeholder="검색어를 입력해주세요" id="searchQuery">
-	  <span class="input-group-text px-5">검색</span>
+	<!-- 우측상단 토스트 -->
+	<div
+		class="toast-container position-fixed start-50 translate-middle-x p-3">
+		<div id="msgToastR" class="toast align-items-center text-bg-danger"
+			role="alert" aria-live="assertive" aria-atomic="true"
+			data-bs-delay="3000">
+			<div class="d-flex" style="">
+				<div class="toast-body">
+					<div class="spinner-grow spinner-grow-sm me-2" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+					<span id="msgboxR"></span>
+				</div>
+				<button type="button" class="btn-close me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
 	</div>
-      
-    </div>
-  </div>
-</div>
-
-	<script>
-	
-		//bs 토스트 : 검색기능
-		const toastTrigger = document.getElementById('searchSite')
-		const toastLiveExample = document.getElementById('searchToast')
-		if (toastTrigger) {
-		  toastTrigger.addEventListener('click', () => {
-		    const toast = new bootstrap.Toast(toastLiveExample);
-		    toast.show();
-		  })
-		}
-		function boardCategory(){
-			
-		}
+	<!--  style="top:5% ;right:5%"-->
+	<div
+		class="toast-container position-fixed start-50 translate-middle-x p-3">
+		<div id="msgToastB" class="toast align-items-center text-bg-primary"
+			role="alert" aria-live="assertive" aria-atomic="true"
+			data-bs-delay="3000">
+			<div class="d-flex" style="">
+				<div class="toast-body">
+					<div class="spinner-grow spinner-grow-sm me-2" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+					<span id="msgboxB"></span>
+				</div>
+				<button type="button" class="btn-close me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+	<div
+		class="toast-container position-fixed start-50 translate-middle-x p-3">
+		<div id="msgToastY" class="toast align-items-center text-bg-warning"
+			role="alert" aria-live="assertive" aria-atomic="true"
+			data-bs-delay="3000">
+			<div class="d-flex" style="">
+				<div class="toast-body">
+					<div class="spinner-grow spinner-grow-sm me-2" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+					<span id="msgboxY"></span>
+				</div>
+				<button type="button" class="btn-close me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+	<!-- 데스크탑 사이드바  -->
+	<div id="sidebar">
+		<button type="button"
+			class="btn btn-outline-dark btn-lg rounded-circle" id="shareLink"
+			onclick="copyLink()">
+			<span class="material-symbols-outlined"> share </span>
+		</button>
+		<script type="text/javascript">
 	</script>
-	
-</div>
+		<button type="button"
+			class="btn btn-outline-dark btn-lg rounded-circle" id="searchSite">
+			<span class="material-symbols-outlined"> search </span>
+		</button>
+		<button type="button"
+			class="btn btn-outline-dark btn-lg rounded-circle"
+			id="btn-back-to-top">
+			<span class="material-symbols-outlined"> expand_less </span>
+		</button>
+		<!-- 검색 토스트  -->
+		<div
+			class="toast-container position-fixed bottom-0 end-0 p-3 mb-5 me-5 pe-5">
+			<div id="searchToast" class="toast" role="alert"
+				aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<strong class="me-auto">사이트내 검색하기</strong>
+					<button type="button" class="btn-close me-5 pe-5"
+						data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body ps-4 pe-2">
+					<div class="input-group mb-1">
+						<select class="form-select" id="searchCategory1" aria-label=""
+							onchange="boardCategory()">
+							<option value="0" selected>게시판 선택</option>
+							<option value="1">너의 생각</option>
+							<option value="2">우리 생각</option>
+							<option value="3">상점</option>
+						</select> <select class="form-select" id="searchCategory2" aria-label=""
+							disabled="disabled">
+							<option selected>선택</option>
+							<option value="1">너의 생각</option>
+							<option value="2">우리 생각</option>
+							<option value="3">상점</option>
+						</select>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="검색어를 입력해주세요"
+							id="searchQuery"> <span class="input-group-text px-5">검색</span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- 당근커서. 데스크탑용  -->
 	<div class="carrot d-none d-lg-block"></div>
 	<!-- 데스크탑헤더 : lg 이상 환경 : 992px이상 -->
@@ -131,8 +165,8 @@
 					class="ms-1 me-5 link-dark  position-relative"
 					data-bs-placement="bottom" data-bs-html="true"
 					data-bs-toggle="tooltip" data-bs-title="장바구니"> <span
-						class="material-symbols-outlined fs-1">shopping_cart </span> 
-						<span class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger d-none"><span></span></span>
+						class="material-symbols-outlined fs-1">shopping_cart </span> <span
+						class="badge position-absolute start-100 translate-middle cartBadge rounded-pill bg-danger d-none"><span></span></span>
 				</a></li>
 				<%
 				if (session.getAttribute("u_id") == null) {
@@ -160,7 +194,8 @@
 						<li><a class="dropdown-item" href="/member/myPage">나의 공간</a></li>
 						<li><a class="dropdown-item" href="/store/purchaseList">구매내역</a></li>
 						<li><a class="dropdown-item" href="#">내 글보기</a></li>
-						<li><a class="dropdown-item" href="/member/updateMember">회원 수정</a></li>
+						<li><a class="dropdown-item" href="/member/updateMember">회원
+								수정</a></li>
 					</ul></li>
 				<%
 				}
@@ -200,20 +235,23 @@
 								aria-current="page" href="/report/new"><i
 									class="bi bi-blockquote-left me-3"></i>나의 생각</a></li>
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
-								href="/board"><i class="bi bi-blockquote-left me-3"></i>너의
+								href="/report"><i class="bi bi-blockquote-left me-3"></i>너의
 									생각</a></li>
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
-								href="/report"><i class="bi bi-blockquote-left me-3"></i>우리 생각</a></li>
+								href="/board"><i class="bi bi-blockquote-left me-3"></i>우리
+									생각</a></li>
 							<hr />
 							<li class="nav-item"><a class="nav-link fs-2 fw-bold"
 								href="/store"> <span
 									class="material-symbols-outlined fs-1 align-middle me-3">local_mall</span>상점
 							</a></li>
-							<li class="nav-item"><a class="position-relative nav-link fs-2 fw-bold"
+							<li class="nav-item"><a
+								class="position-relative nav-link fs-2 fw-bold"
 								href="/store/cart"> <span
 									class="material-symbols-outlined fs-1 align-middle me-3">shopping_cart</span>
-									<span class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1 d-none" > </span>
-									 장바구니
+									<span
+									class="badge position-absolute t-0 translate-middle cartBadge rounded-pill bg-danger p-1 d-none">
+								</span> 장바구니
 							</a></li>
 							<%
 							if (session.getAttribute("u_id") == null) {
@@ -246,8 +284,7 @@
 										href="/member/myPage">나의공간</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/store/purchaseList">구매내역</a></li>
-									<li><a class="dropdown-item fs-3 fw-bold"
-										href="#">내글보기</a></li>
+									<li><a class="dropdown-item fs-3 fw-bold" href="#">내글보기</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/member/updateMember">회원수정</a></li>
 								</ul></li>

@@ -60,6 +60,7 @@ public class WriteController {
 		dao.writeBookReport(dto);
 		return "redirect:/report/view?r_seq_number="+dto.getR_seq_number();			
 	}
+
 	/*
 	 * @RequestMapping("/test") public String test(){
 	 * 

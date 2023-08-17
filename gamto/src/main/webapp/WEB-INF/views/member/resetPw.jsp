@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-		<main class="findform">
+		<main class="findform findpw">
 			<div class="reset-pw shadow mt-5 bg-body porsiton-relative d-flex form-v4-content mx-auto animate__animated animate__fadeInLeft">
 			<div class="form-left py-5 px-4">
 				<p class="text-1 pt-4">가입하실때 입력하셨던 <b class="fw-bold">아이디</b>와 <b class="fw-bold">이메일주소</b>를 알려주시면 이메일로 비밀번호를 변경할 수 있는 링크를 보내드립니다. 발송된 메일은 <b>10분동안</b> 유효합니다.</p>
@@ -41,43 +41,6 @@
 			</div>
 		</main>
 	<jsp:include page="../footer.jsp" />
-	<script type="text/javascript">
-		$('#submit').click(function(){
-			$('#spinner').load(location.href+' #spinner>div');
-			if(	$('#u_id').val() == "" ){
-				alert('아이디를 입력해주세요');
-				return false;
-			}else if($('#u_email').val() == "" ){
-				alert('이메일을 입력해주세요');
-				return false;
-			}else{
-				$('#spinner').css('display','block');
-				$.ajax({
-					url:"/member/help/pw/check",
-					dataType:'json',
-					type:"post",
-					data: {	"u_id" : $('#u_id').val(),
-							"u_email" : $('#u_email').val()},
-					success : function(result){
-						setTimeout(function(){
-						if(result=='2'){			
-							$('#spinner').html('<p class="text-danger"> 존재하지않는 아이디입니다<p>');
-							return false;
-						}else if(result=='1'){
-							$('#spinner').html('<p class="text-danger"> 가입시 입력한 이메일과<br>일치하지 않습니다 <p>');
-							return false;
-						}else{
-							location="/member/help/pw/send";
-						}
-						},500)
-					},
-					error : function(){
-				        alert("서버 요청에 실패했습니다.");
-				        location='/'; 
-					}
-				});
-			}
-		})
-	</script>
+	<script type="text/javascript"	src="/js/memberHelp.js"></script>
 </body>
 </html>
