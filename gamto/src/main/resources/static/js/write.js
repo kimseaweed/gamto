@@ -68,9 +68,6 @@ var createcard4 = function(context) {
 }
 
 
-
-
-
 //웹에디터 썸머노트
 var fontList = ['궁서체', '돋움체', '한림명조체', '잉크립퀴드체', '고딕아니고고딩'];
 $('#summernote').summernote({

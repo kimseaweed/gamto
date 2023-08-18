@@ -148,9 +148,8 @@ header > nav >ul>li>a{
 		</div>
 	</div><!-- container -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 API KEY를 사용하세요&libraries=services"></script>
 <script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
@@ -175,7 +174,7 @@ header > nav >ul>li>a{
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("u_address").value = addr;
                 // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function(results, status) {
+                geocoder.addressSearch(data.address, function(/* results, status */) {
                     // 정상적으로 검색이 완료됐으면
                     if (status === daum.maps.services.Status.OK) {
 

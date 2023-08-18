@@ -9,4 +9,8 @@
 		) values(
 			book_report_seq.nextval,#{dto.r_filename},#{dto.r_title},#{dto.r_writer},#{dto.r_content})
 	</insert>
+	<update id="updateBookReport">
+		update book_report set r_title=#{dto.r_title},
+		r_content=#{dto.r_content},r_filename=#{dto.r_filename}, r_update_day=sysdate where r_seq_number=#{dto.r_seq_number}
+	</update>
 </mapper>	

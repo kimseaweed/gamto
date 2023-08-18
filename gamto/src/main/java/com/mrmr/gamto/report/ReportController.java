@@ -80,6 +80,7 @@ public class ReportController {
 		}
 		
 		model.addAttribute("dto", dao.viewDao(rId));
+		model.addAttribute("myLike",dao);
 		
 		return "list/view";
 	}
@@ -182,6 +183,7 @@ public class ReportController {
 	@RequestMapping("/updateLike")
 	public String updateLike(String l_number, HttpSession session) {
 		String l_id =(String)session.getAttribute("u_id");
+		int l_board = 2;
 		
 		if(l_id==null) {
 			return "3";
@@ -189,16 +191,16 @@ public class ReportController {
 			int l_numberValue = Integer.parseInt(l_number);
 			System.out.println(l_number);
 			
-			int result = dao.likeCheck(l_numberValue, l_id);
+			int result = dao.likeCheck(l_board,l_numberValue, l_id);
 			
 			if(result==0) {
 				int num = dao.goodCnt(l_number);
-				dao.insertLike(l_numberValue, l_id);
+				dao.insertLike(l_board,l_numberValue, l_id);
 				
 				return "1";
 			}else{
 				dao.badCnt(l_number);
-				dao.deleteLike(l_numberValue, l_id);
+				dao.deleteLike(l_board,l_numberValue, l_id);
 				return "0";
 			}
 		}

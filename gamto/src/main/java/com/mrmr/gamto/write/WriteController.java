@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mrmr.gamto.report.dao.IBookReportDAO;
 import com.mrmr.gamto.report.dto.BookReportDTO;
 import com.mrmr.gamto.utils.GamtoService;
 import com.mrmr.gamto.write.dao.IWriteDAO;
@@ -22,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class WriteController {
 
 	@Autowired
-	IWriteDAO dao;
+	IWriteDAO writedao;
 	@Autowired
 	WriteService service;
 
@@ -35,11 +36,11 @@ public class WriteController {
 	@PostMapping("/report")
 	public String create(MultipartFile filename,BookReportDTO dto) throws Exception {
 		dto.setR_filename(service.saveFile(filename));
-		dao.writeBookReport(dto);
+		writedao.writeBookReport(dto);
 		return "redirect:/report";
 	}
 	
-	@PutMapping("/report/{r_seq_number}")
+	@PutMapping("/reportupdate/{r_seq_number}")
 	public String update(String showImg,MultipartFile filename,BookReportDTO dto) throws Exception {
 		//상황1 : 기존에 있다가 안바꿨다 ->삭제x 업로드x 랜덤셋팅x
 		//상황2 : 기존에 있다가 새로운걸로 바꿨다 ->삭제o 업로드o 랜덤셋팅x
@@ -57,7 +58,7 @@ public class WriteController {
 			dto.setR_filename(service.saveFile(filename));
 		}
 		//변화가 없는경우 여기서 시작 (상황1,5) + 변화 처리한 (상황 나머지) => 업로드
-		dao.writeBookReport(dto);
+		writedao.updateBookReport(dto);
 		return "redirect:/report/view?r_seq_number="+dto.getR_seq_number();			
 	}
 

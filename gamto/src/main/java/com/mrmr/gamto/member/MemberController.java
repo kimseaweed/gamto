@@ -147,4 +147,5 @@ public class MemberController {
 		dao.updateMemberDao(dto);
 		return "/index";
 	}
+
 }

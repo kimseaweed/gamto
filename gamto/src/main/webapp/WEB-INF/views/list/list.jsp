@@ -11,14 +11,13 @@
 		width: 100%;
 	}
 	.tab_top{
-		background-color: rgb(139, 194, 250,0.65);
-		height: 50px;
-		color: #F9F9F9;
-		line-height: 50px;
+		background-color: rgb(139, 194, 250,0.65);		
+		color: #F9F9F9;		
 	}
 	.tab_bottom{
 		color: #181818;
 		line-height: 150px;
+		height: 50px;
 	}
 </style>
 </head>
@@ -52,7 +51,7 @@
 		</tr>
 		</thead>
 		<c:forEach items="${list}" var="dto">
-			<tr class="tab_bottom text-center" onclick="location='/report/view?r_seq_number=${dto.r_seq_number}'" style="cursor:pointer;">
+			<tr class="tab_bottom center" onclick="location='/report/view?r_seq_number=${dto.r_seq_number}'" style="cursor:pointer;">
 					<td>${dto.r_seq_number}</td>
 					<td>
 						<img src="../userUpload/${dto.r_filename}" width="100" height="141">
@@ -68,7 +67,7 @@
 	</table>
 	<br>
 		<div>
-			<p class="text-end" style="font-weight: bold; color: #181818;">
+			<p class="text-end" style="color: #181818;">
 			<a href="/report/new">글작성</a> |
 			<a href="/report">목록보기</a> 
 			</p> <br>

@@ -17,19 +17,8 @@
 	<jsp:include page="../header.jsp" />
 
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
-		<form id="writeForm" name="writeForm" 
-		
-				<c:choose>
-					<c:when test="${empty requestType}">
-						method="post" action="/report"
-					</c:when>
-					<c:otherwise>
-						method="post" action="/report/${updateForm.r_seq_number}"
-					</c:otherwise>
-				</c:choose>
-		
-			class="p-5 mb-4 bg-light rounded-3 needs-validation"
-			enctype="multipart/form-data" novalidate>
+		<form id="writeForm" name="writeForm" method="post"class="p-5 mb-4 bg-light rounded-3 needs-validation"
+			enctype="multipart/form-data">
 			<div class="mb-1">
 				<c:choose>
 					<c:when test="${empty requestType}">
@@ -139,7 +128,17 @@
 					type="submit">작성하기</button>
 			</div>
 		</form>
-
+		<script>
+			$(document).ready(function(){
+				const requestType= '${requestType}';
+				const no = '${updateForm.r_seq_number}'
+				if(requestType==''){
+					$('#writeForm').attr('action','/report');
+				}else{
+					$('#writeForm').attr('action','/reportupdate/'+no);
+				}
+			})
+		</script>
 		<div class="modal fade" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div

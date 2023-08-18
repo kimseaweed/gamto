@@ -85,7 +85,8 @@
 			<span class="material-symbols-outlined"> share </span>
 		</button>
 		<script type="text/javascript">
-	</script>
+			
+		</script>
 		<button type="button"
 			class="btn btn-outline-dark btn-lg rounded-circle" id="searchSite">
 			<span class="material-symbols-outlined"> search </span>
@@ -106,27 +107,29 @@
 						data-bs-dismiss="toast" aria-label="Close"></button>
 				</div>
 				<div class="toast-body ps-4 pe-2">
-				<form action="" method="post" id="searchform">
-					<div class="input-group mb-1">
-						<select class="form-select" id="searchCategory1" aria-label=""
-							onchange="boardCategory()">
-							<option value="0" selected>게시판 선택</option>
-							<option value="1">너의 생각</option>
-							<option value="2">우리 생각</option>
-							<option value="3">상점</option>
-						</select> <select class="form-select" id="searchCategory2" aria-label=""
-							disabled="disabled" name="item">
-							<option selected>선택</option>
-							<option value="1">너의 생각</option>
-							<option value="2">우리 생각</option>
-							<option value="3">상점</option>
-						</select>
-					</div>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="검색어를 입력해주세요"
-							id="searchQuery" name="text"> <span class="input-group-text px-5" onclick="searchsite()" style="cusor:pointer;" >검색</span>
-					</div>
-</form>
+					<form action="" method="post" id="searchform">
+						<div class="input-group mb-1">
+							<select class="form-select" id="searchCategory1" aria-label=""
+								onchange="boardCategory()">
+								<option value="0" selected>게시판 선택</option>
+								<option value="1">너의 생각</option>
+								<option value="2">우리 생각</option>
+								<option value="3">상점</option>
+							</select> <select class="form-select" id="searchCategory2" aria-label=""
+								disabled="disabled" name="item">
+								<option selected>선택</option>
+								<option value="1">너의 생각</option>
+								<option value="2">우리 생각</option>
+								<option value="3">상점</option>
+							</select>
+						</div>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="검색어를 입력해주세요"
+								id="searchQuery" name="text"> <span
+								class="input-group-text px-5" onclick="searchsite()"
+								style="cusor: pointer;">검색</span>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
