@@ -36,12 +36,17 @@
 	<update id="ResetPwDo"><!-- 비번찾기 : 변경해주기 확인 -->
 		update member_function set u_pw=#{param2} where u_id=#{param1}
 	</update>
+	<!-- <select id="MyBoardDao" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
+		(select r_seq_number as seq_number, '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = #{param1} and r_delete=0)
+		union
+		(select f_seq_number as seq_number, '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)
+	</select> -->
 	<select id="getPageList"  parameterType="Map" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
 	    select my.*
-		from (select rownum as rm, m.* from ((select r_seq_number as seq_number, '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = 'qwer' and r_delete=0)
+		from (select rownum as rm, m.* from ((select r_seq_number as seq_number, '나의생각' as tablename, r_title as title, r_regist_day as regist_day from book_report where r_writer = #{param1} and r_delete=0)
 		union
-		(select f_seq_number as seq_number, '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = 'qwer' and f_delete=0)) m) my
-		where rm BETWEEN #{startNo} AND #{endNo}
+		(select f_seq_number as seq_number, '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)) m) my
+		where rm BETWEEN #{param2} AND #{param3}
 	</select>
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" resultType="int">

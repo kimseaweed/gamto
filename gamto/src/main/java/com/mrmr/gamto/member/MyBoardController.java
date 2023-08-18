@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MyBoardDTO;
+import com.mrmr.gamto.member.dto.PagingVO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,16 +27,20 @@ public class MyBoardController {
 		String u_id = (String)session.getAttribute("u_id");
 		PagingVO page = new PagingVO(pageNo,10,dao.countBoard(u_id,u_id));
 		
-		Map<String, Integer> map = new HashMap<>();
-		map.put("startNo", page.getStartNo());
-		map.put("endNo", page.getEndNo());
-		System.out.println("map : "+map);
-		List<MyBoardDTO> list = dao.getPageList(map);
+		int startNo=(pageNo-1)*10+1;
+		int endNo= pageNo*10;
+		
+		/*
+		 * Map<String, Integer> map = new HashMap<>(); map.put("startNo",
+		 * page.getStartNo()); map.put("endNo", page.getEndNo());
+		 */
+		List<MyBoardDTO> list = dao.getPageList(u_id,startNo,endNo);
 		
 		model.addAttribute("page",page);
 		model.addAttribute("list",list);
 		
 		System.out.println("u_id : "+u_id);
+		/* model.addAttribute("list", dao.MyBoardDao(u_id,u_id)); */
 		return "/member/myBoard";
 	}
 }

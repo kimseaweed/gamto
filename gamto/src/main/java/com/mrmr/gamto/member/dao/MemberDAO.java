@@ -24,5 +24,5 @@ public interface MemberDAO {
 	public String ResetPwCheck(String u_id);
 	public int ResetPwDo(@Param("u_id") String u_id,@Param("u_pw")String u_pw);
 	public int countBoard(String u_id, String u_id2);
-	public List<MyBoardDTO> getPageList(Map<String, Integer> map);
+	public List<MyBoardDTO> getPageList(String u_id, int startNo, int endNo);
 }
