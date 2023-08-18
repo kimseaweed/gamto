@@ -1,8 +1,6 @@
 package com.mrmr.gamto.kakaoPay;
 
 
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.kakaoPay.service.KakaoPay;
 import com.mrmr.gamto.member.dao.MemberDAO;
@@ -45,10 +43,14 @@ public class KakaoPayController {
     }
     
     @RequestMapping("/kakaoPay/kakaoPaySuccess")
-    public String kakaoPaySuccess(Model model, String merchant_uid) {
+    @ResponseBody
+    public String kakaoPaySuccess(Model model, String merchant_uid, String amount, String order, String quantity) {
     	
-    	System.out.println(merchant_uid);
-    	
+    	System.out.println(merchant_uid+"가나"+amount+"다라"+order+"마바"+quantity);
+    	model.addAttribute("merchant_uid", merchant_uid);
+    	model.addAttribute("amount", amount);
+    	model.addAttribute("order", order);
+    	model.addAttribute("quantity", quantity);
         return "kakaoPay/kakaoPaySuccess";
     }
     @RequestMapping("/kakaoPay/kakaoPayCancel")

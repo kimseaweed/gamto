@@ -18,9 +18,9 @@ System.out.println("stotalCost: "+stotalCost);
 <title>kakaoPay</title>
 </head>
 <body>
-<form action="/kakaoPay/kakaoPaySuccess" method="post">
+<!-- <form action="/kakaoPay/kakaoPaySuccess" method="post">
 
-</form>
+</form> -->
 </body>
 </html>
 <script>
@@ -61,9 +61,14 @@ if(<%=bookQuantity%>=='1'){
          $.ajax({
         	url:'/kakaoPay/kakaoPaySuccess',
         	dadtaType:'/json',
-        	type:'POST',
+        	type:'GET',
         	contentType:'application/json',
-        	data: rsp,
+        	data: {
+        		merchant_uid : rsp.merchant_uid,
+         		amount: rsp.paid_amount,
+         		order:<%=orderCode%>,
+         	    quantity: <%=bookQuantity%> 
+        	},
         	success:function(res){
         		console.log('return start');
         		
@@ -109,10 +114,13 @@ if(<%=bookQuantity%>=='1'){
          $.ajax({
          	url:'/kakaoPay/kakaoPaySuccess',
          	dadtaType:'/json',
-         	type:'POST',
+         	type:'GET',
          	contentType:'application/json',
          	data: {
-         		merchant_uid : rsp.merchant_uid
+         		merchant_uid : rsp.merchant_uid,
+         		amount: rsp.paid_amount,
+         		order:<%=orderCode%>,
+         	    quantity: <%=bookQuantity%> 
          	},
          	success:function(res){
          		console.log('return start');

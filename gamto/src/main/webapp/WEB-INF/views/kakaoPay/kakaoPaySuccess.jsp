@@ -14,7 +14,7 @@ main>table {
 </style>
 </head>
 <body>
-	<jsp:include page="../header.jsp" /><%-- 
+	<jsp:include page="../header.jsp" />
 <main class="pb-5">
 		<table style="width: 580px;" class="shadow mx-auto mt-5 bg-white p-5"
 			style="">
@@ -103,8 +103,8 @@ main>table {
 				<td><a href="/store" class="btn btn-primary ">상점으로 돌아가기</a></td>
 			</tr>
 		</table>
- --%>
 	</main>
 	<jsp:include page="../footer.jsp" />
+	
 </body>
 </html>
