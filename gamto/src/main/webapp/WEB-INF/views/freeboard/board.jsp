@@ -45,10 +45,11 @@
 				<tr class="tab_top">
 					<th scope="col" col width=10%>번호</th>
 					<th scope="col" col width=10%>카테고리</th>
-					<th scope="col" col width=40%>제목</th>
+					<th scope="col" col width=45%>제목</th>
 					<th scope="col" col width=10%>작성자</th>
-					<th scope="col" col width=10%>추천수</th>
-					<th scope="col" col width=10%>조회수</th>
+					<th scope="col" col width=5%>추천수</th>
+					<th scope="col" col width=5%>조회수</th>
+					<th scope="col" col width=5%>댓글수</th>
 					<th scope="col" col width=10%>작성일</th>
 				</tr>
 			</thead>
@@ -56,6 +57,7 @@
 				<c:forEach items="${board}" var="dto">
 					<c:set var="day" value="${dto.f_regist_day}" />
 					<c:set var="regist_day" value="${day.split(' ')[0]}" />
+					<c:set var="fId" value="${dto.f_seq_number}" />
 					<tr onclick="location='/board/view?f_seq_number=${dto.f_seq_number}'" style="cursor:pointer;">
 							<td>${dto.f_seq_number}</td>
 							<td>${dto.f_category}</td>
@@ -63,6 +65,7 @@
 							<td>${dto.f_writer}</td>
 							<td>${dto.f_recommend}</td>
 							<td>${dto.f_view}</td>
+							<td><c:out value="${dao.commentTotal(fId)}"/></td>
 							<td><c:out value="${regist_day}" /></td>
 						</a>
 					</tr>
