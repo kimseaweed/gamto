@@ -25,8 +25,8 @@ public interface StoreDAO {
 	//주문내역 
 	public MemberDTO orderDetail(String u_id);
 	//구매 내역
-	public List<OrderTableDTO> purchaseList();//구매내역
-	public void receivePurchase(OrderTableDTO orderTable); // 구매정보 받는 메서드
+	//public List<OrderTableDTO> purchaseList();//구매내역
+	public void insertKakaoPayInfo(OrderTableDTO orderTable); // 구매정보 받는 메서드
 	
 	/* 페이징하는 부분 */
 	public int countBookList();
