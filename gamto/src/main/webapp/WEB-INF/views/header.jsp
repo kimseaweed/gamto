@@ -106,6 +106,7 @@
 						data-bs-dismiss="toast" aria-label="Close"></button>
 				</div>
 				<div class="toast-body ps-4 pe-2">
+				<form action="" method="post" id="searchform">
 					<div class="input-group mb-1">
 						<select class="form-select" id="searchCategory1" aria-label=""
 							onchange="boardCategory()">
@@ -123,9 +124,9 @@
 					</div>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="검색어를 입력해주세요"
-							id="searchQuery"> <span class="input-group-text px-5" onclick="searchsite()" style="cusor:pointer;">검색</span>
+							id="searchQuery" name="text"> <span class="input-group-text px-5" onclick="searchsite()" style="cusor:pointer;" >검색</span>
 					</div>
-
+</form>
 				</div>
 			</div>
 		</div>
