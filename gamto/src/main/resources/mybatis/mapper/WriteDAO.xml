@@ -11,7 +11,6 @@
 	</insert>
 	<update id="updateBookReport">
 		update book_report set r_title=#{dto.r_title},
-		r_content=#{dto.r_content},r_filename=#{dto.r_filename}, r_update_day=sysdate,
-		r_view=r_view-1 where r_seq_number=#{dto.r_seq_number}
+		r_content=#{dto.r_content},r_filename=#{dto.r_filename}, r_update_day=sysdate where r_seq_number=#{dto.r_seq_number}
 	</update>
 </mapper>	
