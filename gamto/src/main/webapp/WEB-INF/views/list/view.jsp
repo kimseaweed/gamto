@@ -30,7 +30,6 @@
 	</div>
 	<hr>
 	<div style="padding-bottom:200px;">
-	<%-- <img src="../userUpload/${dto.r_filename}" width="150" height="212" style="float: left; margin-right: 20px;"> --%>
 	<p class="col mt-2">${dto.r_content}<br></p>
 	</div>
 	<hr>
@@ -47,7 +46,19 @@
 					<input type="button" value="삭제"
 						class="btnDelete btn btn-outline-danger">
 				</c:if>
-				<i class="bi bi-hand-thumbs-up btn btn-outline-warning btnGood" id="goode">추천</i>
+				<c:set var="l_number" value="${dto.r_seq_number}"/>
+           		<c:set var="l_board" value="2"/>
+          	    <c:choose>
+            		<c:when test="${myLike.likeCheck(l_board,l_number,userId) eq '1'}">
+            			<c:set var="likeCheck" value="btn btn-warning"/>
+            		</c:when>
+            		<c:otherwise>
+            			<c:set var="likeCheck" value="btn btn-outline-warning"/>
+            		</c:otherwise>	
+            	</c:choose>
+            	<span id="goodBtn">
+            		<i class="bi bi-hand-thumbs-up btnGood ${likeCheck}">추천</i>
+            	</span>
 	</p>
 	<br>
 	</div>
@@ -75,10 +86,9 @@
 				$(location).attr('href','/report/delete?r_seq_number=${dto.r_seq_number}');
 			}
 		})
-		$('.btnGood').click(function() {
+		$(document).on('click','.btnGood',function (e) {
 		var l_number = document.getElementById('r_seq_number').value;
-		alert('ajax 시작');
-
+		
 			$.ajax({
 				type:'POST',
 				url:'/report/updateLike',
@@ -87,16 +97,14 @@
 						},	
 				success : function(result){
 					if(result=="3"){
-						alert('로그인이 필요합니다.');
+						alertR('로그인이 필요합니다.');
 					}else if(result=="1"){
-						alert('추천 성공');
-					    $("#goode").attr("aria-pressed", "bi bi-hand-thumbs-up btn btn-warning");
+						alertY('추천 성공');
 					}else{
-						alert('추천 취소');
-						$("#goode").attr("class", "bi bi-hand-thumbs-up btn btn-outline-warning");
+						alertY('추천 취소');
 					}
-					
 					$('#good').load(window.location.href+" #good>span");
+					$('#goodBtn').load(window.location.href+" #goodBtn>i"); 
 				},
 			error : function(){
 				alert('좋아요 실패');
