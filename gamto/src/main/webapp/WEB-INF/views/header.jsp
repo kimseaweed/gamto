@@ -114,7 +114,7 @@
 							<option value="2">우리 생각</option>
 							<option value="3">상점</option>
 						</select> <select class="form-select" id="searchCategory2" aria-label=""
-							disabled="disabled">
+							disabled="disabled" name="item">
 							<option selected>선택</option>
 							<option value="1">너의 생각</option>
 							<option value="2">우리 생각</option>
@@ -123,7 +123,7 @@
 					</div>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="검색어를 입력해주세요"
-							id="searchQuery"> <span class="input-group-text px-5">검색</span>
+							id="searchQuery"> <span class="input-group-text px-5" onclick="searchsite()" style="cusor:pointer;">검색</span>
 					</div>
 
 				</div>

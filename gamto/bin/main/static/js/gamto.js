@@ -105,14 +105,73 @@ function copyLink() {
 	alertB("링크가 복사되었습니다. <br> 필요하신 곳에 붙여넣기 하세요!")
 };
 
-/* 사이드바 검색 */
-		const toastTrigger = document.getElementById('searchSite')
-		const toastLiveExample = document.getElementById('searchToast')
-		if (toastTrigger) {
-		  toastTrigger.addEventListener('click', () => {
-		    const toast = new bootstrap.Toast(toastLiveExample);
-		    toast.show();
-		  })
+/* 사이드바 검색 : 토스트팝업 */
+const toastTrigger = document.getElementById('searchSite')
+const toastLiveExample = document.getElementById('searchToast')
+if (toastTrigger) {
+	toastTrigger.addEventListener('click', () => {
+		const toast = new bootstrap.Toast(toastLiveExample);
+		toast.show();
+	})
+}
+//사이드바 검색 : 카테고리 선택
+function boardCategory() {
+	var cat1 = $('#searchCategory1').val();
+	console.log(cat1);
+	if (cat1 == 0) {
+		$('#searchCategory2').attr('disabled', 'disabled');
+	} else if (cat1 == 1) {
+		$('#searchCategory2').removeAttr('disabled');
+		$('#searchCategory2>option').eq(0).html('선택');
+		$('#searchCategory2>option').eq(0).attr('disabled', 'disabled');
+		$('#searchCategory2>option').eq(1).html('제목');
+		$('#searchCategory2>option').eq(1).val('r_title');
+		$('#searchCategory2>option').eq(2).html('본문');
+		$('#searchCategory2>option').eq(2).val('r_content');
+		$('#searchCategory2>option').eq(3).html('글쓴이');
+		$('#searchCategory2>option').eq(3).val('r_writer');
+		$('#searchform').attr('action', '/report/SearchTotal');
+	} else if (cat1 == 2) {
+		$('#searchCategory2').removeAttr('disabled');
+		$('#searchCategory2>option').eq(0).html('선택');
+		$('#searchCategory2>option').eq(0).attr('disabled', 'disabled');
+		$('#searchCategory2>option').eq(1).html('제목');
+		$('#searchCategory2>option').eq(1).val('f_title');
+		$('#searchCategory2>option').eq(2).html('본문');
+		$('#searchCategory2>option').eq(2).val('f_content');
+		$('#searchCategory2>option').eq(3).html('글쓴이');
+		$('#searchCategory2>option').eq(3).val('f_writer');
+		$('#searchform').attr('action', '/board/SearchTotal');
+	} else if (cat1 == 3) {
+		$('#searchCategory2').removeAttr('disabled');
+		$('#searchCategory2>option').eq(0).removeAttr('disabled');
+		$('#searchCategory2>option').eq(0).val('all');
+		$('#searchCategory2>option').eq(0).html('전체');
+		$('#searchCategory2>option').eq(1).val('b_name');
+		$('#searchCategory2>option').eq(1).html('제목');
+		$('#searchCategory2>option').eq(2).html('저자');
+		$('#searchCategory2>option').eq(2).val('b_author');
+		$('#searchCategory2>option').eq(3).html('출판사');
+		$('#searchCategory2>option').eq(3).val('b_code');
+		$('#searchform').attr('action', '/store/SearchTotal');
+	}
+}
+
+//사이드 검색창 : submit시 작업
+function searchsite() {
+	if ($('#searchQuery').val() == "") {
+		alertY('검색어를 입력해주세요!');
+		$('#searchQuery').focus();
+	} else {
+		if ($('#searchCategory1').val() == '0') {
+			alertY('게시판을 선택해주세요!');
+			$('#searchQuery').focus();
+		} else {
+			if ($('#searchCategory2').val() == null) {
+				alertY('분류를 선택해주세요!');
+			} else {
+				$('#searchform').submit();
+			}
 		}
-		function boardCategory(){
-		}
+	}
+}
