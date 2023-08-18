@@ -1,0 +1,10 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="/leaf/layout/config :: config">	
+<title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">감토 | </title>
+</head>
+	<body>
+		<div th:replace="/leaf/layout/header :: header"></div>
+        <div layout:fragment="layout"></div>
+        <div th:replace="/leaf/layout/footer :: footer"></div>
+	</body>
+</html>
