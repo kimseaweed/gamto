@@ -225,7 +225,6 @@ public class FreeboardController {
 			return "3";
 		}else {
 			int l_numberValue = Integer.parseInt(l_number);
-			System.out.println(l_number);
 
 			int result = dao.likeCheck(l_board, l_numberValue, l_id);
 
@@ -246,9 +245,8 @@ public class FreeboardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/commentGood")
+	@RequestMapping("/commentFeeling")
 	public String commentGood(String l_number, HttpSession session, String feeling) {
-		System.out.println("test댓글");
 		
 		String l_id =(String)session.getAttribute("u_id");
 		
@@ -260,22 +258,16 @@ public class FreeboardController {
 			int Goodresult = dao.likeCheck(3, l_numberValue, l_id);
 			int BadResult = dao.likeCheck(4, l_numberValue, l_id);
 			
-			System.out.println(Goodresult);
-			System.out.println(BadResult);
-			System.out.println(l_number);
-			System.out.println(l_id);
-			System.out.println(feeling);
-
 			if (Goodresult == 0 && BadResult == 0) {
 				if(feeling.equals("good")) {
 					dao.cGoodCnt(l_number);
 					dao.insertLike(3, l_numberValue, l_id);
-					System.out.println("좋아요 성공");
+					
 					return "1";
 				}else {
 					dao.cBadCnt(l_number);
 					dao.insertLike(4, l_numberValue, l_id);
-					System.out.println("싫어요 성공");
+					
 					return "1";
 				}
 				
@@ -283,20 +275,20 @@ public class FreeboardController {
 				if(feeling.equals("good")) {
 					dao.cGoodCancel(l_number);
 					dao.deleteLike(3, l_numberValue, l_id);
-					System.out.println("좋아요 취소");
+					
 					return "2";
 				}else {
-					System.out.println("좋아요가 눌러있어서 싫어요를 할 수 없음");
+					
 					return "0";	
 				}
 			} else if(Goodresult == 0 && BadResult == 1) {
 				if(feeling.equals("good")) {
-					System.out.println("싫어요가 눌러있어서 좋아요를 할 수 없음");
+					
 					return "0";
 				}else {
 					dao.cBadCancel(l_number);
 					dao.deleteLike(4, l_numberValue, l_id);
-					System.out.println("싫어요 취소");
+					
 					return "2";
 				}
 			} else {

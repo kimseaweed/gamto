@@ -27,7 +27,7 @@ public class KakaoPayController {
 	@Autowired
     private KakaoPay kakaopay;
 	@Autowired
-    private MemberDAO memberDAO;
+	 private MemberDAO memberDAO;
     @Autowired
     private StoreDAO store;
     @GetMapping("/kakaoPay")

@@ -103,13 +103,35 @@
                               </div>
                               <div class="col text-end">
                                  <span><small>등록 날짜 : ${cdto.c_regist_day}</small></span> | <span><small>수정 날짜 : ${cdto.c_update_day}</small></span>
-                                 <span id="cGood"><button type="button" class="commentGood" id="${cdto.c_seq_number}">${cdto.c_recommend}</button></span>
-                                 <span id="cBad"><button type="button" class="commentBad" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button></span>
+											<c:set var="c_number" value="${cdto.c_seq_number}" />
+											<c:set var="l_board" value="3" />
+											<c:out value="${c_number}"/>
+											<c:choose>
+												<c:when
+													test="${myLike.likeCheck(l_board,c_number,userId) eq '1'}">
+													<c:set var="commentLikeCheck" value="bi-hand-thumbs-up-fill" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="commentLikeCheck" value="bi-hand-thumbs-up" />
+												</c:otherwise>
+											</c:choose>
+											<span id="cGood"><button type="button" class="commentGood ${commentLikeCheck}" id="${cdto.c_seq_number}">${cdto.c_recommend}</button> </span>
+											<c:set var="l_board" value="4" />
+											<c:choose>
+												<c:when
+													test="${myLike.likeCheck(l_board,c_number,userId) eq '1'}">
+													<c:set var="commentBadCheck" value="bi bi-hand-thumbs-down-fill" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="commentBadCheck" value="bi bi-hand-thumbs-down" />
+												</c:otherwise>
+											</c:choose>
+                                 <span id="cBad"><button type="button" class="commentBad ${commentBadCheck}" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button></span>
                                  <c:if test="${dto.f_writer==userId}">
-                                    <span id="cGood"><button type="button"
-                                          class="updateComment enable" id="${cdto.c_seq_number}">수정</button></span>
-                                    <span id="cBad"><button type="button" class="deleteComment"
-                                          id="${cdto.c_seq_number}">삭제</button></span>
+                                    <button type="button"
+                                          class="updateComment enable" id="${cdto.c_seq_number}">수정</button>
+                                    <button type="button" class="deleteComment"
+                                          id="${cdto.c_seq_number}">삭제</button>
                                  </c:if>
                               </div>
                            </div>
@@ -175,77 +197,7 @@
          })
       })
       
-     
-      
-      $(document).on('click','.commentGood',function (e) {
-    	  var c_seq_number =  $(this).attr("id");
-          var l_number = c_seq_number;
-         alert(l_number);
-         
-         var feeling = 'good';
-         
-         $.ajax({
-            type:'POST',
-            url:'/board/commentGood',
-            dataType : 'json',
-            data : {'l_number': l_number,
-                  'feeling' : feeling,
-                  },
-            error : function(){
-               alert('좋아요 실패');
-            }, 
-            success : function(result){
-               if(result=="3"){
-                  alert('로그인이 필요합니다.');
-               }else if(result=="1"){
-                  alert('추천 성공');
-                  //하트 활성화 상태
-               }else if(result=="0"){
-                  alert('이미 싫어요를 선택하셨습니다.');
-                  //하트 끄셈
-               }else if(result=="2"){
-                  alert('추천 취소')
-               }else{
-                  alert('알수없는 문제 :'+result);
-               }
-            }
-         })
-      })
-      
-      $(document).on('click','.commentBad',function (e) {
-         var c_seq_number =  $(this).attr("id");
-         var l_number = c_seq_number;
-         alert(l_number);
-         var feeling = 'bad';
-            
-            $.ajax({
-               type:'POST',
-               url:'/board/commentGood',
-               dataType : 'json',
-               data : {'l_number': l_number,
-                     'feeling' : feeling,
-                     },
-               error : function(){
-                  alert('연결 실패');
-               }, 
-               success : function(result){
-                  if(result=="3"){
-                     alert('로그인이 필요합니다.');
-                  }else if(result=="1"){
-                     alert('싫어요 선택');
-                     //하트 활성화 상태
-                  }else if(result=="0"){
-                     alert('이미 좋아요를 선택하셨습니다.');
-                     //하트 끄셈
-                  }else if(result=="2"){
-                     alert('싫어요 취소');
-                  }else{
-                     alert('모르겠네 대체 '+result);
-                  }
-               }
-            })
-         })
-      
+    
       
    $(document).on('click','.btnComment',function (e) {
       var writer = document.getElementById('writer').value;
@@ -293,6 +245,77 @@
       })
    }
    
+    
+    
+    $(document).on('click','.commentGood',function (e) {
+  	  var c_seq_number =  $(this).attr("id");
+      var l_number = c_seq_number;
+     
+       var feeling = 'good';
+       
+       $.ajax({
+          type:'POST',
+          url:'/board/commentFeeling',
+          dataType : 'json',
+          data : {'l_number': l_number,
+                'feeling' : feeling,
+                },
+          error : function(){
+             alert('좋아요 실패');
+          }, 
+          success : function(result){
+             if(result=="3"){
+                alert('로그인이 필요합니다.');
+             }else if(result=="0"){
+                 alert('이미 싫어요를 선택하셨습니다.');
+                 //하트 끄셈
+             }else if(result=="1"){
+                alert('추천 성공');
+                //하트 활성화 상태
+             }else if(result=="2"){
+                alert('추천 취소')
+             }else{
+                alert('알수없는 문제 :'+result);
+             }
+             $('#cGood').load(window.location.href+" #cGood>button");
+          }
+       })
+    })
+    
+    $(document).on('click','.commentBad',function (e) {
+       var c_seq_number =  $(this).attr("id");
+       var l_number = c_seq_number;
+       var feeling = 'bad';
+          
+          $.ajax({
+             type:'POST',
+             url:'/board/commentFeeling',
+             dataType : 'json',
+             data : {'l_number': l_number,
+                   'feeling' : feeling,
+                   },
+             error : function(){
+                alert('연결 실패');
+             }, 
+             success : function(result){
+                if(result=="3"){
+                   alert('로그인이 필요합니다.');
+                }else if(result=="0"){
+                    alert('이미 좋아요를 선택하셨습니다.');
+                    //하트 끄셈
+                }else if(result=="1"){
+                   alert('싫어요 선택');
+                   //하트 활성화 상태
+                }else if(result=="2"){
+                   alert('싫어요 취소');
+                }else{
+                   alert('모르겠네 대체 '+result);
+                }
+                $('#cBad').load(window.location.href+" #cBad>button");
+             }
+          })
+       })
+    
     $(document).on('click','.updateComment',function (e) {
 
       if($(this).attr('class')=='updateComment enable'){
@@ -301,6 +324,10 @@
       $(this).addClass('disable');
       $(this).removeClass('enable');
       var value=document.getElementById(c_seq_number+'comment').innerText;
+      
+      var commentValue=document.getElementById(c_seq_number).innerHTML;
+      
+      alert(commentValue);
       
       document.getElementById(c_seq_number+'comment').innerHTML=
       '<input type="textarea" style="height: 80px; width: 100%;" value="'+value+'"/>';
