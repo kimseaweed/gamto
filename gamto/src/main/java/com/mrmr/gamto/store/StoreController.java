@@ -25,12 +25,10 @@ import jakarta.servlet.http.HttpSession;
 public class StoreController {
 	@Autowired
 	StoreDAO dao;
-	@Autowired
-	
+
 	
 	@RequestMapping()
 	public String BookList(@RequestParam(required=false, defaultValue="1") int pageNo, Model model) {
-
 			PagingVO page = new PagingVO(pageNo,10,dao.countBookList());
 			
 			Map<String, Integer> map = new HashMap<>();
@@ -158,7 +156,7 @@ public class StoreController {
 			return "/kakaoPay/kakaoPay";
 		}
 	
-	@RequestMapping("")//구매내역
+	@RequestMapping("/purchaseList")//구매내역
 	public String purchaseListDao(Model model) {
 		model.addAttribute("list", dao.purchaseList());
 		return "store/purchaseList";
