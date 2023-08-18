@@ -11,6 +11,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -53,52 +55,97 @@
 		}
 	}
 </script>
+<style>
+	.c-bd{
+		border:1px solid gray;
+		padding:30px;
+	}
+	.logobox a>span, .offcanvas-title{
+	font-family: "Yeongdo-Rg";
+}
+header > nav >ul>li>a{
+	font-family: "116angmuburi";
+	font-size: 2rem;
+	font-weight: bold;
+	letter-spacing: 3px;
+	word-spacing: -6px;
+}
+.logobox .img{
+	width:50px;
+	height: 86.5px;
+	background-repeat: no-repeat;
+	background-image: url("../img/logo/logo1.png");
+	background-size: contain;
+}
+/* header{
+	width: 100%;
+} */
+</style>
 </head>
 <body>
 	<div class="container mt-2">
-		<form action="newMember" method="post" name="newMember">
-			<div class="form-group row">
-				<label class="col-sm-2">회원 아이디</label> 
-				<input type="text" class="form-control col-sm-3" name="u_id" placeholder="id">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="logobox pb-2">
+			<a href="/" class="text-decoration-none d-flex align-items-end">
+				<div class="img"></div> <span class="ms-3 link-dark display-5 mb-2"></span>
+			</a>
+		</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8 c-bd">
+				<form action="newMember" method="post" name="newMember">
+					<div class="form-group row">
+						<div class="col-sm-1"></div>
+						<label class="col-sm-3">회원 아이디</label> 
+						<input type="text" class="form-control col-sm-7" name="u_id" placeholder="id">
+					</div>
+					<div class="form-group row">
+					<div class="col-sm-1"></div>
+						<label class="col-sm-3">회원 비밀번호</label> 
+						<input type="text"class="form-control col-sm-7" name="u_pw"placeholder="password">
+					</div>
+					<div class="form-group row">
+					<div class="col-sm-1"></div>
+						<label class="col-sm-3">회원 이름</label> 
+						<input type="text" class="form-control col-sm-7" name="u_name" placeholder="name">
+					</div>
+					<div class="form-group row">
+					<div class="col-sm-1"></div>
+						<label class="col-sm-3 ">이메일</label> 
+						<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50">@
+						<input type="text" name="u_email2" id="u_email2" class="form-control col-sm-2"> 
+						<select id="u_email3" size='1' onchange="return checkEmail()">
+							<option value="">직접 입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="gamil.com">gamil.com</option>
+							<option value="nate.com">nate.com</option>
+						</select> 
+						<div id="warningMessage" style="color: red;"></div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-1"></div>
+						<label class="col-sm-3">연락처</label> <input type="text"
+							class="form-control col-sm-7" name="u_phone" placeholder="phone">
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-1"></div>
+						<label class="col-sm-3">주소</label> 
+						<input type="text" class="form-control col-sm-5" id="u_address" name="u_address" placeholder="주소">
+						<input type="button" class="col-sm-2 text-center" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+					</div>
+					<div class="form-group row">
+					<input type="hidden" value="0"name="u_delete">
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-1"></div>
+						<input class="col-sm-10 btn btn-secondary" type="button" onclick="checkForm()" value="회원가입" /> 
+					</div>
+				</form>
 			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">회원 비밀번호</label> 
-				<input type="text"class="form-control col-sm-3" name="u_pw"placeholder="password">
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">회원 이름</label> 
-				<input type="text" class="form-control col-sm-3" name="u_name" placeholder="name">
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">이메일</label> 
-				<input type="text" class="form-control col-sm-3 mr-3 smallletter" id="u_email1" name="u_email1" maxleng="50">@
-				<input type="text" name="u_email2" id="u_email2"> 
-				<select id="u_email3" size='1' onchange="return checkEmail()">
-					<option value="">직접 입력</option>
-					<option value="naver.com">naver.com</option>
-					<option value="daum.net">daum.net</option>
-					<option value="gamil.com">gamil.com</option>
-					<option value="nate.com">nate.com</option>
-				</select> 
-				<div id="warningMessage" style="color: red;"></div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">연락처</label> <input type="text"
-					class="form-control col-sm-3" name="u_phone" placeholder="phone">
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">주소</label> 
-				<input type="text" class="form-control col-sm-3" id="u_address" name="u_address" placeholder="주소">
-				<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-			</div>
-			<div class="form-group row">
-			<input type="hidden" value="0"name="u_delete">
-			</div>
-			<div class="form-group row">
-				<input class="btn btn-success mx-2" type="button" onclick="checkForm()" value="회원가입" /> 
-				<input class="btn btn-danger mx-2" type="reset" onclick="checkForm()" value="취소" />
-			</div>
-		</form>
+		</div>
 	</div><!-- container -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 API KEY를 사용하세요&libraries=services"></script>

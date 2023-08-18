@@ -103,7 +103,7 @@ public class MemberController {
 		dto.setU_email(u_email1+"@"+u_email2);
 		if(dao.overlapIdDao(dto.getU_id()) == null &&dao.overlapMailDao(dto.getU_email())==null){
 			dao.addMemberDao(dto.getU_id(), dto.getU_pw(), dto.getU_name(), dto.getU_phone(), dto.getU_email(), dto.getU_address(), "0");
-			return "redirect:/member/resultMember?msg="+1;
+			return "member/loginMemberForm";
 		}else {
 			System.out.println("확인");
 			return "member/addFalseMember";
