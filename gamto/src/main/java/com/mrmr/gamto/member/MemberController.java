@@ -64,10 +64,7 @@ public class MemberController {
 			// 로그인정보가 있어서 원래 가려던 페이지로 연결
 		}
 	}
-	@RequestMapping("/resultMember")
-	public String resultMemberOk(Model model) {
-		return "/member/resultMember";
-	}
+	
 	@RequestMapping("/addMember")
 	public String resultMemberFail() {
 		return "/member/addMember";
@@ -117,7 +114,7 @@ public class MemberController {
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request) {
 		dao.deleteMemberDao(request.getParameter("u_id"));
-		return "/member/resultMember";
+		return "member/logoutMember";
 	}
 	
 	
@@ -148,7 +145,7 @@ public class MemberController {
 		dto.setU_email(request.getParameter("mail1")+"@"+request.getParameter("mail2"));
 		System.out.println("dto값 : "+dto);
 		dao.updateMemberDao(dto);
-		return "/member/resultMember";
+		return "/index";
 	}
 	
 	//kakaoPay에 보내는 mapping
