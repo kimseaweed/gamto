@@ -57,4 +57,8 @@
 		(select f_seq_number as seq_number, '우리생각' as tablename, f_title as title, f_regist_day as regist_day from free_board where f_writer = #{param1} and f_delete=0)
 		) m)
 	</select>
+	
+    <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
+    select * from member_function where u_id=#{u_id}
+    </select>
 </mapper>

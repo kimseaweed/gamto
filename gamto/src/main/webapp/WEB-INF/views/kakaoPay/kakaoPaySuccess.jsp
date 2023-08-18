@@ -29,7 +29,7 @@ main>table {
 					width="125" height="120" /><br>
 					<p class="pt-2">
 						<span class="text-muted px-2">주문번호</span>
-						${info.partner_order_id}
+						${merchant_uid.merchant_uid}
 					</p>
 					<h2 class="">
 						결제가 정상적으로 <b>완료</b>되었습니다.
@@ -46,27 +46,26 @@ main>table {
 						<p class="mb-1 col-2 fw-bold text-center">수량</p>
 						<p class="mb-1 col-4 fw-bold text-end">가격&nbsp;&nbsp;&nbsp;</p>
 					</div> <!-- ▼ 여기서 구매목록 반복 -->
-                    <c:foreach var="dto" items="${cart}" varStatus="status">
+                   <c:foreach varStatus="status">
+                   <c:set/>
+                   <c:set/>
+                   <c:set/>
+                   <c:set/>
 						<div class="row">
 							<p class="col-6 ">${dto.cart_name}</p>
 							<p class="col-2 text-center">
-								<fmt:formatNumber value="${dto.cart_quantity}" pattern="#,### 개" />
+								<fmt:formatNumber value="${quantity.quantity}" pattern="#,### 개" />
 							</p>
 							<p class="col-4 text-end">
-								<fmt:formatNumber value="${dto.cart_price}" pattern="￦ #,###" />
+								<fmt:formatNumber value="${amount.amount}" pattern="￦ #,###" />
 							</p>
 						</div>
 						<!-- ▲ 여기까지 반복 -->
-					</c:foreach> <div class="row bt-2-dot py-2 mt-4">
-						<p class="my-2 col-8 fw-bold">배송비</p>
-						<p class="my-2 col-4 fw-bold text-end">
-							<fmt:formatNumber value="${3000}" pattern="￦ #,###.##" />
-						</p>
-					</div>
+					</c:foreach> 
 					<div class="row bt-2-dash bb-2-dash py-2 fs-5 mb-4">
 						<p class="my-3 col-6 fw-bold">최종 결제금액</p>
 						<p class="my-3 col-6 fw-bold text-end fs-5">
-							<fmt:formatNumber value="${info.amount.total}" pattern="#,###" />
+							<fmt:formatNumber value="${amount.amount}" pattern="#,###" />
 							<span class="fs-6">원</span>
 						</p>
 					</div>

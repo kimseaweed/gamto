@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import com.mrmr.gamto.kakaoPay.service.KakaoPay;
 import com.mrmr.gamto.member.dao.MemberDAO;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.server.PathParam;
 
 @Controller
 public class KakaoPayController {
@@ -44,14 +46,24 @@ public class KakaoPayController {
     
     @RequestMapping("/kakaoPay/kakaoPaySuccess")
     @ResponseBody
-    public String kakaoPaySuccess(Model model, String merchant_uid, String amount, String order, String quantity) {
-    	
+    public String kakaoPaySuccess(Model model, String merchant_uid, String amount, String order, 
+    		                     String quantity, String buyer_name, String buyer_tel, String buyer_addr) {
     	System.out.println(merchant_uid+"가나"+amount+"다라"+order+"마바"+quantity);
     	model.addAttribute("merchant_uid", merchant_uid);
     	model.addAttribute("amount", amount);
     	model.addAttribute("order", order);
     	model.addAttribute("quantity", quantity);
-        return "kakaoPay/kakaoPaySuccess";
+    	model.addAttribute("buyer_name", buyer_name);
+    	model.addAttribute("buyer_tel", buyer_tel);
+    	model.addAttribute("buyer_addr", buyer_addr);
+    	
+        return "<script>location.href='/kakaoPay/kakaoPaySuccessPage?code="+merchant_uid+"</script>";
+    }
+    @RequestMapping("/kakaoPay/kakaoPaySuccessPage")
+    public String kakaoPayMove(Model model, String code) {
+     System.out.println("comeback");
+
+    return "/kakaoPay/kakaoPaySuccess";
     }
     @RequestMapping("/kakaoPay/kakaoPayCancel")
     public String kakaoPayCancel(Model model) {

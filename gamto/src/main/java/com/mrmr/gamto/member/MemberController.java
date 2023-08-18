@@ -151,4 +151,11 @@ public class MemberController {
 		return "/member/resultMember";
 	}
 	
+	//kakaoPay에 보내는 mapping
+	@RequestMapping("/kakaoPay/kakaoPay")
+    public String orderDetail(Model model, HttpSession session) {
+	    String u_id = (String)session.getAttribute("u_id");
+		model.addAttribute("userInfo", dao.orderDetail(u_id));
+		return "/kakaoPay/kakaoPay";
+	}
 }

@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="cartDao" resultType="com.mrmr.gamto.store.dto.CartDTO">
 	select cart.cart_code as cart_code, book_info.b_name as cart_name, book_info.b_filename as cart_filename, book_info.b_price as cart_price, book_info.b_author as cart_author, cart.cart_quantity as cart_quantity FROM cart join book_info on cart.cart_code = book_info.b_code where cart_id = #{param1} and cart_quantity > 0
 	</select>
-    <!--  -->
+    <!-- 장바구니에 담기  -->
 	<update id="addCartDao">
 		MERGE INTO cart USING (SELECT b_code, b_name,
 		b_filename, b_price FROM book_info WHERE b_code = #{param2}) bi ON
@@ -76,10 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listNumDao" resultType="int">
 	   select count(cart_code) from cart where cart_quantity>0 and cart_id = #{param1}
 	</select>
-	
-	<select id="setKakaoPay" resultType="com.mrmr.gamto.store.dto.CartDTO">
-	select * from cart
-	</select>
+
 	<!-- 구매내역 -->
     <select id="purchaseListDao" resultType="com.mrmr.gamto.store.dto.OrderTableDTO">
     	select * from product_order

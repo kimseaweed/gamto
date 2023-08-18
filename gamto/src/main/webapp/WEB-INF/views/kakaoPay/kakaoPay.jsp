@@ -18,12 +18,15 @@ System.out.println("stotalCost: "+stotalCost);
 <title>kakaoPay</title>
 </head>
 <body>
-<!-- <form action="/kakaoPay/kakaoPaySuccess" method="post">
 
-</form> -->
 </body>
 </html>
 <script>
+$(document).ready(function(){
+	console.log('${userInfo.u_name}');
+
+})
+
 var IMP = window.IMP; // 생략가능
 IMP.init('imp23418340');
 // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
@@ -67,11 +70,14 @@ if(<%=bookQuantity%>=='1'){
         		merchant_uid : rsp.merchant_uid,
          		amount: rsp.paid_amount,
          		order:<%=orderCode%>,
-         	    quantity: <%=bookQuantity%> 
+         	    quantity: <%=bookQuantity%>,
+         	    buyer_name: rsp.buyer_name,
+         	    buyer_tel: rsp.buyer_tel,
+         	    buyer_addr: rsp.buyer_addr
         	},
         	success:function(res){
         		console.log('return start');
-        		
+        		location.href="/kakaoPay/kakaoPaySuccess";
         	}
          })
       } else {
@@ -120,11 +126,14 @@ if(<%=bookQuantity%>=='1'){
          		merchant_uid : rsp.merchant_uid,
          		amount: rsp.paid_amount,
          		order:<%=orderCode%>,
-         	    quantity: <%=bookQuantity%> 
+         	    quantity: <%=bookQuantity%>,
+         	    buyer_name: rsp.buyer_name,
+         	    buyer_tel: rsp.buyer_tel,
+         	    buyer_addr: rsp.buyer_addr
          	},
          	success:function(res){
          		console.log('return start');
-         		
+         		location.href='/kakaoPay/kakaoPaySuccessPage?code='+rsp.merchant_uid;
          	}
           })
          // success.submit();
