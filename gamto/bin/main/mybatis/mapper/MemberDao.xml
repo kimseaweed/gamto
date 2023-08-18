@@ -58,7 +58,4 @@
 		) m)
 	</select>
 	
-    <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
-    select * from member_function where u_id=#{u_id}
-    </select>
 </mapper>

@@ -118,7 +118,7 @@ if(<%=bookQuantity%>=='1'){
          var msg = '결제가 완료되었습니다.';
          msg += '결제 금액 : ' + rsp.paid_amount;
          $.ajax({
-         	url:'/kakaoPay/kakaoPaySuccess',
+         	url:'/kakaoPay/getKakaoPayInfo',
          	dadtaType:'/json',
          	type:'GET',
          	contentType:'application/json',

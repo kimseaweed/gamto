@@ -25,6 +25,8 @@ import jakarta.servlet.http.HttpSession;
 public class StoreController {
 	@Autowired
 	StoreDAO dao;
+	@Autowired
+	
 	
 	@RequestMapping()
 	public String BookList(@RequestParam(required=false, defaultValue="1") int pageNo, Model model) {
@@ -148,10 +150,17 @@ public class StoreController {
 		
 		return "store/store";
 	}
+	//kakaoPay에 보내는 mapping
+		@RequestMapping("/kakaoPay/kakaoPay")
+	    public String orderDetail(Model model, HttpSession session) {
+		    String u_id = (String)session.getAttribute("u_id");
+			model.addAttribute("userInfo", dao.orderDetail(u_id));
+			return "/kakaoPay/kakaoPay";
+		}
 	
-	@RequestMapping("/purchaseList")//구매내역
+	@RequestMapping("")//구매내역
 	public String purchaseListDao(Model model) {
-		model.addAttribute("list", dao.purchaseListDao());
+		model.addAttribute("list", dao.purchaseList());
 		return "store/purchaseList";
 	}
 }

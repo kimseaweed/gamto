@@ -7,16 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mrmr.gamto.kakaoPay.service.KakaoPay;
 import com.mrmr.gamto.member.dao.MemberDAO;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.server.PathParam;
 
 @Controller
 public class KakaoPayController {
@@ -44,7 +43,7 @@ public class KakaoPayController {
  
     }
     
-    @RequestMapping("/kakaoPay/kakaoPaySuccess")
+    @RequestMapping(value="/kakaoPay/getKakaoPayInfo", method = RequestMethod.GET)
     @ResponseBody
     public String kakaoPaySuccess(Model model, String merchant_uid, String amount, String order, 
     		                     String quantity, String buyer_name, String buyer_tel, String buyer_addr) {
@@ -56,7 +55,6 @@ public class KakaoPayController {
     	model.addAttribute("buyer_name", buyer_name);
     	model.addAttribute("buyer_tel", buyer_tel);
     	model.addAttribute("buyer_addr", buyer_addr);
-    	
         return "<script>location.href='/kakaoPay/kakaoPaySuccessPage?code="+merchant_uid+"</script>";
     }
     @RequestMapping("/kakaoPay/kakaoPaySuccessPage")

@@ -78,7 +78,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 구매내역 -->
-    <select id="purchaseListDao" resultType="com.mrmr.gamto.store.dto.OrderTableDTO">
-    	select * from product_order
+    <insert id="receivePurchase" parameterType="com.mrmr.gamto.store.dto.OrderTableDTO">
+    	insert into 
+    </insert>
+    <!-- kakaoPay에 데이터 보냄 -->
+    <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
+    select * from member_function where u_id=#{u_id}
     </select>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mrmr.gamto.member.dto.MemberDTO;
 import com.mrmr.gamto.store.dto.CartDTO;
 import com.mrmr.gamto.store.dto.StoreDTO;
 import com.mrmr.gamto.store.dto.OrderTableDTO;
@@ -21,8 +22,11 @@ public interface StoreDAO {
 	public int removeCartDao(String u_id, String b_code); //장바구니 삭제 메소드 
 	public int removeAllCartDao(String u_id); //장바구니 목록 전체 삭제 메소드
 	public int listNumDao(String u_id); //장바구니 갯수.
-	
-	public List<OrderTableDTO> purchaseListDao();//구매내역
+	//주문내역 
+	public MemberDTO orderDetail(String u_id);
+	//구매 내역
+	public List<OrderTableDTO> purchaseList();//구매내역
+	public void receivePurchase(OrderTableDTO orderTable); // 구매정보 받는 메서드
 	
 	/* 페이징하는 부분 */
 	public int countBookList();
