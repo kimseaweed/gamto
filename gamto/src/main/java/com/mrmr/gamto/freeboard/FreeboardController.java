@@ -42,6 +42,7 @@ public class FreeboardController {
 		
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
+		model.addAttribute("dao",dao);
 		
 		return "freeboard/board";
 	}
@@ -83,6 +84,7 @@ public class FreeboardController {
 		
 		model.addAttribute("cDto",dao.cListDao(fId));
 		model.addAttribute("result", dao.commentTotal(fId));
+		model.addAttribute("myLike",dao);
 		
 		return "freeboard/view";
 	}
@@ -250,37 +252,56 @@ public class FreeboardController {
 		
 		String l_id =(String)session.getAttribute("u_id");
 		
-		int l_board = 3;
-		
 		if(l_id==null) {
 			return "3";
 		}else {
 			int l_numberValue = Integer.parseInt(l_number);
 
-			int result = dao.likeCheck(l_board, l_numberValue, l_id);
+			int Goodresult = dao.likeCheck(3, l_numberValue, l_id);
+			int BadResult = dao.likeCheck(4, l_numberValue, l_id);
+			
+			System.out.println(Goodresult);
+			System.out.println(BadResult);
+			System.out.println(l_number);
+			System.out.println(l_id);
+			System.out.println(feeling);
 
-			if (result == 0) {
+			if (Goodresult == 0 && BadResult == 0) {
 				if(feeling.equals("good")) {
 					dao.cGoodCnt(l_number);
-					dao.insertLike(l_board, l_numberValue, l_id);
+					dao.insertLike(3, l_numberValue, l_id);
+					System.out.println("좋아요 성공");
 					return "1";
-				}else if(feeling.equals("bad")) {
+				}else {
 					dao.cBadCnt(l_number);
-					dao.insertLike(l_board, l_numberValue, l_id);
+					dao.insertLike(4, l_numberValue, l_id);
+					System.out.println("싫어요 성공");
 					return "1";
 				}
 				
-			} else {
+			} else if(Goodresult == 1 && BadResult == 0) {
 				if(feeling.equals("good")) {
-					dao.cGoodCnt(l_number);
-					dao.insertLike(l_board, l_numberValue, l_id);
+					dao.cGoodCancel(l_number);
+					dao.deleteLike(3, l_numberValue, l_id);
+					System.out.println("좋아요 취소");
 					return "2";
-				}else if(feeling.equals("bad")) {
-					dao.cBadCnt(l_number);
-					dao.insertLike(l_board, l_numberValue, l_id);
-					
+				}else {
+					System.out.println("좋아요가 눌러있어서 싫어요를 할 수 없음");
+					return "0";	
 				}
-			}	return "2";
+			} else if(Goodresult == 0 && BadResult == 1) {
+				if(feeling.equals("good")) {
+					System.out.println("싫어요가 눌러있어서 좋아요를 할 수 없음");
+					return "0";
+				}else {
+					dao.cBadCancel(l_number);
+					dao.deleteLike(4, l_numberValue, l_id);
+					System.out.println("싫어요 취소");
+					return "2";
+				}
+			} else {
+				return "5";
+			}
 			
 			//상황 0 좋아요 성공
 			//상황 1 로그인이 안되어있을때
