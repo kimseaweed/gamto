@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrmr.gamto.admin.dao.AdminDAO">
+	<!-- 문의전체보기 -->
+	<select id="askListDao" parameterType="List" resultType="com.mrmr.gamto.help.dto.AskDTO">
+	select
+		(select count(*)from ask) as a_total,
+			CASE
+				WHEN (SYSDATE - a.a_date &lt;= 1) 
+					THEN 
+                        CASE
+                            WHEN (SYSDATE - a.a_date) * 24 * 60 &lt; 60 
+                               THEN TO_CHAR(TRUNC((SYSDATE - a.a_date) * 24 * 60)) || '분 전'
+                               ELSE TO_CHAR(TRUNC((SYSDATE - a.a_date) * 24)) || '시간 ' || 
+                                        TO_CHAR(TRUNC(MOD((SYSDATE - a_date) * 24 * 60, 60))) || '분 전'
+                            END
+					ELSE TO_CHAR(a.a_date, 'YY-MM-DD')
+				END
+		AS a_date,
+		a.a_seq_number,
+		a.a_id,
+		a.a_category,
+		a.a_content,
+		a.a_filename,
+		a.a_email,
+		a.a_reception,
+		a.a_complete
+	from
+		(select rownum as rn, a.* from (select ask.* FROM ask order by
+		a_seq_number desc)a)a
+		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
+	</select>
+	<!-- 문의상세보기 -->
+	<select id="askViewDao"
+		resultType="com.mrmr.gamto.help.dto.AskDTO">
+		SELECT * FROM ask WHERE a_seq_number=#{a_seq_number}
+	</select>
+
+	<!-- 문의진행사항 변경 -->
+	<update id="askUpdateComplete">
+		UPDATE ask SET a_complete = #{a_complete} WHERE
+		a_seq_number=#{a_seq_number}
+	</update>
+
+	<!-- 신고관리기능 -->
+	<!-- 문의전체보기 -->
+	<select id="accuseListDao" parameterType="List"
+		resultType="com.mrmr.gamto.help.dto.AccuseDTO">
+		select
+			(select count(*)from accuse) as ac_total,
+				CASE
+					WHEN (SYSDATE - ac.ac_date &lt;= 1) 
+						THEN 
+	                        CASE
+	                            WHEN (SYSDATE - ac.ac_date) * 24 * 60 &lt; 60 
+	                               THEN TO_CHAR(TRUNC((SYSDATE - ac.ac_date) * 24 * 60)) || '분 전'
+	                               ELSE TO_CHAR(TRUNC((SYSDATE - ac.ac_date) * 24)) || '시간 ' || 
+	                                        TO_CHAR(TRUNC(MOD((SYSDATE - ac_date) * 24 * 60, 60))) || '분 전'
+	                            END
+						ELSE TO_CHAR(ac.ac_date, 'YY-MM-DD')
+					END
+			AS ac_date,
+			ac.ac_seq_number,
+			ac.ac_id,
+			 CASE
+			 	WHEN ( LENGTH(ac.ac_target) &gt; 7 )
+			 		THEN ac.ac_target
+			 		ELSE substr (ac.ac_target, 0, 7 )| |' ..' 
+				END
+			AS ac_target,
+			ac.ac_category,
+			ac.ac_content,
+			ac.ac_filename,
+			ac.ac_complete
+		from
+			(select rownum as rn, ac.* from (select accuse.* FROM accuse order by ac_seq_number desc)ac)ac
+		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
+	</select>
+	<!-- 문의상세보기 -->
+	<select id="accuseViewDao"
+		resultType="com.mrmr.gamto.help.dto.AccuseDTO">
+		SELECT * FROM accuse WHERE ac_seq_number=#{ac_seq_number}
+	</select>
+
+	<!-- 문의진행사항 변경 -->
+	<update id="accuseUpdateComplete">
+		UPDATE accuse SET ac_complete = #{ac_complete} WHERE
+		ac_seq_number=#{ac_seq_number}
+	</update>
+
+</mapper>

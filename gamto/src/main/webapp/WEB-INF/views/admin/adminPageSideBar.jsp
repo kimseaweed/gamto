@@ -7,15 +7,20 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	<div class="col-xl-2 col-12 p-3">
-		<h1 class="navbar-expand-xl text-center pt-3 pb-5">관리자<br>페이지</h1>
+	<div class="col-lg-2 col-12 p-3">
+		<h1 class="navbar-expand-lg  text-center pt-3 pb-lg-5 pb-2">관리자<br>페이지</h1>
 		<nav class="">
-			<ul class="navbar fs-4 d-inline-block-xl">
-			<li class="py-4"> <a href="/admin">회원관리</a> </li>
-			<li class="py-4"><a href="/admin/ask">문의내역</a> </li>
-			<li class="py-4"><a href="/admin">게시물관리</a></li>
-			<li class="py-4"><a href="/admin">상품관리</a></li>
-			<li class="py-4"><a href="/admin"></a></li>
+			<ul class=" fs-4 d-flex d-lg-block ps-1 text-center">
+			<li class="py-lg-4 flex-fill"> <a href="/admin">회원관리</a> </li>
+			<li class="py-lg-4 flex-fill">
+				클레임 관리
+					<ul>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/ask">문의내역</a> </li>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/accuse">신고내역</a> </li>
+					</ul>				
+			</li>
+			<li class="py-lg-4 flex-fill"><a href="/admin">게시물관리</a></li>
+			<li class="py-lg-4 flex-fill"><a href="/admin">상품관리</a></li>
 			</ul>
 		</nav>
 	</div>

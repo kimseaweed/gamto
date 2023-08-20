@@ -1,15 +1,18 @@
-package com.mrmr.gamto.member.service;
+package com.mrmr.gamto.help.service;
 
+import java.io.File;
 import java.security.Key;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MemberDTO;
@@ -155,5 +158,43 @@ public class MemberHelpService {
 			return dao.ResetPwDo(u_id, u_pw); //성공함
 		}
 	}
+	
+	
+	//중복방지를 위한 uuid를 붙인 파일저장 기능
+	/**@param folderName : help폴더의 ask로 저장할건지 accuse로 저장할건지 입력
+	 * */
+	public String saveFile(MultipartFile file,String folderName) throws Exception {
+		if (file == null ||file.getOriginalFilename().equals("")) {
+			return "";
+		}
+		//프로젝트디렉토리 + 지정한 폴더
+		String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\help\\"+folderName+"\\";
+		//랜덤UUID 생성
+		UUID uuid = UUID.randomUUID();
+		//저장할 파일이름을 "UUIT_원본파일이름"으로 명명
+		String fileName = uuid + "_" + file.getOriginalFilename();
+		//경로와 파일명을 지정하여 파일객체 생성
+		File savefile = new File(projectPath + fileName);
+		//파일저장
+		file.transferTo(savefile);
+		//db에 저장할 파일이름 리턴
+		log.debug(fileName+"을 저장했습니다.");
+		return fileName;
+	}
+	/*
+	 * 	public void deleteFile(String oldfilename) throws Exception {
+		//파일경로 + 삭제할 파일명으로 파일객체 생성 
+		File deleteFile = new File(projectPath + oldfilename);
+		//일치하는 파일이 있다면 파일을 이동한다.
+		if (deleteFile.exists()) { 
+			deleteFile.renameTo(new File(deletePath));
+			//deleteFile.delete(); //파일삭제
+			log.info("파일 이동 완료");
+		} else {
+			log.error("deleteFile 에러. 파일이없습니다");
+		}
+	}
+	  
+	 */
 
 }

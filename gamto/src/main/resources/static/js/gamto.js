@@ -175,3 +175,12 @@ function searchsite() {
 		}
 	}
 }
+
+//ask폼 진입
+function askpop(e) {
+	window.open('/member/help/ask/new?c=' + e, '문의', 'width = 600px, height=800px,top=50, right=50", scrollbars=yes');
+}
+//accuse폼 진입
+function reportpop() {
+	window.open('/member/help/accuse/new', '신고', 'width = 550px, height=650px, top=50, left=300px, scrollbars=yes');
+}

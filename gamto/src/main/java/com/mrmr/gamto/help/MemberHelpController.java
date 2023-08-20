@@ -1,11 +1,6 @@
-package com.mrmr.gamto.member;
-
-import java.net.http.HttpClient.Redirect;
-import java.nio.file.spi.FileSystemProvider;
+package com.mrmr.gamto.help;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +8,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.mrmr.gamto.member.dao.MemberDAO;
+import com.mrmr.gamto.help.dto.AccuseDTO;
+import com.mrmr.gamto.help.dto.AskDTO;
+import com.mrmr.gamto.help.dao.HelpDAO;
+import com.mrmr.gamto.help.service.MemberHelpService;
 import com.mrmr.gamto.member.dto.MemberDTO;
-import com.mrmr.gamto.member.service.MemberHelpService;
+import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.utils.GamtoService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +29,9 @@ public class MemberHelpController {
 	@Autowired
 	MemberHelpService service;
 	@Autowired
-	MemberDAO dao;
+	MemberDAO memberdao;
+	@Autowired
+	HelpDAO helpDao;
 	
 	/*
 	 * id : 폼이동 POST) 
@@ -41,7 +41,7 @@ public class MemberHelpController {
 	//아이디 찾기 : 로그인여부 확인후 폼 이동
 	@RequestMapping("/id") 
 	public String emailCAuthentication(HttpSession session, Model model) {
-		return GamtoService.noneLogin(session, model, "member/findId");
+		return GamtoService.noneLogin(session, model, "help/findId");
 	}
 	//아이디 찾기 : ajax 인증코드 발송
 	@ResponseBody
@@ -87,7 +87,7 @@ public class MemberHelpController {
 		if(u_email!=null) {
 			if(u_email.indexOf("@")>0) {
 				session.removeAttribute("authcode");
-				MemberDTO dto = dao.findIdDao(u_email);
+				MemberDTO dto = memberdao.findIdDao(u_email);
 				message=  "가입하신 아이디는<br> <b>"+dto.getU_id()+"</b>입니다.<br>"
 						+ "감사합니다. <br>";
 			}else {
@@ -120,7 +120,7 @@ public class MemberHelpController {
 	@GetMapping("/pw/send")
 	public String sendMail(Model model) {
 		model.addAttribute("message", "인증메일이 발송되었습니다");
-		return "member/result";
+		return "script";
 	}
 
 	// 비밀번호찾기 : 인증링크 눌렀을때 연결되는 비번번경 페이지
@@ -128,7 +128,7 @@ public class MemberHelpController {
 	public String subjectToken(@RequestParam(value = "t") String t, Model model) {
 		String u_id = service.getClaim(t);
 		model.addAttribute("u_id", u_id);
-		return "member/changePw";
+		return "help/changePw";
 	}
 
 	// 비밀번호찾기 : 비번 변경요청
@@ -143,7 +143,53 @@ public class MemberHelpController {
 		} else {
 			model.addAttribute("message", "비밀번호 변경이 실패했습니다. 다시 인증해주세요."); // 시스템오류
 		}
-		return "member/result";
+		return "script";
 	}
 
+	
+	// 문의 1 (문의 및 건의)
+	@GetMapping("/ask/new") 
+	public String askForm(String c) {
+		return "help/askForm";
+	}
+	
+	// 문의 2 (신고)
+	@GetMapping("/accuse/new") 
+	public String reportForm() {
+		return "help/accuseForm";
+	}
+	
+	// 문의 인서트
+	@PostMapping("/ask")
+	public String insertAsk(AskDTO dto,MultipartFile filename, Model model) throws Exception {
+		log.debug("ask POST 요청");	
+		dto.setA_filename(service.saveFile(filename,"ask"));
+		int result = helpDao.insertAskDao(dto);
+		if(result>0) {
+			log.debug("ask db등록 성공");	
+			return "help/result";
+		}else {
+			log.debug("ask db등록 실패");
+			model.addAttribute("<script> alert('서버 통신 오류입니다. 다시 시도해주세요.'); window.close() </script>");
+			return "script";
+		}
+	}
+	// 신고 인서트
+	@PostMapping("/accuse")
+	public String insertReport(AccuseDTO dto,MultipartFile filename, Model model) throws Exception {
+		log.debug("accuse POST 요청");
+		dto.setAc_filename(service.saveFile(filename,"accuse"));
+		int result = helpDao.insertAccuseDao(dto);
+		if(result>0) {
+			log.debug("accuse db등록 성공");
+			return "help/result";
+		}else {
+			log.debug("accuse db등록 실패");
+			model.addAttribute("<script> alert('서버 통신 오류입니다. 다시 시도해주세요.'); window.close() </script>");
+			return "script";
+		}
+	}
+	
+	
+	
 }
