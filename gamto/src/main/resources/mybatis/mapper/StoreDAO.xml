@@ -79,10 +79,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 구매내역 -->
     <insert id="insertKakaoPayInfo" parameterType="com.mrmr.gamto.store.dto.OrderTableDTO">
-    	insert into 
+    	insert into order_table values(#{o_order_number}, #{o_address}, #{o_name}, #{o_price}, #{o_quantity}, #{o_phone}, #{o_order_code})
     </insert>
     <!-- kakaoPay에 데이터 보냄 -->
-    <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
+    <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MemberDTO">
     select * from member_function where u_id=#{u_id}
     </select>
 </mapper>

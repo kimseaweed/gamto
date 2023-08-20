@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -149,13 +150,7 @@ public class StoreController {
 		
 		return "store/store";
 	}
-	//kakaoPay에 보내는 mapping
-		@RequestMapping("/kakaoPay/kakaoPay")
-	    public String orderDetail(Model model, HttpSession session) {
-		    String u_id = (String)session.getAttribute("u_id");
-			model.addAttribute("userInfo", dao.orderDetail(u_id));
-			return "/kakaoPay/kakaoPay";
-		}
+
 	
 //	@RequestMapping("")//구매내역
 //	public String purchaseListDao(Model model) {
