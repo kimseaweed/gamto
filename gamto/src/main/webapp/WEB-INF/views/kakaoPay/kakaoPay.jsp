@@ -5,11 +5,9 @@
 <%
 String bookName = (String)request.getParameter("bookName");
 String bookQuantity = (String)request.getParameter("bookQuantity");
+String bookPrice = (String)request.getParameter("bookPrice");
 String stotalCost = (String)request.getParameter("totalCost");
 String orderCode = (String)request.getParameter("orderCode");
-System.out.println("bookName: "+bookName);
-System.out.println("bookQuantity: "+bookQuantity);
-System.out.println("stotalCost: "+stotalCost);
 %>
 <!DOCTYPE html>
 <html>
@@ -63,8 +61,9 @@ if(<%=bookQuantity%>=='1'){
           msg += '결제 금액 : ' + rsp.paid_amount;
            const dto = {
        		o_order_number : rsp.merchant_uid,
-     		o_price: rsp.paid_amount,
-     		o_order_code:<%=orderCode%>,
+       		o_book_name: rsp.name,
+       		o_total: rsp.paid_amount,
+      		o_price : <%=bookPrice%>,
      		o_quantity: <%=bookQuantity%>,
      	    o_name: rsp.buyer_name,
      	    o_phone: rsp.buyer_tel,
@@ -120,7 +119,9 @@ if(<%=bookQuantity%>=='1'){
          console.log('asdf');
          const dto = {
             	o_order_number : rsp.merchant_uid,
-          		o_price: rsp.paid_amount,
+            	o_book_name: rsp.name,
+          		o_total: rsp.paid_amount,
+          		o_price : <%=bookPrice%>,
           		o_order_code:<%=orderCode%>,
           		o_quantity: <%=bookQuantity%>,
           	    o_name: rsp.buyer_name,

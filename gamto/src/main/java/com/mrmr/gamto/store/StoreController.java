@@ -77,7 +77,6 @@ public class StoreController {
 	@ResponseBody
 	public int addCart(String b_code, String b_quantity,  HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		System.out.println(b_code + b_quantity + getId);
 		if(getId == null) {
 			return -1;
 		} else {
@@ -90,7 +89,6 @@ public class StoreController {
 	@ResponseBody
 	public int updateQuantity(String cart_code, String cart_quantity, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		System.out.println(cart_code + cart_quantity + getId);
 		if(getId == null) {
 			return -1;
 		} else {
