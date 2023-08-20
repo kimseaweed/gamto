@@ -34,7 +34,7 @@
 	<!-- 문의상세보기 -->
 	<select id="askViewDao"
 		resultType="com.mrmr.gamto.help.dto.AskDTO">
-		SELECT * FROM ask WHERE a_seq_number=#{a_seq_number}
+		SELECT (select count(*) from ask ) as a_total,ask.* FROM ask WHERE a_seq_number=#{a_seq_number}
 	</select>
 
 	<!-- 문의진행사항 변경 -->

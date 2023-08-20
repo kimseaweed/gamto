@@ -62,6 +62,14 @@ public class AdminController {
 		int res = dao.askUpdateComplete(a_seq_number, a_complete);
 		return res; //1성공 0실패
 	}
+	
+	@GetMapping("/ask/{a_seq_number}/file")
+	public String askFile(@PathVariable("a_seq_number")int a_seq_number) {
+
+			return "";
+	}
+	
+	
 	@GetMapping("/ask/search")
 	public String asksearch(HttpSession session,Model model,String pageNo,String a_category,String query) {
 			//dao.askSearchListDao(startNo,endNo,a_category,query)
