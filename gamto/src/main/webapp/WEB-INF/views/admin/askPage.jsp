@@ -31,7 +31,7 @@
 
 
 						<table class="table">
-							<tr class="tablehead">
+							<tr class="tablehead ">
 								<th>문의 번호</th>
 								<td>${a_seq_number}</td>
 							</tr>
@@ -55,51 +55,53 @@
 								<td>${dto.a_email}</td>
 							</tr>
 
-							<tr>
+							<tr class="table-group-divider">
 								<td colspan="4" class="p-5">${dto.a_content}</td>
 							</tr>
-							<tr>
-								<th>현재 진행상태</th>
-								<td class="fs-2">${dto.a_complete}</td>
-								<th>변경</th>
+							<tr class="table-group-divider">
+								<th class="align-middle">현재 진행상태</th>
+								<td class="align-middle fs-2">${dto.a_complete}</td>
+								<th class="align-middle">변경</th>
 								<td>
 									<div class="row">
 										<div class="col">
-											<select class="form-select form-select-lg mb-3">
-												<option selected>신규</option>
-												<option value="1">진행중</option>
-												<option value="2">답변완료</option>
+											<select class=" align-middle form-select form-select-lg" onchange="openWork()">
+												<option value="1">신규</option>
+												<option value="2">진행중</option>
+												<option value="0">답변완료</option>
 											</select>
 										</div>
 										<div class="col">
-											<input type="text" class="form-control form-control-lg"
-												placeholder="담당자" autocomplete="none">
+											<input type="text" class="pt-2 form-control form-control-lg"
+												placeholder="담당자" id="manager" name="manager" autocomplete="none">
 										</div>
 									</div> <input type="hidden">
 								</td>
 							</tr>
-							<tr class="">
+						</table>
+						<div class="d-flex w-100 pt-5 my-3 px-auto text-end">
+						<div class="pt-3">
 							<c:choose>
 								<c:when test="${dto.a_seq_number+1 < dto.a_total}">
-									<th colspan="2" class="text-center py-3 ps-5 fs-3"><a href="/admin/ask/view/${a_seq_number+1}"><i class="bi bi-arrow-down-circle-fill"></i> 다음글</a> </th>
+									<a class="btn btn-secondary" href="/admin/ask/view/${a_seq_number+1}"><i class="bi bi-arrow-up-circle-fill"></i> 이전글</a>
 								</c:when>
 								<c:otherwise>
-									<th colspan="2" class="text-center py-3 ps-5 fs-3"> 가장 최근 문의입니다. </th>
+									<span class="btn btn-secondary"> 가장 최근 문의입니다. </span>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
 								<c:when test="${a_seq_number-1>1}">
-									<th colspan="2" class="text-start py-3 ps-5 fs-3"><a href="/admin/ask/view/${a_seq_number-1}"><i class="bi bi-arrow-up-circle-fill"></i> 이전글</a> </th>
+									<a class="btn btn-secondary" href="/admin/ask/view/${a_seq_number-1}"><i class="bi bi-arrow-down-circle-fill"></i> 다음글</a>
 								</c:when>
 								<c:otherwise>
-									<th colspan="2" class="text-center py-3 ps-5 fs-3"> 가장 마지막 문의입니다. </th>
+									<span class="btn btn-secondary"> 가장 마지막 문의입니다. </span>
 								</c:otherwise>
 							</c:choose>
-							</tr>
-						</table>
-						<div class="w-100 pt-5 my-3 px-auto text-end">
+						</div>
+						<div class = "ms-auto">
 							<button type="button" class=" me-5 btn btn-warning btn-lg" onclick="location.href='/admin/ask';" > 목록으로 </button>
 							<button type="button" class=" me-5 btn btn-primary btn-lg"> 진행상태 변경 </button>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -107,7 +109,22 @@
 			</div>
 		</div>
 	</main>
+<script type="text/javascript">
+var compleate = '${dto.a_complete}';
+var manager = $('#manager');
 
+$(document).ready(function(){
+	if(compleate=="신규"){
+		$('select > option').eq(0).attr('selected');
+	}else if('답변완료'){
+		$('select > option').eq(2).attr('selected');
+	}else{
+		$('select > option').eq(1).attr('selected');
+	}
+})
+
+
+</script>
 	<jsp:include page="../footer.jsp" />
 </body>
 </html>
