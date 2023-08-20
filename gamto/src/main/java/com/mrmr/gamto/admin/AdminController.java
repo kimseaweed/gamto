@@ -7,13 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mrmr.gamto.admin.dao.AdminDAO;
+import com.mrmr.gamto.admin.service.AdminService;
 import com.mrmr.gamto.help.dto.AccuseDTO;
 import com.mrmr.gamto.help.dto.AskDTO;
+import com.mrmr.gamto.store.dto.StoreDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +29,8 @@ public class AdminController {
 
 	@Autowired
 	AdminDAO dao;
+	@Autowired
+	AdminService service;
 
 	/*** ask 문의관리기능 ***/
 	@RequestMapping("/ask")
@@ -121,5 +127,27 @@ public class AdminController {
 			model.addAttribute("accuseList","");
 			return "admin/accuseBoard";
 	}
+	
+	//상점 관리 진입
+	@RequestMapping("/store/list")
+	public String storeList() {
+			return "admin/storelist";
+	}
+	//상점 등록 진입
+	@GetMapping("/store/new")
+	public String insertStoreForm() {
+		
+		
+			return "admin/storeForm";
+	}
+	//상점 등록 진입
+	@PostMapping("/store/new")
+	public String insertStore(StoreDTO dto,MultipartFile filename, String b_name) throws Exception {
+		dto.setB_filename(service.saveFile(filename));
+		dao.insertStoreDao(dto);
+		log.trace("상품등록완료"+ dto.toString());
+		return "redirect:/admin/store/list";
+	}
+	
 	
 }

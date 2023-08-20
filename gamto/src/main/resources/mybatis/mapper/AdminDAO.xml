@@ -88,5 +88,23 @@
 		UPDATE accuse SET ac_complete = #{ac_complete} WHERE
 		ac_seq_number=#{ac_seq_number}
 	</update>
+	
+	<!-- 상품관리  -->
+	<insert id="insertStoreDao">
+		insert into book_info values(
+			b_seq_number.nextVal,
+			#{dto.b_code}, 
+			#{dto.b_name}, 
+			#{dto.b_author}, 
+			#{dto.b_publisher}, 
+			#{dto.b_release},
+			#{dto.b_filename}, 
+			#{dto.b_genre}, 
+			#{dto.b_price}, 
+			#{dto.b_stock}, 
+			#{dto.b_description}, 
+			0, 
+			0)
+	</insert>
 
 </mapper>

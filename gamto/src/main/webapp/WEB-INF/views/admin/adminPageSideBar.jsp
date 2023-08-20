@@ -20,7 +20,13 @@
 					</ul>				
 			</li>
 			<li class="py-lg-4 flex-fill"><a href="/admin">게시물관리</a></li>
-			<li class="py-lg-4 flex-fill"><a href="/admin">상품관리</a></li>
+			<li class="py-lg-4 flex-fill">
+				상품 관리
+					<ul>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/store/list">상품리스트</a> </li>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/store/new">상품등록</a> </li>
+					</ul>	
+			</li>
 			</ul>
 		</nav>
 	</div>

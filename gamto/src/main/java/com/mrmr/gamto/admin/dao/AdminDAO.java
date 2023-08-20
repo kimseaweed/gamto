@@ -3,9 +3,12 @@ package com.mrmr.gamto.admin.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mrmr.gamto.help.dto.AccuseDTO;
 import com.mrmr.gamto.help.dto.AskDTO;
+import com.mrmr.gamto.store.dto.StoreDTO;
+
 @Mapper
 public interface AdminDAO {
 	
@@ -36,4 +39,6 @@ public interface AdminDAO {
 	
 	//신고 검색하기 리스트
 	public List<AccuseDTO> accuseSearchListDao(int pageNo,String query);
+	
+	public int insertStoreDao(@Param("dto")StoreDTO dto);
 }
