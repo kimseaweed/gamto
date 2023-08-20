@@ -48,15 +48,15 @@ public class KakaoPayController {
     
     @RequestMapping(value="/kakaoPay/insertKakaoPayInfo", method=RequestMethod.GET)
     @ResponseBody
-    public void insertKakaoPayInfo(OrderTableDTO dto) {
+    public void insertKakaoPayInfo(OrderTableDTO dto, HttpSession session) {
+          System.out.println(dto);
           store.insertKakaoPayInfo(dto);
           
         //return "<script>location.href='/kakaoPay/kakaoPaySuccessPage?code="+dto.getO_order_number()+"</script>";
     }
-    @RequestMapping("/kakaoPay/kakaoPaySuccessPage")
-    public String kakaoPaySuccess(Model model, String code) {
-     System.out.println("comeback");
-
+    @RequestMapping("/kakaoPay/kakaoPaySuccess")
+    public String kakaoPaySuccess(Model model, HttpSession session, String o_order_number) {
+		model.addAttribute("orderInfo", store.purchaseList(o_order_number));
     return "/kakaoPay/kakaoPaySuccess";
     }
     @RequestMapping("/kakaoPay/kakaoPayCancel")
