@@ -35,7 +35,7 @@
 						<table class="table">
 							<tr class="tablehead ">
 								<th>문의 번호</th>
-								<td>${a_seq_number}</td>
+								<td>${dto.a_seq_number}</td>
 							</tr>
 							<tr class="tablehead">
 								<th>문의유형</th>
@@ -66,18 +66,14 @@
 								<th class="align-middle">변경</th>
 								<td>
 									<div class="row">
-										<div class="col">
-											<select class=" align-middle form-select form-select-lg" onchange="openWork()">
+										<<div class="col">
+											<select id="selectwork" name="selectwork" class=" align-middle form-select form-select-lg text-center" >
 												<option value="1">신규</option>
 												<option value="2">진행중</option>
 												<option value="0">답변완료</option>
 											</select>
 										</div>
-										<div class="col">
-											<input type="text" class="pt-2 form-control form-control-lg"
-												placeholder="담당자" id="manager" name="manager" autocomplete="none">
-										</div>
-									</div> <input type="hidden">
+									</div> 
 								</td>
 							</tr>
 						</table>
@@ -85,15 +81,15 @@
 						<div class="pt-3">
 							<c:choose>
 								<c:when test="${dto.a_seq_number+1 < dto.a_total}">
-									<a class="btn btn-secondary" href="/admin/ask/view/${a_seq_number+1}"><i class="bi bi-arrow-up-circle-fill"></i> 이전글</a>
+									<a class="btn btn-secondary" href="/admin/ask/view/${dto.a_seq_number+1}"><i class="bi bi-arrow-up-circle-fill"></i> 이전글</a>
 								</c:when>
 								<c:otherwise>
 									<span class="btn btn-secondary"> 가장 최근 문의입니다. </span>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
-								<c:when test="${a_seq_number-1>1}">
-									<a class="btn btn-secondary" href="/admin/ask/view/${a_seq_number-1}"><i class="bi bi-arrow-down-circle-fill"></i> 다음글</a>
+								<c:when test="${dto.a_seq_number-1>1}">
+									<a class="btn btn-secondary" href="/admin/ask/view/${dto.a_seq_number-1}"><i class="bi bi-arrow-down-circle-fill"></i> 다음글</a>
 								</c:when>
 								<c:otherwise>
 									<span class="btn btn-secondary"> 가장 마지막 문의입니다. </span>
@@ -125,6 +121,13 @@ $(document).ready(function(){
 	}
 })
 
+function openWork(){
+	if( $('#selectwork').val() == '2' ){
+		$( '#manager' ).removeAttr("disabled");
+	}else{
+		$( '#manager' ).attr("disabled","disabled");
+	}
+}
 
 </script>
 	<jsp:include page="../footer.jsp" />

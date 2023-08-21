@@ -43,6 +43,11 @@
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
+						<% if(request.getAttribute("askList")==null){ %>
+								<tr>
+									<td colspan="6">검색결과가 없습니다.</td>
+								</tr>
+						<%}else{ %>
 							<c:forEach var="list" items="${askList}">
 								<tr
 									onclick="location.href='/admin/ask/view/${list.a_seq_number}'">
@@ -53,7 +58,8 @@
 												<i class="bi bi-paperclip"></i>
 											</a>
 										</c:if></td>
-									<td class="">${list.a_reception}</td>
+												<td class="">${list.a_reception}</td>
+									
 									<td class="">${list.a_date}</td>
 									<td class=""><c:choose>
 											<c:when test="${fn:contains(list.a_complete, '완료')}">
@@ -69,6 +75,7 @@
 										</c:choose></td>
 								</tr>
 							</c:forEach>
+						<% } %>
 						</tbody>
 					</table>
 					<div>
@@ -90,12 +97,14 @@
 								<li id="next" class="d-none page-item2 mx-4"><a
 									class="page-link" href="/admin/ask/${onePageNo}/${pageNo+1}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-							<%  List<AskDTO> list = (List<AskDTO>)request.getAttribute("askList");
+							<% if(request.getAttribute("askList")!=null){							
+								List<AskDTO> list = (List<AskDTO>)request.getAttribute("askList");
 								double a_total = list.get(0).getA_total();
-								int maxpageno = (int)Math.ceil(a_total / Double.parseDouble((String)request.getAttribute("onePageNo"))) ; %>
+								int maxpageno = (int)Math.ceil(a_total / Double.parseDouble((String)request.getAttribute("onePageNo"))) ;%>
 								<li id="" class="page-item2 mx-3"><a
 									class="page-link" href="/admin/ask/${onePageNo}/<%=maxpageno %>"
 									aria-label="Next"> <span aria-hidden="true">맨뒤</span></a></li>
+									<% } %>
 							</ul>
 						</nav>
 

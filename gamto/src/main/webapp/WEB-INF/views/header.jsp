@@ -24,64 +24,7 @@
 <link rel="stylesheet" href="/css/gamto.css" />
 </head>
 <body>
-	<!-- 중앙상단 confirm 토스트 -->
-	<div
-		class="toast-container position-fixed start-50 translate-middle-x p-3">
-		<div id="conToastR" class="toast align-items-center text-bg-danger"
-			role="alert" aria-live="assertive" aria-atomic="true"
-			data-bs-delay="60000">
-			<div class="d-flex" style="">
-				<div class="toast-body">
-					<div class="spinner-grow spinner-grow-sm me-2" role="status">
-						<span class="visually-hidden">Loading...</span>
-					</div>
-					<span id="conboxR"></span>
-					    <div class="mt-2 pt-2 border-top">
-      <button type="button" class="btn btn-primary btn-sm">확인</button>
-      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">취소</button>
-    </div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div
-		class="toast-container position-fixed start-50 translate-middle-x p-3">
-		<div id="conToastB" class="toast align-items-center text-bg-primary"
-			role="alert" aria-live="assertive" aria-atomic="true"
-			data-bs-delay="60000">
-			<div class="d-flex" style="">
-				<div class="toast-body">
-					<div class="spinner-grow spinner-grow-sm me-2" role="status">
-						<span class="visually-hidden">Loading...</span>
-					</div>
-					<span id="conboxB"></span>
-					    <div class="mt-2 pt-2 border-top">
-      <button type="button" class="btn btn-primary btn-sm">확인</button>
-      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">취소</button>
-    </div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div
-		class="toast-container position-fixed start-50 translate-middle-x p-3">
-		<div id="conToastY" class="toast align-items-center text-bg-warning"
-			role="alert" aria-live="assertive" aria-atomic="true"
-			data-bs-delay="60000">
-			<div class="d-flex" style="">
-				<div class="toast-body">
-					<div class="spinner-grow spinner-grow-sm me-2" role="status">
-						<span class="visually-hidden">Loading...</span>
-					</div>
-					<span id="conboxY" class="text-center"></span>
-					    <div class="mt-2 pt-2 border-top text-center">
-      <button id="yes"type="button" class="btn btn-primary btn-sm" onclick="confirmResult(true)"> >확인</button>
-      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast" onclick="return false" >취소</button>
-    </div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<!-- 중앙상단 alert 토스트 -->
 	<div
 		class="toast-container position-fixed start-50 translate-middle-x p-3">

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="com.mrmr.gamto.store.dto.StoreDTO" %>
+<%@ page import="com.mrmr.gamto.member.dto.MemberDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>관리자 페이지 | 상품 리스트</title>
+<title>관리자 페이지 | 회원 관리</title>
 <style>
 </style>
 </head>
@@ -21,7 +21,7 @@
 				<jsp:include page="adminPageSideBar.jsp" />
 				<div class=" container col pt-lg-3">
 
-					<form id="storeOption" action="/admin/store/${onePageNo}/${pageNo}"
+					<form id="memberOption" action="/admin/member/${onePageNo}/${pageNo}"
 						method="get">
 						<select id="changePageNo" name="changePageNo" class="form-select"
 							onchange="viewPageNo()">
@@ -34,28 +34,26 @@
 					<table class="table table-hover text-center mt-lg-2 mt-1">
 						<thead>
 							<tr class="text-bg-secondary ">
-								<th scope="col" width=15%>등록번호</th>
-								<th scope="col" width=15%>코드번호</th>
-								<th scope="col" width=25%>책이름</th>
-								<th scope="col" width=15%>작가</th>
-								<th scope="col" width=15%>가격</th>
-								<th scope="col" width=15%>재고</th>
+								<th scope="col" width=20%>아이디</th>
+								<th scope="col" width=20%>이름</th>
+								<th scope="col" width=20%>메일</th>
+								<th scope="col" width=20%>상태</th>
+								<th scope="col" width=20%>변경</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
-						<% if(request.getAttribute("storeList")==null){ %>
+						<% if(request.getAttribute("memberList")==null){ %>
 								<tr>
 									<td colspan="6">검색결과가 없습니다.</td>
 								</tr>
 						<%}else{ %>
-							<c:forEach var="list" items="${storeList}">
-								<tr	onclick="location.href='/admin/store/view/${list.b_seq_number}'">
-									<td class="">${list.b_seq_number}</td>
-									<td class="">${list.b_code}</td>
-									<td class="">${list.b_name}</td>
-									<td class="">${list.b_author}</td>
-									<td class="">${list.b_price}원</td>
-									<td class="">${list.b_stock}개</td>
+							<c:forEach var="list" items="${memberList}">
+								<tr>
+									<td class="">${list.u_id}</td>
+									<td class="">${list.u_name}</td>
+									<td class="">${list.u_email}</td>
+									<td class="">${list.u_delete}</td>
+									<td class=""><button id="${list.u_id}">변경</button></td>
 							</c:forEach>
 						<% } %>
 						</tbody>
@@ -64,10 +62,10 @@
 						<nav class="py-5">
 							<ul id="" class="pagination d-flex justify-content-center">
 									<li id="" class=" page-item1 mx-3"><a
-									class="page-link" href="/admin/store/${onePageNo}/1"
+									class="page-link" href="/admin/member/${onePageNo}/1"
 									aria-label="Previous"><span aria-hidden="true">맨앞</span></a></li>
 								<li id="prev" class="d-none page-item1 mx-3"><a
-									class="page-link" href="/admin/store/${onePageNo}/${pageNo-1}"
+									class="page-link" href="/admin/member/${onePageNo}/${pageNo-1}"
 									aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 
 								<li>
@@ -77,14 +75,14 @@
 								</li>
 
 								<li id="next" class="d-none page-item2 mx-4"><a
-									class="page-link" href="/admin/store/${onePageNo}/${pageNo+1}"
+									class="page-link" href="/admin/member/${onePageNo}/${pageNo+1}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-							<% if(request.getAttribute("storeList")!=null){							
-								List<StoreDTO> list = (List<StoreDTO>)request.getAttribute("storeList");
-								double a_total = list.get(0).getTotal();
+							<% if(request.getAttribute("adminList")!=null){							
+								List<MemberDTO> list = (List<MemberDTO>)request.getAttribute("memberList");
+								double a_total = list.get(0).getU_total();
 								int maxpageno = (int)Math.ceil(a_total / Double.parseDouble((String)request.getAttribute("onePageNo"))) ;%>
 								<li id="" class="page-item2 mx-3"><a
-									class="page-link" href="/admin/store/${onePageNo}/<%=maxpageno %>"
+									class="page-link" href="/admin/member/${onePageNo}/<%=maxpageno %>"
 									aria-label="Next"> <span aria-hidden="true">맨뒤</span></a></li>
 									<% } %>
 							</ul>
@@ -101,7 +99,7 @@
 		//페이징처리
 		const pageno = ${pageNo};
 		const onpageno = ${onePageNo};
-		const maxcontent = ${storeList[0].total};
+		const maxcontent = ${memberList[0].u_total};
 		const maxpageno = Math.ceil(maxcontent / onpageno);
 
 		$(document).ready(function() {
@@ -114,7 +112,7 @@
 				if ((pageno - i) > 0) {
 					$('#page').prepend( 
 						'<li class="thispage page-item"><a class="page-link" ' + 
-						'href="/admin/store/'	+ onpageno + '/' + (pageno - i) + '">' + (pageno - i) + '</a></li>');
+						'href="/admin/member/'	+ onpageno + '/' + (pageno - i) + '">' + (pageno - i) + '</a></li>');
 				} else {
 					j++;
 				}
@@ -122,7 +120,7 @@
 				if ((pageno + i) <= maxpageno) {
 					$('#page').append(
 						'<li class="thispage page-item"><a class="page-link" '+
-						' href="/admin/store/' + onpageno + '/' + (pageno + i) + '">'	+ (pageno + i) + '</a></li>');
+						' href="/admin/member/' + onpageno + '/' + (pageno + i) + '">'	+ (pageno + i) + '</a></li>');
 				}
 
 				if (i == 4 && j>0) {
@@ -131,7 +129,7 @@
 						if ((pageno+i+j) <= maxpageno) {
 							$('#page').append(
 								'<li class="thispage page-item"><a class="page-link" '+
-								' href="/admin/store/' + onpageno + '/' + (pageno + i + k) + '">' + (pageno + i + k) + '</a></li>');
+								' href="/admin/member/' + onpageno + '/' + (pageno + i + k) + '">' + (pageno + i + k) + '</a></li>');
 							//console.log((pageno + i + k)+'번을 만들었어요')
 						}
 					}
@@ -144,7 +142,7 @@
 		
 		//n개씩 보기 반응
 		function viewPageNo() {
-			$('#storeOption').submit();
+			$('#memberOption').submit();
 		}
 	</script>
 	<jsp:include page="../footer.jsp" />

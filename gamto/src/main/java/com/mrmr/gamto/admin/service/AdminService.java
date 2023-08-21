@@ -1,6 +1,8 @@
 package com.mrmr.gamto.admin.service;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,5 +26,21 @@ public class AdminService {
 		log.debug(fileName+"을 저장했습니다.");
 		return fileName;
 	}
+
 	
+	//(new SHA().Encrypt("my password"));
+	private static final String SECRET_KEY = "yougottabekiddingkiddingyesahyehahyeh";
+	//sha256 암호화
+    public String encrypt(String text) {
+        String encryptedText = "";
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            String dataWithSaltAndKey = text + SECRET_KEY;
+            messageDigest.update(dataWithSaltAndKey.getBytes("UTF-8"));
+            encryptedText = new String(Base64.getEncoder().encode(messageDigest.digest()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encryptedText;
+    }
 }

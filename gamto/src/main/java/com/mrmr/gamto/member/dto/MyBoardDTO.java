@@ -8,4 +8,6 @@ public class MyBoardDTO {
 	private String tablename;
 	private String title;
 	private String regist_day;
+	private int delete;
+	private int total;
 }
