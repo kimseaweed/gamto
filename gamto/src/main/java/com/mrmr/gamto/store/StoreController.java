@@ -122,8 +122,6 @@ public class StoreController {
 			return result;
 		}
 	}
-	
-	
 
     //검색기능 	
 	@RequestMapping("/SearchTotal")
@@ -150,9 +148,10 @@ public class StoreController {
 	}
 
 	
-//	@RequestMapping("")//구매내역
-//	public String purchaseListDao(Model model) {
-//		model.addAttribute("list", dao.purchaseList());
-//		return "store/purchaseList";
-//	}
+	@RequestMapping("/purchseList")
+    public String purchaseList(Model model, HttpSession session) {
+    	String u_id = (String)session.getAttribute("u_id");
+    	model.addAttribute("purchaseList", dao.purchaseList(u_id));
+    	return "/store/purchaseList?=userId"+u_id;
+    }
 }

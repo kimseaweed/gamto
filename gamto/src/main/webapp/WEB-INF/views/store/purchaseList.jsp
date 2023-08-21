@@ -43,16 +43,16 @@
                         <table class="c-w100">
 					 		<tr class="c-bd">
 					 			<th>주문번호</th>
-					 			<th>주문날짜</th>
 					 			<th>주문명</th>
 					 			<th>주문주소</th>
+					 			<th>가격</th>
 					 		</tr>
-					 		<c:forEach items="${list}" var="dto">
+					 		<c:forEach items="${purchaseList}" var="dto">
 					 			<tr>
 					 				<td class="c-bd1 c-ht"><a href="#">${dto.o_order_number}</a></td>
-					 				<td class="c-bd1">${dto.o_date}</td>
-					 				<td class="c-bd1">${dto.o_id}</td>
+					 				<td class="c-bd1">${dto.o_book_name}</td>
 					 				<td class="c-bd1">${dto.o_address}</td>
+					 				<td class="c-bd1">${dto.o_total}</td>
 					 			</tr>
 					 		</c:forEach>
 					 	</table>

@@ -136,7 +136,6 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 																type="hidden" value="${sum}" name="totalCost" />
 															<input
 																type="hidden" value="0" name="orderCode" />
-														
 															<button
 																class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
 														</form>

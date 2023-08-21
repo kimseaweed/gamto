@@ -89,4 +89,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="orderDetail" resultType="com.mrmr.gamto.member.dto.MemberDTO">
     select * from member_function where u_id=#{u_id}
     </select>
+    
+    <select id="purchseList" resultType="com.mrmr.gamto.store.dto.OrderTableDTO">
+    	select * from order_table where o_name = #{o_name}
+    </select>
 </mapper>

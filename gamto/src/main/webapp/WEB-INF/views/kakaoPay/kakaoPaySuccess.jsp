@@ -59,7 +59,7 @@ main>table {
 						<div class="row">
 							<p class="col-6 ">${orderInfo.o_book_name}</p>
 							<p class="col-2 text-center">
-								${orderInfo.o_quantity+1}개 
+								${orderInfo.o_quantity}개 
 							</p>
 							<p class="col-4 text-end">
 								${orderInfo.o_total}원   

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <%
 String bookName = (String)request.getParameter("bookName");
 String bookQuantity = (String)request.getParameter("bookQuantity");
@@ -22,7 +24,7 @@ String orderCode = (String)request.getParameter("orderCode");
 <script>
 $(document).ready(function(){
 	console.log('${userInfo.u_name}');
-
+	console.log('${userInfo.u_id}');
 })
 
 var IMP = window.IMP; // 생략가능
@@ -47,7 +49,7 @@ if(<%=bookQuantity%>=='1'){
       amount: <%=stotalCost%>,
       // amount: ${bid.b_bid},
       // 가격 
-      buyer_name: '${userInfo.u_name}',
+      buyer_name: '${userInfo.u_id}',
       buyer_email: '${userInfo.u_email}',
       buyer_tel: '${userInfo.u_phone}',
       buyer_addr: '${userInfo.u_address}',
@@ -64,7 +66,8 @@ if(<%=bookQuantity%>=='1'){
        		o_book_name: rsp.name,
        		o_total: rsp.paid_amount,
       		o_price : <%=bookPrice%>,
-     		o_quantity: <%=bookQuantity%>,
+      		o_order_code: <%=orderCode%>,
+     		o_quantity: <%=bookQuantity+1%>,
      	    o_name: rsp.buyer_name,
      	    o_phone: rsp.buyer_tel,
      	    o_address: rsp.buyer_addr
@@ -105,7 +108,7 @@ if(<%=bookQuantity%>=='1'){
       amount: <%=stotalCost%>,
       // amount: ${bid.b_bid},
       // 가격 
-      buyer_name: '${userInfo.u_name}',
+      buyer_name: '${userInfo.u_id}',
       buyer_email: '${userInfo.u_email}',
       buyer_tel: '${userInfo.u_phone}',
       buyer_addr: '${userInfo.u_address}',
@@ -124,7 +127,7 @@ if(<%=bookQuantity%>=='1'){
           		o_total: rsp.paid_amount,
           		o_price : <%=bookPrice%>,
           		o_order_code:<%=orderCode%>,
-          		o_quantity: <%=bookQuantity%>,
+          		o_quantity: <%=bookQuantity+1%>,
           	    o_name: rsp.buyer_name,
           	    o_phone: rsp.buyer_tel,
           	    o_address: rsp.buyer_addr
