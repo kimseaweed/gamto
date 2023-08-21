@@ -147,11 +147,10 @@ public class StoreController {
 		return "store/store";
 	}
 
-	
-	@RequestMapping("/purchseList")
-    public String purchaseList(Model model, HttpSession session) {
+	@RequestMapping("/purchaseList") //장바구니 목록 전체 삭제 
+	public String purchaseList(Model model, HttpSession session) {
     	String u_id = (String)session.getAttribute("u_id");
     	model.addAttribute("purchaseList", dao.purchaseList(u_id));
-    	return "/store/purchaseList?=userId"+u_id;
-    }
+		return "store/purchaseList";
+	}
 }
