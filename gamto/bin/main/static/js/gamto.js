@@ -21,7 +21,7 @@ function cartBadge() {
 		},
 	});
 }
-/* 오류메세지 */
+/* 커스텀 알럿 */
 function alertR(msg) {
 	document.getElementById('msgboxR').innerHTML = msg;
 	const toastmsg = document.getElementById('msgToastR')
@@ -39,8 +39,56 @@ function alertY(msg) {
 	const toastmsg = document.getElementById('msgToastY')
 	const toast = new bootstrap.Toast(toastmsg);
 	toast.show();
+	
 }
+/* 커스텀 컨펌 */
+function confirmR(msg) {
+	document.getElementById('conboxR').innerHTML = msg;
+	const toastmsg = document.getElementById('conToastR')
+	const toast = new bootstrap.Toast(toastmsg);
+	toast.show;
+	
+	if(true ){
+		
+	}
+	setTimeout(function(){
+	return false();
+	},60000);
+}
+function confirmB(msg) {
+	document.getElementById('conboxB').innerHTML = msg;
+	const toastmsg = document.getElementById('conToastB')
+	const toast = new bootstrap.Toast(toastmsg);
+	toast.show();
+}
+let confirmCallback;
+function confirmY(msg){
+	
+	confirmYWork(msg, function(){
+	if(result==true){
+		return true;
+	}else{
+		return false;
+	}
+	})
+}
+function confirmYWork(msg, callback) {
+	document.getElementById('conboxY').innerHTML = msg;
+	const toastmsg = document.getElementById('conToastY')
+	const toast = new bootstrap.Toast(toastmsg);
+	toast.show();
+	
+	confirmCallback=callback;
+}
+function confirmResult(result) {
+    const toastmsg = document.getElementById('conToastY');
+    const toast = bootstrap.Toast.getInstance(toastmsg);
+    toast.hide();
 
+    if (confirmCallback) {
+        confirmCallback(result);
+    }
+ } 
 
 /* 마우스 당근 */
 let x = 0,

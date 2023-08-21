@@ -11,6 +11,11 @@
 		<h1 class="navbar-expand-lg  text-center pt-3 pb-lg-5 pb-2">관리자<br>페이지</h1>
 		<nav class="">
 			<ul class=" fs-4 d-flex d-lg-block ps-1 text-center">
+			<% if(session.getAttribute("admin_id")==null){ %>			
+			<li class="py-lg-4 flex-fill"> <a href="/admin">로그인</a> </li>
+			<%}else{ %>
+			<li class="py-lg-4 flex-fill"> <a href="/admin">로그아웃</a> </li>
+			<%} %>
 			<li class="py-lg-4 flex-fill"> <a href="/admin">회원관리</a> </li>
 			<li class="py-lg-4 flex-fill">
 				클레임 관리
@@ -26,6 +31,20 @@
 						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/store/list">상품리스트</a> </li>
 						<li class="py-1 fs-5 flex-fill text-secondary "><a href="/admin/store/new">상품등록</a> </li>
 					</ul>	
+			</li>
+			
+		<% 
+		if(session.getAttribute("admin_role")!=null){
+		String rolestr= (String)session.getAttribute("admin_role");
+		int roleValue = Integer.parseInt(rolestr);
+		if(roleValue>=2){ %>
+			<li class="py-lg-4 flex-fill">
+				감토지기 관리
+					<ul>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="">감토지기 등록</a> </li>
+						<li class="py-1 fs-5 flex-fill text-secondary "><a href="">감토지기 관리</a> </li>
+					</ul>	
+		<% }} %>
 			</li>
 			</ul>
 		</nav>

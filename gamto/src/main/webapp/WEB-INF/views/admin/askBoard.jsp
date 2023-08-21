@@ -12,8 +12,10 @@
 </style>
 </head>
 <body>
+<div class="d-none">
 	<jsp:include page="../header.jsp" />
-	<main class="mx-auto p-3">
+</div>
+	<main class="mx-auto p-3 mt-2">
 		<div class="bg-light mb-5 px-2 py-xl-5 py-0">
 			<div class="col-auto row pt-3">
 				<jsp:include page="adminPageSideBar.jsp" />

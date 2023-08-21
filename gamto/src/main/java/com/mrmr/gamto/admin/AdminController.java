@@ -31,7 +31,45 @@ public class AdminController {
 	AdminDAO dao;
 	@Autowired
 	AdminService service;
+	
+	//
+	@RequestMapping("")
+	public String inAdmin(HttpSession session) {
+		if(	session.getAttribute("admin_role") == null) {
+			return "admin/dashbord";
+		}else {			
+			return"redirect:/admin/login";
+		}
+	}
+	//관리자 추가 폼
+	@GetMapping("/new")
+	public String getAdmin() {
+		return"";
+	}
+	//관리자 추가 액션
+	@PostMapping("/new")
+	public String postAdmin() {
+		return"";
+	}
+	//관리자 로그인 폼
+	@GetMapping("/login")
+	public String getAdminLogin() {
+		return"";
+	}
+	//관리자 로그인 액션
+	@PostMapping("/login")
+	public String postAdminLogin(HttpSession sesstion) {
+		
+		return"";
+	}
+	
+	@GetMapping("/logout")
+	public String AdminLogout(HttpSession sesstion) {
+		
+		return"";
+	}
 
+	
 	/*** ask 문의관리기능 ***/
 	@RequestMapping("/ask")
 	public String askboard() {
@@ -136,8 +174,6 @@ public class AdminController {
 	//상점 등록 진입
 	@GetMapping("/store/new")
 	public String insertStoreForm() {
-		
-		
 			return "admin/storeForm";
 	}
 	//상점 등록 진입
