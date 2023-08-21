@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	insert into order_table values(#{o_order_number}, #{o_address}, #{o_name}, #{o_book_name}, #{o_total}, #{o_price}, #{o_quantity}, #{o_phone}, #{o_order_code})
     </insert>
     <!-- 구매 내역 뽑아내기 -->
-    <select id="purchaseList" parameterType="com.mrmr.gamto.store.dto.OrderTableDTO">
+    <select id="orderList" resultType="com.mrmr.gamto.store.dto.OrderTableDTO">
          select * from order_table where o_order_number = #{o_order_number}
     </select>
     <!-- kakaoPay에 데이터 보냄 -->

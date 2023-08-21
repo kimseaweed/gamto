@@ -1,6 +1,8 @@
 package com.mrmr.gamto.kakaoPay;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.mrmr.gamto.kakaoPay.service.KakaoPay;
 import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MemberDTO;
 import com.mrmr.gamto.store.dao.StoreDAO;
+import com.mrmr.gamto.store.dto.CartDTO;
 import com.mrmr.gamto.store.dto.OrderTableDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -55,8 +58,9 @@ public class KakaoPayController {
         //return "<script>location.href='/kakaoPay/kakaoPaySuccessPage?code="+dto.getO_order_number()+"</script>";
     }
     @RequestMapping("/kakaoPay/kakaoPaySuccess")
-    public String kakaoPaySuccess(Model model, HttpSession session, String o_order_number) {
-		model.addAttribute("orderInfo", store.purchaseList(o_order_number));
+    public String kakaoPaySuccess(Model model, String o_order_number) {
+		System.out.println(o_order_number);
+    	model.addAttribute("orderInfo", store.orderList(o_order_number));
     return "/kakaoPay/kakaoPaySuccess";
     }
     @RequestMapping("/kakaoPay/kakaoPayCancel")
