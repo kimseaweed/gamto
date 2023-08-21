@@ -39,7 +39,7 @@ main>table {
 					<c:set target="orderInfo" property="o_price" var="o_price"/>
 					<p class="pt-2">
 						<span class="text-muted px-2">주문번호</span>
-						${o_order_number}
+						${orderInfo.o_order_number}
 					</p>
 					<h2 class="">
 						결제가 정상적으로 <b>완료</b>되었습니다.
@@ -57,19 +57,19 @@ main>table {
 						<p class="mb-1 col-4 fw-bold text-end">가격&nbsp;&nbsp;&nbsp;</p>
 					</div> 
 						<div class="row">
-							<p class="col-6 ">${o_book_name}</p>
+							<p class="col-6 ">${orderInfo.o_book_name}</p>
 							<p class="col-2 text-center">
-								${o_quantity}개 
+								${orderInfo.o_quantity+1}개 
 							</p>
 							<p class="col-4 text-end">
-								${o_price}원   
+								${orderInfo.o_total}원   
 							</p>
 						</div>
 					
 					<div class="row bt-2-dash bb-2-dash py-2 fs-5 mb-4">
 						<p class="my-3 col-6 fw-bold">최종 결제금액</p>
 						<p class="my-3 col-6 fw-bold text-end fs-5">
-							${o_total}
+							${orderInfo.o_total}
 							<span class="fs-6">원</span>
 						</p>
 					</div>
@@ -93,7 +93,7 @@ main>table {
 			</tr>
 			<tr>
 				<th>배송지 정보</th>
-				<td>${o_address}</td>
+				<td>${orderInfo.o_address}</td>
 			</tr>
 		</table>
 		<table style="width: 580px;"

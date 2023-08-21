@@ -69,6 +69,7 @@ if(<%=bookQuantity%>=='1'){
      	    o_phone: rsp.buyer_tel,
      	    o_address: rsp.buyer_addr
      	};
+           var o_order_number = dto[Object.keys(dto)[0]];
          $.ajax({
         	url:'/kakaoPay/insertKakaoPayInfo',
         	type:'GET',
@@ -76,7 +77,7 @@ if(<%=bookQuantity%>=='1'){
         	data: dto,
         	success : dto => {
         		console.log('return start');
-        		location.href="/kakaoPay/kakaoPaySuccess";
+        		window.location.href = "kakaoPay/kakaoPaySuccess?o_order_number=" + o_order_number;
         	}
          })
       } else {
@@ -128,6 +129,7 @@ if(<%=bookQuantity%>=='1'){
           	    o_phone: rsp.buyer_tel,
           	    o_address: rsp.buyer_addr
           	};
+         var o_order_number = dto[Object.keys(dto)[0]];
          $.ajax({
          	url:'/kakaoPay/insertKakaoPayInfo',
          	type:'GET',
@@ -135,7 +137,8 @@ if(<%=bookQuantity%>=='1'){
          	data: dto,
          	success : dto => {
          		console.log('return start');
-         		window.location.href="kakaoPay/kakaoPaySuccess";
+         		console.log(o_order_number);
+         	    window.location.href = "kakaoPay/kakaoPaySuccess?o_order_number=" + o_order_number;
          	}
           })
          // success.submit();

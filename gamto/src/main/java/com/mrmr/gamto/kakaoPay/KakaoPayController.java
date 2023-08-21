@@ -52,14 +52,13 @@ public class KakaoPayController {
     @RequestMapping(value="/kakaoPay/insertKakaoPayInfo", method=RequestMethod.GET)
     @ResponseBody
     public void insertKakaoPayInfo(OrderTableDTO dto, HttpSession session) {
-          System.out.println(dto);
           store.insertKakaoPayInfo(dto);
           
         //return "<script>location.href='/kakaoPay/kakaoPaySuccessPage?code="+dto.getO_order_number()+"</script>";
     }
     @RequestMapping("/kakaoPay/kakaoPaySuccess")
     public String kakaoPaySuccess(Model model, String o_order_number) {
-		System.out.println(o_order_number);
+    	System.out.println(o_order_number);
     	model.addAttribute("orderInfo", store.orderList(o_order_number));
     return "/kakaoPay/kakaoPaySuccess";
     }
