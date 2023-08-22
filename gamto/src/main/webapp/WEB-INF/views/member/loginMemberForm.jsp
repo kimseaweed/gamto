@@ -73,6 +73,8 @@
 									out.println("<div class='alert alert-danger'> 아이디와 비밀번호를 확인해주세요 </div>");
 								}else if(error==3){
 									out.println("<div class='alert alert-danger'> 탈퇴한 회원입니다</div>");
+								}else if(error==4){
+									out.println("<div class='alert alert-danger'> 정지된 회원입니다</div>");
 								}
 							}
 							%>
@@ -83,6 +85,7 @@
 											<c:when test="${error eq 1}"> 아이디와 비밀번호를 입력해주세요 </c:when>
 											<c:when test="${error eq 2}"> 아이디와 비밀번호를 확인해주세요</c:when>
 											<c:when test="${error eq 3}"> 탈퇴한 회원입니다 </c:when>
+											<c:when test="${error eq 4}"> 정지된 회원입니다 </c:when>
 											<c:otherwise> ${error} </c:otherwise>
 										</c:choose>
 									</div>

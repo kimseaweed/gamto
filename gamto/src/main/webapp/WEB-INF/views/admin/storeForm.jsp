@@ -22,63 +22,82 @@
 				<jsp:include page="adminPageSideBar.jsp" />
 				<div class="container  col pt-lg-3 p-5">
 					<!--  -->
-
-					<form method="POST" action="/admin/store/new" id="storeInsertForm"
-						name="storeInsertForm" enctype="multipart/form-data" class="">
-
+					<c:choose>
+						<c:when test="${empty command}">
+							<form method="POST" action="/admin/store/new" id="storeInsertForm"
+								name="storeInsertForm" enctype="multipart/form-data" class="">						
+						</c:when>
+						<c:otherwise>
+							<form method="POST" action="/admin/store/edit/${book.b_code}" id="storeInsertForm"
+								name="storeInsertForm" enctype="multipart/form-data" class="">
+						</c:otherwise>
+					</c:choose>
 						<div class="container row">
-							
+							<c:choose>
+								<c:when test="${empty command}">
 							<div class="display-6 py-5"> 상품관리 | 상품등록 </div>
+								</c:when>
+								<c:otherwise>
+								<div class="display-6 py-5"> 상품관리 | 상품수정 </div>
+								</c:otherwise>
+							</c:choose>
 						
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_code" class="form-label">도서코드</label> 
-								<input type="text" class="form-control" id="b_code" name="b_code" placeholder="코드">
+								<input type="text" class="form-control" id="b_code" name="b_code" placeholder="코드" value="${book.b_code}">
 							</div>
 
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_name" class="form-label">상품명</label> 
-								<input type="text" class="form-control" id="b_name" name="b_name" placeholder="상품명">
+								<input type="text" class="form-control" id="b_name" name="b_name" placeholder="상품명" value="${book.b_name}">
 							</div>							
 							
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_author" class="form-label">저자</label> 
-								<input type="text" class="form-control" id="b_author" name="b_author" placeholder="저자">
+								<input type="text" class="form-control" id="b_author" name="b_author" placeholder="저자" value="${book.b_author}">
 							</div>			
 											
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_genre" class="form-label">장르</label> 
-								<input type="text" class="form-control" id="b_genre" name="b_genre" placeholder="장르">
+								<input type="text" class="form-control" id="b_genre" name="b_genre" placeholder="장르" value="${book.b_genre}">
 							</div>
 							
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_publisher" class="form-label">출판사</label> 
-								<input type="text" class="form-control" id="b_publisher" name="b_publisher" placeholder="출판사">
+								<input type="text" class="form-control" id="b_publisher" name="b_publisher" placeholder="출판사" value="${book.b_publisher}">
 							</div>
 							
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_release" class="form-label">출판일</label> 
-								<input type="text" class="form-control" id="b_release" name="b_release"  placeholder="상품명">
+								<input type="text" class="form-control" id="b_release" name="b_release"  placeholder="출판일" value="${book.b_release}">
 							</div>
 							
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_stock" class="form-label">재고</label> 
-								<input type="number" class="form-control" id="b_stock" name="b_stock" placeholder="재고">
+								<input type="number" class="form-control" id="b_stock" name="b_stock" placeholder="재고" value="${book.b_stock}">
 							</div>
 							
 							<div class="mb-3 col-lg-6 col-12">
 								<label for="b_price" class="form-label">가격</label> 
-								<input type="number" class="form-control" id="b_price" name="b_price" placeholder="가격">
+								<input type="number" class="form-control" id="b_price" name="b_price" placeholder="가격" value="${book.b_price}">
 							</div>
 							
 							
 							<div class="mb-3 col-12">
 								<label for="b_description" class="form-label">책 설명</label>
-								<textarea class="form-control" id="b_description" name="b_description" rows="3"></textarea>
+								<textarea class="form-control" id="b_description" name="b_description" rows="3"> ${book.b_description}</textarea>
 							</div>
 
 							<div class="mb-3 col-12">
 								<label for="filename" class="form-label">책 이미지</label>
-								<input class="form-control" type="file" id="filename" name="filename">
+								<input class="form-control" type="file" id="filename" name="filename" >
+								<c:if test="${not empty command}">
+								<div class="text-center py-3">
+								<label for="filename" class="form-label">기존 이미지</label>
+								<img src="/img/book/${book.b_filename}"/>
+								<input class="" type="hidden" id="b_filename" name="b_filename" value="${book.b_filename}">	
+								</div>						
+								</c:if>
 							</div>
 
 
@@ -87,7 +106,14 @@
 
 
 						<div class="py-5">
-							<input type="button" value="등록하기" class="col-12 btn btn-secondary" onclick="storesubmit()">
+							<c:choose>
+								<c:when test="">
+									<input type="button" value="등록하기" class="col-12 btn btn-secondary" onclick="storesubmit()">
+								</c:when>
+								<c:otherwise>
+									<input type="button" value="수정하기" class="col-12 btn btn-secondary" onclick="storesubmit()">
+								</c:otherwise>
+							</c:choose>
 						</div>
 
 					</form>

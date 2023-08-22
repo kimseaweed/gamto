@@ -41,7 +41,7 @@
 								<th scope="col" width=20%>변경</th>
 							</tr>
 						</thead>
-						<tbody class="table-group-divider">
+						<tbody class="table-group-divider align-middle">
 						<% if(request.getAttribute("memberList")==null){ %>
 								<tr>
 									<td colspan="6">검색결과가 없습니다.</td>
@@ -53,7 +53,26 @@
 									<td class="">${list.u_name}</td>
 									<td class="">${list.u_email}</td>
 									<td class="">${list.u_delete}</td>
-									<td class=""><button id="${list.u_id}">변경</button></td>
+							<td class="">
+							<select class="form-select" id="${list.u_id}" onchange="updatemember('${list.u_id}')">
+							<c:choose>
+								<c:when test="${list.u_delete eq 0}">
+									<option value="0"selected>(0)정상</option>
+									<option value="1">(1)탈퇴</option>
+									<option value="2">(2)정지</option>
+								</c:when>
+									<c:when test="${list.u_delete eq 1}">
+									<option value="0">(0)정상</option>
+									<option value="1"selected>(1)탈퇴</option>
+									<option value="2">(2)정지</option>
+								</c:when>
+								<c:otherwise>
+									<option value="0">(0)정상</option>
+									<option value="1">(1)탈퇴</option>
+									<option value="2" selected>(2)정지</option>
+								</c:otherwise>
+							</c:choose>
+								</select>
 							</c:forEach>
 						<% } %>
 						</tbody>
@@ -96,6 +115,28 @@
 		</div>
 	</main>
 	<script type="text/javascript">
+	
+	//수정버튼 액션
+	function updatemember(u_id){
+		var role={"state" : document.getElementById(u_id).value, };
+		$.ajax({
+			url: "/admin/member/state/"+u_id,
+			type: "PUT",
+			data:JSON.stringify(role),
+            contentType:'application/json;charset=UTF-8',
+		}).done(function(res) {
+			if(res==1){
+				alert('변경완료');
+				$('table').load(location.href+' table>*')
+			}else if(res==2){
+				alert('권한이 없습니다');
+			}else{
+				alert('수정실패');
+			}
+		}).fail(function(res){
+			alert('서버요청실패'+res);
+		});
+	}
 		//페이징처리
 		const pageno = ${pageNo};
 		const onpageno = ${onePageNo};

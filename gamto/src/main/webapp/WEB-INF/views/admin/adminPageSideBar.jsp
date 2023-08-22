@@ -22,10 +22,8 @@ ${alert}
 		admin_id= (String) session.getAttribute("admin_id");
 		admin_name = (String) session.getAttribute("admin_name");
 		admin_role = ((Integer) session.getAttribute("admin_role")).intValue();
-	}else if(session.getAttribute("u_id")!=null){
-		out.println("<script> alert('권한이 없습니다.'); location.href='/'; </script>");
 	}else{
-		if(! request.getRequestURI().equals("/WEB-INF/views/admin/adminLoginForm.jsp") && !(request.getRequestURI().equals("/WEB-INF/views/admin/adminJoinForm.jsp")) ){			
+		if( ( !request.getRequestURI().equals("/WEB-INF/views/admin/adminLoginForm.jsp") && !(request.getRequestURI().equals("/WEB-INF/views/admin/adminJoinForm.jsp")) ) ){			
 			out.println("<script> alert('권한이 없습니다.'); location.href='/'; </script>");
 		}
 	}

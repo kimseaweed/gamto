@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="com.mrmr.gamto.member.dto.MyBoardDTO" %>
+<%@ page import="com.mrmr.gamto.freeboard.dto.CommentDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>관리자 페이지 | 게시판 관리</title>
+<title>관리자 페이지 | 댓글 관리</title>
 <style>
 </style>
 </head>
@@ -21,7 +21,7 @@
 				<jsp:include page="adminPageSideBar.jsp" />
 				<div class=" container col pt-lg-3">
 
-					<form id="boardOption" action="/admin/board/${onePageNo}/${pageNo}"
+					<form id="commentOption" action="/admin/comment/${onePageNo}/${pageNo}"
 						method="get">
 						<select id="changePageNo" name="changePageNo" class="form-select"
 							onchange="viewPageNo()">
@@ -34,34 +34,31 @@
 					<table class="table table-hover text-center mt-lg-2 mt-1">
 						<thead>
 							<tr class="text-bg-secondary ">
-								<th scope="col" width=20%>분류</th>
-								<th scope="col" width=20%>번호</th>
-								<th scope="col" width=25%>제목</th>
-								<th scope="col" width=20%>수정날짜</th>
-								<th scope="col" width=15%>상태</th>
+								<th scope="col" width=10%>댓글번호</th>
+								<th scope="col" width=15%>해당 게시물번호</th>
+								<th scope="col" width=30%>내용</th>
+								<th scope="col" width=15%>작성자</th>
+								<th scope="col" width=10%>마지막 수정날짜</th>
+								<th scope="col" width=10%>상태</th>
+								<th scope="col" width=10%>삭제</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
-						<% if(request.getAttribute("boardList")==null){ %>
+						<% if(request.getAttribute("commentList")==null){ %>
 								<tr>
 									<td colspan="6">검색결과가 없습니다.</td>
 								</tr>
 						<%}else{ %>
-							<c:forEach var="list" items="${boardList}">
-											 	<c:choose>
-											<c:when test="${dto.tablename eq '우리생각'}">
-											<tr onclick="location.href='/report/view?r_seq_number=${list.seq_number}'">
-											</c:when>
-											<c:otherwise>
-											<tr onclick="location.href='/board/view?f_seq_number=${list.seq_number}'">
-											</c:otherwise>
-										</c:choose>
-								
-									<td class="">${list.tablename}</td>
-									<td class="">${list.seq_number}</td>
-									<td class="">${list.title}</td>
-									<td class="">${list.regist_day}</td>
-									<td class="">${list.deleted}</td>
+							<c:forEach var="list" items="${commentList}">
+
+								<tr>
+									<td style="cursor: pointer"class="align-middle">${list.c_seq_number}</td>
+									<td style="cursor: pointer"class="align-middle">${list.c_freeboard}</td>
+									<td style="cursor: pointer"class="align-middle"><a href="/board/view?f_seq_number=${list.c_freeboard}"> ${list.c_content} </a></td>
+									<td style="cursor: pointer"class="align-middle">${list.c_writer}</td>
+									<td style="cursor: pointer"class="align-middle">${list.c_update_day}</td>
+									<td style="cursor: pointer"class="align-middle">${list.c_delete}</td>
+									<td style="cursor: pointer"class="align-middle"><button onclick="deletemember('${list.c_seq_number}')">삭제/복구하기</button> </td>
 								</tr>
 							</c:forEach>
 						<% } %>
@@ -71,10 +68,10 @@
 						<nav class="py-5">
 							<ul id="" class="pagination d-flex justify-content-center">
 									<li id="" class=" page-item1 mx-3"><a
-									class="page-link" href="/admin/board/${onePageNo}/1"
+									class="page-link" href="/admin/comment/${onePageNo}/1"
 									aria-label="Previous"><span aria-hidden="true">맨앞</span></a></li>
 								<li id="prev" class="d-none page-item1 mx-3"><a
-									class="page-link" href="/admin/board/${onePageNo}/${pageNo-1}"
+									class="page-link" href="/admin/comment/${onePageNo}/${pageNo-1}"
 									aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 
 								<li>
@@ -84,14 +81,14 @@
 								</li>
 
 								<li id="next" class="d-none page-item2 mx-4"><a
-									class="page-link" href="/admin/board/${onePageNo}/${pageNo+1}"
+									class="page-link" href="/admin/comment/${onePageNo}/${pageNo+1}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
-							<% if(request.getAttribute("boardList")!=null){							
-								List<MyBoardDTO> list = (List<MyBoardDTO>)request.getAttribute("boardList");
-								double total = list.get(0).getTotal();
+							<% if(request.getAttribute("commentList")!=null){							
+								List<CommentDTO> list = (List<CommentDTO>)request.getAttribute("commentList");
+								double total = list.get(0).getC_total_count();
 								int maxpageno = (int)Math.ceil(total / Double.parseDouble((String)request.getAttribute("onePageNo"))) ;%>
 								<li id="" class="page-item2 mx-3"><a
-									class="page-link" href="/admin/board/${onePageNo}/<%=maxpageno %>"
+									class="page-link" href="/admin/comment/${onePageNo}/<%=maxpageno %>"
 									aria-label="Next"> <span aria-hidden="true">맨뒤</span></a></li>
 									<% } %>
 							</ul>
@@ -105,10 +102,29 @@
 		</div>
 	</main>
 	<script type="text/javascript">
+	function deletemember(c_seq_number){
+		$.ajax({
+			url: "/admin/comment/"+c_seq_number,
+			type: "PUT",
+		}).done(function(res) {
+			if(res==1){
+				alert('변경완료');
+				$('table').load(location.href+' table>*')
+			}else if(res==2){
+				alert('권한이 없습니다');
+			}else{
+				alert('수정실패');
+			}
+		}).fail(function(res){
+			alert('서버요청실패'+res);
+		});
+	}
+	
+	
 		//페이징처리
 		const pageno = ${pageNo};
 		const onpageno = ${onePageNo};
-		const maxcontent = ${boardList[0].total};
+		const maxcontent = ${commentList[0].c_total_count};
 		const maxpageno = Math.ceil(maxcontent / onpageno);
 
 		$(document).ready(function() {
@@ -121,7 +137,7 @@
 				if ((pageno - i) > 0) {
 					$('#page').prepend( 
 						'<li class="thispage page-item"><a class="page-link" ' + 
-						'href="/admin/board/'	+ onpageno + '/' + (pageno - i) + '">' + (pageno - i) + '</a></li>');
+						'href="/admin/comment/'	+ onpageno + '/' + (pageno - i) + '">' + (pageno - i) + '</a></li>');
 				} else {
 					j++;
 				}
@@ -129,7 +145,7 @@
 				if ((pageno + i) <= maxpageno) {
 					$('#page').append(
 						'<li class="thispage page-item"><a class="page-link" '+
-						' href="/admin/board/' + onpageno + '/' + (pageno + i) + '">'	+ (pageno + i) + '</a></li>');
+						' href="/admin/comment/' + onpageno + '/' + (pageno + i) + '">'	+ (pageno + i) + '</a></li>');
 				}
 
 				if (i == 4 && j>0) {
@@ -138,7 +154,7 @@
 						if ((pageno+i+j) <= maxpageno) {
 							$('#page').append(
 								'<li class="thispage page-item"><a class="page-link" '+
-								' href="/admin/board/' + onpageno + '/' + (pageno + i + k) + '">' + (pageno + i + k) + '</a></li>');
+								' href="/admin/comment/' + onpageno + '/' + (pageno + i + k) + '">' + (pageno + i + k) + '</a></li>');
 							//console.log((pageno + i + k)+'번을 만들었어요')
 						}
 					}
@@ -151,7 +167,7 @@
 		
 		//n개씩 보기 반응
 		function viewPageNo() {
-			$('#boardOption').submit();
+			$('#commentOption').submit();
 		}
 	</script>
 	<jsp:include page="../footer.jsp" />

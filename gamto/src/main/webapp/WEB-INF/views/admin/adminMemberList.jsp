@@ -37,9 +37,9 @@
 								<th scope="col" width=20%>아이디</th>
 								<th scope="col" width=20%>사번</th>
 								<th scope="col" width=20%>이름</th>
-								<th scope="col" width=20%>권한</th>
+								<th scope="col" width=15%>권한</th>
 								<th scope="col" width=10%>삭제</th>
-								<th scope="col" width=10%>변경</th>
+								<th scope="col" width=15%>변경</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
@@ -49,13 +49,42 @@
 								</tr>
 						<%}else{ %>
 							<c:forEach var="list" items="${adminList}">
-								<tr>
+								<tr class="align-middle"> 
 									<td class="">${list.admin_id}</td>
 									<td class="">${list.admin_number}</td>
 									<td class="">${list.admin_name}</td>
 									<td class="">${list.admin_role}</td>
-									<td class=""><button>계정삭제</button></td>
-									<td class=""><button>권한변경</button></td>
+									<td class=""><button class="btn  btn-danger" onclick="deleteadmin('${list.admin_id}')">계정삭제</button></td>
+									<td class="">
+									<select class="form-select" id="${list.admin_id}" onchange="updateadmin('${list.admin_id}')">
+														<c:choose>
+								<c:when test="${list.admin_role eq 1}">
+									<option value="1"selected>(1)최고 권한</option>
+									<option value="2">(2)임원 권한</option>
+									<option value="3">(3)직원 권한</option>
+									<option value="4">(4)승인대기 or 승인회수</option>
+								</c:when>
+								<c:when test="${list.admin_role eq 2}">
+									<option value="1">(1)최고 권한</option>
+									<option value="2" selected>(2)임원 권한</option>
+									<option value="3">(3)직원 권한</option>
+									<option value="4">(4)승인대기 or 승인회수</option>
+								</c:when>
+								<c:when test="${list.admin_role eq 3}">
+									<option value="1">(1)최고 권한</option>
+									<option value="2">(2)임원 권한</option>
+									<option value="3" selected>(3)직원 권한</option>
+									<option value="4">(4)승인대기 or 승인회수</option>
+								</c:when>
+								<c:otherwise>
+									<option value="1">(1)최고 권한</option>
+									<option value="2">(2)임원 권한</option>
+									<option value="3" >(3)직원 권한</option>
+									<option value="4"selected>(4)승인대기 or 승인회수</option>
+								</c:otherwise>
+							</c:choose>
+									</select>
+									</td>
 							</c:forEach>
 						<% } %>
 						</tbody>
@@ -145,6 +174,48 @@
 		//n개씩 보기 반응
 		function viewPageNo() {
 			$('#admin-memberOption').submit();
+		}
+		
+		//삭제버튼 액션
+		function deleteadmin(adminId){
+			$.ajax({
+				url: "/admin/admin-member/"+adminId,
+				method: "delete",
+				dataType:"text",
+			}).done(function(res) {
+				if(res==1){
+					alert('삭제완료');
+					$('table').load(location.href+' table>*')
+				}else if(res==2){
+					alert('권한이 없습니다');
+				}else{
+					alert('수정실패');
+				}
+			}).fail(function(res){
+				alert('서버요청실패'+res);
+			});
+		}
+		
+		//수정버튼 액션
+		function updateadmin(adminId){
+			var role={"admin_role" : document.getElementById(adminId).value, };
+			$.ajax({
+				url: "/admin/admin-member/"+adminId,
+				type: "PUT",
+				data:JSON.stringify(role),
+                contentType:'application/json;charset=UTF-8',
+			}).done(function(res) {
+				if(res==1){
+					alert('변경완료');
+					$('table').load(location.href+' table>*')
+				}else if(res==2){
+					alert('권한이 없습니다');
+				}else{
+					alert('수정실패');
+				}
+			}).fail(function(res){
+				alert('서버요청실패'+res);
+			});
 		}
 	</script>
 	<jsp:include page="../footer.jsp" />

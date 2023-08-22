@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mrmr.gamto.admin.dao.AdminDAO">
+
+	<!-- 관리자계정관리 =============================== -->
 	<!-- 관리자계정 등록  -->
 	<insert id="insertAdminMember">
 		insert into admin values(#{dto.admin_id},#{dto.admin_password},#{dto.admin_number},#{dto.admin_name},4)
@@ -15,9 +17,14 @@
 		select (select count(*) from admin ) as admin_total, a.* from (select rownum as rn, a.* from (select admin.* FROM admin ${param3} )a)a
 		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
+	<delete id="deleteAdminMember">
+		delete from admin where admin_id = #{admin_id} 
+	</delete>
+	<update id="updateAdminMember">
+		update admin set admin_role = #{admin_role} where admin_id = #{admin_id}
+	</update>
 	
-	
-	<!-- 멤버관리 -->
+	<!-- 멤버관리 ===================================== -->
 	<!-- 멤버 리스트 로드 -->
 	<select id="memberListDao" parameterType="List"
 		resultType="com.mrmr.gamto.member.dto.MemberDTO">
@@ -30,7 +37,9 @@
 				(select member_function.* FROM member_function ${param3} )u)u
 		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
-
+	<update id="updateMember">
+		update member_function set u_delete = #{state} where u_id = #{u_id}
+	</update>
 	<!-- 문의전체보기 -->
 	<select id="askListDao" parameterType="List" resultType="com.mrmr.gamto.help.dto.AskDTO">
 	select
@@ -42,9 +51,9 @@
                             WHEN (SYSDATE - a.a_date) * 24 * 60 &lt; 60 
                                THEN TO_CHAR(TRUNC((SYSDATE - a.a_date) * 24 * 60)) || '분 전'
                                ELSE TO_CHAR(TRUNC((SYSDATE - a.a_date) * 24)) || '시간 ' || 
-                                        TO_CHAR(TRUNC(MOD((SYSDATE - a_date) * 24 * 60, 60))) || '분 전'
+                                        TO_CHAR(TRUNC(MOD((SYSDATE - a.a_date) * 24 * 60, 60))) || '분 전'
                             END
-					ELSE TO_CHAR(a.a_date, 'YY-MM-DD')
+					ELSE TO_CHAR(a.a_date,'YY-MM-DD')
 				END
 		AS a_date,
 		a.a_seq_number,
@@ -65,12 +74,12 @@
 		resultType="com.mrmr.gamto.help.dto.AskDTO">
 		SELECT (select count(*) from ask ) as a_total,ask.* FROM ask WHERE a_seq_number=#{a_seq_number}
 	</select>
-
 	<!-- 문의진행사항 변경 -->
 	<update id="askUpdateComplete">
 		UPDATE ask SET a_complete = #{a_complete} WHERE
 		a_seq_number=#{a_seq_number}
 	</update>
+
 
 	<!-- 신고관리기능 -->
 	<!-- 문의전체보기 -->
@@ -117,31 +126,13 @@
 		UPDATE accuse SET ac_complete = #{ac_complete} WHERE
 		ac_seq_number=#{ac_seq_number}
 	</update>
-	
-	<!-- 상품관리  -->
-	<insert id="insertStoreDao">
-		insert into book_info values(
-			b_seq_number.nextVal,
-			#{dto.b_code}, 
-			#{dto.b_name}, 
-			#{dto.b_author}, 
-			#{dto.b_publisher}, 
-			#{dto.b_release},
-			#{dto.b_filename}, 
-			#{dto.b_genre}, 
-			#{dto.b_price}, 
-			#{dto.b_stock}, 
-			#{dto.b_description}, 
-			0, 
-			0)
-	</insert>
+
 	
 	<!-- 게시판 관리  -->
 	<!-- 게시판 목록 불러오기 -->
 	<select id="boardListDao" parameterType="List"
 		resultType="com.mrmr.gamto.member.dto.MyBoardDTO">
-		select 
-	m.*
+select (select count(book_report.r_seq_number)+count(free_board.f_seq_number) from book_report,free_board ) as total, m.*
 from (select 
 		rownum as rm, m.* 
 	from ((select
@@ -160,8 +151,8 @@ from (select
 					ELSE TO_CHAR(r_regist_day, 'YY-MM-DD')
 				END 
 				as regist_day,
-			r_delete as delete
-		from book_report ${param3})
+			r_delete as deleted
+		from book_report)
 	union
 		(select 
 			f_seq_number as seq_number, 
@@ -179,17 +170,73 @@ from (select
 					ELSE TO_CHAR(f_regist_day, 'YY-MM-DD')
 				END 
 				as regist_day,
-			f_delete as delete
-		from free_board ${param3})) m) m
+			f_delete as deleted
+		from free_board)) m order by regist_day desc ${param3}) m
 where rm BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
 	
-	
+		<!-- 댓글 불러오기  -->
+	<select id="commentListDao" parameterType="List"
+		resultType="com.mrmr.gamto.freeboard.dto.CommentDTO">
+ 	select  c.* from (
+        	select 	rownum rm, c.*
+        		from(
+        			select 
+        			c_seq_number,
+        			f_seq_number as c_freeboard,
+        			c_writer,
+        			c_update_day,
+        			c_delete,
+        			c_content,
+        			(select count(*) from comment_board)
+        			as c_total_count
+        			from comment_board ${param3} order by c_seq_number DESC)c )c
+        	where rm BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})	
+	</select>
+			<!-- 댓글 삭제 -->
+	<update id="deleteComment">
+		UPDATE comment_board 
+		    SET c_delete = 
+		        case 
+		            when c_delete = 0 THEN 1
+		            else  0
+                end
+		WHERE c_seq_number = #{c_seq_number}
+	</update>
+	<!-- 상품관리  -->
+	<insert id="insertStoreDao">
+		insert into book_info values(
+			b_seq_number.nextVal,
+			#{dto.b_code}, 
+			#{dto.b_name}, 
+			#{dto.b_author}, 
+			#{dto.b_publisher}, 
+			#{dto.b_release},
+			#{dto.b_filename}, 
+			#{dto.b_genre}, 
+			#{dto.b_price}, 
+			#{dto.b_stock}, 
+			#{dto.b_description}, 
+			0, 
+			0)
+	</insert>
 	<!-- 상품리스트 불러오기  -->
 	<select id="storeListDao" parameterType="List"
 		resultType="com.mrmr.gamto.store.dto.StoreDTO">
 		select (select count(*) from book_info ${param3} ) as total, b.* from (select rownum as rn, b.* from (select book_info.* FROM book_info ${param3} order by b_seq_number desc)b)b
 		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
-
+	<update id="updateStoreDao">
+		update book_info set 
+			b_name = #{dto.b_name},
+			b_author = #{dto.b_author},
+			b_publisher = #{dto.b_publisher},
+			b_release = #{dto.b_release},
+			b_filename = #{dto.b_filename},
+			b_genre = #{dto.b_genre},
+			b_price = #{dto.b_price},
+			b_stock = #{dto.b_stock},
+			b_description = #{dto.b_description}
+		where b_code = #{dto.b_code}
+	</update>
 </mapper>

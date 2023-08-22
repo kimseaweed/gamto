@@ -49,7 +49,7 @@
 								</tr>
 						<%}else{ %>
 							<c:forEach var="list" items="${storeList}">
-								<tr	onclick="location.href='/admin/store/view/${list.b_seq_number}'">
+								<tr	onclick="location.href='/admin/store/edit/${list.b_code}'">
 									<td class="">${list.b_seq_number}</td>
 									<td class="">${list.b_code}</td>
 									<td class="">${list.b_name}</td>

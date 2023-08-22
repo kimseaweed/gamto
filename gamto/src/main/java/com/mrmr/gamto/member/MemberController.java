@@ -57,6 +57,11 @@ public class MemberController {
 			model.addAttribute("error",3);
 			return "member/loginMemberForm";
 			// 로그인정보가 있으나 탈퇴회원
+		}else if(dto.getU_delete().equals("2")){
+			model.addAttribute("connect",connect);
+			model.addAttribute("error",4);
+			return "member/loginMemberForm";
+			// 로그인정보가 있으나 탈퇴회원
 		}else {
 			session.setAttribute("u_id", u_id);
 			if(connect=="") connect="/";
