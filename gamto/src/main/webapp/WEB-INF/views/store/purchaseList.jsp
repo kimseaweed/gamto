@@ -48,8 +48,8 @@
 					 			<th>가격</th>
 					 		</tr>
 					 		<c:forEach items="${purchaseList}" var="dto">
-					 			<tr>
-					 				<td class="c-bd1 c-ht"><a href="#">${dto.o_order_number}</a></td>
+					 			<tr onclick="location='/kakaoPay/kakaoPaySuccess?o_order_number=${dto.o_order_number}'" style="cursor:pointer;">
+					 				<td class="c-bd1 c-ht">${dto.o_order_number}</td>
 					 				<td class="c-bd1">${dto.o_book_name}</td>
 					 				<td class="c-bd1">${dto.o_address}</td>
 					 				<td class="c-bd1">${dto.o_total}</td>
