@@ -71,11 +71,7 @@ System.out.println("stotalCost: "+stotalCost);
 						</tr>
 						<tr class="row mt-5 mt-lg-5 mt-md-4 mb-3">
 							<td class="b_priceTot col text-end">
-								<form method="post" action="/kakaoPay">
-								<input type="hidden" value="${dto.b_code}" name="orderCode"/>
-									<button
-										class="kkoPay btn btn-warning btn-lg me-lg-3 me-md-2 me-3"></button>
-								</form>
+
 								<a class="btn btn-primary btn-lg addCart" id="${dto.b_code}">장바구니
 									담기</a>
 							</td>
