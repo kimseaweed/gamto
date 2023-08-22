@@ -60,7 +60,7 @@ public class AdminController {
 			model.addAttribute("alert", "alert('등록되지 않았습니다.');");
 		}
 		model.addAttribute("alert", "alert('등록이 완료되었습니다.");
-		return "admin/login";
+		return "redirect:/admin/login";
 	}
 
 	// 관리자 로그인 폼

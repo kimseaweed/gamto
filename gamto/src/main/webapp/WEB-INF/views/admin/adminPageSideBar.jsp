@@ -25,7 +25,7 @@ ${alert}
 	}else if(session.getAttribute("u_id")!=null){
 		out.println("<script> alert('권한이 없습니다.'); location.href='/'; </script>");
 	}else{
-		if(! request.getRequestURI().equals("/WEB-INF/views/admin/adminLoginForm.jsp") ){			
+		if(! request.getRequestURI().equals("/WEB-INF/views/admin/adminLoginForm.jsp") && !(request.getRequestURI().equals("/WEB-INF/views/admin/adminJoinForm.jsp")) ){			
 			out.println("<script> alert('권한이 없습니다.'); location.href='/'; </script>");
 		}
 	}
