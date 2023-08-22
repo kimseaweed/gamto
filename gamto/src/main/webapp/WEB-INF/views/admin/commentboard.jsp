@@ -50,15 +50,14 @@
 								</tr>
 						<%}else{ %>
 							<c:forEach var="list" items="${commentList}">
-
 								<tr>
 									<td style="cursor: pointer"class="align-middle">${list.c_seq_number}</td>
 									<td style="cursor: pointer"class="align-middle">${list.c_freeboard}</td>
-									<td style="cursor: pointer"class="align-middle"><a href="/board/view?f_seq_number=${list.c_freeboard}"> ${list.c_content} </a></td>
+									<td style="cursor: pointer"class="align-middle"><a class="" href="/board/view?f_seq_number=${list.c_freeboard}"> ${list.c_content} </a></td>
 									<td style="cursor: pointer"class="align-middle">${list.c_writer}</td>
 									<td style="cursor: pointer"class="align-middle">${list.c_update_day}</td>
 									<td style="cursor: pointer"class="align-middle">${list.c_delete}</td>
-									<td style="cursor: pointer"class="align-middle"><button onclick="deletemember('${list.c_seq_number}')">삭제/복구하기</button> </td>
+									<td style="cursor: pointer"class="align-middle"><button class="btn btn-success" onclick="deletecomment('${list.c_seq_number}')">삭제/복구하기</button> </td>
 								</tr>
 							</c:forEach>
 						<% } %>
@@ -96,13 +95,11 @@
 
 					</div>
 				</div>
-				<!-- col-md-7 -->
 			</div>
-			<!-- row -->
 		</div>
 	</main>
 	<script type="text/javascript">
-	function deletemember(c_seq_number){
+	function deletecomment(c_seq_number){
 		$.ajax({
 			url: "/admin/comment/"+c_seq_number,
 			type: "PUT",

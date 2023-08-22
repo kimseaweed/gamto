@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 상세 페이지</title>
+<title>감토 | 너의 생각</title>
 <style>
 	.out{
 		outline: none;
@@ -19,6 +19,13 @@
 <body>
 <jsp:include page="../header.jsp" />
 	<main class="container pt-5">
+	<script type="text/javascript">
+	var deleted = '${dto.r_delete}';
+	if(deleted==1){
+		alert('삭제된 게시물입니다');
+		history.back();
+	}
+	</script>
 	<div>
 		<div class="row">
 			<p>제목 : ${dto.r_title}</p> <span class="col col-lg-6" style="float: left;">작성자 : ${dto.r_writer}</span>

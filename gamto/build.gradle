@@ -42,11 +42,6 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
     //데브툴
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    //타임리프
-   	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	// 타임리프 레이아웃
-	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 	// commonsio
 	// https://mvnrepository.com/artifact/commons-io/commons-io
 	implementation 'commons-io:commons-io:2.13.0'

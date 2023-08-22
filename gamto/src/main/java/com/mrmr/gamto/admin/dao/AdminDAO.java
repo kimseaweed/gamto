@@ -41,7 +41,7 @@ public interface AdminDAO {
 	//문의 상세보기 
 	public AskDTO askViewDao(int a_seq_number);
 	//문의 상세보기 처리여부 업데이트
-	public int askUpdateComplete(int a_seq_number,String a_complete);
+	public int askUpdateComplete(@Param("a_seq_number")int a_seq_number,@Param("a_complete")String a_complete);
 	//문의 검색하기 리스트
 	public List<AskDTO> askSearchListDao(int pageNo,String query);
 	
@@ -52,7 +52,7 @@ public interface AdminDAO {
 	//신고 상세보기 
 	public AccuseDTO accuseViewDao(int a_seq_number);
 	//신고 상세보기 처리여부 업데이트
-	public int accuseUpdateComplete(int a_seq_number,String a_complete);	
+	public int accuseUpdateComplete(@Param("ac_seq_number")int ac_seq_number,@Param("ac_complete")String ac_complete);	
 	//신고 검색하기 리스트
 	public List<AccuseDTO> accuseSearchListDao(int pageNo,String query);
 	
@@ -60,6 +60,8 @@ public interface AdminDAO {
 	/* 게시판 관리 DAO ***********************************************/
 	//게시판 모든글 블러옴
 	public List<MyBoardDTO> boardListDao(String pageNo,String onePageNo,String query);
+	//게시판 삭제/복구함
+	public int deleteBoard(@Param("table")String table,@Param("deleted")String deleted,@Param("col_seq_number")String col_seq_number,@Param("seq_number")String seq_number);
 	
 	
 	/* 게시판 관리 DAO ***********************************************/

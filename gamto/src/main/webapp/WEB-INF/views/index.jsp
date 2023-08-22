@@ -162,6 +162,8 @@
   </ul>
 </div>
 </main>
+<div class="d-none">
 <jsp:include page="footer.jsp"/>
+</div>
 </body>
 </html>

@@ -56,14 +56,14 @@
 										</c:if></td>
 									<td class="">${list.ac_date}</td>
 									<td class=""><c:choose>
-											<c:when test="${fn:contains(list.ac_complete, '완료')}">
-												<span class="text-muted">${list.ac_complete} </span>
+											<c:when test="${fn:contains(list.ac_complete, '처리완료')}">
+												<span class="fw-bold text-muted">${list.ac_complete} </span>
 											</c:when>
 											<c:when test="${list.ac_complete eq '신규'}">
-												<span class="text-danger">${list.ac_complete}</span>
+												<span class="fw-bold text-danger">${list.ac_complete}</span>
 											</c:when>
-											<c:when test="${fn:contains(list.ac_complete, '진행')}">
-												<span class="text-warning">${list.ac_id}</span>
+											<c:when test="${fn:contains(list.ac_complete, '진행중')}">
+												<span class="fw-bold text-warning">${list.ac_complete}</span>
 											</c:when>
 											<c:otherwise>${list.ac_complete}</c:otherwise>
 										</c:choose></td>

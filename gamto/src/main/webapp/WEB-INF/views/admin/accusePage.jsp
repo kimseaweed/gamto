@@ -65,10 +65,24 @@
 								<td>
 									<div class="row">
 										<div class="col">
-											<select id="selectwork" name="selectwork" class=" align-middle form-select form-select-lg text-center" >
-												<option value="1">신규</option>
-												<option value="2">진행중</option>
-												<option value="0">답변완료</option>
+											<select id="selectwork" name="selectwork" class=" align-middle form-select form-select-lg text-center" onchange="openWork('${dto.ac_seq_number}')" >
+												<c:choose>
+												<c:when test="${dto.ac_complete eq '신규'}">
+														<option value="1" selected>신규</option>
+														<option value="2">진행중</option>
+														<option value="0">처리완료</option>
+													</c:when>
+													<c:when test="${dto.ac_complete eq '진행중'}">
+														<option value="1">신규</option>
+														<option value="2" selected>진행중</option>
+														<option value="0">처리완료</option>
+													</c:when>
+													<c:otherwise>
+														<option value="1">신규</option>
+														<option value="2">진행중</option>
+														<option value="0" selected>처리완료</option>
+													</c:otherwise>
+												</c:choose>
 											</select>
 										</div>
 									</div> 
@@ -106,17 +120,39 @@
 		</div>
 	</main>
 <script type="text/javascript">
-var compleate = '${dto.ac_complete}';
 
-$(document).ready(function(){
-	if(compleate=="신규"){
-		$('select > option').eq(0).attr('selected');
-	}else if('답변완료'){
-		$('select > option').eq(2).attr('selected');
+
+
+function openWork(ac_seq_number){
+	var complete;
+	var checked = document.getElementById('selectwork').value;
+	if(checked==1){
+		complete = '신규'
+	}else if(checked==2){
+		complete = '진행중'
 	}else{
-		$('select > option').eq(1).attr('selected');
+		complete = '처리완료'
 	}
-})
+		
+	var ac_complete={"ac_complete" : complete, };
+	$.ajax({
+		url: "/admin/accuse/view/"+ac_seq_number,
+		type: "PUT",
+		data:JSON.stringify(ac_complete),
+        contentType:'application/json;charset=UTF-8',
+	}).done(function(res) {
+		if(res==1){
+			alert('변경완료');
+			$('table').load(location.href+' table>*')
+		}else if(res==2){
+			alert('권한이 없습니다');
+		}else{
+			alert('수정실패');
+		}
+	}).fail(function(res){
+		alert('서버요청실패'+res);
+	});	
+}
 
 
 </script>

@@ -82,7 +82,7 @@
 
 
 	<!-- 신고관리기능 -->
-	<!-- 문의전체보기 -->
+	<!-- 신고전체보기 -->
 	<select id="accuseListDao" parameterType="List"
 		resultType="com.mrmr.gamto.help.dto.AccuseDTO">
 		select
@@ -115,13 +115,13 @@
 			(select rownum as rn, ac.* from (select accuse.* FROM accuse order by ac_seq_number desc)ac)ac
 		where rn BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
-	<!-- 문의상세보기 -->
+	<!-- 신고상세보기 -->
 	<select id="accuseViewDao"
 		resultType="com.mrmr.gamto.help.dto.AccuseDTO">
 		SELECT (select count(*) from accuse ) as ac_total,  accuse.* FROM accuse WHERE ac_seq_number=#{ac_seq_number}
 	</select>
 
-	<!-- 문의진행사항 변경 -->
+	<!-- 신고진행사항 변경 -->
 	<update id="accuseUpdateComplete">
 		UPDATE accuse SET ac_complete = #{ac_complete} WHERE
 		ac_seq_number=#{ac_seq_number}
@@ -137,7 +137,7 @@ from (select
 		rownum as rm, m.* 
 	from ((select
 			 r_seq_number as seq_number, 
-			'나의생각' as tablename, 
+			'너의생각' as tablename, 
 			r_title as title, 
 			CASE
 				WHEN (SYSDATE - r_regist_day &lt;= 1) 
@@ -171,9 +171,17 @@ from (select
 				END 
 				as regist_day,
 			f_delete as deleted
-		from free_board)) m order by regist_day desc ${param3}) m
+		from free_board)) m order by regist_day ${param3}) m
 where rm BETWEEN ((#{param1}-1)*#{param2}+1) and (#{param1}*#{param2})
 	</select>
+	<update id="deleteBoard">
+		update ${table} set ${deleted} = 
+								  case 
+		           					 when ${deleted} = 0 THEN 1
+		            				else  0
+               					end		
+							WHERE ${col_seq_number} = #{seq_number} 
+	</update>
 	
 		<!-- 댓글 불러오기  -->
 	<select id="commentListDao" parameterType="List"

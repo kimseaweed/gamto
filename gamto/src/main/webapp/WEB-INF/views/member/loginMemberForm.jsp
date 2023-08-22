@@ -61,7 +61,7 @@
 									class="bi bi-arrow-right-short"></i> 회원가입 하러가기
 								</a>
 							</div>
-							<h5 class="c-black mb-4 mt-n1">.</h5>
+							<h5 class="c-black mb-4 mt-n1"></h5>
 							<div class="socials pe-3">
 							<% if(request.getParameter("error")!=null){
 								int error=Integer.parseInt(request.getParameter("error")); 

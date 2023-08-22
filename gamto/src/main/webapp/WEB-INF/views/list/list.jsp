@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list.jsp</title>
+<title>감토 | 너의 생각</title>
 <style>
 	.full{
 		width: 100%;

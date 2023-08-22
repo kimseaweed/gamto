@@ -134,7 +134,7 @@ public class AdminController {
 		}
 		return "admin/adminMemberList";
 	}
-	// 삭제
+	// 감토지기 삭제
 	@ResponseBody
 	@DeleteMapping("/admin-member/{admin_id}")
 	public int deleteAdminMember(@PathVariable String admin_id,HttpSession session) {
@@ -144,7 +144,7 @@ public class AdminController {
 		}
 		return dao.deleteAdminMember(admin_id);
 	}
-	// 수정
+	// 감토지기 권한 수정
 	@ResponseBody
 	@PutMapping("/admin-member/{admin_id}")
 	public int UpdateAdminMember(HttpSession session,@RequestBody Map<String,String> role,@PathVariable String admin_id) {
@@ -204,7 +204,7 @@ public class AdminController {
 	public String askboard() {
 		return "redirect:ask/" + onePageNumDefault + "/1";
 	}
-
+	//문의 리스트
 	@RequestMapping("/ask/{onePageNo}/{pageNo}")
 	public String askboard(Model model, @PathVariable String onePageNo, @PathVariable String pageNo,
 			String changePageNo) {
@@ -226,25 +226,33 @@ public class AdminController {
 		}
 		return "admin/askBoard";
 	}
-
+	//문의기록 보기
 	@GetMapping("/ask/view/{a_seq_number}")
 	public String askview(HttpSession session, Model model, @PathVariable("a_seq_number") int a_seq_number) {
 		AskDTO dto = dao.askViewDao(a_seq_number);
 		model.addAttribute("dto", dto);
 		return "admin/askPage";
 	}
-
+	//신고진행사항
 	@ResponseBody
 	@PutMapping("/ask/view/{a_seq_number}")
 	public int askviewPut(HttpSession session, Model model, @PathVariable("a_seq_number") int a_seq_number,
-			String a_complete) {
-		int res = dao.askUpdateComplete(a_seq_number, a_complete);
-		return res; // 1성공 0실패
+		@RequestBody Map<String,String> a_complete) {
+		if(session.getAttribute("admin_role")==null) {
+			return 2;
+		}
+		Integer requestrole = (Integer)session.getAttribute("admin_role");
+		if(requestrole.intValue()>1) {
+			return 2;
+		}
+		return dao.askUpdateComplete(a_seq_number,  a_complete.get("a_complete") );
 	}
 
 	@GetMapping("/ask/{a_seq_number}/file")
 	public String askFile(@PathVariable("a_seq_number") int a_seq_number) {
-
+		
+		
+		
 		return "";
 	}
 
@@ -283,19 +291,26 @@ public class AdminController {
 		return "admin/accuseBoard";
 	}
 
-	@GetMapping("/accuse/view/{a_seq_number}")
-	public String accuseview(HttpSession session, Model model, @PathVariable("a_seq_number") int a_seq_number) {
-		AccuseDTO dto = dao.accuseViewDao(a_seq_number);
+	@GetMapping("/accuse/view/{ac_seq_number}")
+	public String accuseview(HttpSession session, Model model, @PathVariable("ac_seq_number") int ac_seq_number) {
+		AccuseDTO dto = dao.accuseViewDao(ac_seq_number);
 		model.addAttribute("dto", dto);
 		return "admin/accusePage";
 	}
-
+	// 신고상태 변경
 	@ResponseBody
-	@PutMapping("/accuse/view/{a_seq_number}")
-	public int accuseviewPut(HttpSession session, Model model, @PathVariable("a_seq_number") int a_seq_number,
-			String a_complete) {
-		int res = dao.accuseUpdateComplete(a_seq_number, a_complete);
-		return res; // 1성공 0실패
+	@PutMapping("/accuse/view/{ac_seq_number}")
+	public int accuseviewPut(HttpSession session, Model model, @PathVariable("ac_seq_number") int ac_seq_number,
+			@RequestBody Map<String,String> ac_complete) {
+		if(session.getAttribute("admin_role")==null) {
+			return 2;
+		}
+		Integer requestrole = (Integer)session.getAttribute("admin_role");
+		if(requestrole.intValue()>1) {
+			return 2;
+		}
+		System.out.println();
+		return  dao.accuseUpdateComplete(ac_seq_number,  ac_complete.get("ac_complete") );
 	}
 
 	@GetMapping("/accuse/search")
@@ -331,6 +346,33 @@ public class AdminController {
 		}
 		return "admin/board";
 	}
+	//게시판 삭제 복구 - 너의생각
+	@ResponseBody
+	@PutMapping("/{board}/{seq_number}")
+	public int deleteComment(HttpSession session,@PathVariable String board,@PathVariable String seq_number) {
+		System.out.println("매핑 진입" + board+seq_number);
+		
+		
+		if(session.getAttribute("admin_role")==null) {
+			return 2;
+		}
+		Integer requestrole = (Integer)session.getAttribute("admin_role");
+		if(requestrole.intValue()>1) {
+			return 2;
+		}
+		String table, deleted,col_seq_number;
+		if(board.equals("report")) {
+			table = "book_report";
+			deleted = "r_delete";
+			col_seq_number = "r_seq_number";
+		}else {
+			table = "free_board";
+			deleted = "f_delete";
+			col_seq_number = "f_seq_number";
+		}
+		return dao.deleteBoard(table,deleted,col_seq_number,seq_number);
+	}
+	
 	/*** 댓글 관리기능 ***********************************************/
 	//코멘트url진입
 	@RequestMapping("/comment")

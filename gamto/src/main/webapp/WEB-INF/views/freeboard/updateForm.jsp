@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>update</title>
+<title>감토 | 우리 생각</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css">
 

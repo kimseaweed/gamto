@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 상세 페이지</title>
+<title>감토 | 우리 생각</title>
 <style>
    .commentCustom{
       border: 1px solid lightgray;
@@ -17,13 +17,20 @@
 	  height: 50px !important; 
 	}
 </style>
-<%
+<%	
    String f_writer = (String)session.getAttribute("u_id");
 %>
 </head>
 <body>
    <%-- <div>cDto : ${cDto.c_writer}</div> --%>
    <jsp:include page="../header.jsp" />
+   	<script type="text/javascript">
+		var deleted = '${dto.f_delete}';
+		if(deleted==1){
+			alert('삭제된 게시물입니다');
+			history.back();
+		}
+	</script>
    <main class="container pt-5">
       *${dto.f_category}<br>
       <div class="row">

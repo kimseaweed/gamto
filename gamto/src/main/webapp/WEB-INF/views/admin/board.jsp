@@ -34,11 +34,12 @@
 					<table class="table table-hover text-center mt-lg-2 mt-1">
 						<thead>
 							<tr class="text-bg-secondary ">
-								<th scope="col" width=20%>분류</th>
-								<th scope="col" width=20%>번호</th>
-								<th scope="col" width=25%>제목</th>
+								<th scope="col" width=15%>분류</th>
+								<th scope="col" width=10%>번호</th>
+								<th scope="col" width=30%>제목</th>
 								<th scope="col" width=20%>수정날짜</th>
-								<th scope="col" width=15%>상태</th>
+								<th scope="col" width=15%>상태(0표시/1차단)</th>
+								<th scope="col" width=10%>변경</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
@@ -48,20 +49,26 @@
 								</tr>
 						<%}else{ %>
 							<c:forEach var="list" items="${boardList}">
-											 	<c:choose>
-											<c:when test="${dto.tablename eq '우리생각'}">
-											<tr onclick="location.href='/report/view?r_seq_number=${list.seq_number}'">
+							
+										<c:choose>
+											<c:when test="${list.tablename eq '너의생각'}">
+												<tr>
+												<td class="align-middle text-primary">${list.tablename}</td>
+												<td class="align-middle">${list.seq_number}</td>
+												<td class="align-middle"><a class="" href="/report/view?r_seq_number=${list.seq_number}"> ${list.title}</a></td>
+												<td class="align-middle">${list.regist_day}</td>
+												<td class="align-middle">${list.deleted}</td>
 											</c:when>
 											<c:otherwise>
-											<tr onclick="location.href='/board/view?f_seq_number=${list.seq_number}'">
+											<tr></tr>
+												<td class="align-middle" style="color:purple;">${list.tablename}</td>
+												<td class="align-middle">${list.seq_number}</td>
+												<td class="align-middle"> <a class="" href="/board/view?f_seq_number=${list.seq_number}"> ${list.title} </a></td>
+												<td class="align-middle">${list.regist_day}</td>
+												<td class="align-middle">${list.deleted}</td>
 											</c:otherwise>
 										</c:choose>
-								
-									<td class="">${list.tablename}</td>
-									<td class="">${list.seq_number}</td>
-									<td class="">${list.title}</td>
-									<td class="">${list.regist_day}</td>
-									<td class="">${list.deleted}</td>
+									<td class="align-middle"><button onclick="deleteboard('${list.seq_number}','${list.tablename}')" class="btn btn-warning">삭제/복구</button> </td>
 								</tr>
 							</c:forEach>
 						<% } %>
@@ -96,15 +103,47 @@
 									<% } %>
 							</ul>
 						</nav>
-
 					</div>
 				</div>
-				<!-- col-md-7 -->
 			</div>
-			<!-- row -->
 		</div>
 	</main>
 	<script type="text/javascript">
+	function deleteboard(seq_number,board){	
+		if(board=="너의생각"){	
+			$.ajax({
+				url: "/admin/report/"+seq_number,
+				type: "PUT",
+			}).done(function(res) {
+				if(res==1){
+					alert('변경완료');
+					$('table').load(location.href+' table>*')
+				}else if(res==2){
+					alert('권한이 없습니다');
+				}else{
+					alert('수정실패');
+				}
+			}).fail(function(res){
+				alert('서버요청실패'+res);
+			});
+		}else{
+			$.ajax({
+				url: "/admin/freeboard/"+seq_number,
+				type: "PUT",
+			}).done(function(res) {
+				if(res==1){
+					alert('변경완료');
+					$('table').load(location.href+' table>*')
+				}else if(res==2){
+					alert('권한이 없습니다');
+				}else{
+					alert('수정실패');
+				}
+			}).fail(function(res){
+				alert('서버요청실패'+res);
+			});
+		}
+	}
 		//페이징처리
 		const pageno = ${pageNo};
 		const onpageno = ${onePageNo};

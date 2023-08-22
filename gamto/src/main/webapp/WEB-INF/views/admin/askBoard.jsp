@@ -62,14 +62,14 @@
 									
 									<td class="">${list.a_date}</td>
 									<td class=""><c:choose>
-											<c:when test="${fn:contains(list.a_complete, '완료')}">
-												<span class="text-muted">${list.a_complete} </span>
+											<c:when test="${list.a_complete eq '완료'}">
+												<span class="fw-bold  text-muted">${list.a_complete} </span>
 											</c:when>
 											<c:when test="${list.a_complete eq '신규'}">
-												<span class="text-danger">${list.a_complete}</span>
+												<span class="fw-bold text-danger">${list.a_complete}</span>
 											</c:when>
-											<c:when test="${fn:contains(list.a_complete, '진행')}">
-												<span class="text-warning">${list.a_complete}</span>
+											<c:when test="${list.a_complete eq '처리완료'}">
+												<span class="fw-bold text-warning">${list.a_complete}</span>
 											</c:when>
 											<c:otherwise>${list.a_complete}</c:otherwise>
 										</c:choose></td>
