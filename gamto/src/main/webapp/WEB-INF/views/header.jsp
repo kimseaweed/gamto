@@ -197,7 +197,7 @@
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/member/myPage">나의 공간</a></li>
 						<li><a class="dropdown-item" href="/store/purchaseList">구매내역</a></li>
-						<li><a class="dropdown-item" href="/member/myboard">내 글보기</a></li>
+						<li><a class="dropdown-item" href="/myboard">내 글보기</a></li>
 						<li><a class="dropdown-item" href="/member/updateMember">회원
 								수정</a></li>
 					</ul></li>
@@ -288,7 +288,7 @@
 										href="/member/myPage">나의공간</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/store/purchaseList">구매내역</a></li>
-									<li><a class="dropdown-item fs-3 fw-bold" href="/member/myboard">내글보기</a></li>
+									<li><a class="dropdown-item fs-3 fw-bold" href="/myboard">내글보기</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/member/updateMember">회원수정</a></li>
 								</ul></li>

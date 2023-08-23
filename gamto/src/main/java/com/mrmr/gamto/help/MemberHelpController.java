@@ -106,7 +106,7 @@ public class MemberHelpController {
 	// 비밀번호찾기 : 로그인 여부 확인후 폼 이동
 	@RequestMapping("/pw")
 	public String resetPwPage(HttpSession session, Model model) {
-		return GamtoService.noneLogin(session, model, "member/resetPw");
+		return GamtoService.noneLogin(session, model, "help/resetPw");
 	}
 	
 	// 비밀번호찾기 : ajax 정보확인

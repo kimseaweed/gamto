@@ -353,7 +353,7 @@
                    toggle2();
                    valueMinus2();
                 }else{
-                   alertR('모르겠네 대체 '+result);
+                   alertR(' '+result);
                 }
                
              }
