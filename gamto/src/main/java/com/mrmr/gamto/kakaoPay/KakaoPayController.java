@@ -59,7 +59,6 @@ public class KakaoPayController {
     }
     @RequestMapping("/kakaoPay/kakaoPaySuccess")
     public String kakaoPaySuccess(Model model, String o_order_number) {
-    	System.out.println(o_order_number);
     	model.addAttribute("orderInfo", store.orderList(o_order_number));
     return "/kakaoPay/kakaoPaySuccess";
     }

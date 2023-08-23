@@ -167,7 +167,7 @@
 							alert("로그인 하세요 ");
 							location = '/member/login';
 						} else {
-							alert("상품이 제대로 담겼다 이 자식아 ");
+							alertB("상품이 장바구니에 담겼습니다");
 							
 						}
 					},

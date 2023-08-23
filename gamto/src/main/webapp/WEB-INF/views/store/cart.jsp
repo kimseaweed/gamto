@@ -239,7 +239,7 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 					alert("로그인 하세요 ");
 					location = '/member/login';
 				} else {
-					console.log("상품이 제대로 담겼다 이 자식아 ");
+					console.log("상품이 담겼습니다.");
 					cartBadge();
 				}
 				setTimeout(function() {
