@@ -24,14 +24,14 @@ form{
 
 	<main class="container-md ">
 	<div class="bg-light rounded shadow-sm p-5">
-		<form action="/member/help/reset-pw/tokendo" method="post" class="m-3"
+		<form action="/member/help/pw/token" method="post" class="m-3"
 			id="form">
 			<input type="hidden" value="${u_id}" name="u_id" />
 
 			
 			<div class="mb-3 row nput-group input-group-lg">
-				<label for="staticEmail" class="col-sm-6 col-form-label w-100">이메일</label>
-				<div class="col-sm-6">
+				<label for="staticEmail" class="col col-form-label w-100">이메일</label>
+				<div class="col">
 					<input type="text" value="${u_id}" disabled="disabled" class="ms-auto form-control" />
 				</div>
 			</div>
