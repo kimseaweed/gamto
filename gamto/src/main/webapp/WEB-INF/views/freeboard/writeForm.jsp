@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>writeForm</title>
+<title>감토 | 우리 생각</title>
 <%
 	String f_writer = (String)session.getAttribute("u_id");
 %>

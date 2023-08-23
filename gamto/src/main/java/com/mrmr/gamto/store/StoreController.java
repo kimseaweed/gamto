@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,7 +77,6 @@ public class StoreController {
 	@ResponseBody
 	public int addCart(String b_code, String b_quantity,  HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		System.out.println(b_code + b_quantity + getId);
 		if(getId == null) {
 			return -1;
 		} else {
@@ -89,7 +89,6 @@ public class StoreController {
 	@ResponseBody
 	public int updateQuantity(String cart_code, String cart_quantity, HttpSession session) {
 		String getId =(String)session.getAttribute("u_id");
-		System.out.println(cart_code + cart_quantity + getId);
 		if(getId == null) {
 			return -1;
 		} else {
@@ -123,8 +122,6 @@ public class StoreController {
 			return result;
 		}
 	}
-	
-	
 
     //검색기능 	
 	@RequestMapping("/SearchTotal")
@@ -149,17 +146,11 @@ public class StoreController {
 		
 		return "store/store";
 	}
-	//kakaoPay에 보내는 mapping
-		@RequestMapping("/kakaoPay/kakaoPay")
-	    public String orderDetail(Model model, HttpSession session) {
-		    String u_id = (String)session.getAttribute("u_id");
-			model.addAttribute("userInfo", dao.orderDetail(u_id));
-			return "/kakaoPay/kakaoPay";
-		}
-	
-//	@RequestMapping("")//구매내역
-//	public String purchaseListDao(Model model) {
-//		model.addAttribute("list", dao.purchaseList());
-//		return "store/purchaseList";
-//	}
+
+	@RequestMapping("/purchaseList") //장바구니 목록 전체 삭제 
+	public String purchaseList(Model model, HttpSession session) {
+    	String u_id = (String)session.getAttribute("u_id");
+    	model.addAttribute("purchaseList", dao.purchaseList(u_id));
+		return "store/purchaseList";
+	}
 }

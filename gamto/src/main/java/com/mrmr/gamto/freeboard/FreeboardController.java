@@ -39,7 +39,7 @@ public class FreeboardController {
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
 		List<FreeboardDTO> list = dao.getPageList(map);
-		
+		System.out.println(list.size());
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
 		model.addAttribute("dao",dao);

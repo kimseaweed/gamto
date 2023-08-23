@@ -25,7 +25,7 @@
 		
 	}
 </style>
-<title>deleteMember.jsp</title>
+<title>감토 | 회원탈퇴 </title>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />

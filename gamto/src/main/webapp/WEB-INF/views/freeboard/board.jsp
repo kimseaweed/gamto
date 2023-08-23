@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board.jsp</title>
+<title>감토 | 우리 생각</title>
 <style>
 	.tab_top{
 		background-color:  rgb(230, 128, 255,0.25);

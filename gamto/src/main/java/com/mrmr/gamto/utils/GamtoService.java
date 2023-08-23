@@ -1,4 +1,7 @@
 package com.mrmr.gamto.utils;
+import java.security.MessageDigest;
+import java.util.Base64;
+
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 
@@ -55,4 +58,25 @@ public class GamtoService {
 			return returnValue;
 		}
 	}
+	
+	
+	//시크릿키
+	private static final String SECRET_KEY = "ithoughtitwasanappreciationforumbutitwasanarena";
+	//sha256 암호화
+    public static String encrypt(String text) {
+        String encryptedText = "";
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            String dataWithSaltAndKey = text + SECRET_KEY;
+            messageDigest.update(dataWithSaltAndKey.getBytes("UTF-8"));
+            encryptedText = new String(Base64.getEncoder().encode(messageDigest.digest()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encryptedText;
+    }
+	
+	
+	
+	
 }

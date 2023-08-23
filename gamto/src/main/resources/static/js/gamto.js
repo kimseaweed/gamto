@@ -21,7 +21,7 @@ function cartBadge() {
 		},
 	});
 }
-/* 오류메세지 */
+/* 커스텀 알럿 */
 function alertR(msg) {
 	document.getElementById('msgboxR').innerHTML = msg;
 	const toastmsg = document.getElementById('msgToastR')
@@ -39,8 +39,8 @@ function alertY(msg) {
 	const toastmsg = document.getElementById('msgToastY')
 	const toast = new bootstrap.Toast(toastmsg);
 	toast.show();
+	
 }
-
 
 /* 마우스 당근 */
 let x = 0,
@@ -174,4 +174,13 @@ function searchsite() {
 			}
 		}
 	}
+}
+
+//ask폼 진입
+function askpop(e) {
+	window.open('/member/help/ask/new?c=' + e, '문의', 'width = 600px, height=800px,top=50, right=50", scrollbars=yes');
+}
+//accuse폼 진입
+function reportpop() {
+	window.open('/member/help/accuse/new', '신고', 'width = 550px, height=650px, top=50, left=300px, scrollbars=yes');
 }

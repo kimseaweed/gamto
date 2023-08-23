@@ -9,7 +9,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-<title>Insert title here</title>
+<title>감토 | 주문내역</title>
 <style>
 	.c-p-t{
             padding-top: 100px;
@@ -43,16 +43,16 @@
                         <table class="c-w100">
 					 		<tr class="c-bd">
 					 			<th>주문번호</th>
-					 			<th>주문날짜</th>
 					 			<th>주문명</th>
 					 			<th>주문주소</th>
+					 			<th>가격</th>
 					 		</tr>
-					 		<c:forEach items="${list}" var="dto">
-					 			<tr>
-					 				<td class="c-bd1 c-ht"><a href="#">${dto.o_order_number}</a></td>
-					 				<td class="c-bd1">${dto.o_date}</td>
-					 				<td class="c-bd1">${dto.o_id}</td>
+					 		<c:forEach items="${purchaseList}" var="dto">
+					 			<tr onclick="location='/kakaoPay/kakaoPaySuccess?o_order_number=${dto.o_order_number}'" style="cursor:pointer;">
+					 				<td class="c-bd1 c-ht">${dto.o_order_number}</td>
+					 				<td class="c-bd1">${dto.o_book_name}</td>
 					 				<td class="c-bd1">${dto.o_address}</td>
+					 				<td class="c-bd1">${dto.o_total}</td>
 					 			</tr>
 					 		</c:forEach>
 					 	</table>

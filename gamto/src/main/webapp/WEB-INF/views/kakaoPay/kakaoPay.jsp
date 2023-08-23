@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <%
 String bookName = (String)request.getParameter("bookName");
 String bookQuantity = (String)request.getParameter("bookQuantity");
+String bookPrice = (String)request.getParameter("bookPrice");
 String stotalCost = (String)request.getParameter("totalCost");
 String orderCode = (String)request.getParameter("orderCode");
-System.out.println("bookName: "+bookName);
-System.out.println("bookQuantity: "+bookQuantity);
-System.out.println("stotalCost: "+stotalCost);
 %>
 <!DOCTYPE html>
 <html>
@@ -18,13 +18,13 @@ System.out.println("stotalCost: "+stotalCost);
 <title>kakaoPay</title>
 </head>
 <body>
-
+ 
 </body>
 </html>
 <script>
 $(document).ready(function(){
 	console.log('${userInfo.u_name}');
-
+	console.log('${userInfo.u_id}');
 })
 
 var IMP = window.IMP; // 생략가능
@@ -49,7 +49,7 @@ if(<%=bookQuantity%>=='1'){
       amount: <%=stotalCost%>,
       // amount: ${bid.b_bid},
       // 가격 
-      buyer_name: '${userInfo.u_name}',
+      buyer_name: '${userInfo.u_id}',
       buyer_email: '${userInfo.u_email}',
       buyer_tel: '${userInfo.u_phone}',
       buyer_addr: '${userInfo.u_address}',
@@ -61,23 +61,26 @@ if(<%=bookQuantity%>=='1'){
       if (rsp.success) {
     	  var msg = '결제가 완료되었습니다.';
           msg += '결제 금액 : ' + rsp.paid_amount;
+           const dto = {
+       		o_order_number : rsp.merchant_uid,
+       		o_book_name: rsp.name,
+       		o_total: rsp.paid_amount,
+      		o_price : <%=bookPrice%>,
+      		o_order_code: <%=orderCode%>,
+     		o_quantity: <%=bookQuantity+1%>,
+     	    o_name: rsp.buyer_name,
+     	    o_phone: rsp.buyer_tel,
+     	    o_address: rsp.buyer_addr
+     	};
+           var o_order_number = dto[Object.keys(dto)[0]];
          $.ajax({
-        	url:'/kakaoPay/kakaoPaySuccess',
-        	dadtaType:'/json',
+        	url:'/kakaoPay/insertKakaoPayInfo',
         	type:'GET',
-        	contentType:'application/json',
-        	data: {
-        		merchant_uid : rsp.merchant_uid,
-         		amount: rsp.paid_amount,
-         		order:<%=orderCode%>,
-         	    quantity: <%=bookQuantity%>,
-         	    buyer_name: rsp.buyer_name,
-         	    buyer_tel: rsp.buyer_tel,
-         	    buyer_addr: rsp.buyer_addr
-        	},
-        	success:function(res){
+        	contentType:'application/json; charset=UTF-8',
+        	data: dto,
+        	success : dto => {
         		console.log('return start');
-        		location.href="/kakaoPay/kakaoPaySuccess";
+        		window.location.href = "kakaoPay/kakaoPaySuccess?o_order_number=" + o_order_number;
         	}
          })
       } else {
@@ -105,7 +108,7 @@ if(<%=bookQuantity%>=='1'){
       amount: <%=stotalCost%>,
       // amount: ${bid.b_bid},
       // 가격 
-      buyer_name: '${userInfo.u_name}',
+      buyer_name: '${userInfo.u_id}',
       buyer_email: '${userInfo.u_email}',
       buyer_tel: '${userInfo.u_phone}',
       buyer_addr: '${userInfo.u_address}',
@@ -117,23 +120,28 @@ if(<%=bookQuantity%>=='1'){
       if (rsp.success) {
          var msg = '결제가 완료되었습니다.';
          msg += '결제 금액 : ' + rsp.paid_amount;
+         console.log('asdf');
+         const dto = {
+            	o_order_number : rsp.merchant_uid,
+            	o_book_name: rsp.name,
+          		o_total: rsp.paid_amount,
+          		o_price : <%=bookPrice%>,
+          		o_order_code:<%=orderCode%>,
+          		o_quantity: <%=bookQuantity+1%>,
+          	    o_name: rsp.buyer_name,
+          	    o_phone: rsp.buyer_tel,
+          	    o_address: rsp.buyer_addr
+          	};
+         var o_order_number = dto[Object.keys(dto)[0]];
          $.ajax({
-         	url:'/kakaoPay/getKakaoPayInfo',
-         	dadtaType:'/json',
+         	url:'/kakaoPay/insertKakaoPayInfo',
          	type:'GET',
-         	contentType:'application/json',
-         	data: {
-         		merchant_uid : rsp.merchant_uid,
-         		amount: rsp.paid_amount,
-         		order:<%=orderCode%>,
-         	    quantity: <%=bookQuantity%>,
-         	    buyer_name: rsp.buyer_name,
-         	    buyer_tel: rsp.buyer_tel,
-         	    buyer_addr: rsp.buyer_addr
-         	},
-         	success:function(res){
+         	contentType:'application/json; charset=UTF-8',
+         	data: dto,
+         	success : dto => {
          		console.log('return start');
-         		location.href='/kakaoPay/kakaoPaySuccessPage?code='+rsp.merchant_uid;
+         		console.log(o_order_number);
+         	    window.location.href = "kakaoPay/kakaoPaySuccess?o_order_number=" + o_order_number;
          	}
           })
          // success.submit();
@@ -143,7 +151,7 @@ if(<%=bookQuantity%>=='1'){
       } else {
          var msg = '결제에 실패하였습니다.';
          msg += '에러내용 : ' + rsp.error_msg;
-         location.href="/kakaoPay/kakaoPaySuccessFail";
+         location.href="/kakaoPaySuccessFail";       
       }
       console.log(msg);
    });

@@ -13,4 +13,5 @@ public class CommentDTO {
 	private int c_derecommend; //댓글 비추천
 	private int c_delete; //댓글 삭제 여부
 	private int c_total_count; //총 댓글 개수
+	private int c_freeboard; //게시물번호
 }

@@ -24,7 +24,8 @@
 <link rel="stylesheet" href="/css/gamto.css" />
 </head>
 <body>
-	<!-- 우측상단 토스트 -->
+
+	<!-- 중앙상단 alert 토스트 -->
 	<div
 		class="toast-container position-fixed start-50 translate-middle-x p-3">
 		<div id="msgToastR" class="toast align-items-center text-bg-danger"
@@ -42,7 +43,6 @@
 			</div>
 		</div>
 	</div>
-	<!--  style="top:5% ;right:5%"-->
 	<div
 		class="toast-container position-fixed start-50 translate-middle-x p-3">
 		<div id="msgToastB" class="toast align-items-center text-bg-primary"
@@ -197,7 +197,7 @@
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/member/myPage">나의 공간</a></li>
 						<li><a class="dropdown-item" href="/store/purchaseList">구매내역</a></li>
-						<li><a class="dropdown-item" href="#">내 글보기</a></li>
+						<li><a class="dropdown-item" href="/member/myboard">내 글보기</a></li>
 						<li><a class="dropdown-item" href="/member/updateMember">회원
 								수정</a></li>
 					</ul></li>
@@ -261,7 +261,7 @@
 							if (session.getAttribute("u_id") == null) {
 							%>
 							<li class="nav-item dropdown fs-2 fw-bold"><a
-								class="nav-link dropdown-toggle" href="#" role="button"
+								class="nav-link dropdown-toggle"  role="button"
 								data-bs-toggle="dropdown" aria-expanded="false"> <span
 									class="material-symbols-outlined fs-1 align-middle me-3">input</span>로그인
 							</a>
@@ -275,7 +275,7 @@
 							} else {
 							%>
 							<li class="nav-item dropdown fs-1 fw-bold"><a
-								class="nav-link dropdown-toggle fs-2 fw-bold" href="#"
+								class="nav-link dropdown-toggle fs-2 fw-bold" 
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									<span class="material-symbols-outlined fs-1 align-middle me-3">account_circle</span>나의
 									공간
@@ -288,7 +288,7 @@
 										href="/member/myPage">나의공간</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/store/purchaseList">구매내역</a></li>
-									<li><a class="dropdown-item fs-3 fw-bold" href="#">내글보기</a></li>
+									<li><a class="dropdown-item fs-3 fw-bold" href="/member/myboard">내글보기</a></li>
 									<li><a class="dropdown-item fs-3 fw-bold"
 										href="/member/updateMember">회원수정</a></li>
 								</ul></li>

@@ -7,6 +7,8 @@ import lombok.ToString;
 
 @Data
 public class StoreDTO {
+	
+	private String b_seq_number; //책 코드 
 	private String b_code; //책 코드 
 	private String b_name; //책 제목 
 	private String b_author; //저자 

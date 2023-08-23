@@ -52,7 +52,7 @@
         }
         </style>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>감토 | 마이페이지</title>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />

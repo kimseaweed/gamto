@@ -13,6 +13,13 @@ public class MemberDTO implements Serializable{
 	private String u_email; //회원메일
 	private String u_address; //회원주소
 	private String u_delete; //회원탈퇴 u_delete가 0이면 회원이고 1이면 탈퇴 
+	private int u_total;
+	public int getU_total() {
+		return u_total;
+	}
+	public void setU_total(int u_total) {
+		this.u_total = u_total;
+	}
 	private static final long serialVersionUID = 1L;
 	
 	public String getU_id() {

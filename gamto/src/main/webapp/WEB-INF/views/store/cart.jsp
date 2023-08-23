@@ -55,6 +55,8 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 													var="total" />
 												<c:set var="quantities" value="${quantities+quantity}"/>
 												<input type="hidden" value="${quantites}"/>
+												<c:set var="price" value="${price}"/>
+												<input type="hidden" value="${price}"/>
 												<tr>
 													<th scope="row">
 														<div class="d-flex align-items-center">
@@ -126,6 +128,8 @@ String cartId = (String) session.getAttribute("u_id"); //세션에서 아이디 
 														<form method="post" action="/kakaoPay">
 															<input type="hidden" value="${cart[0].cart_name}"
 																name="bookName" /> 
+															<input type="hidden"
+																value="${price}" name="bookPrice" /> 
 															<input type="hidden"
 																value="${quantities}" name="bookQuantity" /> 
 															<input

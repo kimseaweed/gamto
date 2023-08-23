@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 상세 페이지</title>
+<title>감토 | 우리 생각</title>
 <style>
    .commentCustom{
       border: 1px solid lightgray;
@@ -13,14 +13,24 @@
       margin : 3px;
       border-radius: 15px;
    }
+   .is-open .accordion__body {
+	  height: 50px !important; 
+	}
 </style>
-<%
+<%	
    String f_writer = (String)session.getAttribute("u_id");
 %>
 </head>
 <body>
    <%-- <div>cDto : ${cDto.c_writer}</div> --%>
    <jsp:include page="../header.jsp" />
+   	<script type="text/javascript">
+		var deleted = '${dto.f_delete}';
+		if(deleted==1){
+			alert('삭제된 게시물입니다');
+			history.back();
+		}
+	</script>
    <main class="container pt-5">
       *${dto.f_category}<br>
       <div class="row">
@@ -70,14 +80,14 @@
          <br>
       </div>
       <div class="accordion mt-3" id="accordionExample">
-         <div class="accordion-item">
+         <div class="accordion-item is-open">
             <h2 class="accordion-header" id="headingOne">
                <button class="accordion-button collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                  aria-expanded="false" aria-controls="collapseOne" id="test">
+                  aria-expanded="true" aria-controls="collapseOne" id="test">
                   댓글보기</button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse"
+            <div id="collapseOne" class="accordion-collapse collapse show"
                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                <div class="accordion-body">
                   <input type="hidden" name="f_seq_number"
@@ -95,7 +105,7 @@
                      </c:if>
                      <c:if test="${not empty cDto}">
                         <c:forEach items="${cDto}" var="cdto">
-                           <%-- <span style="display:none;" id="${cdto.c_seq_number}">${cdto.c_seq_number}</span>  --%>
+                           <input type="hidden" id="scroll" />
                            <div class="commentCustom">
                               <div>
                                  <p>*${cdto.c_writer}*</p>
@@ -115,7 +125,8 @@
 													<c:set var="commentLikeCheck" value="bi-hand-thumbs-up" />
 												</c:otherwise>
 											</c:choose>
-											<span id="cGood"><button type="button" class="commentGood ${commentLikeCheck}" id="${cdto.c_seq_number}">${cdto.c_recommend}</button> </span>
+											<span id="cGood" name="${cdto.c_seq_number}">
+											<button type="button" class="commentGood ${commentLikeCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}" >${cdto.c_recommend}</button> </span>
 											<c:set var="l_board" value="4" />
 											<c:choose>
 												<c:when
@@ -126,7 +137,7 @@
 													<c:set var="commentBadCheck" value="bi bi-hand-thumbs-down" />
 												</c:otherwise>
 											</c:choose>
-                                 <span id="cBad"><button type="button" class="commentBad ${commentBadCheck}" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button></span>
+                                 <span id="cBad"><button type="button" class="commentBad ${commentBadCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button></span>
                                  <c:if test="${dto.f_writer==userId}">
                                     <button type="button"
                                           class="updateComment enable" id="${cdto.c_seq_number}">수정</button>
@@ -151,6 +162,7 @@
    <jsp:include page="../footer.jsp" />
    <script>
  $(document).ready(function() { 
+	
     $(document).on('click','.btnUpdate',function (e) { 
       if (!confirm("수정하시겠습니까?")) {
          return false;
@@ -244,15 +256,26 @@
          }
       })
    }
-   
-    
     
     $(document).on('click','.commentGood',function (e) {
   	  var c_seq_number =  $(this).attr("id");
       var l_number = c_seq_number;
-     
-       var feeling = 'good';
-       
+      var feeling = 'good';
+      var toggie = $(".commentGood#"+c_seq_number);
+      var toggieValue = Number($(".commentGood#"+c_seq_number).text());
+      console.log(toggie);
+      
+      function toggle(){
+     	 toggie.toggleClass('bi-hand-thumbs-up-fill').toggleClass('bi-hand-thumbs-up');
+      	}
+      function valuePlus(){
+     	 document.getElementsByClassName(c_seq_number+' commentGood')[0].innerHTML = ++toggieValue;
+     	 }
+      function valueMinus(){
+     	 document.getElementsByClassName(c_seq_number+' commentGood')[0].innerHTML = --toggieValue;
+      	}
+      
+    	
        $.ajax({
           type:'POST',
           url:'/board/commentFeeling',
@@ -266,27 +289,45 @@
           success : function(result){
              if(result=="3"){
                 alert('로그인이 필요합니다.');
+                return false;
              }else if(result=="0"){
                  alert('이미 싫어요를 선택하셨습니다.');
-                 //하트 끄셈
+                 
              }else if(result=="1"){
                 alert('추천 성공');
-                //하트 활성화 상태
+                toggle();
+                valuePlus();
              }else if(result=="2"){
                 alert('추천 취소')
+                toggle();
+                valueMinus();
              }else{
                 alert('알수없는 문제 :'+result);
              }
-             $('#cGood').load(window.location.href+" #cGood>button");
-          }
+          } 
        })
+       
     })
     
     $(document).on('click','.commentBad',function (e) {
        var c_seq_number =  $(this).attr("id");
        var l_number = c_seq_number;
+       var toggie = $(".commentBad."+c_seq_number);
+       console.log(toggie);
+       var toggieValue = Number(toggie.text());
        var feeling = 'bad';
-          
+       
+       function toggle2(){
+      	 toggie.toggleClass('bi-hand-thumbs-down-fill').toggleClass('bi-hand-thumbs-down');
+       	}
+       function valuePlus2(){
+      	 document.getElementsByClassName(c_seq_number+' commentBad')[0].innerHTML = ++toggieValue;
+      	 }
+       function valueMinus2(){
+      	 document.getElementsByClassName(c_seq_number+' commentBad')[0].innerHTML = --toggieValue;
+      	 
+       	}
+       
           $.ajax({
              type:'POST',
              url:'/board/commentFeeling',
@@ -300,18 +341,23 @@
              success : function(result){
                 if(result=="3"){
                    alert('로그인이 필요합니다.');
+                   return false;
                 }else if(result=="0"){
                     alert('이미 좋아요를 선택하셨습니다.');
                     //하트 끄셈
                 }else if(result=="1"){
                    alert('싫어요 선택');
+                   toggle2();
+                   valuePlus2();
                    //하트 활성화 상태
                 }else if(result=="2"){
                    alert('싫어요 취소');
+                   toggle2();
+                   valueMinus2();
                 }else{
                    alert('모르겠네 대체 '+result);
                 }
-                $('#cBad').load(window.location.href+" #cBad>button");
+               
              }
           })
        })

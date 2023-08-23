@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mrmr.gamto.member.dao.MemberDAO;
 import com.mrmr.gamto.member.dto.MyBoardDTO;
-import com.mrmr.gamto.member.dto.PagingVO;
 
 import jakarta.servlet.http.HttpSession;
 
