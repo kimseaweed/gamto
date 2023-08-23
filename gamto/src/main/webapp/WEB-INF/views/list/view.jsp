@@ -89,7 +89,7 @@
 			if(!confirm("삭제하시겠습니까?")){
 				return false;
 			}else{
-				alert("삭제되었습니다.");
+				alertR("삭제되었습니다.");
 				$(location).attr('href','/report/delete?r_seq_number=${dto.r_seq_number}');
 			}
 		})
