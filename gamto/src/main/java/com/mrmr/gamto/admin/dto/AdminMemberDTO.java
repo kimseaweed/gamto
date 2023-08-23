@@ -10,4 +10,5 @@ public class AdminMemberDTO {
 	private String admin_name;
 	private int admin_role;
 	private int admin_total;
+	
 }

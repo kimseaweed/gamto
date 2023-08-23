@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mrmr.gamto.freeboard.dao.IFreeboardDAO;
 import com.mrmr.gamto.freeboard.dto.FreeboardDTO;
 import com.mrmr.gamto.freeboard.dto.PagingVO;
+import com.mrmr.gamto.utils.GamtoService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +40,6 @@ public class FreeboardController {
 		map.put("startNo", page.getStartNo());
 		map.put("endNo", page.getEndNo());
 		List<FreeboardDTO> list = dao.getPageList(map);
-		System.out.println(list.size());
 		model.addAttribute("page",page);
 		model.addAttribute("board",list);
 		model.addAttribute("dao",dao);
@@ -90,8 +90,9 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping("/writeForm")
-	public String writeForm() {
-		return "freeboard/writeForm";
+	public String writeForm(HttpSession session, Model model) {
+		
+		return GamtoService.needLogin(session, model,"/board/writeForm" , "freeboard/writeForm");
 	}
 	
 	@RequestMapping("/write")
