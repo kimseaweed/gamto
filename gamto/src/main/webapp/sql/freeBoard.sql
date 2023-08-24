@@ -11,7 +11,6 @@ create table free_board(
     f_content varchar2(500) not null, --freeboard content
     f_category varchar2(50) not null --freeboard category
 );
-insert into free_board values(free_board_seq.nextval,'열공중','안상용',sysdate,sysdate,0,0,0,0,'포폴 빨리 끝내고싶다..');
 
 create table comment_board(
     c_seq_number number(4) primary key, --comment_board sequence number

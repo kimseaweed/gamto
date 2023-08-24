@@ -45,10 +45,12 @@ drop sequence book_report_seq; --너의생각 :: 게시판 시퀀스
 drop table book_report; --너의생각 :: 게시판
 
 -- [free_board]
+drop sequence free_board_seq;
 drop table free_board; --우리생각 :: 게시판
+drop sequence comment_board_seq;
 drop table comment_board; --우리생각 :: 댓글
-drop table feeling; --우리생각 :: 댓글
 drop sequence l_seq_number;
+drop table feeling; --우리생각 :: 댓글
 
 -- [store]
 drop sequence b_seq_number; -- 상점 :: 판매상품 시퀀스
@@ -84,6 +86,7 @@ create table book_report( --너의생각 게시판
 );
 
 --[book_report]
+create sequence free_board_seq;
 create table free_board( --우리생각 게시판
     f_seq_number number(4) primary key, -- 게시물번호
     f_title varchar2(100) not null, -- 제목
@@ -93,9 +96,10 @@ create table free_board( --우리생각 게시판
     f_recommend number default 0, -- 추천수
     f_delete number default 0 not null, -- 상태 (0정상,1삭제)
     f_view number default 0, -- 조회수
-    f_content varchar2(500) not null, --내용
+    f_content varchar2(4000) not null, --내용
     f_category varchar2(50) not null -- 카테고리
 );
+create sequence comment_board_seq;
 create table comment_board( --우리생각 댓글
     c_seq_number number(4) primary key, --댓글번호
     f_seq_number number(4), -- 소속게시물 번호
@@ -105,7 +109,7 @@ create table comment_board( --우리생각 댓글
     c_recommend number default 0, -- 추천수
     c_derecommend number default 0, --비추천수
     c_delete number default 0 not null, -- 상태 (0정상,1삭제)
-    c_content varchar2(500) not null, -- 내용
+    c_content varchar2(1000) not null, -- 내용
     c_total_count number(20) default 0 -- 소속 게시물 댓글수
 );
 create sequence l_seq_number;
@@ -160,8 +164,8 @@ create table member_function( --회원
     u_pw varchar2(20) not null, --회원비밀번호
     u_name varchar2(20) not null, --회원이름
     u_phone varchar2(20) not null, --회원전화번호
-    u_email varchar2(50) not null unique, --회원메일
-    u_address varchar2(70) not null, --회원주소
+    u_email varchar2(1000) not null unique, --회원메일
+    u_address varchar2(1000) not null, --회원주소
     u_delete varchar2(2) not null --회원상태 (0 정상,1 탈퇴)
 );
 
@@ -199,17 +203,41 @@ admin_role number(1) default 4 not null -- 권한 (4 승인대기, 3 직원, 2 �
 
 -------------insert sample-----------------------------------
 --[book_report] --너의생각 게시판
-insert into book_report values(book_report_seq.nextval,'열공중','안상용',sysdate,sysdate,'img.png',0,0,0,'포폴 빨리 끝내고싶다..');
-insert into book_report values(book_report_seq.nextval,'망포역 하얀풍차 빵 사러 간다','장은미',sysdate,sysdate,'ISBN0014.jpeg',0,0,0,'가위바위보 하자고 하는 사람이 걸리는 거 국룰..멀리 안나간다');
+insert into book_report values(book_report_seq.nextval,'열공중','안상용',sysdate,sysdate,'default2.png',0,0,0,'포폴 빨리 끝내고싶다..');
+insert into book_report values(book_report_seq.nextval,'망포역 하얀풍차 빵 사러 간다','장은미',sysdate,sysdate,'default1.png',0,0,0,'가위바위보 하자고 하는 사람이 걸리는 거 국룰..멀리 안나간다');
+insert into book_report values(book_report_seq.nextval,'열공중','안상용',sysdate,sysdate,'default3.png',0,0,0,'포폴 빨리 끝내고싶다..');
+insert into book_report values(book_report_seq.nextval,'망포역 하얀풍차 빵 사러 간다','장은미',sysdate,sysdate,'default1.png',0,0,0,'가위바위보 하자고 하는 사람이 걸리는 거 국룰..멀리 안나간다');
+insert into book_report values(book_report_seq.nextval,'열공중','안상용',sysdate,sysdate,'default4.png',0,0,0,'포폴 빨리 끝내고싶다..');
+insert into book_report values(book_report_seq.nextval,'망포역 하얀풍차 빵 사러 간다','장은미',sysdate,sysdate,'default1.png',0,0,0,'가위바위보 하자고 하는 사람이 걸리는 거 국룰..멀리 안나간다');
 
 --[free_board]
+  f_seq_number number(4) primary key, -- 게시물번호
+    f_title varchar2(100) not null, -- 제목
+    f_writer varchar2(100) not null, -- 작성자
+    f_regist_day date default sysdate,-- 작성일자
+    f_update_day date default sysdate, -- 수정일자
+    f_recommend number default 0, -- 추천수
+    f_delete number default 0 not null, -- 상태 (0정상,1삭제)
+    f_view number default 0, -- 조회수
+    f_content varchar2(4000) not null, --내용
+    f_category varchar2(
+    
+    insert into free_board values(free_board_seq_number)
 
-insert into comment_board values(comment_board_seq.nextval,63,'안상용',sysdate,sysdate,0,0,0,'집에 가자고',0);
 
 --[store]
 insert into book_info values(b_seq_number.nextVal, 'ISBN0001', '사피엔스', '유발 하라리', '김영사', '2023.04.01', 'ISBN0001.jpeg', '인문학', 20000, 500, '인류에 대해 분석하다', 0, 0);
 insert into book_info values(b_seq_number.nextVal, 'ISBN0002', '종의 기원', '정유정', '은행나무', '2016.05.16', 'ISBN0002.jpeg', '소설', 20000, 500, '사이코패스의 살인 이야기', 0, 0);
 insert into book_info values(b_seq_number.nextVal, 'ISBN0003', '백엔드', '남궁', '가나다', '2020.05.16', 'ISBN0003.jpeg', '프로그래밍', 15000, 500, '백엔드 개발자를 위한 기초 서적', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0004', '사피엔스', '유발 하라리', '김영사', '2023.04.01', 'ISBN0004.jpeg', '인문학', 20000, 500, '인류에 대해 분석하다', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0005', '종의 기원', '정유정', '은행나무', '2016.05.16', 'ISBN0005.jpeg', '소설', 20000, 500, '사이코패스의 살인 이야기', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0006', '백엔드', '남궁', '가나다', '2020.05.16', 'ISBN0006.jpeg', '프로그래밍', 15000, 500, '백엔드 개발자를 위한 기초 서적', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0007', '사피엔스', '유발 하라리', '김영사', '2023.04.01', 'ISBN0007.jpeg', '인문학', 20000, 500, '인류에 대해 분석하다', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0008', '종의 기원', '정유정', '은행나무', '2016.05.16', 'ISBN0008.jpeg', '소설', 20000, 500, '사이코패스의 살인 이야기', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0009', '백엔드', '남궁', '가나다', '2020.05.16', 'ISBN0009.jpeg', '프로그래밍', 15000, 500, '백엔드 개발자를 위한 기초 서적', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0010', '사피엔스', '유발 하라리', '김영사', '2023.04.01', 'ISBN0010.jpeg', '인문학', 20000, 500, '인류에 대해 분석하다', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0011', '종의 기원', '정유정', '은행나무', '2016.05.16', 'ISBN0011.jpeg', '소설', 20000, 500, '사이코패스의 살인 이야기', 0, 0);
+insert into book_info values(b_seq_number.nextVal, 'ISBN0012', '백엔드', '남궁', '가나다', '2020.05.16', 'ISBN0012.jpeg', '프로그래밍', 15000, 500, '백엔드 개발자를 위한 기초 서적', 0, 0);
 
 -- [member]
 insert into member_function values('qwer','1234','박승준','010-2181-1726','seungjun@naver.com','경기도 수원시 팔달구','0');
@@ -219,11 +247,20 @@ insert into member_function values('docho2','ehch1234','박승준','010-2181-172
 BEGIN
   FOR i IN 1..168 LOOP
 insert into ask(a_id,a_category,a_content,a_filename,a_email,a_reception)
-values('테스트유저','테스트문의',
+
+values('테스트유저32547','서비스 이용문의',
 '한글로렘입숨 국회의원은 국회에서 직무상 행한 발언과 표결에 관하여 . 국가의 세입·세출의 결산, 국가 및 법률이 정한 단체의  대통령 소속하에 감사원을 둔다.',
 'test.png','nomail@nomail.com','y');
+
+values('테스트유저4656','건의사항',
+'한글로렘입숨 국회의원은 국회에서 직무상 행한 발언과 표결에 관하여 . 국가의 세입·세출의 결산, 국가 및 법률이 정한 단체의  대통령 소속하에 감사원을 둔다.',
+'test.png','nomail@nomail.com','n');
+
 insert into accuse(ac_id,ac_target,ac_category,ac_content,ac_filename)
-values('테스트유저','ㅇㅇ님을 신고합니다','불쾌한 표현','글을 너무 잘씀','가짜파일.pdf');
+values('테스트유저1','http://gamtodomain/','불쾌한 표현','글을 너무 잘씀','가짜파일.pdf');
+insert into accuse(ac_id,ac_target,ac_category,ac_content,ac_filename)
+values('테스트유저2','궴토님을 신고합니다','불쾌한 표현','글을 너무 잘씀 이말하려고 어그로 끌었다.','가짜파일.pdf');
+
   END LOOP;
   COMMIT;
 END;
