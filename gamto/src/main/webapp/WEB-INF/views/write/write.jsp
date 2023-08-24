@@ -9,7 +9,6 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
 	rel="stylesheet">
-<link href="../css/write.css" rel="stylesheet">
 <style>
 </style>
 </head>
@@ -121,9 +120,9 @@
 
 			<div class="col-12 pt-4 d-grid gap-2 d-md-flex">
 				<button class="btn btn-warning me-md-3"
-					onclick="location='list'; return false;">너의생각으로 이동</button>
+					onclick="location='/report'; return false;">너의생각으로 이동</button>
 				<button class="btn btn-warning me-md-3"
-					onclick="location='board'; return false;">우리생각으로 이동</button>
+					onclick="location='/board'; return false;">우리생각으로 이동</button>
 				<button class="btn btn-primary ms-md-auto p-2 mt-3 mt-md-0"
 					type="submit">작성하기</button>
 			</div>

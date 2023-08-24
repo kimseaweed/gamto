@@ -137,7 +137,7 @@
         <ul class='page'>
           <li></li>
           <li>
-		     <a class="btn" href="/store">우리생각 가기</a>
+		     <a class="btn" href="/board">우리생각 가기</a>
           </li>
           <li></li>
           <li></li>

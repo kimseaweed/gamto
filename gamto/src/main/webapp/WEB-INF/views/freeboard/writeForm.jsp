@@ -14,7 +14,11 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-
+	<script>
+		$(document).ready(function(){
+			${alertLogin}
+		})
+	</script>
 	<main class="container-md bg-light px-5 pt-4 rounded shadow-sm">
 		<form id="writeForm" action="/board/write" method="post" class="p-5 mb-4 bg-light rounded-3 needs-validation" novalidate>
 			<input type="hidden" name="f_writer" value="<%=f_writer %>" />
@@ -93,11 +97,5 @@
 		  })
 		})()
 	</script>
-<%
-		if(session.getAttribute("u_id")==""||session.getAttribute("u_id")==null) {
-    		out.println("<script>alert('로그인이 필요합니다.');</script>");
-    		out.println("<script>window.location.href='/member/login';</script>");
-		}
-%>
 </body>
 </html>

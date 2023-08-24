@@ -4,8 +4,8 @@ create table member_function(
     u_pw varchar2(20) not null, --회원비밀번호
     u_name varchar2(20) not null, --회원이름
     u_phone varchar2(20) not null, --회원전화번호
-    u_email varchar2(40) not null unique, --회원메일
-    u_address varchar2(40) not null, --회원주소
+    u_email varchar2(50) not null unique, --회원메일
+    u_address varchar2(70) not null, --회원주소
     u_delete varchar2(2) not null
 );
 insert into member_function values('qwer','1234','박승준','010-2181-1726','seungjun@naver.com','경기도 수원시 팔달구','0');

@@ -115,7 +115,6 @@
                                  <span><small>등록 날짜 : ${cdto.c_regist_day}</small></span> | <span><small>수정 날짜 : ${cdto.c_update_day}</small></span>
 											<c:set var="c_number" value="${cdto.c_seq_number}" />
 											<c:set var="l_board" value="3" />
-											<c:out value="${c_number}"/>
 											<c:choose>
 												<c:when
 													test="${myLike.likeCheck(l_board,c_number,userId) eq '1'}">
@@ -125,8 +124,7 @@
 													<c:set var="commentLikeCheck" value="bi-hand-thumbs-up" />
 												</c:otherwise>
 											</c:choose>
-											<span id="cGood" name="${cdto.c_seq_number}">
-											<button type="button" class="commentGood ${commentLikeCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}" >${cdto.c_recommend}</button> </span>
+											<button type="button" class="commentGood ${commentLikeCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}" >${cdto.c_recommend}</button>
 											<c:set var="l_board" value="4" />
 											<c:choose>
 												<c:when
@@ -137,8 +135,8 @@
 													<c:set var="commentBadCheck" value="bi bi-hand-thumbs-down" />
 												</c:otherwise>
 											</c:choose>
-                                 <span id="cBad"><button type="button" class="commentBad ${commentBadCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button></span>
-                                 <c:if test="${dto.f_writer==userId}">
+                                 <button type="button" class="commentBad ${commentBadCheck} ${cdto.c_seq_number}" id="${cdto.c_seq_number}">${cdto.c_derecommend}</button>
+                                 <c:if test="${cdto.c_writer==userId}">
                                     <button type="button"
                                           class="updateComment enable" id="${cdto.c_seq_number}">수정</button>
                                     <button type="button" class="deleteComment"
@@ -147,13 +145,13 @@
                               </div>
                            </div>
                         </c:forEach>
-                  </div>
                   <div id="newComment"></div>
-               </div>
-               </c:if>
-            </div>
-         </div>
-      </div>
+               	  </div><!-- commentTable -->
+               	</c:if>
+            	</div><!-- accordion-body -->
+         	</div><!-- collapseOne -->
+      	</div><!-- accordion-item -->
+      </div><!-- accordionExample -->
       <div>
          <a href="/board" class="btn btn-outline-primary mt-3">목록보기</a>
       </div>
@@ -174,7 +172,7 @@
       if (!confirm("삭제하시겠습니까?")) {
          return false;
       } else {
-         alert("삭제되었습니다.");
+         alertR("삭제되었습니다.");
          $(location).attr('href','delete?f_seq_number=${dto.f_seq_number}');
          }
       })
@@ -193,13 +191,13 @@
             }, 
             success : function(result){
                if(result=="3"){
-                  alert('로그인이 필요합니다.');
+                  alertB('로그인이 필요합니다.');
                }else if(result=="1"){
                   
-                  alert('추천 성공');
+                  alertY('추천 성공');
                   //하트 활성화 상태
                }else{
-                  alert('추천 취소');
+                  alertY('추천 취소');
                   //하트 끄셈
                }
                
@@ -216,11 +214,11 @@
       var content = document.getElementById('commentContent').value;
       
       if(!content){
-         alert('작성된 내용이 없습니다.');
+         alertB('작성된 내용이 없습니다.');
          return false;
       }
       if(writer == "null"){
-         alert('로그인이 필요합니다.');
+         alertB('로그인이 필요합니다.');
          return false;
       }else{
          getCommentList();
@@ -248,7 +246,7 @@
                $('textarea').val('');
                console.log("통신성공");
             }else {
-               alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
+               alertR("서버문제로 등록에 실패하였습니다.(*DB문제*)");
             }
             
          }, error: function(result){
@@ -284,25 +282,25 @@
                 'feeling' : feeling,
                 },
           error : function(){
-             alert('좋아요 실패');
+             alertR('좋아요 실패');
           }, 
           success : function(result){
              if(result=="3"){
-                alert('로그인이 필요합니다.');
+                alertB('로그인이 필요합니다.');
                 return false;
              }else if(result=="0"){
-                 alert('이미 싫어요를 선택하셨습니다.');
+                 alertR('이미 싫어요를 선택하셨습니다.');
                  
              }else if(result=="1"){
-                alert('추천 성공');
+                alertY('추천 성공');
                 toggle();
                 valuePlus();
              }else if(result=="2"){
-                alert('추천 취소')
+                alertY('추천 취소')
                 toggle();
                 valueMinus();
              }else{
-                alert('알수없는 문제 :'+result);
+                alertR('알수없는 문제 :'+result);
              }
           } 
        })
@@ -340,22 +338,22 @@
              }, 
              success : function(result){
                 if(result=="3"){
-                   alert('로그인이 필요합니다.');
+                   alertB('로그인이 필요합니다.');
                    return false;
                 }else if(result=="0"){
-                    alert('이미 좋아요를 선택하셨습니다.');
+                    alertR('이미 좋아요를 선택하셨습니다.');
                     //하트 끄셈
                 }else if(result=="1"){
-                   alert('싫어요 선택');
+                   alertY('싫어요 선택');
                    toggle2();
                    valuePlus2();
                    //하트 활성화 상태
                 }else if(result=="2"){
-                   alert('싫어요 취소');
+                   alertY('싫어요 취소');
                    toggle2();
                    valueMinus2();
                 }else{
-                   alert('모르겠네 대체 '+result);
+                   alertR(' '+result);
                 }
                
              }
@@ -399,7 +397,7 @@
                   $('#commentTable').load(location.href+' #commentTable');
                   console.log("수정 통신성공");
                }else {
-                  alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
+                  alertR("서버문제로 등록에 실패하였습니다.(*DB문제*)");
                }
                
             }, error: function(result){
@@ -423,7 +421,7 @@
                $('#commentTable').load(location.href+' #commentTable');
                console.log("삭제 통신성공");
             }else {
-               alert("서버문제로 등록에 실패하였습니다.(*DB문제*)");
+               alertR("서버문제로 등록에 실패하였습니다.(*DB문제*)");
             }
             
          }, error: function(result){

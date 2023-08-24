@@ -17,7 +17,7 @@
 
     <ul class="nav col-md-4 justify-content-end">
       <li class="nav-item"><a href="/" class="nav-link px-2 link-secondary">서비스소개</a></li>
-      <li class="nav-item"><a href="https://github.com/kimseaweed/gamto" class="nav-link px-2 link-secondary">GibHub</a></li>
+      <li class="nav-item"><a href="https://github.com/kimseaweed/gamto" class="nav-link px-2 link-secondary">Github</a></li>
       <li class="nav-item"><button class="nav-link link-secondary px-2 btn btn-link" onclick="askpop(1)">제휴문의</button></li>
       <li class="nav-item"><button class="nav-link link-secondary px-2 btn btn-link" onclick="askpop()">문의/건의</button></li>
       <li class="nav-item"><button class="nav-link link-secondary px-2 btn btn-link" onclick="reportpop()">신고하기</button></li>

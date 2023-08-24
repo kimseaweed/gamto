@@ -83,7 +83,7 @@
 						<div class="ribbon">best</div>
 
 						<div
-							onclick="location='store/view?b_code=${dto.b_code}'; return false;"
+							onclick="location='/store/view?b_code=${dto.b_code}'; return false;"
 							class="row g-0 rounded overflow-hidden flex-md-row shadow-sm-hover h-md-250 position-relative px-3 py-2">
 							<div class="col-6">
 								<img src="../img/book/${dto.b_filename}"
@@ -167,7 +167,7 @@
 							alert("로그인 하세요 ");
 							location = '/member/login';
 						} else {
-							alert("상품이 제대로 담겼다 이 자식아 ");
+							alertB("상품이 장바구니에 담겼습니다");
 							
 						}
 					},
