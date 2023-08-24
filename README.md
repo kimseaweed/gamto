@@ -6,7 +6,7 @@
 
 <hr>
 
-# member<br>
+# gamto member
 https://github.com/kimseaweed<br>
 https://github.com/eunmijan<br>
 https://github.com/samuelmincheol<br>
