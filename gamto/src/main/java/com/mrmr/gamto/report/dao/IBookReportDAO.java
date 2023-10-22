@@ -8,6 +8,7 @@ import com.mrmr.gamto.report.dto.BookReportDTO;
 
 @Mapper
 public interface IBookReportDAO {
+	//페이징
 	public int countBoard();
 	public List<BookReportDTO> getPageList(Map<String, Integer> map);
 	public BookReportDTO viewDao(String r_seq_number);
@@ -17,9 +18,12 @@ public interface IBookReportDAO {
 	public int updateCnt(String r_seq_number);
 	public int goodCnt(String r_seq_number);
 	public int badCnt(String r_seq_number);
+	
 	public List<BookReportDTO> SearchTotal(Map<String, String> map);
 	public void updateCnt(int r_seq_number);
 	public void viewCountUp(int u_id);
+	
+	//좋아요 버튼
 	public int insertLike(int l_board,  int l_number, String l_id);
 	public int deleteLike(int l_board, int l_number, String l_id);
 	public int likeCheck(int l_board, int l_number, String l_id);
