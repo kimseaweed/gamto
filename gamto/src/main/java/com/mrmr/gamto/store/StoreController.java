@@ -29,6 +29,7 @@ public class StoreController {
 	
 	
 	@RequestMapping("")
+	//상품 리스트
 	public String BookList(@RequestParam(required=false, defaultValue="1") int pageNo, Model model) {
 
 			PagingVO page = new PagingVO(pageNo,10,dao.countBookList());
@@ -45,14 +46,14 @@ public class StoreController {
 		return "store/store";
 	}
 	
-	@RequestMapping("/view")
+	@RequestMapping("/view") //상세 페이
 	public String view(HttpServletRequest request, Model model) {
 		String s_code = request.getParameter("b_code");
 		model.addAttribute("dto", dao.viewDao(s_code));
 		return "store/view";
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/delete") //삭제 
 	public String delete(Model model, HttpServletRequest request) {
 		dao.deleteDao(request.getParameter(""));
 		
